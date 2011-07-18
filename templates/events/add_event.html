@@ -1,0 +1,54 @@
+{% extends "events/base.html" %}
+
+{% load i18n %}
+{% load uni_form %}
+
+
+
+{% block body %}
+
+    <form class="uniForm" id="edit-profile" method="POST" enctype="multipart/form-data" action="">
+        <fieldset class="inlineLabels">
+
+
+       <div id="div_id_title" class="ctrlHolder">
+	                <label for="id_title">                    
+	                    Title*
+	                </label>
+	            <input id="id_title" type="text" class="textinput" name="title" maxlength="200" />
+        </div>
+	
+
+        <div id="div_id_description" class="ctrlHolder">
+	                <label for="id_description">                    
+	                    Description
+	                </label>
+	            <textarea id="id_description" rows="10" cols="40" name="description" class="textarea"></textarea>
+        </div>
+
+
+        <div id="date" class="ctrlHolder">
+		    <input id="id_date" type="text" class="textinput" name="date" maxlength="200" />
+	                <label for="id_date">                    
+	                    Date
+	                </label>
+	            		
+        <div id="address" class="ctrlHolder">
+		    <input id="id_address" type="text" class="textinput" name="address" maxlength="200" />
+	                <label for="id_address">                    
+	                    Address
+	                </label>
+
+             
+        </div>
+	
+
+            <div class="form_block">
+                <input type="hidden" name="action" value="Add" />
+                <input type="submit" value="{% trans "Add" %}" />
+            </div>
+        </fieldset>
+    </form>
+
+
+{% endblock %}
