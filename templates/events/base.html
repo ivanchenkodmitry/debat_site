@@ -1,0 +1,16 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+{% load group_tags %}
+
+{% block body_class %}events{% endblock %}
+
+{% block subnav %}
+    {% if user.is_authenticated %}
+        <ul>
+            <li><a href="add_event/">{% trans "Add Events" %}</a></li>
+        </ul>
+    {% else %}
+        &nbsp;
+    {% endif %}
+{% endblock %}

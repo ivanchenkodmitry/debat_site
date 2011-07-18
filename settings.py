@@ -184,6 +184,7 @@ INSTALLED_APPS = (
     'tag_app',
     'topics',
     'groups',
+	'events',
     
     'django.contrib.admin',
 
