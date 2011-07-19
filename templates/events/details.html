@@ -50,7 +50,8 @@
     </div>
 
 	{% if is_me %}
-		<a href="/events/destroy/{{ event.id }}"> <P> Delete event </P> </a>        
+		<a href="/events/edit/{{ event.id }}"> <P> Edit event </P> </a>        
+		<a href="/events/destroy/{{ event.id }}"> <P> Delete event </P> </a>   
 	{% endif %}
 
 {% endblock %}
