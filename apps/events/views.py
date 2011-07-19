@@ -34,8 +34,6 @@ def destroy(request, id):
 @login_required
 def details(request, id, template_name="events/details.html"):
 
-	redirect_to = '/events/'
-    
 	event = Event.objects.get(id = id)
 
 	user = request.user.username
@@ -67,8 +65,10 @@ def add_event(request, template_name="events/add_event.html"):
 			new_event.address = request.POST.get("address")
 			new_event.creator = request.user.username
 			new_event.save()
-		
-        	return render_to_response('events/latest.html', context_instance=RequestContext(request))
+			
+			include_kwargs = {"id": new_event.id}
+			redirect_to = reverse("event_details", kwargs=include_kwargs)
+			return HttpResponseRedirect(redirect_to)
     return render_to_response(template_name, context_instance=RequestContext(request))
 
 
