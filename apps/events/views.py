@@ -9,9 +9,36 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
-from photologue.models import *
+
 from events.models import Event
-from photos.forms import PhotoUploadForm, PhotoEditForm
+
+
+
+
+
+@login_required
+def destroy(request, id):
+    """
+    latest ivents
+    """
+    event = Event.objects.get(id = id)
+    event.delete()
+    events = Event.objects.all()
+    
+    redirect_to = '/events/'
+
+    return HttpResponseRedirect(redirect_to)
+
+
+
+@login_required
+def details(request, id, template_name="events/details.html"):
+
+    event = Event.objects.get(id = id)
+    
+    return render_to_response(template_name, {
+    "event": event,
+    }, context_instance=RequestContext(request))
 
 
 @login_required
@@ -31,7 +58,6 @@ def add_event(request, template_name="events/add_event.html"):
 		new_event.save()
 		
         	return render_to_response('events/latest.html', context_instance=RequestContext(request))
-
     return render_to_response(template_name, context_instance=RequestContext(request))
 
 
@@ -46,12 +72,6 @@ def events(request, template_name="events/latest.html"):
     return render_to_response(template_name, {
     "events": events,
     }, context_instance=RequestContext(request))
-
-
-
-
-
-
 
 
 
