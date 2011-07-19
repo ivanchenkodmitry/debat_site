@@ -32,7 +32,7 @@
 	           <label for="id_address">                    
 	                   Address:
 	           </label>
-	      {{ event.addres }} 
+	      {{ event.address }} 
     </div>
 
 	<div id="div_id_date" class="ctrlHolder">
@@ -42,8 +42,16 @@
 	        {{ event.date }} 
     </div>
 
-	<a href="/events/destroy/{{ event.id }}"> <P> Delete event </P> </a>        
+	<div id="div_id_date" class="ctrlHolder">
+	           <label for="id_date">                    
+	                   Creator:
+	           </label>
+	        {{ event.creator }} 
+    </div>
 
+	{% if is_me %}
+		<a href="/events/destroy/{{ event.id }}"> <P> Delete event </P> </a>        
+	{% endif %}
 
 {% endblock %}
 
