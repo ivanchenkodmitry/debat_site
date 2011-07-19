@@ -1,0 +1,51 @@
+{% extends "events/base.html" %}
+
+{% load i18n %}
+{% load humanize %}
+{% load pagination_tags %}
+{% load tagging_tags %}
+{% load group_tags %}
+{% load threadedcommentstags %}
+{% load theme_tags %}
+
+{% block head_title %}{% blocktrans %}Event Details{% endblocktrans %}{% endblock %}
+
+{% block body %}
+  
+
+
+	<div id="div_id_title" class="ctrlHolder">
+	           <label for="id_title">                    
+	                   Title:
+	           </label>
+	        	{{ event.title }} 
+    </div>
+
+	<div id="div_id_details" class="ctrlHolder">
+	           <label for="id_details">                    
+	                   Details:
+	           </label>
+      {{ event.description }}
+    </div>
+
+	<div id="div_id_address" class="ctrlHolder">
+	           <label for="id_address">                    
+	                   Address:
+	           </label>
+	      {{ event.addres }} 
+    </div>
+
+	<div id="div_id_date" class="ctrlHolder">
+	           <label for="id_date">                    
+	                   Date:
+	           </label>
+	        {{ event.date }} 
+    </div>
+
+	<a href="/events/destroy/{{ event.id }}"> <P> Delete event </P> </a>        
+
+
+{% endblock %}
+
+
+
