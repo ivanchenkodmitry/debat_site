@@ -10,4 +10,6 @@ urlpatterns = patterns('',
     # an event details
     url(r'^details/(?P<id>\d+)/$', 'events.views.details', name="event_details"),
     url(r'^destroy/(?P<id>\d+)/$', 'events.views.destroy', name='event_destroy'),
+    #edit event
+    url(r'^edit/(?P<id>\d+)/$', 'events.views.edit', name='event_edit'),
 )

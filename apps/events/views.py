@@ -72,6 +72,26 @@ def add_event(request, template_name="events/add_event.html"):
     return render_to_response(template_name, context_instance=RequestContext(request))
 
 
+@login_required
+def edit(request, id, template_name="events/edit.html"):
+    """
+    upload form for photos
+    """
+    edit_event = Event.objects.get(id = id)
+    if request.method == 'POST':
+		if request.POST.get("action") == "Edit":
+			edit_event.title = request.POST.get("title")
+			edit_event.description = request.POST.get("description")
+			edit_event.date = request.POST.get("date")
+			edit_event.address = request.POST.get("address")
+			edit_event.creator = request.user.username
+			edit_event.save()
+			
+			include_kwargs = {"id": edit_event.id}
+			redirect_to = reverse("event_details", kwargs=include_kwargs)
+			return HttpResponseRedirect(redirect_to)
+    return render_to_response(template_name, { 'event': edit_event }, context_instance=RequestContext(request))
+
 
 @login_required
 def events(request, template_name="events/latest.html"):
