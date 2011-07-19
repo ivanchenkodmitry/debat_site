@@ -12,4 +12,7 @@ urlpatterns = patterns('',
     url(r'^destroy/(?P<id>\d+)/$', 'events.views.destroy', name='event_destroy'),
     #edit event
     url(r'^edit/(?P<id>\d+)/$', 'events.views.edit', name='event_edit'),
+    #join to event
+    url(r'^join/(?P<id>\d+)/$', 'events.views.join', name='event_join'),
+
 )

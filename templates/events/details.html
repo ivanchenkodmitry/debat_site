@@ -7,6 +7,7 @@
 {% load group_tags %}
 {% load threadedcommentstags %}
 {% load theme_tags %}
+{% load comments_tag %}
 
 {% block head_title %}{% blocktrans %}Event Details{% endblocktrans %}{% endblock %}
 
@@ -53,6 +54,18 @@
 		<a href="/events/edit/{{ event.id }}"> <P> Edit event </P> </a>        
 		<a href="/events/destroy/{{ event.id }}"> <P> Delete event </P> </a>   
 	{% endif %}
+
+		<a href="/events/join/{{ event.id }}"> <P> Join to event </P> </a>   
+
+        <h3>Members of this event:</h3>
+
+        {% for member in members %}
+
+			<P> {{ member }} </P>
+		{% endfor %}
+
+        <h3>Comments on this event:</h3>
+         	{% comments event %}
 
 {% endblock %}
 
