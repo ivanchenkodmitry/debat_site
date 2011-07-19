@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import login_required
 
 
 from events.models import Event
+from events.models import Member
 
 
 
@@ -36,17 +37,19 @@ def details(request, id, template_name="events/details.html"):
 
 	event = Event.objects.get(id = id)
 
-	user = request.user.username
+	user = request.user
 
 	is_me = False
 
 	if user == event.creator:
 		is_me = 'True'
-
+	
+	members = event.members.all()
     
 	return render_to_response(template_name, {
     "event": event,
 	"is_me": is_me,
+	"members": members,
     }, context_instance=RequestContext(request))
 
 
@@ -63,7 +66,14 @@ def add_event(request, template_name="events/add_event.html"):
 			new_event.description = request.POST.get("description")
 			new_event.date = request.POST.get("date")
 			new_event.address = request.POST.get("address")
-			new_event.creator = request.user.username
+			new_event.creator = request.user
+			new_event.save()
+
+			member = Member()
+			member.user = request.user
+			member.save()
+
+			new_event.members.add(member)
 			new_event.save()
 			
 			include_kwargs = {"id": new_event.id}
@@ -84,7 +94,7 @@ def edit(request, id, template_name="events/edit.html"):
 			edit_event.description = request.POST.get("description")
 			edit_event.date = request.POST.get("date")
 			edit_event.address = request.POST.get("address")
-			edit_event.creator = request.user.username
+			edit_event.creator = request.user
 			edit_event.save()
 			
 			include_kwargs = {"id": edit_event.id}
@@ -95,18 +105,30 @@ def edit(request, id, template_name="events/edit.html"):
 
 @login_required
 def events(request, template_name="events/latest.html"):
-    """
-    latest ivents
-    """
-    events = Event.objects.order_by("title")
+	"""
+	latest ivents
+	"""
+	events = Event.objects.order_by("title")
     
-    return render_to_response(template_name, {
-    "events": events,
-    }, context_instance=RequestContext(request))
+	return render_to_response(template_name, {
+		"events": events,
+		}, context_instance=RequestContext(request))
 
 
+@login_required
+def join(request, id, template_name="events/details.html"):
+	
+	
+	member = Member()
+	member.user = request.user
+	member.save()
 
+	event = Event.objects.get(id = id)
+	event.members.add(member)
 
+	include_kwargs = {"id": event.id}
+	redirect_to = reverse("event_details", kwargs=include_kwargs)
+	return HttpResponseRedirect(redirect_to)
 
 
 
