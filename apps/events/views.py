@@ -34,10 +34,21 @@ def destroy(request, id):
 @login_required
 def details(request, id, template_name="events/details.html"):
 
-    event = Event.objects.get(id = id)
+	redirect_to = '/events/'
     
-    return render_to_response(template_name, {
+	event = Event.objects.get(id = id)
+
+	user = request.user.username
+
+	is_me = False
+
+	if user == event.creator:
+		is_me = 'True'
+
+    
+	return render_to_response(template_name, {
     "event": event,
+	"is_me": is_me,
     }, context_instance=RequestContext(request))
 
 
@@ -48,14 +59,14 @@ def add_event(request, template_name="events/add_event.html"):
     """
     
     if request.method == 'POST':
-	if request.POST.get("action") == "Add":
-		new_event = Event()
-		new_event.title = request.POST.get("title")
-		new_event.description = request.POST.get("description")
-		new_event.date = request.POST.get("date")
-		new_event.address = request.POST.get("address")
-		new_event.creator = request.user.username
-		new_event.save()
+		if request.POST.get("action") == "Add":
+			new_event = Event()
+			new_event.title = request.POST.get("title")
+			new_event.description = request.POST.get("description")
+			new_event.date = request.POST.get("date")
+			new_event.address = request.POST.get("address")
+			new_event.creator = request.user.username
+			new_event.save()
 		
         	return render_to_response('events/latest.html', context_instance=RequestContext(request))
     return render_to_response(template_name, context_instance=RequestContext(request))
