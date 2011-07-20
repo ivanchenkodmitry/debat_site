@@ -16,6 +16,10 @@ from events.models import Member
 
 
 
+@login_required
+def map(request, template_name="events/map.html"):
+	return render_to_response(template_name)
+
 
 @login_required
 def destroy(request, id):
