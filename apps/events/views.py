@@ -40,19 +40,24 @@ def destroy(request, id):
 def details(request, id, template_name="events/details.html"):
 
 	event = Event.objects.get(id = id)
-
-	user = request.user
-
-	is_me = False
-
-	if user == event.creator:
-		is_me = 'True'
 	
+	is_me = False
+	is_member = False
+
+	if request.user == event.creator:
+		is_me = 'True'
+
 	members = event.members.all()
+	for member in members:
+		if member.user == request.user:
+			is_member = True
+			break
+
     
 	return render_to_response(template_name, {
     "event": event,
 	"is_me": is_me,
+	"is_member": is_member,
 	"members": members,
     }, context_instance=RequestContext(request))
 
@@ -121,18 +126,53 @@ def events(request, template_name="events/latest.html"):
 
 @login_required
 def join(request, id, template_name="events/details.html"):
-	
-	
-	member = Member()
-	member.user = request.user
-	member.save()
 
 	event = Event.objects.get(id = id)
-	event.members.add(member)
+	
+	members = event.members.all()
+	is_member = False	
+
+	for member in members:
+		if member.user == request.user:
+			is_member = True
+			break	
+		
+	if is_member:
+		pass
+	else:
+		member = Member()
+		member.user = request.user
+		member.save()
+
+		event.members.add(member)
+		event.save()
 
 	include_kwargs = {"id": event.id}
 	redirect_to = reverse("event_details", kwargs=include_kwargs)
 	return HttpResponseRedirect(redirect_to)
+
+def leave(request, id, template_name="events/details.html"):
+	event = Event.objects.get(id = id)
+	
+	members = event.members.all()
+	is_member = True
+	for member in members:
+		if member.user == request.user:
+			member.delete()
+			member.save()
+			break
+
+	event.save()
+	include_kwargs = {"id": event.id}
+	redirect_to = reverse("event_details", kwargs=include_kwargs)
+	return HttpResponseRedirect(redirect_to)
+	
+	
+
+
+
+
+
 
 
 

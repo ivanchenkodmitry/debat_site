@@ -3,9 +3,13 @@
 {% load i18n %}
 {% load uni_form %}
 
-
+{% block body_param %} onload="initialize()" {% endblock %}
 {% block body %}
 
+    <div class="right_panel">
+        {% include "events/map.html" %}
+    </div>
+    
     <h1>Add event</h1>
 
     <form class="uniForm" id="edit-profile" method="POST" enctype="multipart/form-data" action="">

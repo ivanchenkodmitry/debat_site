@@ -14,6 +14,8 @@ urlpatterns = patterns('',
     url(r'^edit/(?P<id>\d+)/$', 'events.views.edit', name='event_edit'),
     #join to event
     url(r'^join/(?P<id>\d+)/$', 'events.views.join', name='event_join'),
+    #leave event
+    url(r'^leave/(?P<id>\d+)/$', 'events.views.leave', name='event_leave'),
     # Map
     url(r'^map/$', 'events.views.map', name="map"),
 

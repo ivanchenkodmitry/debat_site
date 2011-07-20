@@ -1,0 +1,47 @@
+{% load i18n %}
+{% load avatar_tags %}
+{% load tagging_tags %}
+{% load group_tags %}
+{% load theme_tags %}
+
+
+
+{% block extra_head %}
+
+<link href="http://code.google.com/apis/maps/documentation/javascript/examples/default.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
+<script type="text/javascript" src="http://code.google.com/apis/gears/gears_init.js"></script>
+<script type="text/javascript">
+
+var initialLocation;
+var siberia = new google.maps.LatLng(60, 105);
+var newyork = new google.maps.LatLng(40.69847032728747, -73.9514422416687);
+var dnipropetrovsk = new google.maps.LatLng(48.464954, 35.044956);
+var map;
+var infowindow = new google.maps.InfoWindow();
+  
+function initialize() {
+  var myOptions = {
+    zoom: 6,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+  
+map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+  
+
+  initialLocation = dnipropetrovsk;
+  map.setCenter(initialLocation);
+}
+</script>
+
+ <style type="text/css">
+   .map { 
+    width: 400px !important;
+    height: 280px !important;
+   }
+  </style> 
+
+{% endblock %}
+
+ 	<div id="map_canvas" class = "map" ></div>
+
