@@ -27,7 +27,7 @@
         {% endblock %}
     </head>
     
-    <body class="{% block body_class %}{% endblock %}">
+    <body class="{% block body_class %}{% endblock %}" {% block body_param %}{% endblock %} >
         {% if site_wide_announcements %}
             <div id="site_wide_announcements">
                 <ul>
