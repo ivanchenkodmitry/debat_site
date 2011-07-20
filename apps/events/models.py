@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-#from datetime import datetime
+from datetime import datetime
 #from django.contrib.contenttypes.models import ContentType
 #from django.contrib.contenttypes import generic
 
@@ -23,9 +23,9 @@ class Event(models.Model):
     """
     title = models.CharField(_('title'), max_length=200)
     description = models.TextField(_('description'), blank=True)
-    date = models.CharField(_('date added'), max_length=200)
+    date = models.DateTimeField(_('date added'), default=datetime.now, editable=False)
     address = models.TextField(_('addres'), blank=True)
-    date_added = models.CharField(_('date added'), max_length=200)
+    date_added = models.DateTimeField(_('date added'), default=datetime.now, editable=False)
     creator = models.ForeignKey(User)
     members = models.ManyToManyField(Member, verbose_name="members_list", blank=True)
 	
