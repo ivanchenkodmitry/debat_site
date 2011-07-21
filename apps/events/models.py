@@ -28,6 +28,7 @@ class Event(models.Model):
     date_added = models.DateTimeField(_('date added'), default=datetime.now, editable=False)
     creator = models.ForeignKey(User)
     members = models.ManyToManyField(Member, verbose_name="members_list", blank=True)
+    location = models.CharField(_('location'), max_length=200)
 	
     def __unicode__(self):
         return self.title

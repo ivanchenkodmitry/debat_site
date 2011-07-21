@@ -28,7 +28,6 @@ def destroy(request, id):
     """
     event = Event.objects.get(id = id)
     event.delete()
-    events = Event.objects.all()
     
     redirect_to = '/events/'
 
@@ -75,6 +74,7 @@ def add_event(request, template_name="events/add_event.html"):
 			new_event.description = request.POST.get("description")
 			new_event.date = request.POST.get("date")
 			new_event.address = request.POST.get("address")
+			new_event.location = request.POST.get("location")
 			new_event.creator = request.user
 			new_event.save()
 
@@ -103,6 +103,7 @@ def edit(request, id, template_name="events/edit.html"):
 			edit_event.description = request.POST.get("description")
 			edit_event.date = request.POST.get("date")
 			edit_event.address = request.POST.get("address")
+			edit_event.location = request.POST.get("location")
 			edit_event.creator = request.user
 			edit_event.save()
 			
