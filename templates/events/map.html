@@ -8,31 +8,60 @@
 
 {% block extra_head %}
 
-<link href="http://code.google.com/apis/maps/documentation/javascript/examples/default.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
-<script type="text/javascript" src="http://code.google.com/apis/gears/gears_init.js"></script>
-<script type="text/javascript">
 
-var initialLocation;
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
+
+
+
+<script type="text/javascript">
 var siberia = new google.maps.LatLng(60, 105);
 var newyork = new google.maps.LatLng(40.69847032728747, -73.9514422416687);
 var dnipropetrovsk = new google.maps.LatLng(48.464954, 35.044956);
 var map;
 var infowindow = new google.maps.InfoWindow();
-  
+
+
+
+ var marker = new google.maps.Marker({
+      position: dnipropetrovsk,
+      title:"{{ event.title }}"
+  });
+
+
+
+
 function initialize() {
+  var myLatlng = new google.maps.LatLng(55.773483,37.608948);
   var myOptions = {
-    zoom: 6,
+    zoom: 11,
+    center: dnipropetrovsk,
     mapTypeId: google.maps.MapTypeId.ROADMAP
-  };
-  
-map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+  }
+  map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+  marker.setMap(map);
+  google.maps.event.addListener(map, 'click', function(event) {
+    getLocate(event);
+  });
+
+
+}
   
 
-  initialLocation = dnipropetrovsk;
-  map.setCenter(initialLocation);
+function getLocate(event) 
+{
+	var location_input = document.getElementById('id_location')
+	location_input.value= marker.getPosition();
+	marker.setPosition(event.latLng);
+	
+
 }
+
+
+
 </script>
+
+
+
 
  <style type="text/css">
    #map_canvas { 
