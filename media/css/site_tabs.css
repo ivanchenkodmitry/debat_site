@@ -7,6 +7,7 @@ body.photos #tab_photos a,
 body.tribes #tab_tribes a,
 body.tweets #tab_tweets a,
 body.bookmarks #tab_bookmarks a,
+body.events #tab_events a,
 body.locations #tab_locations a,
 body.inbox #tab_inbox a
 {
@@ -19,6 +20,7 @@ body.photos #tab_photos,
 body.tribes #tab_tribes,
 body.tweets #tab_tweets,
 body.bookmarks #tab_bookmarks,
+body.events #tab_events,
 body.locations #tab_locations,
 body.inbox #tab_inbox
 {

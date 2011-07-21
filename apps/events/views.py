@@ -36,7 +36,7 @@ def destroy(request, id):
 
 
 
-@login_required
+#@login_required
 def details(request, id, template_name="events/details.html"):
 
 	event = Event.objects.get(id = id)
@@ -112,7 +112,7 @@ def edit(request, id, template_name="events/edit.html"):
     return render_to_response(template_name, { 'event': edit_event }, context_instance=RequestContext(request))
 
 
-@login_required
+#@login_required
 def events(request, template_name="events/latest.html"):
 	"""
 	latest ivents
@@ -151,6 +151,7 @@ def join(request, id, template_name="events/details.html"):
 	redirect_to = reverse("event_details", kwargs=include_kwargs)
 	return HttpResponseRedirect(redirect_to)
 
+@login_required
 def leave(request, id, template_name="events/details.html"):
 	event = Event.objects.get(id = id)
 	

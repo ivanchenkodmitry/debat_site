@@ -22,7 +22,7 @@
         {% include "events/map.html" %}
     </div>
     
-  
+      <div class="left_panel">
     <h1>{% trans "Event Details" %}</h1>
 
 	<div id="div_id_title" class="ctrlHolder">
@@ -75,13 +75,14 @@
 
         <h3>Members of this event:</h3>
 
-	<div name = "members">
+	<div name = "members" class="thumb-row clearfix">
     {% for member in members %}
-        <div name = "member" style="float:left; margin: 10px; text-align: center">  <div name = "avatar">
-			<a href="{% url profile_detail member.user.username %}">
+        <div name = "member" style="float:left; margin: 10px; text-align: center">  
+			<div name = "avatar">
+				<a href="{% url profile_detail member.user.username %}">
 					<img src="{% avatar_url member.user 80 %}" alt="Avatar of {{ member.user }}"/> </a> </div>
-				<div name = "username">
-					<a href="{% url profile_detail member.user.username %}"> {{ member.user }} </a> </div>
+			<div name = "username">
+				<a href="{% url profile_detail member.user.username %}"> {{ member.user }} </a> </div>
 		</div>
 	{% endfor %}
 	</div>
@@ -92,7 +93,7 @@
          	{% comments event %}
 
 	</div>
-
+</div>
 {% endblock %}
 
 
