@@ -14,16 +14,25 @@
 
 
 <script type="text/javascript">
+var myLatlng = new google.maps.LatLng(55.773483,37.608948);
 var siberia = new google.maps.LatLng(60, 105);
 var newyork = new google.maps.LatLng(40.69847032728747, -73.9514422416687);
 var dnipropetrovsk = new google.maps.LatLng(48.464954, 35.044956);
+
+
+{% if event %}
+		var center = new google.maps.LatLng{{ event.location }};
+{% else %}
+		var center = dnipropetrovsk;
+{% endif %}
+
 var map;
 var infowindow = new google.maps.InfoWindow();
 
 
 
  var marker = new google.maps.Marker({
-      position: dnipropetrovsk,
+      position: center,
       title:"{{ event.title }}"
   });
 
@@ -31,14 +40,18 @@ var infowindow = new google.maps.InfoWindow();
 
 
 function initialize() {
-  var myLatlng = new google.maps.LatLng(55.773483,37.608948);
+
+
   var myOptions = {
     zoom: 11,
-    center: dnipropetrovsk,
+    center: center,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   }
   map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
   marker.setMap(map);
+
+
   google.maps.event.addListener(map, 'click', function(event) {
     getLocate(event);
   });
@@ -49,10 +62,9 @@ function initialize() {
 
 function getLocate(event) 
 {
-	var location_input = document.getElementById('id_location')
+	var location_input = document.getElementById('id_location');
 	location_input.value= marker.getPosition();
 	marker.setPosition(event.latLng);
-	
 
 }
 

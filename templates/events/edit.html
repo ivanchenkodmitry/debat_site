@@ -33,19 +33,19 @@
 
 
         <div id="date" class="ctrlHolder">
-		    <input id="id_date" type="text" class="textinput" name="date" maxlength="200" />
+		    <input id="id_date" type="text" class="textinput" name="date" maxlength="200" value="{{ event.date }}" />
 	                <label for="id_date">                    
 	                    Date*
 	                </label></div>
 	            		
         <div id="address" class="ctrlHolder">
-		    <input id="id_address" type="text" class="textinput" name="address" maxlength="200" />
+		    <input id="id_address" type="text" class="textinput" name="address" maxlength="200" value="{{ event.address }}"/>
 	                <label for="id_address">                    
 	                   Address*
 	                </label></div>
 
         <div id="address" class="ctrlHolder">
-		    <input id="id_location" type="text" class="textinput" name="location" maxlength="200" size="20"/>
+		    <input id="id_location" type="text" class="textinput" name="location" maxlength="200" size="20" value="{{ event.location }}"/>
 	                <label for="id_address">                    
 	                   Location
 	                </label></div>
