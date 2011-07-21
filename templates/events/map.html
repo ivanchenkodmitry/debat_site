@@ -63,7 +63,7 @@ function initialize() {
 function getLocate(event) 
 {
 	var location_input = document.getElementById('id_location');
-	location_input.value= marker.getPosition();
+	location_input.value= event.latLng;
 	marker.setPosition(event.latLng);
 
 }
