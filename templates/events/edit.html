@@ -4,8 +4,13 @@
 {% load uni_form %}
 
 
-
+{% block body_param %} onload="initialize()" {% endblock %}
 {% block body %}
+   <div class="right_panel">
+        {% include "events/map.html" %}
+    </div>
+    
+<div class="left_panel">
     <h1>Edit event</h1>
     <form class="uniForm" id="edit-profile" method="POST" enctype="multipart/form-data" action="" >
         <fieldset class="inlineLabels">
@@ -28,16 +33,22 @@
 
 
         <div id="date" class="ctrlHolder">
-		    <input id="id_date" type="text" class="textinput" name="date" maxlength="200" value="{{ event.date }}" />
+		    <input id="id_date" type="text" class="textinput" name="date" maxlength="200" />
 	                <label for="id_date">                    
 	                    Date*
-	                </label>
+	                </label></div>
 	            		
         <div id="address" class="ctrlHolder">
-		    <input id="id_address" type="text" class="textinput" name="address" maxlength="200" value="{{ event.address }}"/>
+		    <input id="id_address" type="text" class="textinput" name="address" maxlength="200" />
 	                <label for="id_address">                    
-	                    Address*
-	                </label>
+	                   Address*
+	                </label></div>
+
+        <div id="address" class="ctrlHolder">
+		    <input id="id_location" type="text" class="textinput" name="location" maxlength="200" size="20"/>
+	                <label for="id_address">                    
+	                   Location
+	                </label></div>
 
              
         </div>
@@ -49,6 +60,6 @@
             </div>
         </fieldset>
     </form>
-
+</div>
 
 {% endblock %}
