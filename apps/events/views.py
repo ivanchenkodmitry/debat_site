@@ -23,15 +23,16 @@ def map(request, template_name="events/map.html"):
 
 @login_required
 def destroy(request, id):
-    """
-    latest ivents
-    """
-    event = Event.objects.get(id = id)
-    event.delete()
-    
-    redirect_to = '/events/'
+	"""
+	latest ivents
+	"""
+	event = Event.objects.get(id = id)
+	event.members.all().delete()
+	event.delete()
 
-    return HttpResponseRedirect(redirect_to)
+	redirect_to = '/events/'
+
+	return HttpResponseRedirect(redirect_to)
 
 
 
