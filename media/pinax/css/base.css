@@ -40,7 +40,7 @@ h1 {
     clear: both;
     margin: 0 auto;
     padding: 10px;
-    width: 800px;
+    width: 900px;
 }
 #footer {
     color: #999; /* footer text colour */
@@ -243,7 +243,7 @@ div.profile_info p {
     margin: 0;
 }
 div.left_panel {
-    width: 550px;
+    width: 650px;
 }
 div.right_panel {
     margin-top: 20px;

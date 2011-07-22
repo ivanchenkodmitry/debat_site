@@ -158,6 +158,7 @@ def leave(request, id, template_name="events/details.html"):
 	event = Event.objects.get(id = id)
 	
 	members = event.members.all()
+
 	is_member = True
 	for member in members:
 		if member.user == request.user:
@@ -169,6 +170,8 @@ def leave(request, id, template_name="events/details.html"):
 	include_kwargs = {"id": event.id}
 	redirect_to = reverse("event_details", kwargs=include_kwargs)
 	return HttpResponseRedirect(redirect_to)
+
+
 	
 	
 

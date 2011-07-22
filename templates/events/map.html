@@ -18,7 +18,7 @@ var myLatlng = new google.maps.LatLng(55.773483,37.608948);
 var siberia = new google.maps.LatLng(60, 105);
 var newyork = new google.maps.LatLng(40.69847032728747, -73.9514422416687);
 var dnipropetrovsk = new google.maps.LatLng(48.464954, 35.044956);
-
+var geocoder;
 
 {% if event %}
 		var center = new google.maps.LatLng{{ event.location }};
@@ -26,54 +26,55 @@ var dnipropetrovsk = new google.maps.LatLng(48.464954, 35.044956);
 		var center = dnipropetrovsk;
 {% endif %}
 
+
 var map;
 var infowindow = new google.maps.InfoWindow();
 
 
-
- var marker = new google.maps.Marker({
-      position: center,
-      title:"{{ event.title }}"
+var marker = new google.maps.Marker({
+     position: center,
+     title:"ololo"
   });
 
+  function initialize() {
+    geocoder = new google.maps.Geocoder();
 
-
-
-function initialize() {
-
-
-  var myOptions = {
-    zoom: 11,
-    center: center,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  }
-  map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-
-  marker.setMap(map);
-
-
+    var myOptions = {
+      zoom: 8,
+      center: center,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+	map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
   google.maps.event.addListener(map, 'click', function(event) {
     getLocate(event);
   });
 
+  }
 
-}
-  
 
 function getLocate(event) 
 {
 	var location_input = document.getElementById('id_location');
 	location_input.value= event.latLng;
 	marker.setPosition(event.latLng);
+	marker.setMap(map);
 
 }
-
+  function codeAddress() {
+    var address = document.getElementById("id_address").value;
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        map.setCenter(results[0].geometry.location);
+	marker.setPosition(results[0].geometry.location);
+	marker.setMap(map);
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
+  }
 
 
 </script>
-
-
-
 
  <style type="text/css">
    #map_canvas { 
@@ -83,6 +84,6 @@ function getLocate(event)
   </style> 
 
 {% endblock %}
-
+    <h1>Location</h1> <P></P>
  	<div id="map_canvas"></div>
 
