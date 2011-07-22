@@ -40,7 +40,7 @@ var marker = new google.maps.Marker({
     geocoder = new google.maps.Geocoder();
 
     var myOptions = {
-      zoom: 8,
+      zoom: 11,
       center: center,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
@@ -48,6 +48,7 @@ var marker = new google.maps.Marker({
 	marker.setMap(map);
   google.maps.event.addListener(map, 'click', function(event) {
     getLocate(event);
+	codeLatLng();
   });
 
   }
@@ -67,13 +68,30 @@ function getLocate(event)
       if (status == google.maps.GeocoderStatus.OK) {
         map.setCenter(results[0].geometry.location);
 	marker.setPosition(results[0].geometry.location);
-	marker.setMap(map);
       } else {
         alert("Geocode was not successful for the following reason: " + status);
       }
     });
   }
 
+
+  function codeLatLng() {
+    var input = marker.getPosition();
+    var output = document.getElementById("id_address");
+    var latlng = input;
+    geocoder.geocode({'latLng': latlng}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        if (results[0]) {
+		marker.setPosition(latlng); 
+	  output.value = results[0].formatted_address
+        } else {
+          alert("No results found");
+        }
+      } else {
+        alert("Geocoder failed due to: " + status);
+      }
+    });
+  }
 
 </script>
 
