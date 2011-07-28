@@ -75,7 +75,8 @@
 
 <script type="text/javascript">
 	$(function() {
-		$( "#id_date"  ).datepicker({ dateFormat: 'yy-mm-dd' });
+
+		$( "#id_date" ).datepicker({ dayNamesMin: ['Нед', 'Пон', 'Вівт', 'Сер', 'Чт', 'Пт', 'Суб'], firstDay: 1, dateFormat: 'yy-mm-dd',  monthNames: ['Січень','Лютий','Березень','Квітень','Травень','Червень','Липень','Серпень','Вересень','Жовтень','Листопад','Грудень'] });
 	});
 	</script>
 {% endblock %}
