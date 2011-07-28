@@ -18,5 +18,4 @@ urlpatterns = patterns('',
     url(r'^leave/(?P<id>\d+)/$', 'events.views.leave', name='event_leave'),
     # Map
     url(r'^map/$', 'events.views.map', name="map"),
-
 )
