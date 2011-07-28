@@ -172,16 +172,4 @@ def leave(request, id, template_name="events/details.html"):
 	return HttpResponseRedirect(redirect_to)
 
 
-	
-	
-
-
-
-
-
-
-
-
-
-
 

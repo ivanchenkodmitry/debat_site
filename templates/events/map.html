@@ -1,18 +1,4 @@
-{% load i18n %}
-{% load avatar_tags %}
-{% load tagging_tags %}
-{% load group_tags %}
-{% load theme_tags %}
-
-
-
-{% block extra_head %}
-
-
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
-
-
-
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
 <script type="text/javascript">
 var myLatlng = new google.maps.LatLng(55.773483,37.608948);
 var siberia = new google.maps.LatLng(60, 105);
@@ -102,7 +88,7 @@ function getLocate(event)
    }
   </style> 
 
-{% endblock %}
+
     <h1>Location</h1> <P></P>
  	<div id="map_canvas"></div>
 
