@@ -3,11 +3,18 @@
 {% load i18n %}
 {% load uni_form %}
 
-{% block body_param %} onload="initialize()" {% endblock %}
-{% block body %}
 
+
+
+{% block body_param %} onload="initialize()" {% endblock %}
+
+
+{% block body %}
     <div class="right_panel">
         {% include "events/map.html" %}
+
+
+
     </div>
     
     <div class="left_panel">
@@ -55,4 +62,21 @@
     </form>
 </div>
 
+
+
 {% endblock %}
+
+{% block extra_body %}
+
+		<link type="text/css" href="{{ STATIC_URL }}pinax/css/jquery-ui-1.8.14.custom.css" rel="stylesheet" />	
+   		<script type="text/javascript" src="{{ STATIC_URL }}pinax/js/topics.js"></script>
+		<script type="text/javascript" src="{{ STATIC_URL }}pinax/js/jquery-1.5.1.min.js"></script>
+		<script type="text/javascript" src="{{ STATIC_URL }}pinax/js/jquery-ui-1.8.14.custom.min.js"></script>
+
+<script type="text/javascript">
+	$(function() {
+		$( "#id_date"  ).datepicker({ dateFormat: 'yy-mm-dd' });
+	});
+	</script>
+{% endblock %}
+
