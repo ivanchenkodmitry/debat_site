@@ -1,0 +1,108 @@
+{% extends "events/base.html" %}
+
+{% load i18n %}
+{% load humanize %}
+{% load pagination_tags %}
+{% load tagging_tags %}
+{% load group_tags %}
+{% load threadedcommentstags %}
+{% load theme_tags %}
+{% load comments_tag %}
+{% load avatar_tags %}
+
+{% block head_title %}{% blocktrans %}Event Details{% endblocktrans %}{% endblock %}
+
+
+
+
+{% block body_param %} onload="initialize()" {% endblock %}
+{% block body %}
+
+    <div class="right_panel">
+        {% include "events/map.html" %}
+    </div>
+    
+      <div class="left_panel">
+
+
+    <h1>{% trans "Event Details" %}</h1>
+
+	<div id="div_id_title" class="ctrlHolder">
+	           <label for="id_title">                    
+	                   Title:
+	           </label>
+	        	{{ event.title }} 
+    </div>
+
+	<div id="div_id_details" class="ctrlHolder">
+	           <label for="id_details">                    
+	                   Details:
+	           </label>
+      {{ event.description }}
+    </div>
+
+	<div id="div_id_address" class="ctrlHolder">
+	           <label for="id_address">                    
+	                   Address:
+	           </label>
+	      {{ event.address }} 
+    </div>
+
+	<div id="div_id_date" class="ctrlHolder">
+	           <label for="id_date">                    
+	                   Date:
+	           </label>
+	        {{ event.date }} 
+    </div>
+
+	<div id="div_id_date" class="ctrlHolder">
+	           <label for="id_date">                    
+	                   Creator:
+	           </label>
+	        {{ event.creator }} 
+    </div>
+      <div id="div_id_image" class="ctrlHolder">
+	           <label for="id_image">                    
+	                   Image:
+	           </label>
+	        {{ event.image }} 
+    </div>
+
+	{% if is_me %}
+		<a href="/events/edit/{{ event.id }}"> <P> Edit event </P> </a>        
+		<a href="/events/destroy/{{ event.id }}"> <P> Delete event </P> </a>   
+	{% endif %}
+
+
+
+	{% if is_member %}
+		<a href="/events/leave/{{ event.id }}"> <P> Leave event </P> </a>
+	{% else %}
+		<a href="/events/join/{{ event.id }}"> <P> Join to event </P> </a>
+	{% endif %}
+
+        <h3>Members of this event:</h3>
+
+	<div name = "members" class="thumb-row clearfix">
+    {% for member in members %}
+        <div name = "member" style="float:left; margin: 10px; text-align: center">  
+			<div name = "avatar">
+				<a href="{% url profile_detail member.user.username %}">
+					<img src="{% avatar_url member.user 80 %}" alt="Avatar of {{ member.user }}"/> </a> </div>
+			<div name = "username">
+				<a href="{% url profile_detail member.user.username %}"> {{ member.user }} </a> </div>
+		</div>
+	{% endfor %}
+	</div>
+
+	<div name = "comments" style="clear:left">
+
+        <h3>Comments on this event:</h3>
+         	{% comments event %}
+
+	</div>
+</div>
+{% endblock %}
+
+
+

@@ -50,7 +50,11 @@
             <div class="form_block">
                
             </div>
-	  
+	  <div id="image" class="ctrlHolder">
+	                <label for="image">                    
+	                    Image*
+	                </label>
+	            <input type="file" name="image" />
 
         </div>
  <input type="hidden" name="action" value="Add" />

@@ -3,7 +3,7 @@
 {% load i18n %}
 {% load uni_form %}
 
-{% block head_title %}{% blocktrans %}Редагування новин{% endblocktrans %}{% endblock %}
+{% block head_title %}{% blocktrans %}Editing Post{% endblocktrans %}{% endblock %}
 
 {% block body %}
     {% ifequal post.author request.user %}

@@ -9,7 +9,7 @@
 {% load blog_tags %}
 {% load theme_tags %}
 
-{% block head_title %}{% blocktrans %}Новина{% endblocktrans %} : {{ post.title }}{% endblock %}
+{% block head_title %}{% blocktrans %}Blog Post{% endblocktrans %} : {{ post.title }}{% endblock %}
 
 {% block extra_head %}
     <link rel="alternate" type="application/atom+xml" title="Blog Post Feed for All Users" href="/feeds/posts/all/" />
@@ -26,7 +26,7 @@
     
     <div class="blog-post">
         <h2>{{ post.title }}</h2>
-        <div class="blog-meta"><p>Свторено користувачем: <a href="{% url profile_detail post.author.username %}">{{ post.author.username }}</a> on {{ post.publish|date }}</p></div>
+        <div class="blog-meta"><p>Posted by: <a href="{% url profile_detail post.author.username %}">{{ post.author.username }}</a> on {{ post.publish|date }}</p></div>
         <div class="blog-tags">
             <p>{% silk "tag_blue" %}
             {% tags_for_object post as tags %}
@@ -34,7 +34,7 @@
                 <a href="/tags/{{ tag }}">{{ tag }}</a>
             {% endfor %}</p>
             {% ifequal post.author request.user %}
-                <a href="{% url blog_edit post.id %}">Редагувати новину</a>
+                <a href="{% url blog_edit post.id %}">Edit Post</a>
             {% endifequal %}
         </div>
         
@@ -52,6 +52,6 @@
 	</script>
 
     
-    <h3>Коментарі до новини:</h3>
+    <h3>Comments on This Post:</h3>
     {% comments post %}
 {% endblock %}

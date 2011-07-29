@@ -42,14 +42,7 @@
                         {% endwith %}
                     </td>
                     <td nowrap>{{ post.publish|date }}</td>
-                    <td>
-                        {% with post.status as status %}
-                            {% switch status %}
-                                {% case 2 %}Опубліковано{% endcase %}
-                                {% case 1 %}Чорновик{% endcase %}
-                            {% endswitch %}
-                        {% endwith %}
-                    </td>
+                  
 <td>
                         {% with post.status2 as status %}
                             {% switch status %}
