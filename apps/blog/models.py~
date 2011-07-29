@@ -36,7 +36,7 @@ class Post(models.Model):
     
     tease           = models.TextField(_(u'Тізер'), blank=True)
     status          = models.IntegerField(_(u'Статус'), choices=STATUS_CHOICES, default=2)
-    status2         = models.IntegerField(_(u'Підтвердження'), choices=STATUS_CHOICE, default=0)
+    status2         = models.CharField(_(u'Підтвердження'), choices=STATUS_CHOICE, default=0)
     allow_comments  = models.BooleanField(_(u'Дозволити коментарі'), default=True)
     publish         = models.DateTimeField(_(u'Опубліковано '), default=datetime.now)
     created_at      = models.DateTimeField(_(u'Створено'), default=datetime.now)
