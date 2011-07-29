@@ -4,8 +4,6 @@
 {% load uni_form %}
 
 
-
-
 {% block body_param %} onload="initialize()" {% endblock %}
 
 
@@ -13,12 +11,10 @@
     <div class="right_panel">
         {% include "events/map.html" %}
 
-
-
     </div>
     
     <div class="left_panel">
-    <h1>Add event</h1>
+    <h1>Нова подія</h1>
 
     <form class="uniForm" id="edit-profile" method="POST" enctype="multipart/form-data" action="">
         <fieldset class="inlineLabels">
@@ -26,7 +22,7 @@
 
        <div id="div_id_title" class="ctrlHolder">
 	                <label for="id_title">                    
-	                    Title*
+	                    Заголовок*
 	                </label>
 	            <input id="id_title" type="text" class="textinput" name="title" maxlength="200" />
         </div>
@@ -34,7 +30,7 @@
 
         <div id="div_id_description" class="ctrlHolder">
 	                <label for="id_description">                    
-	                    Description*
+	                    Опис*
 	                </label>
 	            <textarea id="id_description" rows="10" cols="40" name="description" class="textarea"></textarea>
         </div>
@@ -43,16 +39,18 @@
         <div id="date" class="ctrlHolder">
 		    <input id="id_date" type="text" class="textinput" name="date" maxlength="200" value = "2011-04-27 00:00"/>
 	                <label for="id_date">                    
-	                    Date*
+	                    Дата*
 	                </label></div>
 	            		
         <div id="address" class="ctrlHolder">
-		    <input id="id_address" type="text" class="textinput" name="address" maxlength="200" value = "Ukraine, Kyiv"/>
-    		<input type="button" value="Geocode" onclick="codeAddress()">
-	                <label for="id_address">                    
-	                   Address*
-	                </label></div>
+	              <label for="id_address">                    
+	                   Адреса*
+	                </label>
+	        <textarea id="id_address" rows="5" cols="40" name="address">Україна, Київ</textarea>
+			<input type="button" value="Знайти на мапі" onclick="codeAddress()">
+			</div>
 		    <input id="id_location" type="hidden" class="textinput" name="location" maxlength="200" value = "(48.464954, 35.044956)"/>
+
 
             <div class="form_block">
                 <input type="hidden" name="action" value="Add" />
