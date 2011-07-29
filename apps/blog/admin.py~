@@ -8,5 +8,9 @@ class PostAdmin(admin.ModelAdmin):
     search_fields       = ('title', 'body', 'tease')
     prepopulated_fields = {'slug': ('title',)}
 
-
+    def make_published(self, request, queryset):
+      queryset.update(status=1)
+    make_published.short_description = "Make post published"
+    
+    actions = [make_published]
 admin.site.register(Post, PostAdmin)
