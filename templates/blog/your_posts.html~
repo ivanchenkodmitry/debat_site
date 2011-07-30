@@ -20,10 +20,11 @@
     <h1>{% trans "Мої новини" %}</h1>
     
     {% if blogs %}
-        <table cellpadding="0" cellspacing="0" border="0" class="blog-list" width="100%">
+        <table cellpadding="5" cellspacing="0" border="0" class="blog-list" width="100%">
             <th>Назва</th>
             <th>Опубліковано</th>
             <th>Статус</th>
+            <th>Підтверджено адміністратором</th>
             <th></th>
             {% for post in blogs %}
                 <tr class="{% cycle odd,even %}">
@@ -44,11 +45,20 @@
                     <td>
                         {% with post.status as status %}
                             {% switch status %}
-                                {% case 2 %}Published{% endcase %}
-                                {% case 1 %}Draft{% endcase %}
+                                {% case 2 %}Опубліковано{% endcase %}
+                                {% case 1 %}Чорновик{% endcase %}
                             {% endswitch %}
                         {% endwith %}
                     </td>
+    <td>
+                        {% with post.status2 as status %}
+                            {% switch status %}
+                                {% case 2 %}Підтверджено{% endcase %}
+                                {% case 1 %}Не підтверджено{% endcase %}
+                            {% endswitch %}
+                        {% endwith %}
+                    </td>
+<td nowrap>{{ post.status2 }}</td>
                     <td width="50px" align="center">
                         <a href="{% url blog_edit post.id %}">
                             {% silk "pencil" %}

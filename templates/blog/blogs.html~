@@ -10,7 +10,7 @@
 {% load restructuredtext %}
 {% load blog_tags %}
 
-{% block head_title %}{% blocktrans %}All Blogs{% endblocktrans %}{% endblock %}
+{% block head_title %}{% blocktrans %}Всі новини{% endblocktrans %}{% endblock %}
 
 {% block extra_head %}
     <link rel="alternate" type="application/atom+xml" title="Blog Post Feed for All Users" href="/feeds/posts/all/" />
@@ -21,7 +21,7 @@
     <h1>{% trans "Всі новини" %}</h1>
 
     {% if blogs %}
-        <p>{% trans "Це новини від всіх користувачів:" %}</p>
+        <p>{% trans "Це новини всіх користувачів:" %}</p>
 
         {% autopaginate blogs %}
 
