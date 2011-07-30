@@ -16,6 +16,18 @@ from events.models import Member
 
 
 
+
+def events_widget(request, template_name = "homepage.html"):
+
+	events = Event.objects.order_by("title")
+    
+	return render_to_response(template_name, {
+		"events": events,
+		}, context_instance=RequestContext(request))
+
+
+
+
 @login_required
 def map(request, template_name="events/map.html"):
 	return render_to_response(template_name)
