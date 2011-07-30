@@ -26,14 +26,6 @@
 {% for p in post.images.all %}
    {{ p.get_thumbnail.url }}
 {% endfor %}
-<div class="original">
-<img src="{{ photo.original_image.url }}" alt="{{ photo.name }}">
-</div>
-
-<div class="display">
-<img src="{{ photo.display.url }}" alt="{{ photo.name }}">
-</div>
-
     
     <div class="blog-post">
         <h2>{{ post.title }}</h2>
