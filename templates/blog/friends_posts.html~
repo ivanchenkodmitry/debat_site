@@ -8,7 +8,7 @@
 
 {% block body %}
     
-    <h1>{% blocktrans %}Новини друзів{% endblocktrans %}</h1>
+    <h1>{% blocktrans %}Friends' Blogs{% endblocktrans %}</h1>
     
     {% if object_list %}
         <p class="helptext">{% trans "Це новини друзів:" %}</p>

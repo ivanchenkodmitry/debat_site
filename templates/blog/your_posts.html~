@@ -20,7 +20,7 @@
     <h1>{% trans "Мої новини" %}</h1>
     
     {% if blogs %}
-        <table cellpadding="5" cellspacing="0" border="0" class="blog-list" width="100%">
+        <table cellpadding="0" cellspacing="0" border="0" class="blog-list" width="100%">
             <th>Назва</th>
             <th>Опубліковано</th>
             <th>Статус</th>
