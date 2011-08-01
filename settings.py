@@ -190,10 +190,18 @@ INSTALLED_APPS = (
     'events',
     'clubs',
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     'recaptcha',
 #    'publicauth',
 #    'annoying',
+>>>>>>> dimas_dev
+=======
+
+    'recaptcha',
+#    'publicauth',
+#    'annoying',
+
 >>>>>>> dimas_dev
     
     
