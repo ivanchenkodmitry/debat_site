@@ -98,6 +98,7 @@ MIDDLEWARE_CLASSES = (
     'djangodblog.middleware.DBLogMiddleware',
     'pinax.middleware.security.HideSensistiveFieldsMiddleware',
     'django.middleware.transaction.TransactionMiddleware',
+#    'annoying.middlewares.RedirectMiddleware',
 )
 
 ROOT_URLCONF = 'debat_site.urls'
@@ -188,6 +189,12 @@ INSTALLED_APPS = (
     'groups',
     'events',
     'clubs',
+<<<<<<< HEAD
+=======
+    'recaptcha',
+#    'publicauth',
+#    'annoying',
+>>>>>>> dimas_dev
     
     
     
@@ -260,6 +267,17 @@ BEHIND_PROXY = False
 FORCE_LOWERCASE_TAGS = True
 
 WIKI_REQUIRES_LOGIN = True
+
+#Login via Vkontakte.ru
+
+VKONTAKTE_APP_ID = '2428870'
+VKONTAKTE_API_KEY = '2428870'
+VKONTAKTE_SECRET_KEY = 'gaDvxK2XztTP8SSVwiHJ'
+
+ #reCAPTCHA keys  
+RECAPTCHA_PUBLIC_KEY = '6LcBs8YSAAAAADQE9r3Yh3tXzZD-y86R7M-UTSdy'
+RECAPTCHA_PRIVATE_KEY = '6LcBs8YSAAAAAIE4N1u9cUY-vVl8bFDhFQGJh3K9'
+
 
 # Uncomment this line after signing up for a Yahoo Maps API key at the
 # following URL: https://developer.yahoo.com/wsregapp/

@@ -4,7 +4,10 @@
 {% load uni_form %}
 
 {% block head_title %}{% trans "Signup" %}{% endblock %}
+{% block extra_head %}
 
+
+{% endblock %}
 {% block body %}
     <h1>{% trans "Реєстрація нового члена ВМГО «ФДУ»" %}</h1>
     
@@ -19,9 +22,13 @@
                 <div  class="form_blick">
                     <input type="submit" value="{% trans "Sign Up &raquo;" %}" />
                 </div>
+
             </fieldset>
+
         </form>
         
+
+
         {% url terms as terms_url %}
         {% url privacy as privacy_url %}
         <p>{% blocktrans %}By clicking "Sign Up", you are indicating that you have read and agree to the <a href="{{ terms_url }}">Terms of Use</a> and <a href="{{ privacy_url }}">Privacy Policy</a>.{% endblocktrans %}</p>
@@ -33,6 +40,8 @@
             <p>If you have OpenID, <a href="{% url acct_login %}">log in</a> using that to begin using this site with OpenID right away.</p>
         {% endif %}
     {% endif %}
+
+<a onclick="return vk_login();" href="#">получить ид ВК</a>
 {% endblock %}
 
 {% block extra_body %}
