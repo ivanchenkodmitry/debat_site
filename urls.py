@@ -94,6 +94,7 @@ friends_tweets_kwargs = {
     "friends_objects_function": lambda users: Tweet.objects.filter(sender_id__in=[user.id for user in users], sender_type__name='user'),
 }
 
+
 from bookmarks.models import Bookmark
 
 friends_bookmarks_kwargs = {
