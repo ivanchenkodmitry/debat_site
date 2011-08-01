@@ -36,11 +36,9 @@ urlpatterns = patterns('',
     url(r'^$', direct_to_template, {
         "template": "homepage.html",
     }, name="home"),
-<<<<<<< HEAD
-    
-=======
+
 #    url(r'^auth/', include('publicauth.urls')),    
->>>>>>> dimas_dev
+
     url(r'^admin/invite_user/$', 'signup_codes.views.admin_invite_user', name="admin_invite_user"),
     url(r'^account/signup/$', signup_view, name="acct_signup"),
     
@@ -69,10 +67,6 @@ urlpatterns = patterns('',
     (r'^events/', include('events.urls')),
     (r'^locations/', include('locations.urls')),
     (r'^clubs/', include('clubs.urls')),
-<<<<<<< HEAD
-=======
-
->>>>>>> dimas_dev
     
     (r'^feeds/tweets/(.*)/$', 'django.contrib.syndication.views.feed', tweets_feed_dict),
     (r'^feeds/posts/(.*)/$', 'django.contrib.syndication.views.feed', blogs_feed_dict),

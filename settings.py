@@ -189,12 +189,11 @@ INSTALLED_APPS = (
     'groups',
     'events',
     'clubs',
-<<<<<<< HEAD
-=======
+
     'recaptcha',
 #    'publicauth',
 #    'annoying',
->>>>>>> dimas_dev
+
     
     
     
