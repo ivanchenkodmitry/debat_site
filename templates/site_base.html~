@@ -65,7 +65,7 @@
 	            <ul class="tabs">{% spaceless %}
             <li id="tab_photos"><a href="{% url photos %}">{% trans "Photos" %}</a></li>
             <li id="tab_events"><a href="{% url events %}">{% trans "Events" %}</a></li>
-           
+           <li id="tab_clubs"><a href="{% url clubs %}">{% trans "Clubs" %}</a></li>
             <li id="tab_blogs"><a href="{% url blog_list_all %}">{% trans "Blogs" %}</a></li>
         {% endspaceless %}</ul>
     {% endif %}

@@ -1,0 +1,72 @@
+{% extends "clubs/base.html" %}
+
+{% load i18n %}
+{% load uni_form %}
+
+
+{% block body_param %} onload="initialize()" {% endblock %}
+{% block body %}
+   <div class="right_panel">
+        {% include "clubs/map.html" %}
+    </div>
+    
+<div class="left_panel">
+    <h1>Редагувати клуб</h1>
+    <form class="uniForm" id="edit-profile" method="POST" enctype="multipart/form-data" action="" >
+        <fieldset class="inlineLabels">
+
+
+       <div id="div_id_title" class="ctrlHolder">
+	                <label for="id_title">                    
+	                    Назва*
+	                </label>
+	            <input id="id_title" type="text" class="textinput" name="title" maxlength="200" value="{{ club.title }}"/>
+        </div>
+	
+
+        <div id="div_id_university" class="ctrlHolder">
+	                <label for="id_university">                    
+	                    Університет*
+	                </label>
+	            <input id="id_university" type="text" class="textinput" name="university"  value="{{ club.university }}" />
+        </div>
+
+
+        <div id="date" class="ctrlHolder">
+		    <input id="id_date" type="text" class="textinput" name="date" maxlength="200" value="{{ club.date }}" />
+	                <label for="id_date">                    
+	                    Date*
+	                </label></div>
+	            		
+        <div id="address" class="ctrlHolder">
+		    <input id="id_address" type="text" class="textinput" name="address" maxlength="200" value="{{ club.address }}"/>
+    		<input type="button" value="Geocode" onclick="codeAddress()">
+	                <label for="id_address">                    
+	                   Address*
+	                </label></div>
+		    <input id="id_location" type="hidden" class="textinput" name="location" maxlength="200" value = "(48.464954, 35.044956)"/>
+
+            <div class="form_block">
+                <input type="hidden" name="action" value="Edit" />
+                <input type="submit" value="{% trans "Редагувати" %}" />
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+{% endblock %}
+
+{% block extra_body %}
+
+		<link type="text/css" href="{{ STATIC_URL }}pinax/css/jquery-ui-1.8.14.custom.css" rel="stylesheet" />	
+   		<script type="text/javascript" src="{{ STATIC_URL }}pinax/js/topics.js"></script>
+		<script type="text/javascript" src="{{ STATIC_URL }}pinax/js/jquery-1.5.1.min.js"></script>
+		<script type="text/javascript" src="{{ STATIC_URL }}pinax/js/jquery-ui-1.8.14.custom.min.js"></script>
+
+<script type="text/javascript">
+	$(function() {
+
+		$( "#id_date" ).datepicker({ dayNamesMin: ['Нед', 'Пон', 'Вівт', 'Сер', 'Чт', 'Пт', 'Суб'], firstDay: 1, dateFormat: 'yy-mm-dd',  monthNames: ['Січень','Лютий','Березень','Квітень','Травень','Червень','Липень','Серпень','Вересень','Жовтень','Листопад','Грудень'] });
+	});
+	</script>
+{% endblock %}
