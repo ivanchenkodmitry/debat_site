@@ -1,0 +1,80 @@
+/* CLUB */
+
+.thumb-row {
+    margin: 20px 0;
+    padding: 20px 0;
+}
+.gallery-club-thumb {
+    width: 100px;
+    margin: 10px 10px 20px 0;
+    float: left;
+    text-align: center;
+}
+
+.event-right-profile, .event-right-tools {
+    background: #DEF;
+    padding: 8px;
+    margin-bottom: 20px;
+}
+
+.event-profile-details {
+    font-size: 0.9em;
+}
+
+.club-avatar {
+    float: left;
+    margin-right: 10px;
+}
+
+.club-avatar img {
+    border: 1px solid #666;
+}
+
+.club-right-tools ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.club-right-tools ul li {
+    background: #fff;
+    padding: 2px 4px;
+    margin: 2px 0;
+}
+
+.club-right-tools li a {
+    text-decoration: none;
+}
+
+.club-right-tools li:hover {
+    background: #DDDDDD;
+}
+
+.club-profile-details h2 {
+    margin: 0;
+    padding: 0;
+    font-size: 1.1em;
+}
+
+.club-right-tools h2 {
+    margin: 0 0 5px 0;
+    padding: 0;
+}
+
+#embed-code textarea {
+    width: 150px;
+    font-size: 0.8em;
+}
+div.embed {
+    margin: 10px 0;
+    font-style: none;
+}
+
+.club-right-tools form {
+    margin: 0;
+    padding: 0;
+}
+.delete_form {
+  padding: 5px;
+  background: #F99;
+}

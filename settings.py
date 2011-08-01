@@ -28,7 +28,8 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
-
+DATABASE_ENGINE = 'sqlite3'           
+DATABASE_NAME = 'FOO9'  
 
 # Local time zone for this installation. Choices can be found here:
 # http://www.postgresql.org/docs/8.1/static/datetime-keywords.html#DATETIME-TIMEZONE-SET-TABLE
@@ -185,6 +186,9 @@ INSTALLED_APPS = (
     'topics',
     'groups',
     'events',
+    'clubs',
+    
+    
     
     'django.contrib.admin',
 
