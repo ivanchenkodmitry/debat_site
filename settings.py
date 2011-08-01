@@ -11,6 +11,7 @@ try:
 except ImportError:
    pass
 
+
 PINAX_ROOT = os.path.abspath(os.path.dirname(pinax.__file__))
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
@@ -28,7 +29,8 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
-
+DATABASE_ENGINE = 'sqlite3'           
+DATABASE_NAME = 'FOO9'  
 
 # Local time zone for this installation. Choices can be found here:
 # http://www.postgresql.org/docs/8.1/static/datetime-keywords.html#DATETIME-TIMEZONE-SET-TABLE
@@ -96,6 +98,7 @@ MIDDLEWARE_CLASSES = (
     'djangodblog.middleware.DBLogMiddleware',
     'pinax.middleware.security.HideSensistiveFieldsMiddleware',
     'django.middleware.transaction.TransactionMiddleware',
+#    'annoying.middlewares.RedirectMiddleware',
 )
 
 ROOT_URLCONF = 'debat_site.urls'
@@ -185,6 +188,12 @@ INSTALLED_APPS = (
     'topics',
     'groups',
     'events',
+    'clubs',
+    'recaptcha',
+#    'publicauth',
+#    'annoying',
+    
+    
     
     'django.contrib.admin',
 
@@ -255,6 +264,17 @@ BEHIND_PROXY = False
 FORCE_LOWERCASE_TAGS = True
 
 WIKI_REQUIRES_LOGIN = True
+
+#Login via Vkontakte.ru
+
+VKONTAKTE_APP_ID = '2428870'
+VKONTAKTE_API_KEY = '2428870'
+VKONTAKTE_SECRET_KEY = 'gaDvxK2XztTP8SSVwiHJ'
+
+ #reCAPTCHA keys  
+RECAPTCHA_PUBLIC_KEY = '6LcBs8YSAAAAADQE9r3Yh3tXzZD-y86R7M-UTSdy'
+RECAPTCHA_PRIVATE_KEY = '6LcBs8YSAAAAAIE4N1u9cUY-vVl8bFDhFQGJh3K9'
+
 
 # Uncomment this line after signing up for a Yahoo Maps API key at the
 # following URL: https://developer.yahoo.com/wsregapp/

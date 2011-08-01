@@ -1,8 +1,7 @@
+# -*- coding: utf-8 -*-
 from django.conf.urls.defaults import *
 from django.conf import settings
 from django.views.generic.simple import direct_to_template
-
-
 
 from django.contrib import admin
 admin.autodiscover()
@@ -32,14 +31,12 @@ if settings.ACCOUNT_OPEN_SIGNUP:
 else:
     signup_view = "signup_codes.views.signup"
 
-urlpatterns = patterns('',
-    url(r'^$', 'events.views.events_widget', name="home"),
 
-#urlpatterns = patterns('',
-#   url(r'^$', direct_to_template, {
-#        "template": "homepage.html",
-#    }, name="home"),
-    
+urlpatterns = patterns('',
+    url(r'^$', direct_to_template, {
+        "template": "homepage.html",
+    }, name="home"),
+#    url(r'^auth/', include('publicauth.urls')),    
     url(r'^admin/invite_user/$', 'signup_codes.views.admin_invite_user', name="admin_invite_user"),
     url(r'^account/signup/$', signup_view, name="acct_signup"),
     
@@ -67,6 +64,8 @@ urlpatterns = patterns('',
     (r'^swaps/', include('swaps.urls')),
     (r'^events/', include('events.urls')),
     (r'^locations/', include('locations.urls')),
+    (r'^clubs/', include('clubs.urls')),
+
     
     (r'^feeds/tweets/(.*)/$', 'django.contrib.syndication.views.feed', tweets_feed_dict),
     (r'^feeds/posts/(.*)/$', 'django.contrib.syndication.views.feed', blogs_feed_dict),
@@ -95,6 +94,7 @@ friends_tweets_kwargs = {
     "template_name": "microblogging/friends_tweets.html",
     "friends_objects_function": lambda users: Tweet.objects.filter(sender_id__in=[user.id for user in users], sender_type__name='user'),
 }
+
 
 from bookmarks.models import Bookmark
 

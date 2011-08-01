@@ -22,6 +22,8 @@ from timezones.forms import TimeZoneField
 
 from account.models import PasswordReset
 
+from recaptcha.fields import ReCaptchaField
+
 
 alnum_re = re.compile(r'^\w+$')
 
@@ -106,7 +108,7 @@ class SignupForm(forms.Form):
 
     password1 = forms.CharField(label=_("Password"), widget=forms.PasswordInput(render_value=False))
     password2 = forms.CharField(label=_("Password (again)"), widget=forms.PasswordInput(render_value=False))
-    vk_id = forms.CharField(label = _('ID Вконтакті'), widget= forms.HiddenInput())
+    vk_id = forms.CharField(label = _('ID Вконтакті')) #, widget= forms.HiddenInput())
 
     
     if settings.ACCOUNT_REQUIRED_EMAIL or settings.ACCOUNT_EMAIL_VERIFICATION:
@@ -121,6 +123,11 @@ class SignupForm(forms.Form):
             required = False,
             widget = forms.TextInput()
         )
+
+    recaptcha = ReCaptchaField(error_messages = {  
+            'required': u'Это поле должно быть заполнено',            
+            'invalid' : u'Указанное значение было неверно'  
+            })
     
     confirmation_key = forms.CharField(max_length=40, required=False, widget=forms.HiddenInput())
     
