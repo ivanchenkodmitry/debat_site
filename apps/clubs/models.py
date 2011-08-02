@@ -24,7 +24,7 @@ class Club(models.Model):
     """
     title = models.CharField(_(u'Назва'), max_length=200)
     university = models.TextField(_(u'Університет'), blank=True)
-    date = models.DateTimeField(_(u'Дата створення'), default=datetime.now, editable=False)
+    date = models.DateField(_(u'Дата створення'), default=datetime.now)
     address = models.TextField(_(u'Адреса'), blank=True)
     
     admin = models.ForeignKey(User)

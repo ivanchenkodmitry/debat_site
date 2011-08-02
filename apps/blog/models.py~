@@ -34,7 +34,7 @@ class Post(models.Model):
     creator_ip      = models.IPAddressField(_(u"IP адреса автора повідомлення"), blank=True, null=True)
     body            = models.TextField(_(u'Повідомлення'))
     
-    tease           = models.TextField(_(u'Тізер'), blank=True)
+    
     status          = models.IntegerField(_(u'Статус'), choices=STATUS_CHOICES, default=2)
     status2         = models.IntegerField(_(u'Підтвердження'), choices=STATUS_CHOICE, default=0)
     allow_comments  = models.BooleanField(_(u'Дозволити коментарі'), default=True)

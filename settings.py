@@ -30,7 +30,7 @@ ADMINS = (
 
 MANAGERS = ADMINS
 DATABASE_ENGINE = 'sqlite3'           
-DATABASE_NAME = 'FOO9'  
+DATABASE_NAME = 'FOO1'  
 
 # Local time zone for this installation. Choices can be found here:
 # http://www.postgresql.org/docs/8.1/static/datetime-keywords.html#DATETIME-TIMEZONE-SET-TABLE
