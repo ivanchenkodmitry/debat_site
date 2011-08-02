@@ -34,10 +34,36 @@
             {% endif %}
             
             <div class="profile_info">
-                {% if other_user.get_profile.name %}<p><b>{% trans "Name" %}</b>: <span class="fn">{{ other_user.get_profile.name }}</span></p>{% endif %}
-                {% if other_user.get_profile.about %}<p><b>{% trans "About" %}</b>: {{ other_user.get_profile.about }}</p>{% endif %}
-                {% if other_user.get_profile.location%}<p><b>{% trans "Location" %}</b>: {{ other_user.get_profile.location }}</p>{% endif %}
+
+
+                {% if other_user.get_profile.name %}<p><b>{% trans "Ім’я" %}</b>: <span class="fn">{{ other_user.get_profile.name }}</span></p>{% endif %}
+                {% if other_user.get_profile.surname %}<p><b>{% trans "Прізвище" %}</b>: {{ other_user.get_profile.surname }}</p>{% endif %}
+                {% if other_user.get_profile.middle_name%}<p><b>{% trans "По батькові" %}</b>: {{ other_user.get_profile.middle_name }}</p>{% endif %}
+
+                {% if other_user.get_profile.birth_date %}<p><b>{% trans "Дата народження" %}</b>: <span class="fn">{{ other_user.get_profile.birth_date }}</span></p>{% endif %}
+                {% if other_user.get_profile.address %}<p><b>{% trans "Поштова адреса" %}</b>: {{ other_user.get_profile.address }}</p>{% endif %}
+                {% if other_user.get_profile.phone%}<p><b>{% trans "Телефон" %}</b>: {{ other_user.get_profile.phone }}</p>{% endif %}
+
+                {% if other_user.get_profile.skype%}<p><b>{% trans "Skype" %}</b>: {{ other_user.get_profile.skype }}</p>{% endif %}
+                {% if other_user.get_profile.icq%}<p><b>{% trans "ICQ" %}</b>: {{ other_user.get_profile.icq }}</p>{% endif %}
+                {% if other_user.get_profile.education%}<p><b>{% trans "Освіта" %}</b>: {{ other_user.get_profile.education }}</p>{% endif %}
+                {% if other_user.get_profile.work%}<p><b>{% trans "Місце роботи" %}</b>: {{ other_user.get_profile.work }}</p>{% endif %}
+                {% if other_user.get_profile.experience%}<p><b>{% trans "Досвід гри у дебати" %}</b>: {{ other_user.get_profile.experience }}</p>{% endif %}
+
+                {% if other_user.get_profile.club%}<p><b>{% trans "Дебатний клуб" %}</b>: {{ other_user.get_profile.club }}</p>{% endif %}
+                {% if other_user.get_profile.social_work_exp%}<p><b>{% trans "Досвід громадської роботи" %}</b>: {{ other_user.get_profile.social_work_exp }}</p>{% endif %}
+                {% if other_user.get_profile.desired_exp%}<p><b>{% trans "Досвід, який хочу отримати" %}</b>: {{ other_user.get_profile.desired_exp }}</p>{% endif %}
+                {% if other_user.get_profile.org_way%}<p><b>{% trans "Організаційний напрямок" %}</b>: {{ other_user.get_profile.org_way }}</p>{% endif %}
+
+                {% if other_user.get_profile.members_fee %}<p><b>{% trans "Членські внески" %}</b>: {{ other_user.get_profile.members_fee }}</p>{% endif %}
+                {% if other_user.get_profile.interests %}<p><b>{% trans "Інтереси" %}</b>: {{ other_user.get_profile.interests }}</p>{% endif %}
+
+
+
                 {% if other_user.get_profile.website %}<p><b>{% trans "Website" %}</b>: <a class="url" href="{{ other_user.get_profile.website }}">{{ other_user.get_profile.website }}</a></p>{% endif %}
+
+
+
             </div>
             
             {% if is_me %}

@@ -27,7 +27,7 @@ class Profile(models.Model):
         (4, _('20 грн')),
         (5, _('30 грн')),
         (6, _('50 грн')),
-        (7, _('Не можу сплачувати членський внесок')),
+        (0, _('Не можу сплачувати членський внесок')),
     )
     
     user = models.ForeignKey(User, unique=True, verbose_name=_('user'))
@@ -36,7 +36,7 @@ class Profile(models.Model):
     name = models.CharField(_('Ім’я'), max_length=50, blank=True)
     middle_name = models.CharField(_('По батькові'), max_length=30)
     birth_date = models.CharField(_('Дата народження'), max_length=30)
-    mail = models.CharField(_('Поштова адреса'), null=True, max_length=30)
+    address = models.TextField(_('Поштова адреса'), null=True, max_length=30)
     phone = models.CharField(_('Мобільний телефон'), null=True, max_length=30)
     skype = models.CharField(_('Логін Skype'), null=True, max_length=30)
     icq = models.CharField(_('ICQ'), null=True, max_length=30,)
@@ -47,8 +47,11 @@ class Profile(models.Model):
     club = models.CharField(_('Дебатний клуб'), max_length=30)
     social_work_exp = models.CharField(_('Досвід громадської роботи'), max_length=30)
     desired_exp = models.TextField(_('Досвід, який хочу отримати'), null=True, blank=True)
-    org_way = models.TextField(_('Організаційний напрямок'), null=True, choices = ORG_WAYS)
-    members_fee = models.IntegerField(_('Членські внески'), null=True, choices = MEMBERS_FEE)  
+
+    org_way = models.CharField(_('Організаційний напрямок'), null=True, choices = ORG_WAYS, max_length=30)
+    members_fee = models.CharField(_('Членські внески'), null=True, choices = MEMBERS_FEE, max_length=30)  
+#    org_way = models.IntegerField(_('Організаційний напрямок'), null=True, choices = ORG_WAYS)
+#    members_fee = models.IntegerField(_('Членські внески'), null=True, choices = MEMBERS_FEE)  
     interests = models.TextField(_('Інтереси'), null=True, blank=True)
     vk_id = models.TextField(_('ID Вконтакті'), null=True, blank=True)
 
