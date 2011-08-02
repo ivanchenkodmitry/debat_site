@@ -80,35 +80,35 @@ class SignupForm(forms.Form):
         (4, _('20 грн')),
         (5, _('30 грн')),
         (6, _('50 грн')),
-        (7, _('Не можу сплачувати членський внесок')),
+        (0, _('Не можу сплачувати членський внесок')),
     )
     
     username = forms.CharField(label=_(u'Логін'),  max_length=30, widget=forms.TextInput())
     surname =  forms.CharField(label=_(u'Прізвище'), max_length=30, widget=forms.TextInput())
     name =  forms.CharField(label=_(u'Ім’я'), max_length=30, widget=forms.TextInput())
     middle_name = forms.CharField(label=_(u'По батькові'), max_length=30, widget=forms.TextInput())
-    birth_date = forms.DateField(label=_(u'Дата народження'))
-    mail = forms.CharField(label=_(u'Поштова адреса'), required = False, max_length=30, widget=forms.TextInput())
+    birth_date = forms.DateField(label=_(u'Дата народження'), required = False)
+    address = forms.CharField(label=_(u'Поштова адреса'), required = False, max_length=30, widget=forms.Textarea())
     phone = forms.CharField(label=_(u'Мобільний телефон'), required = False, max_length=30, widget=forms.TextInput())
     skype = forms.CharField(label=_(u'Логін Skype'), required = False, max_length=30, widget=forms.TextInput())
     icq = forms.IntegerField(label=_(u'ICQ'), max_value=999999999, required = False, widget=forms.TextInput())
     website = forms.URLField(label=_(u'Адреса сторінки в соціальній мережі (вконтакті, facebook тощо)'), required = False)
-    education = forms.CharField(label=_(u'Освіта (ВНЗ, факультет)'), required = False, max_length=30, widget=forms.TextInput())
-    work = forms.CharField(label=_(u'Місце роботи'), required = False, max_length=150, widget=forms.TextInput())
-    experience = forms.CharField(label=_(u'Опишіть у довільній формі досвід гри у дебати (роки участі у дебатах, турніри, в яких Ви брали участь, тощо).'), required = False, max_length=30, widget=forms.TextInput())
+    education = forms.CharField(label=_(u'Освіта (ВНЗ, факультет)'), required = False, max_length=30, widget=forms.Textarea())
+    work = forms.CharField(label=_(u'Місце роботи'), required = False, max_length=150, widget=forms.Textarea())
+    experience = forms.CharField(label=_(u'Опишіть у довільній формі досвід гри у дебати (роки участі у дебатах, турніри, в яких Ви брали участь, тощо).'), required = False, max_length=30, widget=forms.Textarea())
     club = forms.CharField(label=_(u'Дебатний клуб, який  представляєте (якщо є)'), required = False, max_length=30, widget=forms.TextInput())
-    social_work_exp = forms.CharField(label=_(u'Який досвід громадської роботи ви маєте(реалізовані проекти, членство в ГО, студ.самоврядуванні і т.д.)?'), required = False, max_length=30, widget=forms.TextInput())
-    desired_exp = forms.CharField(label=_(u'Які знання, досвід чи вміння ви хочете отримати, ставши членом ВМГО «ФДУ»?'),  required = False, max_length=30, widget=forms.TextInput())
+    social_work_exp = forms.CharField(label=_(u'Який досвід громадської роботи ви маєте(реалізовані проекти, членство в ГО, студ.самоврядуванні і т.д.)?'), required = False, max_length=30, widget=forms.Textarea())
+    desired_exp = forms.CharField(label=_(u'Які знання, досвід чи вміння ви хочете отримати, ставши членом ВМГО «ФДУ»?'),  required = False, max_length=30, widget=forms.Textarea())
 
     org_way = forms.ChoiceField(label=_(u'Яким організаційним напрямком в діяльності ВМГО «ФДУ» ви хотіли б займатись?'), choices = ORG_WAYS, initial='1', required = False, widget=forms.Select())
 
     members_fee = forms.ChoiceField(label=_(u'Який членський внесок ви готові сплачувати щомісячно?'), choices = MEMBERS_FEE, initial='1', required = False, widget=forms.Select())
 
-    interests = forms.CharField(label=_(u'Напишіть, будь ласка, про свої цікаві захоплення та вміння'), required = False, max_length=30, widget=forms.TextInput())
+    interests = forms.CharField(label=_(u'Напишіть, будь ласка, про свої цікаві захоплення та вміння'), required = False, max_length=30, widget=forms.Textarea())
 
     password1 = forms.CharField(label=_("Password"), widget=forms.PasswordInput(render_value=False))
     password2 = forms.CharField(label=_("Password (again)"), widget=forms.PasswordInput(render_value=False))
-    vk_id = forms.CharField(label = _('ID Вконтакті')) #, widget= forms.HiddenInput())
+    vk_id = forms.CharField(label = _('ID Вконтакті'), required = False) #, widget= forms.HiddenInput())
 
     
     if settings.ACCOUNT_REQUIRED_EMAIL or settings.ACCOUNT_EMAIL_VERIFICATION:
@@ -188,7 +188,7 @@ class SignupForm(forms.Form):
         profile.name =  self.cleaned_data["name"]
         profile.middle_name = self.cleaned_data["middle_name"]
         profile.birth_date = self.cleaned_data["birth_date"]
-        profile.mail = self.cleaned_data["mail"]
+        profile.address = self.cleaned_data["address"]
         profile.phone = self.cleaned_data["phone"]
         profile.skype = self.cleaned_data["skype"]
         profile.icq = self.cleaned_data["icq"]
