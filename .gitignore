@@ -1,4 +1,5 @@
 */*.pyc
+*/*/*.pyc
 *.db
 local_settings.py
 site_media/
