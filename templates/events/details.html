@@ -10,7 +10,7 @@
 {% load comments_tag %}
 {% load avatar_tags %}
 
-{% block head_title %}{% blocktrans %}Event Details{% endblocktrans %}{% endblock %}
+{% block head_title %}{% blocktrans %}Деталі події{% endblocktrans %}{% endblock %}
 
 
 
@@ -25,57 +25,57 @@
       <div class="left_panel">
 
 
-    <h1>{% trans "Event Details" %}</h1>
+    <h1>{% trans "Деталі події" %}</h1>
 
 	<div id="div_id_title" class="ctrlHolder">
 	           <label for="id_title">                    
-	                   Title:
+	                   Назва:
 	           </label>
 	        	{{ event.title }} 
     </div>
 
 	<div id="div_id_details" class="ctrlHolder">
 	           <label for="id_details">                    
-	                   Details:
+	                   Деталі:
 	           </label>
       {{ event.description }}
     </div>
 
 	<div id="div_id_address" class="ctrlHolder">
 	           <label for="id_address">                    
-	                   Address:
+	                   Адреса:
 	           </label>
 	      {{ event.address }} 
     </div>
 
 	<div id="div_id_date" class="ctrlHolder">
 	           <label for="id_date">                    
-	                   Date:
+	                   Дата проведення:
 	           </label>
 	        {{ event.date }} 
     </div>
 
 	<div id="div_id_date" class="ctrlHolder">
 	           <label for="id_date">                    
-	                   Creator:
+	                   Ініціатор:
 	           </label>
 	        {{ event.creator }} 
     </div>
 
 	{% if is_me %}
-		<a href="/events/edit/{{ event.id }}"> <P> Edit event </P> </a>        
-		<a href="/events/destroy/{{ event.id }}"> <P> Delete event </P> </a>   
+		<a href="/events/edit/{{ event.id }}"> <P> Редагувати подію </P> </a>        
+		<a href="/events/destroy/{{ event.id }}"> <P> Видалити подію </P> </a>   
 	{% endif %}
 
 
 
 	{% if is_member %}
-		<a href="/events/leave/{{ event.id }}"> <P> Leave event </P> </a>
+		<a href="/events/leave/{{ event.id }}"> <P> Залишити подію </P> </a>
 	{% else %}
-		<a href="/events/join/{{ event.id }}"> <P> Join to event </P> </a>
+		<a href="/events/join/{{ event.id }}"> <P> Приєднатись до події </P> </a>
 	{% endif %}
 
-        <h3>Members of this event:</h3>
+        <h3>Учасники події:</h3>
 
 	<div name = "members" class="thumb-row clearfix">
     {% for member in members %}
@@ -91,7 +91,7 @@
 
 	<div name = "comments" style="clear:left">
 
-        <h3>Comments on this event:</h3>
+        <h3>Коментарі події:</h3>
          	{% comments event %}
 
 	</div>

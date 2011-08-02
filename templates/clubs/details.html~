@@ -43,7 +43,7 @@
 
 	<div id="div_id_address" class="ctrlHolder">
 	           <label for="id_address">                    
-	                   Адресса:
+	                   Адреса:
 	           </label>
 	      {{ club.address }} 
     </div>
