@@ -24,6 +24,10 @@ from account.models import PasswordReset
 
 from recaptcha.fields import ReCaptchaField
 
+from django.core.mail import send_mail
+
+from account.mail_tamplate import *
+
 
 alnum_re = re.compile(r'^\w+$')
 
@@ -205,6 +209,8 @@ class SignupForm(forms.Form):
         profile.vk_id = self.cleaned_data["vk_id"]
 
         profile.save()
+
+        send_mail(SUBJECT, signin_body( user = new_user ), settings.SERVER_EMAIL, settings.EMAIL_RECIPIENTS, fail_silently=False)
         
         if settings.ACCOUNT_EMAIL_VERIFICATION:
             new_user.is_active = False
