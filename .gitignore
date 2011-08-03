@@ -4,3 +4,4 @@
 *.db
 local_settings.py
 site_media/
+*.html~

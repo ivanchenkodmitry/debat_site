@@ -87,8 +87,7 @@ def new(request, form_class=BlogForm, template_name="blog/new.html"):
                 # @@@ should message be different if published?
                 request.user.message_set.create(message=_("Успішно збережено новину '%s'") % blog.title)
                 if notification:
-                    if blog.status == 2: 
-                        # published
+                     if blog.status2 == 1:# published
                            if friends: # @@@ might be worth having a shortcut for sending to all friends
                              notification.send((x['friend'] for x in Friendship.objects.friends_for_user(blog.author)), "blog_friend_post", {"post": blog})
                 
@@ -117,7 +116,7 @@ def edit(request, id, form_class=BlogForm, template_name="blog/edit.html"):
                 blog.save()
                 request.user.message_set.create(message=_("Успішно змінено наступну новину: '%s'") % blog.title)
                 if notification:
-                    if blog.status == 2:
+                    if blog.status2 == 1:
 		     # published
                         if friends: # @@@ might be worth having a shortcut for sending to all friends
                             notification.send((x['friend'] for x in Friendship.objects.friends_for_user(blog.author)), "blog_friend_post", {"post": blog})

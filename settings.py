@@ -30,7 +30,7 @@ ADMINS = (
 
 MANAGERS = ADMINS
 DATABASE_ENGINE = 'sqlite3'           
-DATABASE_NAME = 'FOO1'  
+DATABASE_NAME = 'FOO5'  
 
 # Local time zone for this installation. Choices can be found here:
 # http://www.postgresql.org/docs/8.1/static/datetime-keywords.html#DATETIME-TIMEZONE-SET-TABLE
@@ -223,8 +223,8 @@ AUTH_PROFILE_MODULE = 'profiles.Profile'
 NOTIFICATION_LANGUAGE_MODULE = 'account.Account'
 
 ACCOUNT_OPEN_SIGNUP = True
-ACCOUNT_REQUIRED_EMAIL = False
-ACCOUNT_EMAIL_VERIFICATION = False
+ACCOUNT_REQUIRED_EMAIL = True
+ACCOUNT_EMAIL_VERIFICATION = True
 
 EMAIL_CONFIRMATION_DAYS = 2
 EMAIL_DEBUG = DEBUG
@@ -232,6 +232,16 @@ CONTACT_EMAIL = "feedback@example.com"
 SITE_NAME = "Pinax"
 LOGIN_URL = "/account/login/"
 LOGIN_REDIRECT_URLNAME = "what_next"
+
+DEFAULT_FROM_EMAIL = 'nskrypnik@alwaysdata.net'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.alwaysdata.com'
+EMAIL_HOST_USER = 'nskrypnik-noreply@alwaysdata.net'
+EMAIL_HOST_PASSWORD = ''
+EMAIL_PORT = 25
+EMAIL_SUBJECT_PREFIX = 'nskrypnik@alwaysdata.net'
+
 
 INTERNAL_IPS = (
     '127.0.0.1',

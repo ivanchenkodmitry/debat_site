@@ -8,21 +8,10 @@
 
 {% block body %}
     
-    {% if openid and not user.is_authenticated %}
-        <p><span class="warning">It appears you have started to login using OpenID. Want to <a href="/openid/register/">finish logging in</a>?</span></p>
-    {% endif %}
-    
-    <h1>{% trans "Log In" %}</h1>
-    
-    {% if user.is_authenticated %}
-        <p><span class="warning">{% trans "Note" %}</span>: {% blocktrans %}you are already logged in as {{ user }}.{% endblocktrans %}</p>
-    {% else %}
-        {% ifsetting ACCOUNT_OPEN_SIGNUP %}
-        {% url acct_signup as signup_url %}
-        <p>{% blocktrans %}Don't have an account? <a href="{{ signup_url }}">Sign up</a>!{% endblocktrans %}</p>
-        {% endifsetting %}
-    {% endif %}
-    
+
+
+
+
     <form class="login uniForm" method="POST" action="{% url acct_login %}">
         <fieldset class="inlineLabels">
             <div class="form_block">
@@ -35,6 +24,8 @@
         </fieldset>
     </form>
     
+
+
     <p>{% trans "Or sign in with your OpenID" %}:</p>
     {# @@@ why isn't this just does as a form object ? #}
     <form class="login uniForm" action="/openid/register/" method="POST">
