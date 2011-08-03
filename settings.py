@@ -269,17 +269,7 @@ VKONTAKTE_SECRET_KEY = 'gaDvxK2XztTP8SSVwiHJ'
 RECAPTCHA_PUBLIC_KEY = '6LcBs8YSAAAAADQE9r3Yh3tXzZD-y86R7M-UTSdy'
 RECAPTCHA_PRIVATE_KEY = '6LcBs8YSAAAAAIE4N1u9cUY-vVl8bFDhFQGJh3K9'
 
-#email perametrs
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'emailfordevelop@gmail.com'
-EMAIL_HOST_PASSWORD = 'developemail'
-EMAIL_PORT = 587
-SERVER_EMAIL = 'emailfordevelop@gmail.com'
 
-EMAIL_RECIPIENTS = [
-					'ivanchenko.dimitry@gmail.com'
-						]
 
 # Uncomment this line after signing up for a Yahoo Maps API key at the
 # following URL: https://developer.yahoo.com/wsregapp/
