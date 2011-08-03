@@ -33,9 +33,7 @@ else:
 
 
 urlpatterns = patterns('',
-    url(r'^$', direct_to_template, {
-        "template": "homepage.html",
-    }, name="home"),
+    url(r'^$', 'views.homepage_view', name="home"),
 
 #    url(r'^auth/', include('publicauth.urls')),    
 
