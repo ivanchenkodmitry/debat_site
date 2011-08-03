@@ -16,8 +16,11 @@ class Members(models.Model):
     
 	def __unicode__(self):
 		return self.user.username
-
-
+class University(models.Model):
+    title = models.CharField(_(u'Назва'), max_length=200)
+    address = models.TextField(_(u'Адреса'))
+    site = models.CharField(_(u'Сайт'), max_length=200)
+    
 class Club(models.Model):
     """
     Club with its details

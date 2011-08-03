@@ -9,6 +9,68 @@
 
 {% block body %}
 		{% include "widgets.html" %}
+
+<style>    div.date {text-align: right;}
+  </style>  
+
+<h2>Новини </h2>
+<ul>
+            {% for adminpost in adminposts.object_list %}
+                <div class="title">{{ adminpost.title }}</div>
+                <ul>
+                    <div class="date">{{ adminpost.publish }}</div>
+                    <div class="body">{{ adminpost.body|linebreaks }}</div>
+                </ul>
+            {% endfor %}
+        </ul>
+
+        <!-- Next/Prev page links  -->
+       <div class="pagination" style="margin-top: 20px; margin-left: -20px; ">
+            <span class="step-links">
+                {% if posts.has_previous %}
+                    <a href= "?page={{ posts.previous_page_number }}">Новіші &lt;&lt; </a>
+                {% endif %}
+
+                <span class="current">
+                    &nbsp;Page {{ posts.number }} of {{ posts.paginator.num_pages }}
+                </span>
+
+                {% if posts.has_next %}
+                    <a href="?page={{ posts.next_page_number }}"> &gt;&gt; Старіші</a>
+                {% endif %}
+            </span>
+        </div>
+<h2>Новини користувачів</h2>
+<ul>
+            {% for post in posts.object_list %}
+                <div class="title">{{ post.title }}</div>
+                <ul>
+                    <div class="date">{{ post.publish }}</div>
+                    <div class="author">{{ post.author }}</div>
+                    <div class="body">{{ post.body|linebreaks }}</div>
+                </ul>
+            {% endfor %}
+        </ul>
+
+        <!-- Next/Prev page links  -->
+       <div class="pagination" style="margin-top: 20px; margin-left: -20px; ">
+            <span class="step-links">
+                {% if posts.has_previous %}
+                    <a href= "?page={{ posts.previous_page_number }}">Новіші &lt;&lt; </a>
+                {% endif %}
+
+                <span class="current">
+                    &nbsp;Page {{ posts.number }} of {{ posts.paginator.num_pages }}
+                </span>
+
+                {% if posts.has_next %}
+                    <a href="?page={{ posts.next_page_number }}"> &gt;&gt; Старіші</a>
+                {% endif %}
+            </span>
+        </div>
+
+
+
     <h1>{% trans "Welcome to Pinax" %}</h1>
     
     <p>
