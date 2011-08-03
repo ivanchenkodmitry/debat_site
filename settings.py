@@ -206,6 +206,8 @@ MARKUP_CHOICES = (
 )
 WIKI_MARKUP_CHOICES = MARKUP_CHOICES
 
+DEFAULT_FROM_EMAIL = 'Your Site <emailfordevelop@gmail.com>'
+
 AUTH_PROFILE_MODULE = 'profiles.Profile'
 NOTIFICATION_LANGUAGE_MODULE = 'account.Account'
 
@@ -215,7 +217,7 @@ ACCOUNT_EMAIL_VERIFICATION = True
 
 EMAIL_CONFIRMATION_DAYS = 2
 EMAIL_DEBUG = DEBUG
-CONTACT_EMAIL = "feedback@example.com"
+CONTACT_EMAIL = "emailfordevelop@gmail.com"
 SITE_NAME = "Pinax"
 LOGIN_URL = "/account/login/"
 LOGIN_REDIRECT_URLNAME = "what_next"
