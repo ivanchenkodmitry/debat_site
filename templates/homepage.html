@@ -2,6 +2,7 @@
 
 {% load i18n %}
 {% load ifsetting_tag %}
+{% load endless %}
 
 {% block head_title %}{% trans "Welcome" %}{% endblock %}
 
@@ -18,7 +19,9 @@ div.body {padding-top: 0px;
   </style>  
 
 <h2>Новини </h2>
+
 <ul>
+
            {% for adminpost in adminposts %}
                {% if adminpost.author.is_staff %} 
          <div class="title"><b>{{ adminpost.title }}</b></div>
@@ -32,7 +35,10 @@ div.body {padding-top: 0px;
         
 <h2>Новини користувачів</h2>
 <ul>
-            {% for post in posts %}{% if not post.author.is_staff %}
+
+
+{% for post in posts %}
+{% if not post.author.is_staff %}
                 <div class="title"><b>{{ post.title }}</b></div>
                 <ul>
                     
@@ -42,6 +48,7 @@ div.body {padding-top: 0px;
                 </ul>{%endif%}
             {% endfor %}
         </ul>
+
 
        
 

@@ -187,10 +187,10 @@ INSTALLED_APPS = (
     'events',
     'clubs',
     'recaptcha',
-
+    'endless_pagination',
 #   'publicauth',
     'django.contrib.admin',
-
+    
 )
 
 ABSOLUTE_URL_OVERRIDES = {
@@ -285,3 +285,4 @@ try:
     from local_settings import *
 except ImportError:
     pass
+ENDLESS_PAGINATION_PER_PAGE = 30
