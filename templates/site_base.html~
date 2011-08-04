@@ -49,7 +49,7 @@
 {% block right_tabs %}
     {% if user.is_authenticated %}
         <ul class="tabs">{% spaceless %}
-            <li id="tab_profile"><a href="{% url profile_detail user %}">{% trans "Profile" %}</a></li>
+            <li id="tab_profile"><a href="{% url profile_detail user %}">Профіль</a></li>
             <li id="tab_photos"><a href="{% url photos %}">{% trans "Photos" %}</a></li>
             <li id="tab_blogs"><a href="{% url blog_list_all %}">{% trans "Blogs" %}</a></li>
             <li id="tab_tribes"><a href="{% url tribe_list %}">{% trans "Tribes" %}</a></li>
@@ -65,7 +65,7 @@
 	            <ul class="tabs">{% spaceless %}
             <li id="tab_photos"><a href="{% url photos %}">{% trans "Photos" %}</a></li>
             <li id="tab_events"><a href="{% url events %}">{% trans "Events" %}</a></li>
-           <li id="tab_clubs"><a href="{% url clubs %}">{% trans "Clubs" %}</a></li>
+           
             <li id="tab_blogs"><a href="{% url blog_list_all %}">{% trans "Blogs" %}</a></li>
         {% endspaceless %}</ul>
     {% endif %}
