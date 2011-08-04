@@ -19,7 +19,8 @@ def homepage_view (request, template_name = "homepage.html"):
         paginator = Paginator(posts, 3)
 
         
-        
+       
+
 	
 		
 		
@@ -27,8 +28,7 @@ def homepage_view (request, template_name = "homepage.html"):
         adminpaginator = Paginator(adminposts, 3)
 
         
-        
-
+       
 
 	return render_to_response(template_name, {
 		"adminposts": adminposts, 'posts':posts,
