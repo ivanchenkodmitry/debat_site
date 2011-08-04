@@ -19,15 +19,7 @@ def homepage_view (request, template_name = "homepage.html"):
         paginator = Paginator(posts, 3)
 
         
-        try: page = int(request.GET.get("page", '1'))
-        except ValueError: page = 1
-
-        try:
-            posts = paginator.page(page)
-        except (InvalidPage, EmptyPage):
-            posts = paginator.page(paginator.num_pages)
-
-
+        
 	
 		
 		
@@ -35,13 +27,7 @@ def homepage_view (request, template_name = "homepage.html"):
         adminpaginator = Paginator(adminposts, 3)
 
         
-        try: page = int(request.GET.get("page", '2'))
-        except ValueError: page = 1
-
-        try:
-            adminposts = adminpaginator.page(page)
-        except (InvalidPage, EmptyPage):
-            adminposts = adminpaginator.page(paginator.num_pages)
+        
 
 
 	return render_to_response(template_name, {
