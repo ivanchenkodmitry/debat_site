@@ -11,63 +11,39 @@
 		{% include "widgets.html" %}
 
 <style>    div.date {text-align: right;}
+div.body {padding-top: 0px;  
+        padding-right: 0px;  
+      
+      padding-bottom: 10px; }
   </style>  
 
 <h2>Новини </h2>
 <ul>
-            {% for adminpost in adminposts.object_list %}
-                <div class="title">{{ adminpost.title }}</div>
+           {% for adminpost in adminposts.object_list %}
+               {% if adminpost.author.is_staff %} 
+         <div class="title"><b>{{ adminpost.title }}</b></div>
                 <ul>
                     <div class="date">{{ adminpost.publish }}</div>
                     <div class="body">{{ adminpost.body|linebreaks }}</div>
-                </ul>
+                </ul>{%endif%}
             {% endfor %}
         </ul>
 
-        <!-- Next/Prev page links  -->
-       <div class="pagination" style="margin-top: 20px; margin-left: -20px; ">
-            <span class="step-links">
-                {% if posts.has_previous %}
-                    <a href= "?page={{ posts.previous_page_number }}">Новіші &lt;&lt; </a>
-                {% endif %}
-
-                <span class="current">
-                    &nbsp;Page {{ posts.number }} of {{ posts.paginator.num_pages }}
-                </span>
-
-                {% if posts.has_next %}
-                    <a href="?page={{ posts.next_page_number }}"> &gt;&gt; Старіші</a>
-                {% endif %}
-            </span>
-        </div>
+        
 <h2>Новини користувачів</h2>
 <ul>
-            {% for post in posts.object_list %}
-                <div class="title">{{ post.title }}</div>
+            {% for post in posts.object_list %}{% if not post.author.is_staff %}
+                <div class="title"><b>{{ post.title }}</b></div>
                 <ul>
+                    
+                    <div class = "author"><a href="{% url profile_detail post.author %}"> {{ post.author }} </a> </div>
                     <div class="date">{{ post.publish }}</div>
-                    <div class="author">{{ post.author }}</div>
-                    <div class="body">{{ post.body|linebreaks }}</div>
-                </ul>
+		    <div class="body">{{ post.body|linebreaks }}</div>
+                </ul>{%endif%}
             {% endfor %}
         </ul>
 
-        <!-- Next/Prev page links  -->
-       <div class="pagination" style="margin-top: 20px; margin-left: -20px; ">
-            <span class="step-links">
-                {% if posts.has_previous %}
-                    <a href= "?page={{ posts.previous_page_number }}">Новіші &lt;&lt; </a>
-                {% endif %}
-
-                <span class="current">
-                    &nbsp;Page {{ posts.number }} of {{ posts.paginator.num_pages }}
-                </span>
-
-                {% if posts.has_next %}
-                    <a href="?page={{ posts.next_page_number }}"> &gt;&gt; Старіші</a>
-                {% endif %}
-            </span>
-        </div>
+       
 
 
 
