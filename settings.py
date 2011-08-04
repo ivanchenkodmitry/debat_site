@@ -221,15 +221,14 @@ ACCOUNT_EMAIL_AUTHENTICATION = False
 ACCOUNT_UNIQUE_EMAIL = EMAIL_CONFIRMATION_UNIQUE_EMAIL = False
 EMAIL_CONFIRMATION_DAYS = 2
 EMAIL_DEBUG = DEBUG
-<<<<<<< HEAD
 
 CONTACT_EMAIL = "emailfordevelop@gmail.com"
 
 SITE_NAME = "Pinax"
-=======
+
 CONTACT_EMAIL = 'emailfordevelop@gmail.com'
 SITE_NAME = "Debats"
->>>>>>> bogdan_dev
+
 LOGIN_URL = "/account/login/"
 LOGIN_REDIRECT_URLNAME = "what_next"
 
