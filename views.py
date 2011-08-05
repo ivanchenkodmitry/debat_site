@@ -11,13 +11,8 @@ from events.models import Event
 
 def homepage_view (request, template_name = "homepage.html"):
         
-<<<<<<< HEAD
-	posts = Post.objects.filter(status2=1).order_by("-publish")
-        paginator = Paginator(posts, 3)
-		
-        adminposts = Post.objects.filter(status2=1).order_by("-publish")
-        adminpaginator = Paginator(adminposts, 3)
-
+        adminposts = Post.objects.filter(author__is_superuser=True, status2=1).order_by("-publish")
+        posts = Post.objects.filter(author__is_superuser=False,status2=1).order_by("-publish")
         
 	events = Event.objects.order_by("title")       
 
@@ -26,13 +21,4 @@ def homepage_view (request, template_name = "homepage.html"):
 		'posts':posts,
 		'events': events,
 		}, context_instance=RequestContext(request))
-=======
-	adminposts = Post.objects.filter(status2=1).order_by("-publish")[0:4]
-        posts = Post.objects.filter(status2=1).order_by("-publish")[0:7]
-        
 
-
-	return render_to_response(template_name, {
-		"adminposts": adminposts, "posts":posts,
-		}, context_instance=RequestContext(request))
->>>>>>> bogdan_dev

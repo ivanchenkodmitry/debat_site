@@ -2,7 +2,7 @@
 
 {% load i18n %}
 {% load ifsetting_tag %}
-{% load endless %}
+
 
 {% block head_title %}{% trans "Welcome" %}{% endblock %}
 
@@ -22,13 +22,13 @@ div.body {padding-top: 0px;
 
 <ul>
 
-           {% for adminpost in adminposts %}
-               {% if adminpost.author.is_staff %} 
+           {% for adminpost in adminposts|slice:":3" %}
+               
          <div class="title"><b>{{ adminpost.title }}</b></div>
                 <ul>
                     <div class="date">{{ adminpost.publish }}</div>
                     <div class="body">{{ adminpost.body|linebreaks }}</div>
-                </ul>{%endif%}
+                </ul>
             {% endfor %}
         </ul>
 
@@ -37,15 +37,15 @@ div.body {padding-top: 0px;
 <ul>
 
 
-{% for post in posts %}
-{% if not post.author.is_staff %}
+{% for post in posts|slice:":3" %}
+
                 <div class="title"><b>{{ post.title }}</b></div>
                 <ul>
                     
                     <div class = "author"><a href="{% url profile_detail post.author %}"> {{ post.author }} </a> </div>
                     <div class="date">{{ post.publish }}</div>
 		    <div class="body">{{ post.body|linebreaks }}</div>
-                </ul>{%endif%}
+                </ul>
             {% endfor %}
         </ul>
 
