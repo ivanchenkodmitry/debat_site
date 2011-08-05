@@ -285,4 +285,4 @@ try:
     from local_settings import *
 except ImportError:
     pass
-ENDLESS_PAGINATION_PER_PAGE = 30
+ENDLESS_PAGINATION_PER_PAGE = 3

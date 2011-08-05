@@ -9,8 +9,8 @@ from blog.models import Post
 
 def homepage_view (request, template_name = "homepage.html"):
         
-	adminposts = Post.objects.filter(status2=1).order_by("-publish")[0:4]
-        posts = Post.objects.filter(status2=1).order_by("-publish")[0:7]
+	adminposts = Post.objects.filter(author__is_superuser=True, status2=1).order_by("-publish")
+        posts = Post.objects.filter(author__is_superuser=False,status2=1).order_by("-publish")
         
 
 

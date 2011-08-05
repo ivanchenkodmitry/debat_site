@@ -40,6 +40,9 @@ def post(request, username, year, month, slug,
     post = Post.objects.filter(slug=slug, publish__year=int(year), publish__month=int(month)).filter(author__username=username)
     if not post:
         raise Http404
+    
+
+
 
     if post[0].status == 1 and post[0].author != request.user:
         raise Http404
@@ -78,10 +81,13 @@ def new(request, form_class=BlogForm, template_name="blog/new.html"):
     if request.method == "POST":
         if request.POST["action"] == "create":
             blog_form = form_class(request.user, request.POST, request.FILES)
-    
+            
             if blog_form.is_valid():
                 blog = blog_form.save(commit=False)
                 blog.author = request.user
+               
+                if blog.author.is_superuser:
+                    blog.status2 = 1
                 if getattr(settings, 'BEHIND_PROXY', False):
                     blog.creator_ip = request.META["HTTP_X_FORWARDED_FOR"]
                 else:
