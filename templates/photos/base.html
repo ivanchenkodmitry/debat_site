@@ -8,6 +8,8 @@
 {% block subnav %}
     {% if user.is_authenticated %}
         <ul>
+                   
+            <li><a href="/photos/photoset">{% trans "Create Gallery" %}</a></li>
             <li><a href="{% groupurl photos group %} ">{% trans "Latest Photos" %}</a></li>
             <li><a href="{% groupurl photos_yours group %}">{% trans "Your Photos" %}</a></li>
             <li><a href="{% groupurl photo_upload group %}">{% trans "Upload a Photo" %}</a></li>

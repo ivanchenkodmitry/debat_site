@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.conf import settings
 from django.db import models
 
+
 if "notification" in settings.INSTALLED_APPS:
   from notification import models as notification
 else:
@@ -19,7 +20,7 @@ class PostAdmin(admin.ModelAdmin):
     list_display        = ('title', 'author', 'publish', 'status2')
     list_filter         = ('publish', 'status')
     search_fields       = ('title', 'body', 'tease')
-    prepopulated_fields = {'slug': ('title',)}
+    #prepopulated_fields = {'slug': ('title',)}
     
     def save_model(self, request, obj, form, change):
       if notification:

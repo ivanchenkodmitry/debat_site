@@ -80,7 +80,7 @@ def destroy(request, id):
 def new(request, form_class=BlogForm, template_name="blog/new.html"):
     if request.method == "POST":
         if request.POST["action"] == "create":
-            blog_form = form_class(request.user, request.POST, request.FILES)
+            blog_form = form_class(request.user, request.FILES, request.POST)
             
             if blog_form.is_valid():
                 blog = blog_form.save(commit=False)

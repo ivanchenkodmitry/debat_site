@@ -10,7 +10,7 @@
 {% load comments_tag %}
 {% load avatar_tags %}
 
-{% block head_title %}{% blocktrans %}Club Details{% endblocktrans %}{% endblock %}
+{% block head_title %}{% blocktrans %}Деталі клубу{% endblocktrans %}{% endblock %}
 
 
 
@@ -19,7 +19,7 @@
 {% block body %}
 
     <div class="right_panel">
-        {% include "clubs/map.html" %}
+        {% include "map.html" %}
     </div>
     
       <div class="left_panel">
@@ -37,8 +37,8 @@
 	<div id="div_id_university" class="ctrlHolder">
 	           <label for="id_university">                    
 	                   Університет:
-	           </label>
-      {{ club.university }}
+	           </label><a href="/universities/{{ university.title }}">   {{ club.university }}  </a>  
+     
     </div>
 
 	<div id="div_id_address" class="ctrlHolder">

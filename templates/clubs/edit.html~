@@ -6,52 +6,26 @@
 
 {% block body_param %} onload="initialize()" {% endblock %}
 {% block body %}
-   <div class="right_panel">
-        {% include "clubs/map.html" %}
+ {% ifequal club.admin request.user %}  
+ <div class="right_panel">
+        {% include "map.html" %}
     </div>
+<input type="button" value="Geocode" onclick="codeAddress()">
     
 <div class="left_panel">
-    <h1>Редагувати клуб</h1>
-    <form class="uniForm" id="edit-profile" method="POST" enctype="multipart/form-data" action="" >
+  
+    <form class="uniForm" id="edit-profile" method="POST" action="">
         <fieldset class="inlineLabels">
-
-
-       <div id="div_id_title" class="ctrlHolder">
-	                <label for="id_title">                    
-	                    Назва*
-	                </label>
-	            <input id="id_title" type="text" class="textinput" name="title" maxlength="200" value="{{ club.title }}"/>
-        </div>
-	
-
-        <div id="div_id_university" class="ctrlHolder">
-	                <label for="id_university">                    
-	                    Університет*
-	                </label>
-	            <input id="id_university" type="text" class="textinput" name="university"  value="{{ club.university }}" />
-        </div>
-
-
-        <div id="date" class="ctrlHolder">
-		    <input id="id_date" type="text" class="textinput" name="date" maxlength="200" value="{{ club.date }}" />
-	                <label for="id_date">                    
-	                    Date*
-	                </label></div>
-	            		
-        <div id="address" class="ctrlHolder">
-		    <input id="id_address" type="text" class="textinput" name="address" maxlength="200" value="{{ club.address }}"/>
-    		<input type="button" value="Geocode" onclick="codeAddress()">
-	                <label for="id_address">                    
-	                   Address*
-	                </label></div>
-		    <input id="id_location" type="hidden" class="textinput" name="location" maxlength="200" value = "(48.464954, 35.044956)"/>
-
+            {{ club_form|as_uni_form }}
             <div class="form_block">
-                <input type="hidden" name="action" value="Edit" />
-                <input type="submit" value="{% trans "Редагувати" %}" />
+            <input type="hidden" name="action" value="update" />
+            <input type="submit" value="{% trans "Update" %}"/>
             </div>
         </fieldset>
     </form>
+    {% else %}
+    <p>{% trans "Ви не адміністратор клубу" %}</p>
+    {% endifequal %}
 </div>
 
 {% endblock %}

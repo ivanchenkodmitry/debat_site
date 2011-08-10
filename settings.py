@@ -190,6 +190,9 @@ INSTALLED_APPS = (
     'endless_pagination',
 #   'publicauth',
     'django.contrib.admin',
+    'universities',
+   
+   
     
 )
 
@@ -293,4 +296,4 @@ try:
     from local_settings import *
 except ImportError:
     pass
-ENDLESS_PAGINATION_PER_PAGE = 3
+

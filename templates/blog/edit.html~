@@ -3,7 +3,7 @@
 {% load i18n %}
 {% load uni_form %}
 
-{% block head_title %}{% blocktrans %}Editing Post{% endblocktrans %}{% endblock %}
+{% block head_title %}{% blocktrans %}Редагування новин{% endblocktrans %}{% endblock %}
 
 {% block body %}
     {% ifequal post.author request.user %}
@@ -11,7 +11,7 @@
         <fieldset class="inlineLabels">
             {{ blog_form|as_uni_form }}
             <div class="form_block">
-            <input type="hidden" name="action" value="update" />
+         
             <input type="submit" value="{% trans "Update" %}"/>
             </div>
         </fieldset>
