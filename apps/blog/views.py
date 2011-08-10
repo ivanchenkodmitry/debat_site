@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import datetime
 from django.shortcuts import render_to_response, get_object_or_404
-from django.http import HttpResponseRedirect, Http404
+from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.views.generic import date_based
 from django.conf import settings
+from photologue.models import Photo
 
 from blog.models import Post
 from blog.forms import *
@@ -140,3 +141,22 @@ def edit(request, id, form_class=BlogForm, template_name="blog/edit.html"):
         "blog_form": blog_form,
         "post": post,
     }, context_instance=RequestContext(request))
+
+
+def upload_photo(request):
+    photo = Photo()
+    photo.image = request.FILES['photoToUpload']
+    photo.save()
+
+    response = '''<!DOCTYPE HTML>
+        <html>
+        <head></head>
+        <body>
+            <script language="javascript" type="text/javascript">
+               window.top.window.stopUpload(1);
+            </script>
+        </body>
+        </html>   
+    '''
+    
+    return HttpResponse(response)
