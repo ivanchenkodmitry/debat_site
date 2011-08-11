@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import datetime
+import datetime, time
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.template import RequestContext
@@ -144,7 +144,9 @@ def edit(request, id, form_class=BlogForm, template_name="blog/edit.html"):
 
 
 def upload_photo(request):
-    photo = Photo()
+    photo_title = "photo_title_%.20f" % time.time()
+    photo_title.replace('.', '_')
+    photo = Photo(title = photo_title, title_slug = photo_title)
     photo.image = request.FILES['photoToUpload']
     photo.save()
 
@@ -153,10 +155,11 @@ def upload_photo(request):
         <head></head>
         <body>
             <script language="javascript" type="text/javascript">
+                alert('%s');
                window.top.window.stopUpload(1);
             </script>
         </body>
         </html>   
-    '''
+    ''' % photo.image.path
     
     return HttpResponse(response)
