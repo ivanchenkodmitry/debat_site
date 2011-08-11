@@ -131,7 +131,7 @@ def events(request, template_name="events/latest.html"):
 	"""
 	latest ivents
 	"""
-	events = Event.objects.order_by("title")
+	events = Event.objects.order_by("-date")
     
 	return render_to_response(template_name, {
 		"events": events,
