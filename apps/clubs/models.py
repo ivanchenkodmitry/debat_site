@@ -8,7 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 
 class Members(models.Model):
 	user = models.ForeignKey(User)
-	approved = models.BooleanField(u'Підтвердити')
+	approved = models.BooleanField(u'Підтвердити', default = False)
     
 	def __unicode__(self):
 		return self.user.username
@@ -25,7 +25,7 @@ class Club(models.Model):
     date = models.DateField(_(u'Дата створення'), default=datetime.now)
     address = models.TextField(_(u'Адреса'), blank=True)
     admin = models.ForeignKey(User)
-    candidates = models.ManyToManyField(Members, related_name='%(class)s_candidates', blank=True)
+    
     members = models.ManyToManyField(Members, related_name='%(class)s_members', verbose_name=u"члени", blank=True)
     location = models.CharField(_(u'Місцезнаходження'), max_length=200)
 	

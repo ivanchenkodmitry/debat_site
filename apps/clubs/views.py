@@ -11,6 +11,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
 
+
+
 from clubs.models import Club
 from clubs.models import Members
 from universities.models import University
@@ -50,7 +52,7 @@ def details(request, id, template_name="clubs/details.html"):
 	if request.user == club.admin:
 		is_me = 'True'
 
-	members = club.members.all()
+	members = club.members.filter(approved=True)
 	for member in members:
 		if member.user == request.user:
 			is_member = True
@@ -129,16 +131,17 @@ def join(request, id, template_name="clubs/details.html"):
 	if is_member:
 		pass
 	else:
-		candidate = Members()
-		candidate.user = request.user
-		candidate.save()
+		member = Members()
+		member.user = request.user
+		member.save()
 
-		club.candidates.add(member)
+		club.members.add(member)
 		club.save()
 
-	include_kwargs = {"id": club.id}
-	redirect_to = reverse("club_details", kwargs=include_kwargs)
-	return HttpResponseRedirect(redirect_to)
+
+	return HttpResponseRedirect('/clubs/newmember/')
+
+
 
 @login_required
 def leave(request, id, template_name="club/details.html"):
