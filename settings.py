@@ -274,6 +274,8 @@ FORCE_LOWERCASE_TAGS = True
 
 WIKI_REQUIRES_LOGIN = True
 
+PHOTOLOGUE_DIR = os.path.join(PROJECT_ROOT, 'site_media', 'media', 'photologue')
+
 #Login via Vkontakte.ru
 
 VKONTAKTE_APP_ID = '2428870'

@@ -11,6 +11,7 @@ from django.views.generic import date_based
 from django.conf import settings
 from photologue.models import Photo
 
+
 from blog.models import Post
 from blog.forms import *
 
@@ -106,9 +107,13 @@ def new(request, form_class=BlogForm, template_name="blog/new.html"):
             blog_form = form_class()
     else:
         blog_form = form_class()
+        
+    
+    photo_form = PhotoForm()
 
     return render_to_response(template_name, {
-        "blog_form": blog_form
+        "blog_form": blog_form,
+        "photo_form": photo_form,
     }, context_instance=RequestContext(request))
 
 @login_required
@@ -146,10 +151,15 @@ def edit(request, id, form_class=BlogForm, template_name="blog/edit.html"):
 def upload_photo(request):
     photo_title = "photo_title_%.20f" % time.time()
     photo_title.replace('.', '_')
-    photo = Photo(title = photo_title, title_slug = photo_title)
-    photo.image = request.FILES['photoToUpload']
-    photo.save()
-
+    photo_form = PhotoForm(request.POST, request.FILES)
+    if photo_form.is_valid():
+        photo = photo_form.save(commit = False)
+        photo.title = photo_title
+        photo.title_slug = photo_title
+        photo.save()
+        msg = photo.image.path
+    else:
+        msg = 'Not so good ('
     response = '''<!DOCTYPE HTML>
         <html>
         <head></head>
@@ -160,6 +170,6 @@ def upload_photo(request):
             </script>
         </body>
         </html>   
-    ''' % photo.image.path
+    ''' % msg
     
     return HttpResponse(response)

@@ -31,7 +31,7 @@
 </p>
 
 <form action="/blog/upload/photo" method="post" enctype="multipart/form-data" target="upload_target" id="upload_photo_form" >
-    Оберіть фото: <input name="photoToUpload" type="file" class="uploadphoto" />
+    Оберіть фото: {{photo_form|as_uni_form}}
 </form>
 </div>
 
@@ -41,7 +41,7 @@
 
 <script type="text/javascript">
 
-	$('.uploadphoto').change(function(){
+	$('#id_image').change(function(){
 		$('#photo_upload_process').show();
 		$('#upload_photo_form').submit();
 	});
