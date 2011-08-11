@@ -16,8 +16,7 @@ urlpatterns = patterns('',
     url(r'^destroy/(?P<id>\d+)/$', 'photos.views.destroy', name='photo_destroy'),
     #edit photo
     url(r'^edit/(?P<id>\d+)/$', 'photos.views.edit', name='photo_edit'),
-    # create photoset
-    url(r'^photoset/$', 'photos.views.create', name="photoset"),
+   
  
     
 )
