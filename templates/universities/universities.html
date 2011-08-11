@@ -1,0 +1,35 @@
+{% extends "universities/base.html" %}
+
+{% load i18n %}
+{% load humanize %}
+{% load pagination_tags %}
+{% load tagging_tags %}
+{% load group_tags %}
+{% load threadedcommentstags %}
+{% load theme_tags %}
+
+
+
+{% block body %}
+<style>   
+div.body {padding-top: 10px;  
+        padding-right: 0px;  
+      
+      padding-bottom: 0px; }
+  </style>  
+    
+    <h1>Університети</h1>
+    
+	
+        {% for university in universities %}
+
+		<div class='title'> <h2>{{ university.title }}</h2></div>
+ Адреса: {{ university.address }} <br> 
+Вебсайт:{{ university.site }}         
+		{% endfor %}
+        
+	
+
+    
+    
+{% endblock %}
