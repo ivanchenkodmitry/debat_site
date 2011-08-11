@@ -22,23 +22,19 @@ else:
 
 class Post(models.Model):
     """Post model."""
-    STATUS_CHOICE = (
-    (0, u'Не підтверджено'),
-    (1, u'Підтверджено'),
-)
+
     STATUS_CHOICES = (
         (1, _(u'Чорновик')),
         (2, _(u'Опубліковано')),
     )
     title           = models.CharField(u'Назва', max_length=200)
     slug            = models.SlugField()
-    image           = ImageModel()
-
+   
     author          = models.ForeignKey(User, related_name="added_posts")
     creator_ip      = models.IPAddressField(_(u"IP адреса автора повідомлення"), blank=True, null=True)
     body            = models.TextField(_(u'Повідомлення'))
     status          = models.IntegerField(_(u'Статус'), choices=STATUS_CHOICES, default=2)
-    status2         = models.IntegerField(_(u'Підтвердження'), choices=STATUS_CHOICE, default=0)
+    status2         = models.BooleanField(_(u'Підтвердити'), default=False)
     allow_comments  = models.BooleanField(_(u'Дозволити коментарі'), default=True)
     publish         = models.DateTimeField(_(u'Опубліковано '), default=datetime.now)
     created_at      = models.DateTimeField(_(u'Створено'), default=datetime.now)
