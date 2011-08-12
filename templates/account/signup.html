@@ -6,9 +6,63 @@
 {% block head_title %}{% trans "Signup" %}{% endblock %}
 {% block extra_head %}
 
+    
+    <script src="http://vkontakte.ru/js/api/openapi.js" type="text/javascript" charset="windows-1251"></script>
+    <script type="text/javascript">
+    VK.init({
+        apiId: 2428870,
+        nameTransportPath: '{% url publicauth-vkontakte-xdreceiver %}'
+    });
+     
+    function vk_login() {
+        VK.Auth.login(testMe);
+        return false;
+    }
+
+	function vk_signup(){
+        VK.Auth.login(addProfile);
+        return false;	
+
+	}
+
+function testMe(response) {
+    if (response.status == "connected") {
+        window.location = "{% url publicauth-complete 'vkontakte' %}"
+    }
+};
+
+            function addProfile(response){
+
+                if (response.status == "connected"){
+                    $.ajax({
+                        dataType: "json",
+                        url: "/auth/vk_signup/",
+                        success: function(response){
+                            if (response.success){
+                               $("#id_vk_id").val(response.vk_id);
+                               $("#id_surname").val(response.surname);
+                               $("#id_name").val(response.name);
+                               $("#id_birth_date").val(response.birth_date);
+                               $("#id_website").val(response.website);
+                               $("#id_education").val(response.education);
+                            }
+							else {
+								window.location.reload();
+							}
+
+                        }    
+                    });
+                }
+            }
+
+    </script>
+
 
 {% endblock %}
 {% block body %}
+    <a onclick="return vk_login();" href="#">Вконтакте.login</a>
+    <a onclick="return vk_signup();" href="#">Вконтакте.signup</a>
+
     <h1>{% trans "Реєстрація нового члена ВМГО «ФДУ»" %}</h1>
     
     {% if user.is_authenticated %}
@@ -41,7 +95,9 @@
         {% endif %}
     {% endif %}
 
-<a onclick="return vk_login();" href="#">получить ид ВК</a>
+
+
+
 {% endblock %}
 
 {% block extra_body %}
@@ -57,7 +113,7 @@
 
 		<link type="text/css" href="{{ STATIC_URL }}pinax/css/jquery-ui-1.8.14.custom.css" rel="stylesheet" />	
    		<script type="text/javascript" src="{{ STATIC_URL }}pinax/js/topics.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}pinax/js/jquery-1.5.1.min.js"></script>
+
 		<script type="text/javascript" src="{{ STATIC_URL }}pinax/js/jquery-ui-1.8.14.custom.min.js"></script>
 
 <script type="text/javascript">

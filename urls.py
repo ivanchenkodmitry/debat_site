@@ -39,6 +39,7 @@ urlpatterns = patterns('',
 
     url(r'^admin/invite_user/$', 'signup_codes.views.admin_invite_user', name="admin_invite_user"),
     url(r'^account/signup/$', signup_view, name="acct_signup"),
+    url(r'^auth/', include('publicauth.urls')),
     
     (r'^about/', include('about.urls')),
     (r'^account/', include('account.urls')),
@@ -58,14 +59,17 @@ urlpatterns = patterns('',
     (r'^robots.txt$', include('robots.urls')),
     (r'^i18n/', include('django.conf.urls.i18n')),
     (r'^bookmarks/', include('bookmarks.urls')),
-#    (r'^admin/(.*)', admin.site.root),
     (r'^admin/', include(admin.site.urls)),
+#    (r'^admin/(.*)', admin.site.root),
     (r'^photos/', include('photos.urls')),
     (r'^avatar/', include('avatar.urls')),
     (r'^swaps/', include('swaps.urls')),
     (r'^events/', include('events.urls')),
     (r'^locations/', include('locations.urls')),
     (r'^clubs/', include('clubs.urls')),
+
+
+
     
     (r'^feeds/tweets/(.*)/$', 'django.contrib.syndication.views.feed', tweets_feed_dict),
     (r'^feeds/posts/(.*)/$', 'django.contrib.syndication.views.feed', blogs_feed_dict),

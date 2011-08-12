@@ -11,7 +11,6 @@ try:
 except ImportError:
    pass
 
-
 PINAX_ROOT = os.path.abspath(os.path.dirname(pinax.__file__))
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
@@ -84,6 +83,7 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'annoying.middlewares.RedirectMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -95,7 +95,7 @@ MIDDLEWARE_CLASSES = (
     'djangodblog.middleware.DBLogMiddleware',
     'pinax.middleware.security.HideSensistiveFieldsMiddleware',
     'django.middleware.transaction.TransactionMiddleware',
-#    'annoying.middlewares.RedirectMiddleware',
+
 )
 
 ROOT_URLCONF = 'debat_site.urls'
@@ -187,10 +187,17 @@ INSTALLED_APPS = (
     'events',
     'clubs',
     'recaptcha',
+    'publicauth',
+    'vkontakte',
 
-#   'publicauth',
     'django.contrib.admin',
 
+)
+
+AUTHENTICATION_BACKENDS = (
+    'debat_site.backends.EmailAuthBackEnd',
+#    'debat_site.backends.VkAuthBackEnd',
+    'django.contrib.auth.backends.ModelBackend',
 )
 
 ABSOLUTE_URL_OVERRIDES = {
@@ -206,7 +213,7 @@ MARKUP_CHOICES = (
 )
 WIKI_MARKUP_CHOICES = MARKUP_CHOICES
 
-DEFAULT_FROM_EMAIL = 'Your Site <emailfordevelop@gmail.com>'
+DEFAULT_FROM_EMAIL = 'Debat Site <emailfordevelop@gmail.com>'
 
 AUTH_PROFILE_MODULE = 'profiles.Profile'
 NOTIFICATION_LANGUAGE_MODULE = 'account.Account'
@@ -226,12 +233,9 @@ CONTACT_EMAIL = "emailfordevelop@gmail.com"
 
 SITE_NAME = "Pinax"
 
-CONTACT_EMAIL = 'emailfordevelop@gmail.com'
-SITE_NAME = "Debats"
-
 LOGIN_URL = "/account/login/"
 LOGIN_REDIRECT_URLNAME = "what_next"
-
+LOGIN_REDIRECT_URL = '/'
 INTERNAL_IPS = (
     '127.0.0.1',
 )
