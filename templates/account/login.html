@@ -5,7 +5,37 @@
 {% load ifsetting_tag %}
 
 {% block head_title %}{% trans "Login" %}{% endblock %}
+{% block extra_head %}
 
+    
+    <script src="http://vkontakte.ru/js/api/openapi.js" type="text/javascript" charset="windows-1251"></script>
+    <script type="text/javascript">
+    VK.init({
+        apiId: 2428870,
+        nameTransportPath: '{% url home %}'
+    });
+     
+    function vk_login() {
+        VK.Auth.login(login);
+        return false;
+    }
+
+            function login(response){
+
+                if (response.status == "connected"){
+                    $.ajax({
+                        dataType: "json",
+                        url: "/account/vk_login/",
+                        success: function(response){
+								window.location.assign(response.redirect);
+							}
+                    });
+                }
+            }
+    </script>
+
+
+{% endblock %}
 {% block body %}
     
 
@@ -16,6 +46,7 @@
         <fieldset class="inlineLabels">
             <div class="form_block">
                 <a href="{% url acct_passwd_reset %}">{% trans "Forgot password?" %}</a>
+    			<a onclick="return vk_login();" href="#">Войти используя аккаунт Вконтакте</a>
             </div>
             {{ form|as_uni_form }}
             <div class="form_block">

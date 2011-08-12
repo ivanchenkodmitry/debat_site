@@ -4,29 +4,23 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 
 from blog.models import Post
-from photologue.models import Photo
-
-
-class PhotoForm(forms.ModelForm):
-    class Meta:
-        model = Photo
-        exclude = ('title', 'title_slug', 'caption', 'is_public', 'tags', 'date_added', 'crop_from', 'effect')
 
 class BlogForm(forms.ModelForm):
     
-    '''slug = forms.SlugField( max_length=20,
+    slug = forms.SlugField( max_length=20,
         help_text = _("коротка назва, лише латинські букви, цифри, підчеркування і тире"),
-        error_message = _("Тут можуть бути лише латинські букви, цифри, підчеркування і тире"))'''
+		error_messages={'invalid': u'Тут можуть бути лише латинські букви, цифри, підчеркування і тире.'})
+#        error_messages = _("Тут можуть бути лише латинські букви, цифри, підчеркування і тире"))
     
     class Meta:
         model = Post
-        exclude = ('author', 'creator_ip', 'created_at', 'updated_at', 'publish', 'status2', 'allow_comments', 'slug')
+        exclude = ('author', 'creator_ip', 'created_at', 'updated_at', 'publish', 'status2', 'allow_comments')
     
     def __init__(self, user=None, *args, **kwargs):
         self.user = user
         super(BlogForm, self).__init__(*args, **kwargs)
     
-''' def clean_slug(self):
+    def clean_slug(self):
         if not self.instance.pk:
             if Post.objects.filter(author=self.user, created_at__month=datetime.now().month, created_at__year=datetime.now().year, slug=self.cleaned_data['slug']).count():
                 raise forms.ValidationError(u'This field must be unique for username, year, and month')
@@ -37,4 +31,4 @@ class BlogForm(forms.ModelForm):
                 raise forms.ValidationError(u'This field must be unique for username, year, and month')
         except Post.DoesNotExist:
             pass
-        return self.cleaned_data['slug']'''
+        return self.cleaned_data['slug']
