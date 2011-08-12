@@ -67,13 +67,8 @@ urlpatterns = patterns('',
     (r'^events/', include('events.urls')),
     (r'^locations/', include('locations.urls')),
     (r'^clubs/', include('clubs.urls')),
-<<<<<<< HEAD
-
-
-
-=======
     (r'^universities/', include('universities.urls')),
->>>>>>> master
+
     
     (r'^feeds/tweets/(.*)/$', 'django.contrib.syndication.views.feed', tweets_feed_dict),
     (r'^feeds/posts/(.*)/$', 'django.contrib.syndication.views.feed', blogs_feed_dict),
