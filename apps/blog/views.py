@@ -157,19 +157,18 @@ def upload_photo(request):
         photo.title = photo_title
         photo.title_slug = photo_title
         photo.save()
-        msg = photo.image.path
+        callback_script = "window.top.window.stopUpload(0, %s, '%s');" % (photo.id, photo.get_thumbnail_url())
     else:
-        msg = 'Not so good ('
+        callback_script = "window.top.window.stopUpload(1);";
     response = '''<!DOCTYPE HTML>
         <html>
         <head></head>
         <body>
             <script language="javascript" type="text/javascript">
-                alert('%s');
-               window.top.window.stopUpload(1);
+               %s
             </script>
         </body>
         </html>   
-    ''' % msg
+    ''' % callback_script
     
     return HttpResponse(response)
