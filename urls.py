@@ -40,6 +40,7 @@ urlpatterns = patterns('',
     url(r'^admin/invite_user/$', 'signup_codes.views.admin_invite_user', name="admin_invite_user"),
     url(r'^account/signup/$', signup_view, name="acct_signup"),
     
+    (r'^photologue/', include('photologue.urls')),
     (r'^about/', include('about.urls')),
     (r'^account/', include('account.urls')),
     (r'^openid/(.*)', PinaxConsumer()),
@@ -66,9 +67,13 @@ urlpatterns = patterns('',
     (r'^events/', include('events.urls')),
     (r'^locations/', include('locations.urls')),
     (r'^clubs/', include('clubs.urls')),
+<<<<<<< HEAD
 
 
 
+=======
+    (r'^universities/', include('universities.urls')),
+>>>>>>> master
     
     (r'^feeds/tweets/(.*)/$', 'django.contrib.syndication.views.feed', tweets_feed_dict),
     (r'^feeds/posts/(.*)/$', 'django.contrib.syndication.views.feed', blogs_feed_dict),

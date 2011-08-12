@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.conf.urls.defaults import *
+from django.views.generic.simple import direct_to_template
+
 
 urlpatterns = patterns('',
 
@@ -19,4 +21,6 @@ urlpatterns = patterns('',
     url(r'^leave/(?P<id>\d+)/$', 'clubs.views.leave', name='club_leave'),
     # Map
     url(r'^map/$', 'clubs.views.map', name="map"),
+    (r'^newmember/$',  direct_to_template, {'template': 'clubs/newmember.html'}),
+
 )

@@ -11,6 +11,8 @@ from django.contrib.contenttypes import generic
 from tagging.fields import TagField
 from tagging.models import Tag
 from photologue.models import *
+from pytils.translit import slugify
+
 
 if "notification" in settings.INSTALLED_APPS:
     from notification import models as notification
@@ -20,31 +22,25 @@ else:
 
 class Post(models.Model):
     """Post model."""
-    STATUS_CHOICE = (
-    (0, u'Не підтверджено'),
-    (1, u'Підтверджено'),
-)
+
     STATUS_CHOICES = (
         (1, _(u'Чорновик')),
         (2, _(u'Опубліковано')),
     )
-    title        = models.CharField(u'Назва', max_length=200)
+    title           = models.CharField(u'Назва', max_length=200)
     slug            = models.SlugField()
+   
     author          = models.ForeignKey(User, related_name="added_posts")
     creator_ip      = models.IPAddressField(_(u"IP адреса автора повідомлення"), blank=True, null=True)
     body            = models.TextField(_(u'Повідомлення'))
-    
-    tease           = models.TextField(_('tease'), blank=True)
     status          = models.IntegerField(_(u'Статус'), choices=STATUS_CHOICES, default=2)
-    status2         = models.IntegerField(_(u'Підтвердження'), choices=STATUS_CHOICE, default=0)
+    status2         = models.BooleanField(_(u'Підтвердити'), default=False)
     allow_comments  = models.BooleanField(_(u'Дозволити коментарі'), default=True)
     publish         = models.DateTimeField(_(u'Опубліковано '), default=datetime.now)
     created_at      = models.DateTimeField(_(u'Створено'), default=datetime.now)
     updated_at      = models.DateTimeField(_(u'Змінено'))
-    markup          = models.CharField(_(u"Розмітка повідомлення"), max_length=20,
-                              choices=settings.MARKUP_CHOICES,
-                              null=True, blank=True)
     tags            = TagField(u'Теги')
+    
     
     
     class Meta:
@@ -66,6 +62,7 @@ class Post(models.Model):
     get_absolute_url = models.permalink(get_absolute_url)
 
     def save(self, force_insert=False, force_update=False):
+        self.slug=slugify(self.title)
         self.updated_at = datetime.now()
         super(Post, self).save(force_insert, force_update)
         

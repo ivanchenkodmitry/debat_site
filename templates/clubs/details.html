@@ -20,6 +20,7 @@
 
     <div class="right_panel">
         {% include "map.html" %}
+    <input id="id_location" type="hidden" class="textinput" name="location" maxlength="200" value = "(48.464954, 35.044956)"/>
     </div>
     
       <div class="left_panel">
@@ -37,8 +38,8 @@
 	<div id="div_id_university" class="ctrlHolder">
 	           <label for="id_university">                    
 	                   Університет:
-	           </label>
-      {{ club.university }}
+	           </label><a href="/universities/{{ university.id }}">   {{ club.university }}  </a>  
+     
     </div>
 
 	<div id="div_id_address" class="ctrlHolder">
@@ -77,7 +78,7 @@
 	{% endif %}
 
 	{% if is_member %}
-		<a href="/clubs/leave/{{ club.id }}"> <P> Залишити клуб </P> </a>
+		<a href="/clubs/leave/{{ club.id }}"> <P> Покинути клуб </P> </a>
 	{% else %}
 		<a href="/clubs/join/{{ club.id }}"> <P> Приєднатись до клубу </P> </a>
 	{% endif %} 

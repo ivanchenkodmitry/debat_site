@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect, get_host
 from django.template import RequestContext
@@ -11,9 +12,10 @@ from django.contrib.auth.decorators import login_required
 
 from photologue.models import *
 from photos.models import Image, Pool
-from photos.forms import PhotoUploadForm, PhotoEditForm
+from photos.forms import PhotoUploadForm, PhotoEditForm, PhotoSetForm
 
-
+                
+                
 @login_required
 def upload(request, form_class=PhotoUploadForm,
         template_name="photos/upload.html", group_slug=None, bridge=None):

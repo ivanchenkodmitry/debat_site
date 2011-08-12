@@ -190,7 +190,10 @@ INSTALLED_APPS = (
     'vkontakte',
 
     'django.contrib.admin',
-
+    'universities',
+   
+   
+    
 )
 
 AUTHENTICATION_BACKENDS = (
@@ -274,6 +277,13 @@ FORCE_LOWERCASE_TAGS = True
 
 WIKI_REQUIRES_LOGIN = True
 
+PHOTOLOGUE_DIR = os.path.join(PROJECT_ROOT, 'site_media', 'media', 'photologue')
+
+def get_upload_path(instance, filename):
+    return os.path.join('photos', filename)
+
+PHOTOLOGUE_PATH = get_upload_path
+
 #Login via Vkontakte.ru
 
 VKONTAKTE_APP_ID = '2428870'
@@ -296,3 +306,4 @@ try:
     from local_settings import *
 except ImportError:
     pass
+
