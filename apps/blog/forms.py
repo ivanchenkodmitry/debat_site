@@ -4,6 +4,13 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 
 from blog.models import Post
+from photologue.models import Photo
+
+
+class PhotoForm(forms.ModelForm):
+    class Meta:
+        model = Photo
+        exclude = ('title', 'title_slug', 'caption', 'is_public', 'tags', 'date_added', 'crop_from', 'effect')
 
 class BlogForm(forms.ModelForm):
     
