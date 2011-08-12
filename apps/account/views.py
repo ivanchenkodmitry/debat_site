@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.conf import settings
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect, HttpResponseForbidden, Http404
@@ -16,6 +17,13 @@ from account.forms import SignupForm, AddEmailForm, LoginForm, \
     ChangePasswordForm, SetPasswordForm, ResetPasswordForm, \
     ChangeTimezoneForm, ChangeLanguageForm, TwitterForm, ResetPasswordKeyForm
 from emailconfirmation.models import EmailAddress, EmailConfirmation
+
+from django.conf import settings as global_settings
+import vkontakte
+from django.utils import simplejson
+from django.http import HttpResponse
+from django.http import QueryDict
+from django.core.urlresolvers import reverse
 
 association_model = models.get_model('django_openid', 'Association')
 if association_model is not None:
@@ -79,7 +87,57 @@ def signup(request, form_class=SignupForm,
     }, context_instance=RequestContext(request))
 
 
+def vk_data(request):
 
+	success = True
+	vk_cookie = request.COOKIES['vk_app_%s' % global_settings.VKONTAKTE_API_KEY]
+	vk_query = QueryDict(vk_cookie)
+	vk_id = vk_query['mid'] # Here we obtain the user id
+        # After that check if user with this id exits
+	
+	vk = vkontakte.API(global_settings.VKONTAKTE_API_KEY, global_settings.VKONTAKTE_SECRET_KEY)
+
+	user_vk_profile = vk.getProfiles(uids = vk_id, fields = 'uid, first_name, last_name, nickname, domain, sex, bdate, city, country, timezone, photo, photo_medium, photo_big, has_mobile, rate, contacts, education')[0]
+	
+	surname = user_vk_profile['last_name']
+	name = user_vk_profile['first_name']
+	birth_date = user_vk_profile['bdate']
+	website = u'http://vk.com/' + user_vk_profile['domain']
+	education = user_vk_profile['university_name'] + u', факультет '+ user_vk_profile['faculty_name'] + u' год окончания: ' + user_vk_profile['graduation']
+	photo = user_vk_profile['photo_big']
+
+	return HttpResponse(simplejson.dumps({
+				'success': success,
+				'vk_id' : vk_id,
+				'surname' : surname,
+				'name' : name,
+				'birth_date' : birth_date,
+				'website' : website,
+				'education' : education,
+				'photo' : photo,
+				}))
+	
+
+def vk_login(request):
+	success = True
+	vk_cookie = request.COOKIES['vk_app_%s' % global_settings.VKONTAKTE_API_KEY]
+	vk_query = QueryDict(vk_cookie)
+	vk_id = vk_query['mid'] # Here we obtain the user id
+        # After that check if user with this id exits
+	
+	user = authenticate(vk_id=vk_id)
+	if user:
+		redirect = '/'
+		auth_login(request, user)
+		request.user.message_set.create( message=_(u"Успешный логин как %(username)s.") % {'username': user.username })
+	else:
+		redirect = '/account/login'
+		request.user.message_set.create( message=_(u"Пользователь с id %(vk_id)s. yt зарегистрирован") % {'vk_id': vk_id })
+	return HttpResponse(simplejson.dumps({
+				'success': success,
+				'redirect': redirect,
+				'vk_id' : vk_id,
+				}))
 
 
 @login_required

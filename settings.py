@@ -196,7 +196,7 @@ INSTALLED_APPS = (
 
 AUTHENTICATION_BACKENDS = (
     'debat_site.backends.EmailAuthBackEnd',
-#    'debat_site.backends.VkAuthBackEnd',
+    'debat_site.backends.VkAuthBackEnd',
     'django.contrib.auth.backends.ModelBackend',
 )
 

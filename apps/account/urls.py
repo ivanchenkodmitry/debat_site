@@ -28,4 +28,7 @@ urlpatterns = patterns('',
 
     # ajax validation
     (r'^validate/$', 'ajax_validation.views.validate', {'form_class': SignupForm}, 'signup_form_validate'),
+	# get data from vk.com
+    url(r'^vk_getdata/$', 'account.views.vk_data', name = 'vk_getdata'),
+    url(r'^vk_login/$', 'account.views.vk_login', name = 'vk_login'),
 )

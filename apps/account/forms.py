@@ -89,7 +89,7 @@ class SignupForm(forms.Form):
         (0, _('Не можу сплачувати членський внесок')),
     )
     
-#    username = forms.CharField(label=_(u'Логін'),  max_length=30, widget=forms.TextInput())
+    username = forms.CharField(label=_(u'Логін'),  max_length=30, widget=forms.TextInput())
     surname =  forms.CharField(label=_(u'Прізвище'), max_length=200, widget=forms.TextInput())
     name =  forms.CharField(label=_(u'Ім’я'), max_length=200, widget=forms.TextInput())
     middle_name = forms.CharField(label=_(u'По батькові'), max_length=200, widget=forms.TextInput())
@@ -153,7 +153,7 @@ class SignupForm(forms.Form):
         return self.cleaned_data
     
     def save(self):
-        username = self.cleaned_data["email"]
+        username = self.cleaned_data["username"]
         email = self.cleaned_data["email"]
         password = self.cleaned_data["password1"]
 

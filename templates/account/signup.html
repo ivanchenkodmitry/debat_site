@@ -11,11 +11,11 @@
     <script type="text/javascript">
     VK.init({
         apiId: 2428870,
-        nameTransportPath: '{% url publicauth-vkontakte-xdreceiver %}'
+        nameTransportPath: '{% url home %}'
     });
      
     function vk_login() {
-        VK.Auth.login(testMe);
+        VK.Auth.login(login);
         return false;
     }
 
@@ -25,18 +25,31 @@
 
 	}
 
-function testMe(response) {
-    if (response.status == "connected") {
-        window.location = "{% url publicauth-complete 'vkontakte' %}"
-    }
-};
+            function login(response){
+
+                if (response.status == "connected"){
+                    $.ajax({
+                        dataType: "json",
+                        url: "/account/vk_login/",
+                        success: function(response){
+                            if (response.success){
+								window.location.assign(response.redirect);
+                            }
+							else {
+								window.location.reload();
+							}
+
+                        }    
+                    });
+                }
+            }
 
             function addProfile(response){
 
                 if (response.status == "connected"){
                     $.ajax({
                         dataType: "json",
-                        url: "/auth/vk_signup/",
+                        url: "/account/vk_getdata/",
                         success: function(response){
                             if (response.success){
                                $("#id_vk_id").val(response.vk_id);
@@ -61,7 +74,8 @@ function testMe(response) {
 {% endblock %}
 {% block body %}
     <a onclick="return vk_login();" href="#">Вконтакте.login</a>
-    <a onclick="return vk_signup();" href="#">Вконтакте.signup</a>
+    <a onclick="return vk_signup();" href="#">Получить данные из vkontakte.ru</a>
+
 
     <h1>{% trans "Реєстрація нового члена ВМГО «ФДУ»" %}</h1>
     
