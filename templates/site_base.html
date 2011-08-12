@@ -48,6 +48,17 @@
 
 {% block right_tabs %}
     {% if user.is_authenticated %}
+    	<table cellpadding=0 cellspacing=0 class="tabs">
+    		<tr>
+    			<td><a href="{% url profile_detail user %}">Профіль</a></td>
+    			<td><a href="{% url photos %}">Фотографії</a></td>
+    			<td><a href="{% url blog_list_all %}">Новини</a></td>
+    			<td><a href="{% url events %}">Події</a></td>
+    			<td><a href="{% url clubs %}">Клуби</a></td>
+    			<td><a href="{% url messages_inbox %}">Повідомлення ({{ combined_inbox_count }})</a></td>
+    		</tr>
+    	</table>
+    	<!-- 
         <ul class="tabs">{% spaceless %}
             <li id="tab_profile"><a href="{% url profile_detail user %}">Профіль</a></li>
             <li id="tab_photos"><a href="{% url photos %}">Фотографії</a></li>
@@ -60,14 +71,27 @@
             <li id="tab_swaps"><a href="{% url offer_list_all %}">{% trans "Swaps" %}</a></li>
             <li id="tab_locations"><a href="{% url loc_yours %}">{% trans "Locations" %}</a></li>
             <li id="tab_inbox"><a href="{% url messages_inbox %}">Повідомлення ({{ combined_inbox_count }})</a></li>
-        {% endspaceless %}</ul>
+           
+        {% endspaceless %}</ul>-->
     {% else %}
+
+    	<table cellpadding=0 cellspacing=0 class="tabs">
+    		<tr>
+    			<td><a href="{% url photos %}">Фотографії</a></td>
+    			<td><a href="{% url blog_list_all %}">Новини</a></td>
+    			<td><a href="{% url events %}">Події</a></td>
+    		</tr>
+    	</table>
+    
+    
+    <!-- 
 	            <ul class="tabs">{% spaceless %}
             <li id="tab_photos"><a href="{% url photos %}">{% trans "Photos" %}</a></li>
             <li id="tab_events"><a href="{% url events %}">{% trans "Events" %}</a></li>
            
             <li id="tab_blogs"><a href="{% url blog_list_all %}">{% trans "Blogs" %}</a></li>
         {% endspaceless %}</ul>
+     -->
     {% endif %}
 {% endblock %}
 

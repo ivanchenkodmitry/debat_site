@@ -9,8 +9,8 @@ from events.models import Event
 
 def homepage_view (request, template_name = "homepage.html"):
         
-        adminposts = Post.objects.filter(author__is_superuser=True, status2=1).order_by("-publish")
-        posts = Post.objects.filter(author__is_superuser=False,status2=1).order_by("-publish")
+        adminposts = Post.objects.filter(author__is_staff=True, status2=1).order_by("-publish")
+        posts = Post.objects.filter(author__is_staff=False, status2=1).order_by("-publish")
         
 	events = Event.objects.order_by("title")       
 

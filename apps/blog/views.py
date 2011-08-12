@@ -11,6 +11,7 @@ from django.views.generic import date_based
 from django.conf import settings
 from photologue.models import Photo
 
+
 from blog.models import Post
 from blog.forms import *
 
@@ -28,7 +29,7 @@ except ImportError:
 
 
 def blogs(request, username=None, template_name="blog/blogs.html"):
-    blogs = Post.objects.filter(status=2, status2 = 1).select_related(depth=1).order_by("-publish")
+    blogs = Post.objects.filter(status=2, status2 = True).select_related(depth=1).order_by("-publish")
     if username is not None:
         user = get_object_or_404(User, username=username.lower())
         blogs = blogs.filter(author=user)
@@ -47,7 +48,7 @@ def post(request, username, year, month, slug,
 
     if post[0].status == 1 and post[0].author != request.user:
         raise Http404
-    if post[0].status2 == 0 and post[0].author != request.user:
+    if post[0].status2 == False and post[0].author != request.user:
         raise Http404
     return render_to_response(template_name, {
         "post": post[0],
@@ -81,14 +82,14 @@ def destroy(request, id):
 def new(request, form_class=BlogForm, template_name="blog/new.html"):
     if request.method == "POST":
         if request.POST["action"] == "create":
-            blog_form = form_class(request.user, request.FILES, request.POST)
+            blog_form = form_class(request.user, request.POST)
             
             if blog_form.is_valid():
                 blog = blog_form.save(commit=False)
                 blog.author = request.user
                
-                if blog.author.is_superuser:
-                    blog.status2 = 1
+                if blog.author.is_staff:
+                    blog.status2 = True
                 if getattr(settings, 'BEHIND_PROXY', False):
                     blog.creator_ip = request.META["HTTP_X_FORWARDED_FOR"]
                 else:
@@ -106,9 +107,13 @@ def new(request, form_class=BlogForm, template_name="blog/new.html"):
             blog_form = form_class()
     else:
         blog_form = form_class()
+        
+    
+    photo_form = PhotoForm()
 
     return render_to_response(template_name, {
-        "blog_form": blog_form
+        "blog_form": blog_form,
+        "photo_form": photo_form,
     }, context_instance=RequestContext(request))
 
 @login_required
@@ -126,7 +131,7 @@ def edit(request, id, form_class=BlogForm, template_name="blog/edit.html"):
                 blog.save()
                 request.user.message_set.create(message=_("Успішно змінено наступну новину: '%s'") % blog.title)
                 if notification:
-                    if blog.status2 == 1:
+                    if blog.status2 == True:
 		     # published
                         if friends: # @@@ might be worth having a shortcut for sending to all friends
                             notification.send((x['friend'] for x in Friendship.objects.friends_for_user(blog.author)), "blog_friend_post", {"post": blog})
@@ -146,20 +151,24 @@ def edit(request, id, form_class=BlogForm, template_name="blog/edit.html"):
 def upload_photo(request):
     photo_title = "photo_title_%.20f" % time.time()
     photo_title.replace('.', '_')
-    photo = Photo(title = photo_title, title_slug = photo_title)
-    photo.image = request.FILES['photoToUpload']
-    photo.save()
-
+    photo_form = PhotoForm(request.POST, request.FILES)
+    if photo_form.is_valid():
+        photo = photo_form.save(commit = False)
+        photo.title = photo_title
+        photo.title_slug = photo_title
+        photo.save()
+        callback_script = "window.top.window.stopUpload(0, %s, '%s');" % (photo.id, photo.get_thumbnail_url())
+    else:
+        callback_script = "window.top.window.stopUpload(1);";
     response = '''<!DOCTYPE HTML>
         <html>
         <head></head>
         <body>
             <script language="javascript" type="text/javascript">
-                alert('%s');
-               window.top.window.stopUpload(1);
+               %s
             </script>
         </body>
         </html>   
-    ''' % photo.image.path
+    ''' % callback_script
     
     return HttpResponse(response)
