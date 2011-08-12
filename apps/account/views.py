@@ -129,10 +129,12 @@ def vk_login(request):
 	if user:
 		redirect = '/'
 		auth_login(request, user)
-		request.user.message_set.create( message=_(u"Успешный логин как %(username)s.") % {'username': user.username })
+		request.user.message_set.create( message=_(u"Успішний логін %(first_name)s %(last_name)s") % {
+						'first_name': user.get_profile().surname,
+						'last_name': user.get_profile().name,
+							 })
 	else:
-		redirect = '/account/login'
-		request.user.message_set.create( message=_(u"Пользователь с id %(vk_id)s. yt зарегистрирован") % {'vk_id': vk_id })
+		redirect = '/account/signup/'
 	return HttpResponse(simplejson.dumps({
 				'success': success,
 				'redirect': redirect,

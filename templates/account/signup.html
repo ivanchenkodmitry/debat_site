@@ -32,14 +32,8 @@
                         dataType: "json",
                         url: "/account/vk_login/",
                         success: function(response){
-                            if (response.success){
 								window.location.assign(response.redirect);
-                            }
-							else {
-								window.location.reload();
 							}
-
-                        }    
                     });
                 }
             }
@@ -73,8 +67,8 @@
 
 {% endblock %}
 {% block body %}
-    <a onclick="return vk_login();" href="#">Вконтакте.login</a>
-    <a onclick="return vk_signup();" href="#">Получить данные из vkontakte.ru</a>
+    <a onclick="return vk_login();" href="#">Войти используя аккаунт Вконтакте</a>
+
 
 
     <h1>{% trans "Реєстрація нового члена ВМГО «ФДУ»" %}</h1>
@@ -84,6 +78,8 @@
     {% else %}
         <p>{% trans "Вже є членом ВМГО «ФДУ»?" %} <a href="{% url acct_login %}">{% trans "Увійти" %}</a>!</p>
         
+    <a onclick="return vk_signup();" href="#">Получить данные из vkontakte.ru</a>
+
         <form class="signup uniForm" id="signup_form" method="post" action="{% url acct_signup %}">
             <fieldset class="inlineLabels">
                 {{ form|as_uni_form }}

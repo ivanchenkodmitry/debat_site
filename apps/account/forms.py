@@ -89,7 +89,7 @@ class SignupForm(forms.Form):
         (0, _('Не можу сплачувати членський внесок')),
     )
     
-    username = forms.CharField(label=_(u'Логін'),  max_length=30, widget=forms.TextInput())
+#    username = forms.CharField(label=_(u'Логін'),  max_length=30, widget=forms.TextInput())
     surname =  forms.CharField(label=_(u'Прізвище'), max_length=200, widget=forms.TextInput())
     name =  forms.CharField(label=_(u'Ім’я'), max_length=200, widget=forms.TextInput())
     middle_name = forms.CharField(label=_(u'По батькові'), max_length=200, widget=forms.TextInput())
@@ -137,14 +137,13 @@ class SignupForm(forms.Form):
     
     confirmation_key = forms.CharField(max_length=40, required=False, widget=forms.HiddenInput())
     
-    def clean_username(self):
-        if not alnum_re.search(self.cleaned_data["username"]):
-            raise forms.ValidationError(_("Usernames can only contain letters, numbers and underscores."))
+    def clean_email(self):
+        email = self.cleaned_data["email"]
         try:
-            user = User.objects.get(username__iexact=self.cleaned_data["username"])
+            user = User.objects.get(email__iexact=email)
         except User.DoesNotExist:
-            return self.cleaned_data["username"]
-        raise forms.ValidationError(_("This username is already taken. Please choose another."))
+            return email
+        raise forms.ValidationError(_(u"Користувач з таким email вже зареєстрований"))
     
     def clean(self):
         if "password1" in self.cleaned_data and "password2" in self.cleaned_data:
@@ -153,7 +152,9 @@ class SignupForm(forms.Form):
         return self.cleaned_data
     
     def save(self):
-        username = self.cleaned_data["username"]
+        username = self.cleaned_data["email"]
+        username = username.replace('@', '_')
+        username = username.replace('.', '_')
         email = self.cleaned_data["email"]
         password = self.cleaned_data["password1"]
 
