@@ -29,7 +29,7 @@ except ImportError:
 
 
 def blogs(request, username=None, template_name="blog/blogs.html"):
-    blogs = Post.objects.filter(status=2, status2 = 1).select_related(depth=1).order_by("-publish")
+    blogs = Post.objects.filter(status=2, status2 = True).select_related(depth=1).order_by("-publish")
     if username is not None:
         user = get_object_or_404(User, username=username.lower())
         blogs = blogs.filter(author=user)
@@ -48,7 +48,7 @@ def post(request, username, year, month, slug,
 
     if post[0].status == 1 and post[0].author != request.user:
         raise Http404
-    if post[0].status2 == 0 and post[0].author != request.user:
+    if post[0].status2 == False and post[0].author != request.user:
         raise Http404
     return render_to_response(template_name, {
         "post": post[0],
@@ -82,14 +82,14 @@ def destroy(request, id):
 def new(request, form_class=BlogForm, template_name="blog/new.html"):
     if request.method == "POST":
         if request.POST["action"] == "create":
-            blog_form = form_class(request.user, request.FILES, request.POST)
+            blog_form = form_class(request.user, request.POST)
             
             if blog_form.is_valid():
                 blog = blog_form.save(commit=False)
                 blog.author = request.user
                
-                if blog.author.is_superuser:
-                    blog.status2 = 1
+                if blog.author.is_staff:
+                    blog.status2 = True
                 if getattr(settings, 'BEHIND_PROXY', False):
                     blog.creator_ip = request.META["HTTP_X_FORWARDED_FOR"]
                 else:
@@ -131,7 +131,7 @@ def edit(request, id, form_class=BlogForm, template_name="blog/edit.html"):
                 blog.save()
                 request.user.message_set.create(message=_("Успішно змінено наступну новину: '%s'") % blog.title)
                 if notification:
-                    if blog.status2 == 1:
+                    if blog.status2 == True:
 		     # published
                         if friends: # @@@ might be worth having a shortcut for sending to all friends
                             notification.send((x['friend'] for x in Friendship.objects.friends_for_user(blog.author)), "blog_friend_post", {"post": blog})

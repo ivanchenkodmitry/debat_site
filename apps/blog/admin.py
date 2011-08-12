@@ -24,8 +24,8 @@ class PostAdmin(admin.ModelAdmin):
     
     def save_model(self, request, obj, form, change):
       if notification:
-        #  if post.status2==1:
-                if friends:
+          if obj.status2==True:
+	      if friends:
                                 notification.send((x['friend'] for x in Friendship.objects.friends_for_user(obj.author)), "blog_friend_post", {"post": obj})
       obj.save()  
 

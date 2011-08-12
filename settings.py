@@ -187,7 +187,7 @@ INSTALLED_APPS = (
     'events',
     'clubs',
     'recaptcha',
-    'endless_pagination',
+    
 #   'publicauth',
     'django.contrib.admin',
     'universities',
