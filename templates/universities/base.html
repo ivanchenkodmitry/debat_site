@@ -6,9 +6,9 @@
 {% block body_class %}clubs{% endblock %}
 
 {% block subnav %}
-    {% if user.is_authenticated %}
+    {% if user.is_staff %}
         <ul>
-            <li><a href="/clubs/add_club/">{% trans "Add Clubs" %}</a></li>
+            <li><a href="/universities/add_university/">{% trans "Додати університет" %}</a></li>
         </ul>
     {% else %}
         &nbsp;

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect, get_host
 from django.template import RequestContext
@@ -11,9 +12,25 @@ from django.contrib.auth.decorators import login_required
 
 from photologue.models import *
 from photos.models import Image, Pool
-from photos.forms import PhotoUploadForm, PhotoEditForm
+from photos.forms import PhotoUploadForm, PhotoEditForm, PhotoSetForm
 
+@login_required
+def create(request, form_class=PhotoSetForm,
+        template_name="photos/photoset.html"):
 
+    photoset_form = form_class()
+    if request.method == 'POST':
+        if request.POST.get("action") == "create":
+            photoset_form = form_class(request.user, request.POST)
+            if photoset_form.is_valid():
+                photoset = photoset_form.save(commit=False)
+                photoset.save()
+    return render_to_response(template_name, {
+        "photoset_form": photoset_form,
+    }, context_instance=RequestContext(request))
+          
+                
+                
 @login_required
 def upload(request, form_class=PhotoUploadForm,
         template_name="photos/upload.html", group_slug=None, bridge=None):

@@ -25,6 +25,9 @@ urlpatterns = patterns('',
 
     #destory blog post
     url(r'^destroy/(\d+)/$', 'blog.views.destroy', name='blog_destroy'),
+    
+    #preadd photo to post
+    url(r'^upload/photo$', 'blog.views.upload_photo'),
 
     # ajax validation
     (r'^validate/$', 'ajax_validation.views.validate', {'form_class': BlogForm, 'callback': lambda request, *args, **kwargs: {'user': request.user}}, 'blog_form_validate'),

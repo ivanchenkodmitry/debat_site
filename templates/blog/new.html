@@ -8,7 +8,7 @@
 {% block body %}
     
     {# @@@ not sure how to bring back teaser toggle with uni_form #}
-    <form class="uniForm" id="edit-profile" method="POST" action="">
+    <form enctype="multipart/form-data"  class="uniForm" id="edit-profile" method="POST" action="">
         <fieldset class="inlineLabels">
           {{ blog_form|as_uni_form }}
             <div class="form_block">
@@ -17,6 +17,47 @@
             </div>
         </fieldset>
     </form>
+
+<h2>Додати зображень</h2>
+
+<div id="blog-gallery">
+</div>
+
+
+<div id="add_photo_to_blog_form" style="display: none">
+
+<p id="photo_upload_process" style="display: none">
+	Loading...<br/><img src="{{STATIC_URL}}pinax/images/facebox/loading.gif" />
+</p>
+
+<form action="/blog/upload/photo" method="post" enctype="multipart/form-data" target="upload_target" id="upload_photo_form" >
+    Оберіть фото: <input name="photoToUpload" type="file" class="uploadphoto" />
+</form>
+</div>
+
+<a href="javascript: void(0)" onclick="showUploadForm()" >Додати зображення</a>
+ 
+<iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff; position: absolute; top: -1000px; left: -1000px;"></iframe>  
+
+<script type="text/javascript">
+
+	$('.uploadphoto').change(function(){
+		$('#photo_upload_process').show();
+		$('#upload_photo_form').submit();
+	});
+	
+	function stopUpload(success){
+		
+		alert('seems to be Ok');
+		$('#photo_upload_process').hide();
+		$('#add_photo_to_blog_form').hide();
+	};
+	
+	function showUploadForm(){
+		$('#add_photo_to_blog_form').show();
+	}
+
+</script>
     
 {% endblock %}
 

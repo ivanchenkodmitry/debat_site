@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-import datetime
+import datetime, time
 from django.shortcuts import render_to_response, get_object_or_404
-from django.http import HttpResponseRedirect, Http404
+from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.views.generic import date_based
 from django.conf import settings
+from photologue.models import Photo
 
 from blog.models import Post
 from blog.forms import *
@@ -80,7 +81,7 @@ def destroy(request, id):
 def new(request, form_class=BlogForm, template_name="blog/new.html"):
     if request.method == "POST":
         if request.POST["action"] == "create":
-            blog_form = form_class(request.user, request.POST, request.FILES)
+            blog_form = form_class(request.user, request.FILES, request.POST)
             
             if blog_form.is_valid():
                 blog = blog_form.save(commit=False)
@@ -140,3 +141,25 @@ def edit(request, id, form_class=BlogForm, template_name="blog/edit.html"):
         "blog_form": blog_form,
         "post": post,
     }, context_instance=RequestContext(request))
+
+
+def upload_photo(request):
+    photo_title = "photo_title_%.20f" % time.time()
+    photo_title.replace('.', '_')
+    photo = Photo(title = photo_title, title_slug = photo_title)
+    photo.image = request.FILES['photoToUpload']
+    photo.save()
+
+    response = '''<!DOCTYPE HTML>
+        <html>
+        <head></head>
+        <body>
+            <script language="javascript" type="text/javascript">
+                alert('%s');
+               window.top.window.stopUpload(1);
+            </script>
+        </body>
+        </html>   
+    ''' % photo.image.path
+    
+    return HttpResponse(response)

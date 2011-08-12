@@ -13,6 +13,8 @@ from django.contrib.auth.decorators import login_required
 
 from clubs.models import Club
 from clubs.models import Members
+from universities.models import University
+from clubs.forms import *
 
 
 
@@ -37,7 +39,7 @@ def destroy(request, id):
 
 
 
-#@login_required
+@login_required
 def details(request, id, template_name="clubs/details.html"):
 
 	club = Club.objects.get(id = id)
@@ -63,13 +65,23 @@ def details(request, id, template_name="clubs/details.html"):
     }, context_instance=RequestContext(request))
 
 
-#@login_required
-def add_club(request, template_name="clubs/add_club.html"):
-    """
-    upload form for photos
-    """
-    
-    if request.method == 'POST':
+@login_required
+def add_club(request, form_class=ClubForm, template_name="clubs/add_club.html"):
+    club_form = form_class(request.user)
+    if request.method == "POST":
+        if request.POST["action"] == "create":
+            club_form = form_class(request.user, request.POST)
+            
+            if club_form.is_valid():
+                club = club_form.save(commit=False)
+                
+                club.save()
+                return HttpResponseRedirect(reverse("clubs"))
+    return render_to_response(template_name, {
+        "club_form": club_form
+    }, context_instance=RequestContext(request))
+        
+''' if request.method == 'POST':
 		if request.POST.get("action") == "Add":
 			new_club = Club()
 			new_club.title = request.POST.get("title")
@@ -90,15 +102,28 @@ def add_club(request, template_name="clubs/add_club.html"):
 			include_kwargs = {"id": new_club.id}
 			redirect_to = reverse("club_details", kwargs=include_kwargs)
 			return HttpResponseRedirect(redirect_to)
-    return render_to_response(template_name, context_instance=RequestContext(request))
+    return render_to_response(template_name, context_instance=RequestContext(request))'''
 
 
 @login_required
-def edit(request, id, template_name="clubs/edit.html"):
-    """
-    upload form for photos
-    """
-    edit_club = Club.objects.get(id = id)
+def edit(request, id, form_class=ClubForm,template_name="clubs/edit.html"):
+    club = get_object_or_404(Club, id=id)
+    club_form = form_class(request.user, instance=club)
+    if request.method == "POST":
+      if request.POST["action"] == "update":
+	club_form = form_class(request.user, request.POST, instance=club)
+	if club_form.is_valid():
+                club = club_form.save(commit=False)
+                club.save()
+                return HttpResponseRedirect(reverse("clubs"))
+    
+                
+    return render_to_response(template_name, {
+        "club_form": club_form,
+        "club": club,
+    }, context_instance=RequestContext(request))
+
+'''edit_club = Club.objects.get(id = id)
     if request.method == 'POST':
 		if request.POST.get("action") == "Edit":
 			edit_club.title = request.POST.get("title")
@@ -112,11 +137,11 @@ def edit(request, id, template_name="clubs/edit.html"):
 			include_kwargs = {"id": edit_club.id}
 			redirect_to = reverse("club_details", kwargs=include_kwargs)
 			return HttpResponseRedirect(redirect_to)
-    return render_to_response(template_name, { 'club': edit_club }, context_instance=RequestContext(request))
+    return render_to_response(template_name, { 'club': edit_club }, context_instance=RequestContext(request))'''
 
 
 #@login_required
-def clubs(request, template_name="clubs.html"):
+def clubs(request, template_name="clubs/clubs.html"):
 	
 	clubs = Club.objects.order_by("title")
     
