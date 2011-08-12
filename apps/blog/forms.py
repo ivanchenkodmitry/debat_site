@@ -9,7 +9,8 @@ class BlogForm(forms.ModelForm):
     
     slug = forms.SlugField( max_length=20,
         help_text = _("коротка назва, лише латинські букви, цифри, підчеркування і тире"),
-        error_message = _("Тут можуть бути лише латинські букви, цифри, підчеркування і тире"))
+		error_messages={'invalid': u'Тут можуть бути лише латинські букви, цифри, підчеркування і тире.'})
+#        error_messages = _("Тут можуть бути лише латинські букви, цифри, підчеркування і тире"))
     
     class Meta:
         model = Post
