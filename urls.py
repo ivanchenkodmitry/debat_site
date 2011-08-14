@@ -35,8 +35,6 @@ else:
 urlpatterns = patterns('',
     url(r'^$', 'views.homepage_view', name="home"),
 
-#    url(r'^auth/', include('publicauth.urls')),    
-
     url(r'^admin/invite_user/$', 'signup_codes.views.admin_invite_user', name="admin_invite_user"),
     url(r'^account/signup/$', signup_view, name="acct_signup"),
     

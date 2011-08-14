@@ -195,9 +195,9 @@ INSTALLED_APPS = (
 )
 
 AUTHENTICATION_BACKENDS = (
-    'debat_site.backends.EmailAuthBackEnd',
-    'debat_site.backends.VkAuthBackEnd',
-    'django.contrib.auth.backends.ModelBackend',
+#    'django.contrib.auth.backends.ModelBackend',
+    'debat_site.backends.EmailVkAuthBackEnd',
+#    'debat_site.backends.VkAuthBackEnd',
 )
 
 ABSOLUTE_URL_OVERRIDES = {

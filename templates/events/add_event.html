@@ -60,23 +60,19 @@
         </fieldset>
     </form>
 </div>
-
-
-
 {% endblock %}
 
 {% block extra_body %}
 
 		<link type="text/css" href="{{ STATIC_URL }}pinax/css/jquery-ui-1.8.14.custom.css" rel="stylesheet" />	
    		<script type="text/javascript" src="{{ STATIC_URL }}pinax/js/topics.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}pinax/js/jquery-1.5.1.min.js"></script>
+
 		<script type="text/javascript" src="{{ STATIC_URL }}pinax/js/jquery-ui-1.8.14.custom.min.js"></script>
 
 <script type="text/javascript">
-<script type="text/javascript">
 
 	$(function() {
-		$( "#id_birth_date" ).datepicker({ 
+		$( "#id_date" ).datepicker({ 
 						dayNamesMin: ['Нд', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'], 
 						firstDay: 1,
 						dateFormat: 'yy-mm-dd',
