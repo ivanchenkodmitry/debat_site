@@ -180,19 +180,11 @@ h1 {
 	margin: 0 auto;
 }
 
-#subnav_wrap{
-    z-index: 10;
-    background: #333; /* tab colour */
-    position: relative;
-    border-top: 1px solid #fff;
-    border-bottom: 1px solid #fff;
-}
-
 #subnav {
-    width: 962px;
-    margin: 0 auto;
     padding: 0;
-    color: white;
+    border-bottom: 1px solid #40525E;
+    margin-top: -10px;
+    margin-bottom: 10px; 
 }
 #subnav ul {
     float: right;
@@ -201,7 +193,7 @@ h1 {
 }
 
 #subnav ul a{
-	color: #FFF;
+	color: #40525E;
 }
 
 #subnav ul li {
@@ -210,14 +202,15 @@ h1 {
 }
 #subnav ul a:link, #subnav ul a:visited {
     float: left;
-    font-weight: bold;
+    font-weight: normal;
     text-decoration: none;
-    color: #FFF;
     padding: 4px 20px 4px 20px;
+    color: #40525E;
 }
 #subnav ul a:hover {
     color: #FFF;
-    background: #9BC;
+    background: #40525E;
+
 }
 
 
