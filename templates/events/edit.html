@@ -64,9 +64,17 @@
 		<script type="text/javascript" src="{{ STATIC_URL }}pinax/js/jquery-ui-1.8.14.custom.min.js"></script>
 
 <script type="text/javascript">
-	$(function() {
 
-		$( "#id_date" ).datepicker({ dayNamesMin: ['Нед', 'Пон', 'Вівт', 'Сер', 'Чт', 'Пт', 'Суб'], firstDay: 1, dateFormat: 'yy-mm-dd',  monthNames: ['Січень','Лютий','Березень','Квітень','Травень','Червень','Липень','Серпень','Вересень','Жовтень','Листопад','Грудень'] });
+	$(function() {
+		$( "#id_birth_date" ).datepicker({ 
+						dayNamesMin: ['Нд', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'], 
+						firstDay: 1,
+						dateFormat: 'yy-mm-dd',
+						changeYear: true,			//возможность изменять год
+						yearRange: "1985:2011",
+						monthNames: ['Січень','Лютий','Березень','Квітень','Травень','Червень','Липень','Серпень','Вересень','Жовтень','Листопад','Грудень'] 
+						});
+  $("#datepicker").datepicker();
 	});
-	</script>
+	</script>>
 {% endblock %}

@@ -47,7 +47,7 @@ h1 {
 	-webkit-box-shadow: 0 0 20px #aaa;
 	box-shadow: 0 0 20px #aaa;
 	position: relative;
-	z-index: 5;
+//	z-index: 5;
 }
 #footer {
     color: #999; /* footer text colour */
