@@ -49,6 +49,23 @@ h1 {
 	position: relative;
 	z-index: 5;
 }
+
+#social_links{
+	position: fixed;
+	height: 131px;
+	width: 56px;
+	background: transparent url(images/fixed-bg.png) no-repeat;
+	top: 300px;
+	left: 0px;
+	
+	padding-top: 12px;
+	padding-left: 10px;
+}
+
+#social_links img{
+	padding-bottom: 3px;
+}
+
 #footer {
     color: #999; /* footer text colour */
     margin: 0px auto;
@@ -102,12 +119,18 @@ h1 {
 
 /* HEADER */
 
-#tabhead {
+#headwrap{
     background: #035 url('../images/heading.png') left top repeat-x;
     /* border-bottom: 1px solid #000; /* tab border */
-    position: relative;
     z-index: 10;
     height: 108px;
+    position: relative;	
+}
+
+#tabhead {
+    position: relative;
+    width: 962px;
+    margin: 0 auto;
 }
 #tabhead .logo {
     /*height: 151px;*/
@@ -119,10 +142,21 @@ h1 {
     height: 79px;
 }
 #tabhead .login {
-    position: absolute;
-    top: 6px;
+	
     right: 15px;
     color: #DEF; /* login bar text colour */
+    width: 254px;
+    height: 73px;
+    background: transparent url(images/login-bg.jpg) no-repeat;
+    float: right;
+    margin-top: 20px;
+    padding-left: 10px;
+    padding-top: 7px;
+    
+}
+
+#tabhead .login img{
+	border: solid 2px #172740;
 }
 #tabhead .login a, #tabhead .login a:visited {
     color: #DEF; /* login bar link colour */

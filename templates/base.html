@@ -31,6 +31,12 @@
     </head>
     
     <body class="{% block body_class %}{% endblock %}" {% block body_param %}{% endblock %} >
+    
+    <div id="social_links">
+    	<a href="javascript: void(0)"><img src="{{ STATIC_URL }}pinax/images/twitter.png" /></a>
+    	<a href="javascript: void(0)"><img src="{{ STATIC_URL }}pinax/images/facebook.png" /></a>
+    	<a href="javascript: void(0)"><img src="{{ STATIC_URL }}pinax/images/vkontakte.png" /></a>
+    </div>
         {% if site_wide_announcements %}
             <div id="site_wide_announcements">
                 <ul>
@@ -43,11 +49,12 @@
                 </ul>
             </div>
         {% endif %}
-        
+        <div id="headwrap">
         <div id="tabhead">
             <div class="logo" dir="ltr">{# {% block logo_link_image %}{% endblock %} #}</div>
             <div class="login">{% block login %}{% endblock %}{% block locale_switcher %}{% endblock %}<div style="text-align: right;"></div></div>
             <div id="left_tabs" >{% block left_tabs %}{% endblock %}</div>
+        </div>
         </div>
         <div id="main_menu_wrap" >
         	<div id="main_menu">
