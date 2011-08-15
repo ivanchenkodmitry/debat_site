@@ -10,12 +10,11 @@
 
 
 table.tabs tr{
-	height: 38px;
+	height: 43px;
 	border-left: 1px solid #c5c5c5;
 }
 
 table.tabs td{
-	padding: 0px 10px;
 	border-right: 1px solid #c5c5c5;
 }
 
@@ -23,10 +22,17 @@ table.tabs a, table.tabs a:visited {
     color: #444; /* unselected tab text colour */
     font-weight: bold;
     text-decoration: none;
+    padding: 10px;
+    color: #40525e;
 }
 table.tabs a:hover {
-    color: #666; /* unselected tab text hover colour */
+    color: #305aa6; /* unselected tab text hover colour */
 }
+
+table.tabs td:hover{
+	background: transparent url(images/hovered-tab-bg.png) repeat-x;
+}
+
 ul.tabs li {
     list-style-type: none;
     display: inline;

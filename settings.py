@@ -305,3 +305,4 @@ try:
 except ImportError:
     pass
 
+ENDLESS_PAGINATION_PER_PAGE = 3
