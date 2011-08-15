@@ -1,6 +1,7 @@
 from django.conf.urls.defaults import *
 from account.forms import *
 
+
 urlpatterns = patterns('',
     url(r'^email/$', 'account.views.email', name="acct_email"),
     url(r'^signup/$', 'account.views.signup', name="acct_signup"),
@@ -31,4 +32,5 @@ urlpatterns = patterns('',
 	# get data from vk.com
     url(r'^vk_getdata/$', 'account.views.vk_data', name = 'vk_getdata'),
     url(r'^vk_login/$', 'account.views.vk_login', name = 'vk_login'),
+    url(r'^confirm_profile/(\w+)/$', 'account.views.confirm_profile', name="acct_confirm_profile"),
 )

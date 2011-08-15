@@ -15,6 +15,10 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import get_template
+from django.template import Context
+
 from emailconfirmation.models import EmailAddress
 from account.models import Account
 
@@ -24,16 +28,12 @@ from account.models import PasswordReset
 
 from recaptcha.fields import ReCaptchaField
 
-from django.core.mail import send_mail
-
-from account.mail_tamplate import *
-
+import md5
 
 alnum_re = re.compile(r'^\w+$')
 
 class LoginForm(forms.Form):
     
-#    username = forms.CharField(label=_("Username"), max_length=30, widget=forms.TextInput())
     email = forms.EmailField(label = _("Email"), required = True, widget = forms.TextInput())
     password = forms.CharField(label=_("Password"), widget=forms.PasswordInput(render_value=False))
     remember = forms.BooleanField(label=_("Remember Me"), help_text=_("If checked you will stay logged in for 3 weeks"), required=False)
@@ -44,14 +44,15 @@ class LoginForm(forms.Form):
         if self._errors:
             return
         user = authenticate(email=self.cleaned_data["email"], password=self.cleaned_data["password"])
-#        user = authenticate(username=self.cleaned_data["username"], password=self.cleaned_data["password"])
         if user:
-            if user.is_active:
+            if user.is_active and user.get_profile().admin_verification:
                 self.user = user
+            elif user.is_active:
+                raise forms.ValidationError(_("Профайл цього аккаунта ще не підтверджено адміністратором."))
             else:
-                raise forms.ValidationError(_("This account is currently inactive."))
+                raise forms.ValidationError(_("Цей аккаунт ще не активовано."))
         else:
-            raise forms.ValidationError(_("The username and/or password you specified are not correct."))
+            raise forms.ValidationError(_("Email та/або пароль невірний."))
         return self.cleaned_data
     
     def login(self, request):
@@ -69,14 +70,13 @@ class LoginForm(forms.Form):
 class SignupForm(forms.Form):
 
     ORG_WAYS = (
-        (1, _('')),
-        (2, _('Методична робота')),
-        (3, _('Розвиток англійських дебатів')),
-        (4, _('Організація дебатних заходів')),
-        (5, _('Співпраця із комерційними структурами')),
-        (6, _('Співпраця  із іншими ГО')),
-        (7, _('Співпраця із ЗМІ')),
-        (8, _('Не хочу займатись організаційними справами')),
+        (1, _('Методична робота')),
+        (2, _('Розвиток англійських дебатів')),
+        (3, _('Організація дебатних заходів')),
+        (4, _('Співпраця із комерційними структурами')),
+        (5, _('Співпраця  із іншими ГО')),
+        (6, _('Співпраця із ЗМІ')),
+        (0, _('Не хочу займатись організаційними справами')),
     )
 
     MEMBERS_FEE = (
@@ -89,7 +89,6 @@ class SignupForm(forms.Form):
         (0, _('Не можу сплачувати членський внесок')),
     )
     
-#    username = forms.CharField(label=_(u'Логін'),  max_length=30, widget=forms.TextInput())
     surname =  forms.CharField(label=_(u'Прізвище'), max_length=200, widget=forms.TextInput())
     name =  forms.CharField(label=_(u'Ім’я'), max_length=200, widget=forms.TextInput())
     middle_name = forms.CharField(label=_(u'По батькові'), max_length=200, widget=forms.TextInput())
@@ -130,10 +129,10 @@ class SignupForm(forms.Form):
             widget = forms.TextInput()
         )
 
-    recaptcha = ReCaptchaField(error_messages = {  
-            'required': u'Это поле должно быть заполнено',            
-            'invalid' : u'Указанное значение было неверно'  
-            })
+#    recaptcha = ReCaptchaField(error_messages = {  
+#            'required': u'Это поле должно быть заполнено',            
+#            'invalid' : u'Указанное значение было неверно'  
+#            })
     
     confirmation_key = forms.CharField(max_length=40, required=False, widget=forms.HiddenInput())
     
@@ -189,7 +188,9 @@ class SignupForm(forms.Form):
             if email:
                 new_user.message_set.create(message=ugettext(u"Confirmation email sent to %(email)s") % {'email': email})
                 EmailAddress.objects.add_email(new_user, email)
-                
+        
+        new_user.last_name = self.cleaned_data["surname"]
+        new_user.first_name = self.cleaned_data["name"]
         profile = new_user.get_profile()
         profile.surname = self.cleaned_data["surname"]
         profile.name =  self.cleaned_data["name"]
@@ -203,22 +204,35 @@ class SignupForm(forms.Form):
         profile.education = self.cleaned_data["education"]
         profile.work = self.cleaned_data["work"]
         profile.experience = self.cleaned_data["experience"]
-        profile.club = self.cleaned_data["surname"]
+        profile.club = self.cleaned_data["club"]
         profile.social_work_exp = self.cleaned_data["social_work_exp"]
         profile.desired_exp = self.cleaned_data["desired_exp"]
         profile.org_way = self.cleaned_data["org_way"]
         profile.members_fee = self.cleaned_data["members_fee"]
         profile.interests = self.cleaned_data["interests"]
         profile.vk_id = self.cleaned_data["vk_id"]
-
-        profile.save()
-
-        send_mail(SUBJECT, signin_body( user = new_user ), settings.SERVER_EMAIL, settings.EMAIL_RECIPIENTS, fail_silently=False)
+        md5_name = md5.new()
+        md5_name.update(profile.name)
         
+        profile.md5_name = md5_name.hexdigest()
+        
+        
+        profile.save()
+      
         if settings.ACCOUNT_EMAIL_VERIFICATION:
             new_user.is_active = False
             new_user.save()
-                
+
+
+        htmly = get_template('mail_profile.html')
+
+        mail_context = Context({ 'user': new_user })
+
+        subject, from_email, to = 'Новий користувач на сайті Дебатної організації', settings.SERVER_EMAIL, settings.EMAIL_RECIPIENTS
+        html_content = htmly.render(mail_context)
+        msg = EmailMultiAlternatives(subject, 'Новий користувач на сайті Дебатної організації', from_email, to)
+        msg.attach_alternative(html_content, "text/html")
+        msg.send()
         return username, password # required for authenticate()
 
 

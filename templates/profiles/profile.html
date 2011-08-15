@@ -10,7 +10,7 @@
 {% load photo_tags %}
 {% load threadedcommentstags %}
 
-{% block head_title %}{% blocktrans %}Profile for {{ other_user }}{% endblocktrans %}{% endblock %}
+{% block head_title %}Профіль {{ other_user.get_profile.name }}{% endblock %}
 
 {% block body %}
     
@@ -19,6 +19,8 @@
     </div>
     
     <div class="left_panel">
+
+                <h1>Профіль {{ other_user.get_profile.name }}</h1>
         <div class="vcard">
             <div id="profile_avatar">
                 <div><img src="{% avatar_url other_user 80 %}" alt="Photo of {{ other_user }}" class="photo" /></div>
@@ -27,14 +29,9 @@
                 {% endif %}
             </div>
             
-            {% if other_user.get_profile.name %}
-                <h1>{% blocktrans %}Profile for <span class="nickname">{{ other_user }}</span>{% endblocktrans %}</h1>
-            {% else %}
-                <h1>{% blocktrans %}Profile for <span class="fn nickname">{{ other_user }}</span>{% endblocktrans %}</h1>
-            {% endif %}
+
             
             <div class="profile_info">
-
 
                 {% if other_user.get_profile.name %}<p><b>{% trans "Ім’я" %}</b>: <span class="fn">{{ other_user.get_profile.name }}</span></p>{% endif %}
                 {% if other_user.get_profile.surname %}<p><b>{% trans "Прізвище" %}</b>: {{ other_user.get_profile.surname }}</p>{% endif %}
@@ -42,6 +39,7 @@
 
                 {% if other_user.get_profile.birth_date %}<p><b>{% trans "Дата народження" %}</b>: <span class="fn">{{ other_user.get_profile.birth_date }}</span></p>{% endif %}
                 {% if other_user.get_profile.address %}<p><b>{% trans "Поштова адреса" %}</b>: {{ other_user.get_profile.address }}</p>{% endif %}
+                {% if other_user.email %}<p><b>{% trans "Електронна адреса" %}</b>: {{ other_user.email }}</p>{% endif %}
                 {% if other_user.get_profile.phone%}<p><b>{% trans "Телефон" %}</b>: {{ other_user.get_profile.phone }}</p>{% endif %}
 
                 {% if other_user.get_profile.skype%}<p><b>{% trans "Skype" %}</b>: {{ other_user.get_profile.skype }}</p>{% endif %}
@@ -53,12 +51,27 @@
                 {% if other_user.get_profile.club%}<p><b>{% trans "Дебатний клуб" %}</b>: {{ other_user.get_profile.club }}</p>{% endif %}
                 {% if other_user.get_profile.social_work_exp%}<p><b>{% trans "Досвід громадської роботи" %}</b>: {{ other_user.get_profile.social_work_exp }}</p>{% endif %}
                 {% if other_user.get_profile.desired_exp%}<p><b>{% trans "Досвід, який хочу отримати" %}</b>: {{ other_user.get_profile.desired_exp }}</p>{% endif %}
-                {% if other_user.get_profile.org_way%}<p><b>{% trans "Організаційний напрямок" %}</b>: {{ other_user.get_profile.org_way }}</p>{% endif %}
+                {% if other_user.get_profile.org_way %}<p><b>{% trans "Організаційний напрямок" %}</b>:
+								 {% ifequal other_user.get_profile.org_way '1' %} Методична робота {% endifequal %}
+								 {% ifequal other_user.get_profile.org_way '2' %} Розвиток англійських дебатів {% endifequal %}
+								 {% ifequal other_user.get_profile.org_way '3' %} Організація дебатних заходів {% endifequal %}
+								 {% ifequal other_user.get_profile.org_way '4' %} Співпраця із комерційними структурами {% endifequal %}
+								 {% ifequal other_user.get_profile.org_way '5' %} Співпраця  із іншими ГО {% endifequal %}
+								 {% ifequal other_user.get_profile.org_way '6' %} Співпраця із ЗМІ {% endifequal %}
+								 {% ifequal other_user.get_profile.org_way '0' %} Не хочу займатись організаційними справами {% endifequal %}
+				</p>
+				{% endif %}
 
-                {% if other_user.get_profile.members_fee %}<p><b>{% trans "Членські внески" %}</b>: {{ other_user.get_profile.members_fee }}</p>{% endif %}
+                {% if other_user.get_profile.members_fee %}<p><b>{% trans "Членські внески" %}</b>:
+								{% ifequal other_user.get_profile.members_fee '1' %} 5 грн {% endifequal %}
+								{% ifequal other_user.get_profile.members_fee '2' %} 5 грн {% endifequal %}
+								{% ifequal other_user.get_profile.members_fee '3' %} 5 грн {% endifequal %}
+								{% ifequal other_user.get_profile.members_fee '4' %} 5 грн {% endifequal %}
+								{% ifequal other_user.get_profile.members_fee '5' %} 5 грн {% endifequal %}
+								{% ifequal other_user.get_profile.members_fee '6' %} 5 грн {% endifequal %}
+				</p>
+				{% endif %}
                 {% if other_user.get_profile.interests %}<p><b>{% trans "Інтереси" %}</b>: {{ other_user.get_profile.interests }}</p>{% endif %}
-
-
 
                 {% if other_user.get_profile.website %}<p><b>{% trans "Website" %}</b>: <a class="url" target="_blank" href="{{ other_user.get_profile.website }}">{{ other_user.get_profile.website }}</a></p>{% endif %}
 

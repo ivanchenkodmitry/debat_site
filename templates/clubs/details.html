@@ -91,9 +91,9 @@
         <div name = "member" style="float:left; margin: 10px; text-align: center">  
 			<div name = "avatar">
 				<a href="{% url profile_detail member.user.username %}">
-					<img src="{% avatar_url member.user 80 %}" alt="Avatar of {{ member.user }}"/> </a> </div>
+					<img src="{% avatar_url member.user 80 %}" alt="Avatar of {{ member }}"/> </a> </div>
 			<div name = "username">
-				<a href="{% url profile_detail member.user.username %}"> {{ member.user }} </a> </div>
+				<a href="{% url profile_detail member.user.username %}"> {{ member }} </a> </div>
 		</div>
 	{% endfor %}
 	</div>
