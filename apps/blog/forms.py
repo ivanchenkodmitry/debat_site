@@ -2,11 +2,15 @@
 from datetime import datetime
 from django import forms
 from django.utils.translation import ugettext_lazy as _
+from photologue.models import Photo 
 
 from blog.models import Post
 
+import json
+
 class BlogForm(forms.ModelForm):
     
+    photos_hidden = forms.CharField(widget = forms.HiddenInput)
     slug = forms.SlugField( max_length=20,
         help_text = _("коротка назва, лише латинські букви, цифри, підчеркування і тире"),
 		error_messages={'invalid': u'Тут можуть бути лише латинські букви, цифри, підчеркування і тире.'})
@@ -14,11 +18,20 @@ class BlogForm(forms.ModelForm):
     
     class Meta:
         model = Post
-        exclude = ('author', 'creator_ip', 'created_at', 'updated_at', 'publish', 'status2', 'allow_comments')
+        exclude = ('author', 'creator_ip', 'created_at', 'updated_at', 'publish', 'status2', 'allow_comments', 'gallery')
     
     def __init__(self, user=None, *args, **kwargs):
         self.user = user
         super(BlogForm, self).__init__(*args, **kwargs)
+        self.photos = []
+        if len(args):
+            photos_id_list = args[0].get('photos_hidden')
+            if photos_id_list:
+                photos_id_list = json.loads(photos_id_list)
+                for photo_id in photos_id_list:
+                    photo = Photo.objects.get(id = photo_id)
+                    self.photos.append(photo)
+            
     
     def clean_slug(self):
         if not self.instance.pk:
@@ -32,3 +45,10 @@ class BlogForm(forms.ModelForm):
         except Post.DoesNotExist:
             pass
         return self.cleaned_data['slug']
+
+class PhotoForm(forms.ModelForm):
+    
+    class Meta:
+        model = Photo
+        exclude = ('title', 'title_slug', 'caption', 'crop_from', 'effect', 'tags', 'is_public')
+        

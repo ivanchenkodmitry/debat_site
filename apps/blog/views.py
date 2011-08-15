@@ -9,7 +9,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.views.generic import date_based
 from django.conf import settings
-from photologue.models import Photo
+from photologue.models import Photo, Gallery
+from pytils.translit import slugify
 
 
 from blog.models import Post
@@ -83,11 +84,18 @@ def new(request, form_class=BlogForm, template_name="blog/new.html"):
     if request.method == "POST":
         if request.POST["action"] == "create":
             blog_form = form_class(request.user, request.POST)
-            
             if blog_form.is_valid():
                 blog = blog_form.save(commit=False)
                 blog.author = request.user
-               
+                # Create gallery and save with post
+                gtitle = '_'.join(['post', blog.title])
+                gallery = Gallery(title = gtitle, title_slug = slugify(gtitle))
+                gallery.save()
+                # Add uploaded photos to galleries
+                gallery.photos.add(*blog_form.photos)
+                gallery.save()
+                
+                blog.gallery = gallery
                 if blog.author.is_staff:
                     blog.status2 = True
                 if getattr(settings, 'BEHIND_PROXY', False):
@@ -95,6 +103,7 @@ def new(request, form_class=BlogForm, template_name="blog/new.html"):
                 else:
                     blog.creator_ip = request.META['REMOTE_ADDR']
                 blog.save()
+
                 # @@@ should message be different if published?
                 request.user.message_set.create(message=_("Успішно збережено новину '%s'") % blog.title)
                 if notification:
@@ -150,7 +159,7 @@ def edit(request, id, form_class=BlogForm, template_name="blog/edit.html"):
 
 def upload_photo(request):
     photo_title = "photo_title_%.20f" % time.time()
-    photo_title.replace('.', '_')
+    photo_title = photo_title.replace('.', '_')
     photo_form = PhotoForm(request.POST, request.FILES)
     if photo_form.is_valid():
         photo = photo_form.save(commit = False)
