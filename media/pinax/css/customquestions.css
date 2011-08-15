@@ -1,0 +1,9 @@
+#questioncontainer, .answercontainer {
+    list-style-type: none;
+    margin: 0; padding: 0;
+}
+
+.qtitle {
+    font-weight: bold;
+    font-size: 115%
+}

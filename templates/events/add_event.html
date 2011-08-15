@@ -23,12 +23,12 @@
             <input type="button" value="Знайти на мапі" onclick="codeAddress()">
 
             
-            <!--
-            <div id="date" class="ctrlHolder">
+            <div class="form_block">
               <h2>Додаткові питання</h2>
-              <input type="button" value="Додати питання">            
+              <ul id="questioncontainer">
+              </ul>
+              <input id="addquestion" type="button" value="Додати питання">            
             </div>
-            --> 
          
 
             <div class="form_block">
@@ -47,6 +47,8 @@
    		<script type="text/javascript" src="{{ STATIC_URL }}pinax/js/topics.js"></script>
 
 		<script type="text/javascript" src="{{ STATIC_URL }}pinax/js/jquery-ui-1.8.14.custom.min.js"></script>
+		<link type="text/css" href="{{ STATIC_URL }}pinax/css/customquestions.css" rel="stylesheet" />
+		<script type="text/javascript" src="{{ STATIC_URL }}pinax/js/customquestions.js"></script>
 
 <script type="text/javascript">
 
