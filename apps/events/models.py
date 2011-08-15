@@ -14,7 +14,7 @@ class Member(models.Model):
 	user = models.ForeignKey(User)
     
 	def __unicode__(self):
-		return self.user.username
+		return self.user.get_profile().surname + ' ' + ' ' + self.user.get_profile().name
 
 
 class Event(models.Model):
