@@ -11,7 +11,7 @@ class Members(models.Model):
 	approved = models.BooleanField(u'Підтвердити', default = False)
     
 	def __unicode__(self):
-		return self.user.username
+		return self.user.get_profile().surname + ' ' + self.user.get_profile().name
         class Meta:
             verbose_name = _('Члени')
             verbose_name_plural = _('Члени')

@@ -25,6 +25,9 @@ from django.http import HttpResponse
 from django.http import QueryDict
 from django.core.urlresolvers import reverse
 
+from profiles.models import Profile
+import md5
+
 association_model = models.get_model('django_openid', 'Association')
 if association_model is not None:
     from django_openid.models import UserOpenidAssociation
@@ -141,6 +144,17 @@ def vk_login(request):
 				'vk_id' : vk_id,
 				}))
 
+
+def confirm_profile(request, profile_hash, template_name="account/confirm_profile.html"):
+	profile = Profile.objects.get(md5_name = profile_hash)
+	profile.admin_verification = True
+	profile.save()
+	
+	return render_to_response(template_name, {
+        "profile": profile,
+    }, context_instance=RequestContext(request))
+	
+	
 
 @login_required
 def email(request, form_class=AddEmailForm,

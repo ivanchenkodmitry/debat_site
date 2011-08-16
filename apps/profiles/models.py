@@ -10,14 +10,13 @@ from timezones.fields import TimeZoneField
 class Profile(models.Model):
     
     ORG_WAYS = (
-        (1, _('')),
-        (2, _('Методична робота')),
-        (3, _('Розвиток англійських дебатів')),
-        (4, _('Організація дебатних заходів')),
-        (5, _('Співпраця із комерційними структурами')),
-        (6, _('Співпраця  із іншими ГО')),
-        (7, _('Співпраця із ЗМІ')),
-        (8, _('Не хочу займатись організаційними справами')),
+        (1, _('Методична робота')),
+        (2, _('Розвиток англійських дебатів')),
+        (3, _('Організація дебатних заходів')),
+        (4, _('Співпраця із комерційними структурами')),
+        (5, _('Співпраця  із іншими ГО')),
+        (6, _('Співпраця із ЗМІ')),
+        (0, _('Не хочу займатись організаційними справами')),
     )
 
     MEMBERS_FEE = (
@@ -50,14 +49,13 @@ class Profile(models.Model):
 
     org_way = models.CharField(_('Організаційний напрямок'), null=True, choices = ORG_WAYS, max_length=200)
     members_fee = models.CharField(_('Членські внески'), null=True, choices = MEMBERS_FEE, max_length=200)  
-#    org_way = models.IntegerField(_('Організаційний напрямок'), null=True, choices = ORG_WAYS)
-#    members_fee = models.IntegerField(_('Членські внески'), null=True, choices = MEMBERS_FEE)  
     interests = models.TextField(_('Інтереси'), null=True, blank=True)
-    vk_id = models.TextField(_('ID Вконтакті'), null=True, blank=True)
+    vk_id = models.CharField(_('ID Вконтакті'), null=True, blank=True, max_length=30)
 
-    admin_verificatin = models.BooleanField(_("admin_verivication"))   #Проверка пользователья Админом
+    admin_verification = models.BooleanField(_("admin_verivication"))   #Проверка пользователья Админом
     about = models.TextField(_('about'), null=True, blank=True)
 
+    md5_name = models.CharField(_('Md5 for verivication'), null=True, blank=True, max_length=100)
     
     def __unicode__(self):
         return self.user.username

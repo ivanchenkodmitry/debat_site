@@ -1,0 +1,65 @@
+
+{% load i18n %}
+{% load avatar_tags %}
+{% load uni_form %}
+{% load group_tags %}
+{% load microblogging_tags %}
+{% load blog_tags %}
+{% load tagging_tags %}
+{% load photo_tags %}
+{% load threadedcommentstags %}
+
+
+
+                <h1>Профіль {{ user.get_profile.name }}</h1>
+            <div id="profile_avatar">
+                <div><img src="{% avatar_url user 80 %}" alt="Photo of {{ user }}" class="photo" /></div>
+            </div>
+            
+
+            
+            <div class="profile_info">
+
+                <p><b>{% trans "Ім’я" %}</b>:{% if user.get_profile.name %} <span class="fn">{{ user.get_profile.name }}</span>{% else %} --- Немає данних ---</p> {% endif %}
+                <p><b>{% trans "Прізвище" %}</b>:{% if user.get_profile.surname %} {{ user.get_profile.surname }} {% else %} --- Немає данних --- </p>{% endif %}
+                <p><b>{% trans "По батькові" %}</b>:{% if user.get_profile.middle_name%} {{ user.get_profile.middle_name }} {% else %} --- Немає данних --- </p>{% endif %}
+
+                <p><b>{% trans "Дата народження" %}</b>:{% if user.get_profile.birth_date %} <span class="fn">{{ user.get_profile.birth_date }}</span> {% else %} --- Немає данних --- </p>{% endif %}
+                <p><b>{% trans "Поштова адреса" %}</b>:{% if user.get_profile.address %} {{ user.get_profile.address }} {% else %} --- Немає данних --- </p>{% endif %}
+                <p><b>{% trans "Електронна адреса" %}</b>:{% if user.email %} {{ user.email }} {% else %} --- Немає данних --- </p>{% endif %}
+                <p><b>{% trans "Телефон" %}</b>:{% if user.get_profile.phone%} {{ user.get_profile.phone }} {% else %} --- Немає данних --- </p>{% endif %}
+
+                <p><b>{% trans "Skype" %}</b>:{% if user.get_profile.skype%} {{ user.get_profile.skype }} {% else %} --- Немає данних --- </p>{% endif %}
+                <p><b>{% trans "ICQ" %}</b>:{% if user.get_profile.icq%} {{ user.get_profile.icq }} {% else %} --- Немає данних --- </p>{% endif %}
+                <p><b>{% trans "Освіта" %}</b>:{% if user.get_profile.education%} {{ user.get_profile.education }} {% else %} --- Немає данних --- </p>{% endif %}
+                <p><b>{% trans "Місце роботи" %}</b>:{% if user.get_profile.work%} {{ user.get_profile.work }} {% else %} --- Немає данних --- </p>{% endif %}
+                <p><b>{% trans "Досвід гри у дебати" %}</b>:{% if user.get_profile.experience%} {{ user.get_profile.experience }} {% else %} --- Немає данних --- </p>{% endif %}
+
+                <p><b>{% trans "Дебатний клуб" %}</b>:{% if user.get_profile.club%} {{ user.get_profile.club }} {% else %} --- Немає данних --- </p>{% endif %}
+                <p><b>{% trans "Досвід громадської роботи" %}</b>:{% if user.get_profile.social_work_exp%} {{ user.get_profile.social_work_exp }} {% else %} --- Немає данних --- </p>{% endif %}
+                <p><b>{% trans "Досвід, який хочу отримати" %}</b>:{% if user.get_profile.desired_exp%} {{ user.get_profile.desired_exp }} {% else %} --- Немає данних --- </p>{% endif %}
+                <p><b>{% trans "Організаційний напрямок" %}</b>:{% if user.get_profile.org_way %}
+								 {% ifequal user.get_profile.org_way '1' %} Методична робота {% endifequal %}
+								 {% ifequal user.get_profile.org_way '2' %} Розвиток англійських дебатів {% endifequal %}
+								 {% ifequal user.get_profile.org_way '3' %} Організація дебатних заходів {% endifequal %}
+								 {% ifequal user.get_profile.org_way '4' %} Співпраця із комерційними структурами {% endifequal %}
+								 {% ifequal user.get_profile.org_way '5' %} Співпраця  із іншими ГО {% endifequal %}
+								 {% ifequal user.get_profile.org_way '6' %} Співпраця із ЗМІ {% endifequal %}
+								 {% ifequal user.get_profile.org_way '0' %} Не хочу займатись організаційними справами {% endifequal %}
+				</p>
+				{% endif %}
+
+                <p><b>{% trans "Членські внески" %}</b>:{% if user.get_profile.members_fee %}
+								{% ifequal user.get_profile.members_fee '1' %} 5 грн {% endifequal %}
+								{% ifequal user.get_profile.members_fee '2' %} 5 грн {% endifequal %}
+								{% ifequal user.get_profile.members_fee '3' %} 5 грн {% endifequal %}
+								{% ifequal user.get_profile.members_fee '4' %} 5 грн {% endifequal %}
+								{% ifequal user.get_profile.members_fee '5' %} 5 грн {% endifequal %}
+								{% ifequal user.get_profile.members_fee '6' %} 5 грн {% endifequal %}
+				</p>
+				{% endif %}
+                <p><b>{% trans "Інтереси" %}</b>:{% if user.get_profile.interests %} {{ user.get_profile.interests }} {% else %} --- Немає данних --- </p>{% endif %}
+
+                <p><b>{% trans "Website" %}</b>:{% if user.get_profile.website %} <a class="url" target="_blank" href="{{ user.get_profile.website }}">}}</a> {% else %} --- Немає данних --- </p>{% endif %}
+
+<a class="url" target="_blank" href="http://{{ domain }}/account/confirm_profile/{{ user.get_profile.md5_name }}">Підтвердити</a>
