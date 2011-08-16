@@ -29,7 +29,6 @@ from account.models import PasswordReset
 from recaptcha.fields import ReCaptchaField
 
 import md5
-from django.contrib.sites.models import Site
 
 alnum_re = re.compile(r'^\w+$')
 
@@ -213,7 +212,7 @@ class SignupForm(forms.Form):
         profile.interests = self.cleaned_data["interests"]
         profile.vk_id = self.cleaned_data["vk_id"]
         md5_name = md5.new()
-        md5_name.update(profile.name)
+        md5_name.update(new_user.username)
         
         profile.md5_name = md5_name.hexdigest()
         
