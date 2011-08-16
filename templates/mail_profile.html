@@ -60,6 +60,6 @@
 				{% endif %}
                 <p><b>{% trans "Інтереси" %}</b>:{% if user.get_profile.interests %} {{ user.get_profile.interests }} {% else %} --- Немає данних --- </p>{% endif %}
 
-                <p><b>{% trans "Website" %}</b>:{% if user.get_profile.website %} <a class="url" target="_blank" href="{{ user.get_profile.website }}">}}</a> {% else %} --- Немає данних --- </p>{% endif %}
+                <p><b>{% trans "Website" %}</b>:{% if user.get_profile.website %} <a class="url" target="_blank" href="{{ user.get_profile.website }}">{{ user.get_profile.website }}</a> {% else %} --- Немає данних --- </p>{% endif %}
 
 <a class="url" target="_blank" href="http://{{ domain }}/account/confirm_profile/{{ user.get_profile.md5_name }}">Підтвердити</a>
