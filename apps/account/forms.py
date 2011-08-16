@@ -29,6 +29,7 @@ from account.models import PasswordReset
 from recaptcha.fields import ReCaptchaField
 
 import md5
+from django.contrib.sites.models import Site
 
 alnum_re = re.compile(r'^\w+$')
 
@@ -129,10 +130,10 @@ class SignupForm(forms.Form):
             widget = forms.TextInput()
         )
 
-#    recaptcha = ReCaptchaField(error_messages = {  
-#            'required': u'Это поле должно быть заполнено',            
-#            'invalid' : u'Указанное значение было неверно'  
-#            })
+    recaptcha = ReCaptchaField(error_messages = {  
+            'required': u'Це поле обов’язкове',            
+            'invalid' : u'Невірне значення'  
+            })
     
     confirmation_key = forms.CharField(max_length=40, required=False, widget=forms.HiddenInput())
     
@@ -225,9 +226,13 @@ class SignupForm(forms.Form):
 
 
         htmly = get_template('mail_profile.html')
+        try:
+            domain = Site.objects.all()[0].domain
+        except:
+            domain = 'example.com'
 
-        mail_context = Context({ 'user': new_user })
-
+        mail_context = Context({ 'user': new_user, 'domain':domain })
+        
         subject, from_email, to = 'Новий користувач на сайті Дебатної організації', settings.SERVER_EMAIL, settings.EMAIL_RECIPIENTS
         html_content = htmly.render(mail_context)
         msg = EmailMultiAlternatives(subject, 'Новий користувач на сайті Дебатної організації', from_email, to)

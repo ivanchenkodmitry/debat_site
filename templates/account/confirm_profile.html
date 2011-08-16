@@ -1,0 +1,11 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Verify your e-mail address" %}{% endblock %}
+
+{% block body %}
+    <h1>{% trans "Профайл підтверджено" %} для {{ profile.name }} {{ profile.surname }}</h1>
+{% endblock %}
+    
+
