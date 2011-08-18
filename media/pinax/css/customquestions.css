@@ -1,0 +1,9 @@
+#itemcontainer, .optioncontainer {
+    list-style-type: none;
+    margin: 0; padding: 0;
+}
+
+#itemcontainer .itemtitle {
+    font-weight: bold;
+    font-size: 115%
+}
