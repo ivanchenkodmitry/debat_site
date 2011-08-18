@@ -7,12 +7,14 @@ from clubs.models import Club
 
 
 class ClubForm(forms.ModelForm):
-  
-  class Meta:
+    location = forms.CharField(initial="(48.464954, 35.044956)", #dnipropetrovsk
+                               widget=forms.widgets.HiddenInput())
+                               
+    class Meta:
         model = Club
-        exclude = ('location', 'members')
+        exclude = ('members')
         
-  def __init__(self, user=None, *args, **kwargs):
+    def __init__(self, user=None, *args, **kwargs):
         self.user = user
         super(ClubForm, self).__init__(*args, **kwargs)
     
