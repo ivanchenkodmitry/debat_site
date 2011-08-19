@@ -41,7 +41,7 @@
     
     if (data != '')  {       
         var data = $.secureEvalJSON(data);
-        for (i=0;i<data.length;i++) {
+        for (var i=0;i<data.length;i++) {
             addItem(data[i]);
         }
     }
@@ -102,8 +102,8 @@
                 console.log(data.type);
                 if (data.type != '1') {
                     console.log(data.options);
-                    for (i=0;i<data.options.length;i++) {
-                        addOption(id,data.options[i]);
+                    for (var j=0;j<data.options.length;j++) {
+                        addOption(id,data.options[j]);
                     }
                     return true;
                 }
