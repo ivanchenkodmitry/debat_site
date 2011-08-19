@@ -12,8 +12,8 @@
               <fieldset class="inlineLabels">\
                 <ul id="itemcontainer">\
                 </ul>\
-                <div class="form_block">\
-                    <input id="additem" type="button" value="Додати питання">\
+                <div class="form_block" style="padding: 7px;">\
+                    <a id="additem">Додати питання</a>\
                 </div>\
                 <div class="form_block">\
                     <input id="psevdosubmit" type="button" value="Надіслати">\
@@ -63,6 +63,7 @@
                       Питання '+ num +'\
                     </label>\
                     <textarea id="id_i' + id +'_title" class="textarea" cols="40" rows="10"></textarea>\
+                    <a id="id_i' + id +'_rm" style="float:right;">X</a>\
                   </div>\
                   <div class="ctrlHolder">\
                     <label for="id_i' + id +'_type">Тип відповіді</label>\
@@ -73,9 +74,8 @@
                     </select>\
                   </div>\
                   <ul id="id_i' + id +'_optioncontainer" class="optioncontainer"></ul>\
-                  <div class="ctrlHolder">\
-                    <input id="id_i' + id +'_addoption" type="button" value="Додати відповідь">\
-                    <input id="id_i' + id +'_rm" type="button" style="float:right;" value="Видалити">\
+                  <div id="div_id_i' + id +'_addoption" class="ctrlHolder">\
+                    <a id="id_i' + id +'_addoption">Додати відповідь</a>\
                   </div>\
                 </li>');
                 
@@ -85,7 +85,7 @@
             
             $optioncontainer = $('#id_i' + id +'_optioncontainer');
             
-            $('#id_i' + id +'_addoption').hide();
+            $('#div_id_i' + id +'_addoption').hide();
             $optioncontainer.hide();
             
             $('#id_i' + id +'_type').change({id: id}, onTypeChange);
@@ -148,7 +148,7 @@
                   <div class="ctrlHolder">\
                     <label for="id_o' + id +'_title"> Відповідь ' + num +'</label>\
                     <input id="id_o' + id +'_title" class="textinput" type="text" maxlength="200">\
-                    <input id="id_o' + id +'_rm" type="button" value="Видалити"><br>\
+                    <a id="id_o' + id +'_rm">X</a><br>\
                     <label for="id_o' + id +'_right">Правильна</label>\
                     <input id="id_o' + id +'_rbright" class="radioboxinput" type="radio"\
                            name="i' + itemid +'_rbright" value="o' + id + '">\
@@ -212,17 +212,17 @@
         switch(type)
         {
         case '1': //Вільна відповіль
-          $('#id_i' + event.data.id +'_addoption').hide();
+          $('#div_id_i' + event.data.id +'_addoption').hide();
           $optioncontainer.hide();
           break;
         case '2': //Вибір однієї правильної
-          $('#id_i' + event.data.id +'_addoption').show();
+          $('#div_id_i' + event.data.id +'_addoption').show();
           $optioncontainer.show();
           $optioncontainer.find('input:checkbox').hide()
           $optioncontainer.find('input:radio').show()
           break;
         case '3': //Вибір кількох правильних
-          $('#id_i' + event.data.id +'_addoption').show();
+          $('#div_id_i' + event.data.id +'_addoption').show();
           $optioncontainer.show();
           $optioncontainer.find('input:checkbox').show()
           $optioncontainer.find('input:radio').hide()
