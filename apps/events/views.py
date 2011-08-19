@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect, get_host
 from django.template import RequestContext
@@ -10,11 +11,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
 
-from events.models import Event
-from events.models import Member
-from events.forms import EventForm
-
-
+from events.models import Event, Member
+from events.forms import EventForm, QuestionsForm
 
 
 def events_widget(request, template_name = "homepage.html"):
@@ -180,6 +178,27 @@ def leave(request, id, template_name="events/details.html"):
     include_kwargs = {"id": event.id}
     redirect_to = reverse("event_details", kwargs=include_kwargs)
     return HttpResponseRedirect(redirect_to)
+    
+@login_required
+def questions(request, id, form_class=QuestionsForm, template_name="events/questions.html"):
+    event = get_object_or_404(Event, id=id)
+    
+    members = event.members.all()
+    is_member = False    
 
-
-
+    for member in members:
+        if member.user == request.user:
+            is_member = True
+            break
+            
+    if not is_member:
+        include_kwargs = {"id": event.id}
+        redirect_to = reverse("event_details", kwargs=include_kwargs)
+        return HttpResponseRedirect(redirect_to)
+          
+    questions_form = form_class()
+    questions_form.setQuestions(event.questions)
+    return render_to_response(template_name, {
+        "questions_form": questions_form,
+        "event": event
+    }, context_instance=RequestContext(request))
