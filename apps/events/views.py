@@ -185,17 +185,11 @@ def questions(request, id, form_class=QuestionsForm, template_name="events/quest
     
     include_kwargs = {"id": event.id}
     redirect_to = reverse("event_details", kwargs=include_kwargs)
-    
-    members = event.members.all()
-    is_member = False    
-
-    for member in members:
-        if member.user == request.user:
-            is_member = True
-            break
             
-    if not is_member:
-        return HttpResponseRedirect(redirect_to)
+    try:
+        member = event.members.get(user=request.user)
+    except ObjectDoesNotExist:
+        return HttpResponseRedirect(redirect_to) # if user isn't member
         
     questions_form = form_class(member)
     questions_form.setQuestions(event.questions)
