@@ -8,7 +8,7 @@ from clubs.models import Club
 
 class ClubForm(forms.ModelForm):
     location = forms.CharField(initial="(48.464954, 35.044956)", #dnipropetrovsk
-                               widget=forms.widgets.HiddenInput())
+                               widget=forms.HiddenInput)
                                
     class Meta:
         model = Club

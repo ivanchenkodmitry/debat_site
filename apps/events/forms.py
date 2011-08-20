@@ -7,9 +7,9 @@ from django.utils import simplejson
 
 
 class EventForm(forms.ModelForm):
-    questions = forms.CharField(widget=forms.widgets.HiddenInput())
+    questions = forms.CharField(widget=forms.HiddenInput)
     location = forms.CharField(initial="(48.464954, 35.044956)", #dnipropetrovsk
-                               widget=forms.widgets.HiddenInput())
+                               widget=forms.HiddenInput)
     
     class Meta:
         model = Event
@@ -48,21 +48,24 @@ class QuestionsForm(forms.Form):
         
         for i, question in enumerate(questions):
             if question['type'] == '1':
-                help_text = None
-                widget = forms.Textarea
+                fields['q'+str(i+1)] = forms.CharField(label=question['title'],
+                                                       widget=forms.Textarea)
             else :
                 choices_list = []
                 for j, option in enumerate(question['options']):
                      choices_list.append((j+1, option['title']))
                 if question['type'] == '2':
-                    help_text=_(u"Оберіть одну відповідь")
-                    widget = forms.RadioSelect(choices=choices_list)
+                    fields['q'+str(i+1)] = forms.ChoiceField(label=question['title'],
+                                                           help_text=_(u"Оберіть одну відповідь"),
+                                                           widget=forms.RadioSelect,
+                                                           choices=choices_list,
+                                                           )
                 elif question['type'] == '3':
-                    help_text=_(u"Оберіть кілька відповідей")
-                    widget = forms.CheckboxSelectMultiple(choices=choices_list)
-            fields['q'+str(i+1)] = forms.CharField(label=question['title'],
-                                                 help_text = help_text,
-                                                 widget=widget)
+                    fields['q'+str(i+1)] = forms.MultipleChoiceField(label=question['title'],
+                                                         help_text = _(u"Оберіть кілька відповідей"),
+                                                         widget=forms.CheckboxSelectMultiple,
+                                                         choices=choices_list,
+                                                         )
             
         self.setFields(fields)
             
@@ -91,5 +94,7 @@ class QuestionsForm(forms.Form):
                 self.errors[name] = e.messages
                 
     def save(self):
-        self.member.answers = simplejson.dumps(self.cleaned_data)
-        self.member.save()
+        if self.member != None:
+            data = [self.cleaned_data[key] for key in sorted(self.cleaned_data.iterkeys())]
+            self.member.answers = simplejson.dumps(data, ensure_ascii = False)
+            self.member.save()
