@@ -20,8 +20,14 @@ class EventForm(forms.ModelForm):
         super(EventForm, self).__init__(*args, **kwargs)
         
 class QuestionsForm(forms.Form):
+
+    def __init__(self, member=None, *args, **kwargs):
+        self.member = member        
+        super(QuestionsForm, self).__init__(*args, **kwargs)
+        
     """
-    Dynamic form that allows the user to change and then verify the data that was parsed
+    Dynamic form that allows the user to change
+    and then verify the data that was parsed
     """
     def setFields(self, kwds):
         """
@@ -54,7 +60,9 @@ class QuestionsForm(forms.Form):
                 elif question['type'] == '3':
                     help_text=_(u"Оберіть кілька відповідей")
                     widget = forms.CheckboxSelectMultiple(choices=choices_list)
-            fields['q'+str(i)] = forms.DateField(label=question['title'], help_text = help_text, widget=widget)
+            fields['q'+str(i+1)] = forms.CharField(label=question['title'],
+                                                 help_text = help_text,
+                                                 widget=widget)
             
         self.setFields(fields)
             
@@ -62,17 +70,26 @@ class QuestionsForm(forms.Form):
         """
         Set the data to include in the form
         """
-        keys = kwds.keys()
-        keys.sort()
-        for k in keys:
-            self.data[k] = kwds[k]
+        for name,field in self.fields.items():
+            self.data[name] = field.widget.value_from_datadict(kwds,
+                                                               self.files,
+                                                               self.add_prefix(name))
+        self.is_bound = True
             
     def validate(self, post):
         """
         Validate the contents of the form
         """
+        self.cleaned_data = {}
         for name,field in self.fields.items():
+            value = field.widget.value_from_datadict(post,
+                                                     self.files,
+                                                     self.add_prefix(name))
             try:
-                field.clean(post[name])
-            except ValidationError, e:
+                self.cleaned_data[name] = field.clean(value)
+            except forms.ValidationError, e:
                 self.errors[name] = e.messages
+                
+    def save(self):
+        self.member.answers = simplejson.dumps(self.cleaned_data)
+        self.member.save()

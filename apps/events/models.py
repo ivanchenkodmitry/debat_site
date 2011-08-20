@@ -12,6 +12,7 @@ from django.utils.translation import ugettext_lazy as _
 
 class Member(models.Model):
 	user = models.ForeignKey(User)
+	answers = models.TextField(blank=True)
     
 	def __unicode__(self):
 		return self.user.get_profile().surname + ' ' + self.user.get_profile().name

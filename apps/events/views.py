@@ -181,7 +181,10 @@ def leave(request, id, template_name="events/details.html"):
     
 @login_required
 def questions(request, id, form_class=QuestionsForm, template_name="events/questions.html"):
-    event = get_object_or_404(Event, id=id)
+    event = get_object_or_404(Event, id=id)     
+    
+    include_kwargs = {"id": event.id}
+    redirect_to = reverse("event_details", kwargs=include_kwargs)
     
     members = event.members.all()
     is_member = False    
@@ -192,12 +195,17 @@ def questions(request, id, form_class=QuestionsForm, template_name="events/quest
             break
             
     if not is_member:
-        include_kwargs = {"id": event.id}
-        redirect_to = reverse("event_details", kwargs=include_kwargs)
         return HttpResponseRedirect(redirect_to)
-          
-    questions_form = form_class()
+        
+    questions_form = form_class(member)
     questions_form.setQuestions(event.questions)
+        
+    if request.method == "POST":
+        questions_form.setData(request.POST)
+        if questions_form.is_valid():
+            questions_form.save()
+            return HttpResponseRedirect(redirect_to)
+        
     return render_to_response(template_name, {
         "questions_form": questions_form,
         "event": event
