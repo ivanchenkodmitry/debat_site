@@ -86,8 +86,13 @@ def add_event(request, form_class=EventForm, template_name="events/add_event.htm
             event_form = form_class(request.user, request.POST)
 
             if event_form.is_valid():
-                new_event = event_form.save()
-                include_kwargs = {"id": new_event.id}
+                event = event_form.save(commit=False)
+                event.creator = request.user
+                event.save()
+                event_member = Member(user=request.user)
+                event_member.save()
+                event.members.add(event_member)
+                include_kwargs = {"id": event.id}
                 redirect_to = reverse("event_details", kwargs=include_kwargs)
                 return HttpResponseRedirect(redirect_to)
             
@@ -97,25 +102,26 @@ def add_event(request, form_class=EventForm, template_name="events/add_event.htm
 
 
 @login_required
-def edit(request, id, template_name="events/edit.html"):
+def edit(request, id, form_class=EventForm, template_name="events/edit.html"):
     """
     upload form for photos
     """
-    edit_event = Event.objects.get(id = id)
-    if request.method == 'POST':
-        if request.POST.get("action") == "Edit":
-            edit_event.title = request.POST.get("title")
-            edit_event.description = request.POST.get("description")
-            edit_event.date = request.POST.get("date")
-            edit_event.address = request.POST.get("address")
-            edit_event.location = request.POST.get("location")
-            edit_event.creator = request.user
-            edit_event.save()
-            
-            include_kwargs = {"id": edit_event.id}
-            redirect_to = reverse("event_details", kwargs=include_kwargs)
-            return HttpResponseRedirect(redirect_to)
-    return render_to_response(template_name, { 'event': edit_event }, context_instance=RequestContext(request))
+    event = get_object_or_404(Event, id=id)
+    event_form = form_class(request.user, instance=event)
+    if request.method == "POST":
+        if request.POST["action"] == "update":
+            event_form = form_class(request.user, request.POST, instance=event)
+            if event_form.is_valid():
+                event = event_form.save()
+                
+                include_kwargs = {"id": event.id}
+                redirect_to = reverse("event_details", kwargs=include_kwargs)
+                return HttpResponseRedirect(redirect_to)
+                
+    return render_to_response(template_name, {
+        "event_form": event_form,
+        "event": event,
+    }, context_instance=RequestContext(request))
 
 
 #@login_required

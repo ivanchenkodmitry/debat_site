@@ -21,19 +21,9 @@
             {{ event_form|as_uni_form }}      
    
             <input type="button" value="Знайти на мапі" onclick="codeAddress()">
-
-            
-            <!--
-            <div id="date" class="ctrlHolder">
-              <h2>Додаткові питання</h2>
-              <input type="button" value="Додати питання">            
-            </div>
-            --> 
-         
-
             <div class="form_block">
                 <input type="hidden" name="action" value="add" />
-                <input type="submit" value="{% trans "Додати" %}" />
+                <input id="submit" type="submit" value="{% trans "Додати" %}" />
             </div>
         </fieldset>
     </form>
@@ -47,6 +37,9 @@
    		<script type="text/javascript" src="{{ STATIC_URL }}pinax/js/topics.js"></script>
 
 		<script type="text/javascript" src="{{ STATIC_URL }}pinax/js/jquery-ui-1.8.14.custom.min.js"></script>
+		<script type="text/javascript" src="{{ STATIC_URL }}pinax/js/jquery.json-2.2.min.js"></script>
+		<link type="text/css" href="{{ STATIC_URL }}pinax/css/customquestions.css" rel="stylesheet" />
+		<script type="text/javascript" src="{{ STATIC_URL }}pinax/js/customquestions.js"></script>
 
 <script type="text/javascript">
 
@@ -57,6 +50,7 @@
 						dateFormat: 'yy-mm-dd',
 						monthNames: ['Січень','Лютий','Березень','Квітень','Травень','Червень','Липень','Серпень','Вересень','Жовтень','Листопад','Грудень'] 
 						});
+		$( "#edit-profile" ).testeditor();
 	});
 	</script>
 {% endblock %}

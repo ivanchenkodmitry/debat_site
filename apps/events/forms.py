@@ -4,22 +4,15 @@ from events.models import Event, Member
 
 
 class EventForm(forms.ModelForm):
-  
-  class Meta:
+    questions = forms.CharField(widget=forms.widgets.HiddenInput())
+    location = forms.CharField(initial="(48.464954, 35.044956)", #dnipropetrovsk
+                               widget=forms.widgets.HiddenInput())
+    
+    class Meta:
         model = Event
-        exclude = ('location', 'members', 'creator')
+        exclude = ('members', 'creator')
         
-  def __init__(self, user=None, *args, **kwargs):
+    def __init__(self, user=None, *args, **kwargs):
         self.user = user        
         super(EventForm, self).__init__(*args, **kwargs)
-        
-  def save(self, commit=True):
-        event = super(EventForm, self).save(commit=False)
-        event.creator = self.user
-        if commit:
-            event.save()
-            member = Member(user = self.user)
-            member.save()
-            event.members.add(member)
-            event.save()
-        return event
+
