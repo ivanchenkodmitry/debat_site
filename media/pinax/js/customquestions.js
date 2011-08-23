@@ -13,7 +13,7 @@
                 <ul id="itemcontainer">\
                 </ul>\
                 <div class="form_block" style="padding: 7px;">\
-                    <a id="additem">Додати питання</a>\
+                    <a id="additem" href="javascript: void(0)">Додати питання</a>\
                 </div>\
                 <div class="form_block">\
                     <input id="psevdosubmit" type="button" value="Надіслати">\
@@ -63,7 +63,7 @@
                       Питання '+ num +'\
                     </label>\
                     <textarea id="id_i' + id +'_title" class="textarea" cols="40" rows="10"></textarea>\
-                    <a id="id_i' + id +'_rm" style="float:right;">X</a>\
+                    <a id="id_i' + id +'_rm" href="javascript: void(0)" style="float:right;">X</a>\
                   </div>\
                   <div class="ctrlHolder">\
                     <label for="id_i' + id +'_type">Тип відповіді</label>\
@@ -75,7 +75,7 @@
                   </div>\
                   <ul id="id_i' + id +'_optioncontainer" class="optioncontainer"></ul>\
                   <div id="div_id_i' + id +'_addoption" class="ctrlHolder">\
-                    <a id="id_i' + id +'_addoption">Додати відповідь</a>\
+                    <a id="id_i' + id +'_addoption" href="javascript: void(0)">Додати відповідь</a>\
                   </div>\
                 </li>');
                 
@@ -148,7 +148,7 @@
                   <div class="ctrlHolder">\
                     <label for="id_o' + id +'_title"> Відповідь ' + num +'</label>\
                     <input id="id_o' + id +'_title" class="textinput" type="text" maxlength="200">\
-                    <a id="id_o' + id +'_rm">X</a><br>\
+                    <a id="id_o' + id +'_rm" href="javascript: void(0)">X</a><br>\
                     <label for="id_o' + id +'_right">Правильна</label>\
                     <input id="id_o' + id +'_rbright" class="radioboxinput" type="radio"\
                            name="i' + itemid +'_rbright" value="o' + id + '">\
