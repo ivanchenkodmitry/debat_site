@@ -23,6 +23,9 @@
             <h2>Фото до новини</h2>
 
 			<div id="blog-gallery">
+			{% for photo in blog_form.photos %}
+				<img src="{{ photo.get_thumbnail_url }}" style="margin: 10px"/>
+			{% endfor %}
 			</div>
 
 
@@ -53,10 +56,17 @@
 	function stopUpload(success, photo_id, photo_url){
 
 		if (success == 0){
-			alert('seems to be Ok: ' + photo_url);
+			//alert('seems to be Ok: ' + photo_url);
 			$('#photo_upload_process').hide();
 			$('#add_photo_to_blog_form').hide();
-			$('#blog-gallery').append('<img src="' + photo_url + '" style="margin: 10px"/>');			
+			$('#blog-gallery').append('<img src="' + photo_url + '" style="margin: 10px"/>');
+			if ($('#id_photos_hidden').val()){
+					photos_list = eval("(" + $('#id_photos_hidden').val() + ")");
+				}
+			else photos_list = new Array();
+			
+			photos_list.push(photo_id);
+			$('#id_photos_hidden').val('[' + photos_list.toString() + ']');
 			}
 		else{
 			alert('Можна завантажити лише зображення');

@@ -14,6 +14,11 @@
         {% avatar blog_post.author 40 %}
         <p><b>{% trans "Posted:" %}</b><br />
             <a href="{% url profile_detail blog_post.author.username %}">{{ blog_post.author.username }}</a> {% trans "on" %} {{ blog_post.publish|date }}</p>
+        <div id="post-gallery-photos">
+        	{% for photo in blog_post.gallery.photos.all %}
+        		<img src="{{ photo.get_display_url }}" /><br />
+        	{% endfor %}
+        </div>   
         <div class="blog-tags">
             <p>{% show_tags_for blog_post %}</p>
         </div>
