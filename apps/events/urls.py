@@ -20,4 +20,6 @@ urlpatterns = patterns('',
     url(r'^map/$', 'events.views.map', name="map"),
     #questionnaire
     url(r'^questions/(?P<id>\d+)/$', 'events.views.questions', name='event_questions'),
+    #answers
+    url(r'^answers/(?P<id>\d+)/$', 'events.views.answers', name='event_answers'),
 )

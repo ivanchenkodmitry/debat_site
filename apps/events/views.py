@@ -191,6 +191,9 @@ def questions(request, id, form_class=QuestionsForm, template_name="events/quest
     except ObjectDoesNotExist:
         return HttpResponseRedirect(redirect_to) # if user isn't member
         
+    if member.answers != "":
+        return HttpResponseRedirect(redirect_to)
+        
     questions_form = form_class(member)
     questions_form.setQuestions(event.questions)
         
@@ -203,4 +206,21 @@ def questions(request, id, form_class=QuestionsForm, template_name="events/quest
     return render_to_response(template_name, {
         "questions_form": questions_form,
         "event": event
+    }, context_instance=RequestContext(request))
+    
+@login_required
+def answers(request, id, template_name="events/answers.html"):
+    event = get_object_or_404(Event, id=id)
+    
+    include_kwargs = {"id": event.id}
+    redirect_to = reverse("event_details", kwargs=include_kwargs)
+    
+    if request.user != event.creator:
+        return HttpResponseRedirect(redirect_to)
+    
+    members = event.members.exclude(answers="")
+    
+    return render_to_response(template_name, {
+        "event": event,
+        "members": members,
     }, context_instance=RequestContext(request))
