@@ -3,7 +3,9 @@
 (function( $ ){
 
   $.fn.testeditor = function() {
-        
+    
+    submit = this.find(':submit').val()
+    
     this.find(':submit').remove();
     
     this.after('\
@@ -16,13 +18,15 @@
                     <a id="additem" href="javascript: void(0)">Додати питання</a>\
                 </div>\
                 <div class="form_block">\
-                    <input id="psevdosubmit" type="button" value="Надіслати">\
+                    <input id="psevdosubmit" type="button" value="'+ submit +'">\
                 </div>\
               </fieldset>\
             </form>');
     
     var itemnum = 0,
-        optionnum = 0;
+        optionnum = 0,
+        maxitem = 10,
+        maxoption = 10;
         
     $("#itemcontainer").sortable();
     //$( "#itemcontainer" ).disableSelection();
@@ -55,7 +59,7 @@
         var num = count + 1;
         itemnum = itemnum + 1;
         var id = itemnum;
-        if (count < 10) { 
+        if (count < maxitem) { 
             $item = $('\
                 <li id="i'+id +'">\
                   <div class="ctrlHolder">\
@@ -63,14 +67,14 @@
                       Питання '+ num +'\
                     </label>\
                     <textarea id="id_i' + id +'_title" class="textarea" cols="40" rows="10"></textarea>\
-                    <a id="id_i' + id +'_rm" href="javascript: void(0)" style="float:right;">X</a>\
+                    <a id="id_i' + id +'_rm" class="rmlink" href="javascript: void(0)">X</a>\
                   </div>\
                   <div class="ctrlHolder">\
                     <label for="id_i' + id +'_type">Тип відповіді</label>\
                     <select id="id_i' + id +'_type" class="select">\
-                      <option selected="selected" value="1">Вільна відповіль</option>\
-                      <option value="2">Вибір однієї правильної</option>\
-                      <option value="3">Вибір кількох правильних</option>\
+                      <option selected="selected" value="free">Вільна відповіль</option>\
+                      <option value="one">Вибір однієї правильної</option>\
+                      <option value="multi">Вибір кількох правильних</option>\
                     </select>\
                   </div>\
                   <ul id="id_i' + id +'_optioncontainer" class="optioncontainer"></ul>\
@@ -78,9 +82,7 @@
                     <a id="id_i' + id +'_addoption" href="javascript: void(0)">Додати відповідь</a>\
                   </div>\
                 </li>');
-                
-            //TODO type names
-                        
+
             $('#itemcontainer').append($item);
             
             $optioncontainer = $('#id_i' + id +'_optioncontainer');
@@ -100,7 +102,7 @@
                 $('#id_i' + id +'_type').val(data.type)
                 $('#id_i' + id +'_type').change()
                 console.log(data.type);
-                if (data.type != '1') {
+                if (data.type != 'free') {
                     console.log(data.options);
                     for (var j=0;j<data.options.length;j++) {
                         addOption(id,data.options[j]);
@@ -109,7 +111,7 @@
                 }
             }
             
-            addOption(id, {right: true});
+            addOption(id);
             addOption(id);
             
         }
@@ -135,59 +137,31 @@
         addOption(event.data.id);
     }
     
-    function addOption(itemid, data){
+    function addOption(itemid, title){
         $optioncontainer = $('#id_i' + itemid +'_optioncontainer');
-        var type = $('#id_i' + itemid +'_type').val();
         var count = $optioncontainer.children().length;
         var num = count + 1;
         optionnum = optionnum +1;
         var id = optionnum;
-        if (count < 10) {        
+        if (count < maxoption) {        
             $option = $('\
                 <li id="o'+ id +'">\
                   <div class="ctrlHolder">\
                     <label for="id_o' + id +'_title"> Відповідь ' + num +'</label>\
                     <input id="id_o' + id +'_title" class="textinput" type="text" maxlength="200">\
-                    <a id="id_o' + id +'_rm" href="javascript: void(0)">X</a><br>\
-                    <label for="id_o' + id +'_right">Правильна</label>\
-                    <input id="id_o' + id +'_rbright" class="radioboxinput" type="radio"\
-                           name="i' + itemid +'_rbright" value="o' + id + '">\
-                    <input id="id_o' + id +'_cbright" class="checkboxinput" type="checkbox"\
-                           name="o' + id +'_rbright" value="o' + id + '">\
+                    <a id="id_o' + id +'_rm" class="rmlink" href="javascript: void(0)">X</a><br>\
                   </div>\
                 </li>');
 
             $optioncontainer.append($option);
             
-            if (data != undefined) {
-
-            if (data.title != undefined) {
-                $('#id_o' + id +'_title').val(data.title);
-            }
-            
-            //XXX 1 first radio checked only
-            if (data.right != undefined) {
-                $('#id_o' + id +'_cbright').attr('checked', data.right);
-                $('#id_o' + id +'_rbright').attr('checked', data.right);
-            }
-            
-            }
-            
-            switch(type)
-            {
-            case '2': //Вибір однієї правильної
-              $option.find('input:checkbox').hide()
-              $option.find('input:radio').show()
-              break;
-            case '3': //Вибір кількох правильних
-              $option.find('input:checkbox').show()
-              $option.find('input:radio').hide()
-              break;
+            if (title != undefined) {
+                $('#id_o' + id +'_title').val(title);
             }
         
             $('#id_o' + id +'_rm').click({itemid: itemid, optionid: id}, removeOption);
         }
-        //TODO 2 add check handler (see 4)
+
     }
     
     function removeOption(event){
@@ -196,7 +170,6 @@
             $('#o' + event.data.optionid ).remove()
         }
         updateOptionTitles(event);
-        //TODO 3 do not remove checked option (see 4)
     }   
     
     function updateOptionTitles(event) {
@@ -209,34 +182,17 @@
         var type = $('#id_i' + event.data.id +'_type').val();
         $optioncontainer = $('#id_i' + event.data.id +'_optioncontainer');
                 
-        switch(type)
-        {
-        case '1': //Вільна відповіль
-          $('#div_id_i' + event.data.id +'_addoption').hide();
-          $optioncontainer.hide();
-          break;
-        case '2': //Вибір однієї правильної
-          $('#div_id_i' + event.data.id +'_addoption').show();
-          $optioncontainer.show();
-          $optioncontainer.find('input:checkbox').hide()
-          $optioncontainer.find('input:radio').show()
-          break;
-        case '3': //Вибір кількох правильних
-          $('#div_id_i' + event.data.id +'_addoption').show();
-          $optioncontainer.show();
-          $optioncontainer.find('input:checkbox').show()
-          $optioncontainer.find('input:radio').hide()
-          break;
+        if (type == 'free') {
+            $('#div_id_i' + event.data.id +'_addoption').hide();
+            $optioncontainer.hide();
+        } else {
+            $('#div_id_i' + event.data.id +'_addoption').show();
+            $optioncontainer.show();
         }
     }
     
     function getData(){
         var items = $('#itemcontainer').sortable('toArray');
-        
-        var types = {
-            '2':'radio',
-            '3':'checkbox'        
-        }
         
         var data = new Array();    
         
@@ -244,14 +200,10 @@
             var item = new Object();
             item.title = $(this).find('textarea').val();
             item.type = $(this).find('select').val();
-            if (item.type != '1') {
+            if (item.type != 'free') {
                 item.options = new Array();
                 $(this).find('li').each(function(j) {
-                    var option = new Object();
-                    option.title = $(this).find('input:text').val();
-                    if ($(this).find('input:'+ types[item.type]).attr('checked')) {
-                        option.right = true;
-                    }
+                    option = $(this).find('input:text').val();
                     item.options.push(option);
                 });
             }            
@@ -263,7 +215,7 @@
     function onSubmit(event) {
         $('#id_questions').val($.toJSON(getData()));
         return true;
-        //TODO 4 add some validation
+        //TODO add some validation
     }
 
   };

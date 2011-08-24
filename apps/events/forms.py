@@ -47,20 +47,20 @@ class QuestionsForm(forms.Form):
         questions = simplejson.loads(jquestions)
         
         for i, question in enumerate(questions):
-            if question['type'] == '1':
+            if question['type'] == 'free':
                 fields['q'+str(i+1)] = forms.CharField(label=question['title'],
                                                        widget=forms.Textarea)
             else :
                 choices_list = []
                 for j, option in enumerate(question['options']):
-                     choices_list.append((j+1, option['title']))
-                if question['type'] == '2':
+                     choices_list.append((j+1, option))
+                if question['type'] == 'one':
                     fields['q'+str(i+1)] = forms.ChoiceField(label=question['title'],
                                                            help_text=_(u"Оберіть одну відповідь"),
                                                            widget=forms.RadioSelect,
                                                            choices=choices_list,
                                                            )
-                elif question['type'] == '3':
+                elif question['type'] == 'multi':
                     fields['q'+str(i+1)] = forms.MultipleChoiceField(label=question['title'],
                                                          help_text = _(u"Оберіть кілька відповідей"),
                                                          widget=forms.CheckboxSelectMultiple,
