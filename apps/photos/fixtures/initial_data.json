@@ -44,5 +44,22 @@
             "pre_cache": false,
             "quality": 80
         }
+    },
+    
+    {
+        "pk": 4,
+        "model": "photologue.photosize",
+        "fields": {
+            "name": "medium",
+            "watermark": null,
+            "increment_count": true,
+            "effect": null,
+            "crop": false,
+            "height": 0,
+            "width": 300,
+            "upscale": false,
+            "pre_cache": false,
+            "quality": 80
+        }
     }
 ]
