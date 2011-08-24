@@ -27,7 +27,7 @@ class Event(models.Model):
     address = models.TextField(_('addres'), blank=True)
     date_added = models.DateTimeField(_('date added'), default=datetime.now, editable=False)
     creator = models.ForeignKey(User)
-    members = models.ForeignKey(Member, verbose_name="members_list", blank=True)
+    members = models.ManyToManyField(Member, verbose_name="members_list", blank=True)
     location = models.CharField(_('location'), max_length=200)
     questions = models.TextField(blank=True)
 	
