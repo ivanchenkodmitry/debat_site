@@ -135,30 +135,40 @@ def events(request, template_name="events/latest.html"):
 
 
 @login_required
-def join(request, id, template_name="events/details.html"):
+def join(request, id, form_class=QuestionsForm, template_name="events/questions.html"):
 
-    event = Event.objects.get(id = id)
+    event = get_object_or_404(Event, id=id)
     
-    members = event.members.all()
-    is_member = False    
-
-    for member in members:
-        if member.user == request.user:
-            is_member = True
-            break    
-        
-    if is_member:
-        pass
-    else:
-        member = Member()
-        member.user = request.user
-        member.save()
-
-        event.members.add(member)
-        event.save()
-
     include_kwargs = {"id": event.id}
-    redirect_to = reverse("event_details", kwargs=include_kwargs)
+    redirect_to = reverse("event_details", kwargs=include_kwargs)   
+        
+    try:
+        member = event.members.get(user = request.user)
+    except ObjectDoesNotExist: # if user isn't member
+        member = Member(user = request.user)
+        if event.questions == "":
+            member.save()
+
+            event.members.add(member)
+            event.save()
+        else:
+            questions_form = form_class(member)
+            questions_form.setQuestions(event.questions)
+            
+            if request.method == "POST":
+                questions_form.setData(request.POST)
+                if questions_form.is_valid():
+                    questions_form.save()
+                    
+                    event.members.add(member)
+                    event.save()
+                    return HttpResponseRedirect(redirect_to)
+            
+            return render_to_response(template_name, {
+                "questions_form": questions_form,
+                "event": event
+            }, context_instance=RequestContext(request))
+            
     return HttpResponseRedirect(redirect_to)
 
 @login_required
@@ -179,34 +189,6 @@ def leave(request, id, template_name="events/details.html"):
     redirect_to = reverse("event_details", kwargs=include_kwargs)
     return HttpResponseRedirect(redirect_to)
     
-@login_required
-def questions(request, id, form_class=QuestionsForm, template_name="events/questions.html"):
-    event = get_object_or_404(Event, id=id)     
-    
-    include_kwargs = {"id": event.id}
-    redirect_to = reverse("event_details", kwargs=include_kwargs)
-            
-    try:
-        member = event.members.get(user=request.user)
-    except ObjectDoesNotExist:
-        return HttpResponseRedirect(redirect_to) # if user isn't member
-        
-    if member.answers != "":
-        return HttpResponseRedirect(redirect_to)
-        
-    questions_form = form_class(member)
-    questions_form.setQuestions(event.questions)
-        
-    if request.method == "POST":
-        questions_form.setData(request.POST)
-        if questions_form.is_valid():
-            questions_form.save()
-            return HttpResponseRedirect(redirect_to)
-        
-    return render_to_response(template_name, {
-        "questions_form": questions_form,
-        "event": event
-    }, context_instance=RequestContext(request))
     
 @login_required
 def answers(request, id, template_name="events/answers.html"):
