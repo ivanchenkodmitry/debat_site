@@ -7,6 +7,7 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.utils.encoding import smart_unicode
 from django.utils.hashcompat import sha_constructor
+from django.db.models.fields import BLANK_CHOICE_DASH, BLANK_CHOICE_NONE
 
 from pinax.core.utils import get_send_mail
 send_mail = get_send_mail()
@@ -14,6 +15,7 @@ send_mail = get_send_mail()
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
+from clubs.models import Club
 
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
@@ -23,12 +25,11 @@ from emailconfirmation.models import EmailAddress
 from account.models import Account
 
 from timezones.forms import TimeZoneField
-
 from account.models import PasswordReset
-
 from recaptcha.fields import ReCaptchaField
-
 import md5
+
+EMAIL_RECIPIENTS = []
 
 alnum_re = re.compile(r'^\w+$')
 
@@ -69,26 +70,31 @@ class LoginForm(forms.Form):
 
 class SignupForm(forms.Form):
 
-    ORG_WAYS = (
-        (1, _('Методична робота')),
-        (2, _('Розвиток англійських дебатів')),
-        (3, _('Організація дебатних заходів')),
-        (4, _('Співпраця із комерційними структурами')),
-        (5, _('Співпраця  із іншими ГО')),
-        (6, _('Співпраця із ЗМІ')),
-        (0, _('Не хочу займатись організаційними справами')),
-    )
+    ORG_WAYS = BLANK_CHOICE_DASH + [
+        ('Методична робота', _('Методична робота')),
+        ('Розвиток англійських дебатів', _('Розвиток англійських дебатів')),
+        ('Організація дебатних заходів', _('Організація дебатних заходів')),
+        ('Співпраця із комерційними структурами', _('Співпраця із комерційними структурами')),
+        ('Співпраця  із іншими ГО', _('Співпраця  із іншими ГО')),
+        ('Співпраця із ЗМІ', _('Співпраця із ЗМІ')),
+        ('Не хочу займатись організаційними справами', _('Не хочу займатись організаційними справами')),
+    ]
 
-    MEMBERS_FEE = (
-        (1, _('5 грн')),
-        (2, _('10 грн')),
-        (3, _('15 грн')),
-        (4, _('20 грн')),
-        (5, _('30 грн')),
-        (6, _('50 грн')),
-        (0, _('Не можу сплачувати членський внесок')),
-    )
+    MEMBERS_FEE = BLANK_CHOICE_DASH + [
+        ('5 грн', _('5 грн')),
+        ('10 грн', _('10 грн')),
+        ('15 грн', _('15 грн')),
+        ('20 грн', _('20 грн')),
+        ('30 грн', _('30 грн')),
+        ('50 грн', _('50 грн')),
+        ('Не можу сплачувати членський внесок', _('Не можу сплачувати членський внесок')),
+    ]
     
+    clubs = Club.objects.all()
+
+    CLUBS = BLANK_CHOICE_DASH + ([(obj.id, obj.title) for obj in Club.objects.all()])
+
+
     surname =  forms.CharField(label=_(u'Прізвище'), max_length=200, widget=forms.TextInput())
     name =  forms.CharField(label=_(u'Ім’я'), max_length=200, widget=forms.TextInput())
     middle_name = forms.CharField(label=_(u'По батькові'), max_length=200, widget=forms.TextInput())
@@ -101,13 +107,14 @@ class SignupForm(forms.Form):
     education = forms.CharField(label=_(u'Освіта (ВНЗ, факультет)'), required = False, max_length=500, widget=forms.Textarea())
     work = forms.CharField(label=_(u'Місце роботи'), required = False, max_length=300, widget=forms.Textarea())
     experience = forms.CharField(label=_(u'Опишіть у довільній формі досвід гри у дебати (роки участі у дебатах, турніри, в яких Ви брали участь, тощо).'), required = False, max_length=600, widget=forms.Textarea())
-    club = forms.CharField(label=_(u'Дебатний клуб, який  представляєте (якщо є)'), required = False, max_length=200, widget=forms.TextInput())
+
+    club = forms.ChoiceField(label=_(u'Дебатний клуб, який  представляєте (якщо є)'), choices = CLUBS, initial='', required = False, widget=forms.Select())
     social_work_exp = forms.CharField(label=_(u'Який досвід громадської роботи ви маєте(реалізовані проекти, членство в ГО, студ.самоврядуванні і т.д.)?'), required = False, max_length=600, widget=forms.Textarea())
     desired_exp = forms.CharField(label=_(u'Які знання, досвід чи вміння ви хочете отримати, ставши членом ВМГО «ФДУ»?'),  required = False, max_length=200, widget=forms.Textarea())
 
-    org_way = forms.ChoiceField(label=_(u'Яким організаційним напрямком в діяльності ВМГО «ФДУ» ви хотіли б займатись?'), choices = ORG_WAYS, initial='1', required = False, widget=forms.Select())
+    org_way = forms.ChoiceField(label=_(u'Яким організаційним напрямком в діяльності ВМГО «ФДУ» ви хотіли б займатись?'), choices = ORG_WAYS, initial='', required = False, widget=forms.Select())
 
-    members_fee = forms.ChoiceField(label=_(u'Який членський внесок ви готові сплачувати щомісячно?'), choices = MEMBERS_FEE, initial='1', required = False, widget=forms.Select())
+    members_fee = forms.ChoiceField(label=_(u'Який членський внесок ви готові сплачувати щомісячно?'), choices = MEMBERS_FEE, initial='', required = False, widget=forms.Select())
 
     interests = forms.CharField(label=_(u'Напишіть, будь ласка, про свої цікаві захоплення та вміння'), required = False, max_length=600, widget=forms.Textarea())
 
@@ -137,9 +144,10 @@ class SignupForm(forms.Form):
     confirmation_key = forms.CharField(max_length=40, required=False, widget=forms.HiddenInput())
     
     def clean_email(self):
+        username = self.cleaned_data["email"].replace('@', '_').replace('.', '_')
         email = self.cleaned_data["email"]
         try:
-            user = User.objects.get(email__iexact=email)
+            user = User.objects.get(username__iexact=username)
         except User.DoesNotExist:
             return email
         raise forms.ValidationError(_(u"Користувач з таким email вже зареєстрований"))
@@ -204,7 +212,10 @@ class SignupForm(forms.Form):
         profile.education = self.cleaned_data["education"]
         profile.work = self.cleaned_data["work"]
         profile.experience = self.cleaned_data["experience"]
-        profile.club = self.cleaned_data["club"]
+        try:
+            profile.club = Club.objects.get(id = self.cleaned_data["club"])
+        except:
+            profile.club = None
         profile.social_work_exp = self.cleaned_data["social_work_exp"]
         profile.desired_exp = self.cleaned_data["desired_exp"]
         profile.org_way = self.cleaned_data["org_way"]
@@ -231,8 +242,12 @@ class SignupForm(forms.Form):
             domain = 'example.com'
 
         mail_context = Context({ 'user': new_user, 'domain':domain })
-        
-        subject, from_email, to = 'Новий користувач на сайті Дебатної організації', settings.SERVER_EMAIL, settings.EMAIL_RECIPIENTS
+        admins = User.objects.filter(is_superuser = True)
+        emails = []
+        for admin in admins:
+            emails = emails + [admin.email]
+        EMAIL_RECIPIENTS = emails
+        subject, from_email, to = 'Новий користувач на сайті Дебатної організації', settings.SERVER_EMAIL, EMAIL_RECIPIENTS
         html_content = htmly.render(mail_context)
         msg = EmailMultiAlternatives(subject, 'Новий користувач на сайті Дебатної організації', from_email, to)
         msg.attach_alternative(html_content, "text/html")

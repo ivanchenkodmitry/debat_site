@@ -17,7 +17,7 @@ from events.forms import EventForm, QuestionsForm
 
 def events_widget(request, template_name = "homepage.html"):
 
-    events = Event.objects.order_by("title")
+    events = Event.objects.order_by("-date")
     
     return render_to_response(template_name, {
         "events": events,

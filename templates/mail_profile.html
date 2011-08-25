@@ -38,26 +38,9 @@
                 <p><b>{% trans "Дебатний клуб" %}</b>:{% if user.get_profile.club%} {{ user.get_profile.club }} {% else %} --- Немає данних --- </p>{% endif %}
                 <p><b>{% trans "Досвід громадської роботи" %}</b>:{% if user.get_profile.social_work_exp%} {{ user.get_profile.social_work_exp }} {% else %} --- Немає данних --- </p>{% endif %}
                 <p><b>{% trans "Досвід, який хочу отримати" %}</b>:{% if user.get_profile.desired_exp%} {{ user.get_profile.desired_exp }} {% else %} --- Немає данних --- </p>{% endif %}
-                <p><b>{% trans "Організаційний напрямок" %}</b>:{% if user.get_profile.org_way %}
-								 {% ifequal user.get_profile.org_way '1' %} Методична робота {% endifequal %}
-								 {% ifequal user.get_profile.org_way '2' %} Розвиток англійських дебатів {% endifequal %}
-								 {% ifequal user.get_profile.org_way '3' %} Організація дебатних заходів {% endifequal %}
-								 {% ifequal user.get_profile.org_way '4' %} Співпраця із комерційними структурами {% endifequal %}
-								 {% ifequal user.get_profile.org_way '5' %} Співпраця  із іншими ГО {% endifequal %}
-								 {% ifequal user.get_profile.org_way '6' %} Співпраця із ЗМІ {% endifequal %}
-								 {% ifequal user.get_profile.org_way '0' %} Не хочу займатись організаційними справами {% endifequal %}
-				</p>
-				{% endif %}
+                <p><b>{% trans "Організаційний напрямок" %}</b>:{% if user.get_profile.org_way %}  {{ user.get_profile.org_way }} {% else %} --- Немає данних --- </p>{% endif %}
 
-                <p><b>{% trans "Членські внески" %}</b>:{% if user.get_profile.members_fee %}
-								{% ifequal user.get_profile.members_fee '1' %} 5 грн {% endifequal %}
-								{% ifequal user.get_profile.members_fee '2' %} 5 грн {% endifequal %}
-								{% ifequal user.get_profile.members_fee '3' %} 5 грн {% endifequal %}
-								{% ifequal user.get_profile.members_fee '4' %} 5 грн {% endifequal %}
-								{% ifequal user.get_profile.members_fee '5' %} 5 грн {% endifequal %}
-								{% ifequal user.get_profile.members_fee '6' %} 5 грн {% endifequal %}
-				</p>
-				{% endif %}
+                <p><b>{% trans "Членські внески" %}</b>:{% if user.get_profile.members_fee %}  {{ user.get_profile.members_fee }} {% else %} --- Немає данних --- </p>{% endif %}
                 <p><b>{% trans "Інтереси" %}</b>:{% if user.get_profile.interests %} {{ user.get_profile.interests }} {% else %} --- Немає данних --- </p>{% endif %}
 
                 <p><b>{% trans "Website" %}</b>:{% if user.get_profile.website %} <a class="url" target="_blank" href="{{ user.get_profile.website }}">{{ user.get_profile.website }}</a> {% else %} --- Немає данних --- </p>{% endif %}
