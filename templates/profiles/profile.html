@@ -48,7 +48,8 @@
                 {% if other_user.get_profile.work%}<p><b>{% trans "Місце роботи" %}</b>: {{ other_user.get_profile.work }}</p>{% endif %}
                 {% if other_user.get_profile.experience%}<p><b>{% trans "Досвід гри у дебати" %}</b>: {{ other_user.get_profile.experience }}</p>{% endif %}
 
-                {% if other_user.get_profile.club%}<p><b>{% trans "Дебатний клуб" %}</b>: {{ other_user.get_profile.club }}</p>{% endif %}
+                {% if other_user.get_profile.club%}<p><b>{% trans "Дебатний клуб" %}</b>: <a class="url" href="{% url club_details other_user.get_profile.club.id %}">{{ other_user.get_profile.club }}</a></p>{% endif %}
+
                 {% if other_user.get_profile.social_work_exp%}<p><b>{% trans "Досвід громадської роботи" %}</b>: {{ other_user.get_profile.social_work_exp }}</p>{% endif %}
                 {% if other_user.get_profile.desired_exp%}<p><b>{% trans "Досвід, який хочу отримати" %}</b>: {{ other_user.get_profile.desired_exp }}</p>{% endif %}
                 {% if other_user.get_profile.org_way %}<p><b>{% trans "Організаційний напрямок" %}</b>: {{ other_user.get_profile.org_way }}</p>{% endif %}
