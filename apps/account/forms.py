@@ -14,12 +14,7 @@ send_mail = get_send_mail()
 
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from django.contrib.sites.models import Site
 from clubs.models import Club
-
-from django.core.mail import EmailMultiAlternatives
-from django.template.loader import get_template
-from django.template import Context
 
 from emailconfirmation.models import EmailAddress
 from account.models import Account
@@ -29,7 +24,6 @@ from account.models import PasswordReset
 from recaptcha.fields import ReCaptchaField
 import md5
 
-EMAIL_RECIPIENTS = []
 
 alnum_re = re.compile(r'^\w+$')
 
@@ -46,12 +40,10 @@ class LoginForm(forms.Form):
             return
         user = authenticate(email=self.cleaned_data["email"], password=self.cleaned_data["password"])
         if user:
-            if user.is_active and user.get_profile().admin_verification:
+            if user.is_active:
                 self.user = user
             elif user.is_active:
                 raise forms.ValidationError(_("Профайл цього аккаунта ще не підтверджено адміністратором."))
-            else:
-                raise forms.ValidationError(_("Цей аккаунт ще не активовано."))
         else:
             raise forms.ValidationError(_("Email та/або пароль невірний."))
         return self.cleaned_data
@@ -136,10 +128,10 @@ class SignupForm(forms.Form):
             widget = forms.TextInput()
         )
 
-    recaptcha = ReCaptchaField(error_messages = {  
-            'required': u'Це поле обов’язкове',            
-            'invalid' : u'Невірне значення'  
-            })
+#    recaptcha = ReCaptchaField(error_messages = {  
+#            'required': u'Це поле обов’язкове',            
+#            'invalid' : u'Невірне значення'  
+#            })
     
     confirmation_key = forms.CharField(max_length=40, required=False, widget=forms.HiddenInput())
     
@@ -227,31 +219,12 @@ class SignupForm(forms.Form):
         
         profile.md5_name = md5_name.hexdigest()
         
-        
         profile.save()
       
         if settings.ACCOUNT_EMAIL_VERIFICATION:
             new_user.is_active = False
             new_user.save()
 
-
-        htmly = get_template('mail_profile.html')
-        try:
-            domain = Site.objects.all()[0].domain
-        except:
-            domain = 'example.com'
-
-        mail_context = Context({ 'user': new_user, 'domain':domain })
-        admins = User.objects.filter(is_superuser = True)
-        emails = []
-        for admin in admins:
-            emails = emails + [admin.email]
-        EMAIL_RECIPIENTS = emails
-        subject, from_email, to = 'Новий користувач на сайті Дебатної організації', settings.SERVER_EMAIL, EMAIL_RECIPIENTS
-        html_content = htmly.render(mail_context)
-        msg = EmailMultiAlternatives(subject, 'Новий користувач на сайті Дебатної організації', from_email, to)
-        msg.attach_alternative(html_content, "text/html")
-        msg.send()
         return username, password # required for authenticate()
 
 

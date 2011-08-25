@@ -53,8 +53,6 @@ class Profile(models.Model):
     members_fee = models.CharField(_('Членські внески'), null=True, choices = MEMBERS_FEE, max_length=200)  
     interests = models.TextField(_('Інтереси'), null=True, blank=True)
     vk_id = models.CharField(_('ID Вконтакті'), null=True, blank=True, max_length=30)
-
-    admin_verification = models.BooleanField(_("admin_verivication"))   #Проверка пользователья Админом
     about = models.TextField(_('about'), null=True, blank=True)
 
     md5_name = models.CharField(_('Md5 for verivication'), null=True, blank=True, max_length=100)

@@ -5,7 +5,11 @@
 {% block head_title %}{% trans "Verify your e-mail address" %}{% endblock %}
 
 {% block body %}
-    <h1>{% trans "Профайл підтверджено" %} для {{ profile.name }} {{ profile.surname }}</h1>
+	{% if profile %}
+    	<h1>{% trans "Профайл підтверджено" %} для {{ profile.name }} {{ profile.surname }}</h1>
+	{% else %}
+		<h1>{% trans "Профайл не знайдено" %} </h1>
+	{% endif %}
 {% endblock %}
     
 

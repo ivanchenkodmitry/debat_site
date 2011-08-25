@@ -1,6 +1,6 @@
 from django.conf.urls.defaults import *
 from account.forms import *
-
+from account.signals import mail_to_admin
 
 urlpatterns = patterns('',
     url(r'^email/$', 'account.views.email', name="acct_email"),

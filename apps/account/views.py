@@ -146,10 +146,14 @@ def vk_login(request):
 
 
 def confirm_profile(request, profile_hash, template_name="account/confirm_profile.html"):
-	profile = Profile.objects.get(md5_name = profile_hash)
-	profile.admin_verification = True
-	profile.save()
-	
+	try:
+		profile = Profile.objects.get(md5_name = profile_hash)
+		if not profile.user.is_active:
+			profile.user.is_active = True
+			profile.user.save()
+	except:
+		profile = None
+
 	return render_to_response(template_name, {
         "profile": profile,
     }, context_instance=RequestContext(request))
