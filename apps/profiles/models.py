@@ -55,7 +55,6 @@ class Profile(models.Model):
     vk_id = models.CharField(_('ID Вконтакті'), null=True, blank=True, max_length=30)
     about = models.TextField(_('about'), null=True, blank=True)
 
-    md5_name = models.CharField(_('Md5 for verivication'), null=True, blank=True, max_length=100)
     
     def __unicode__(self):
         return self.user.username
@@ -74,3 +73,10 @@ def create_profile(sender, instance=None, **kwargs):
     profile, created = Profile.objects.get_or_create(user=instance)
 
 post_save.connect(create_profile, sender=User)
+
+class Verification(models.Model):
+	md5_hash = models.CharField(_('Md5 for verivication'), null=True, blank=True, max_length=100)
+	profile = models.OneToOneField(Profile, null=True, blank=True, verbose_name=_('profile'))
+
+
+

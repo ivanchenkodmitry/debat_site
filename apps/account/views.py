@@ -26,6 +26,7 @@ from django.http import QueryDict
 from django.core.urlresolvers import reverse
 
 from profiles.models import Profile
+from profiles.models import Verification
 import md5
 
 association_model = models.get_model('django_openid', 'Association')
@@ -147,7 +148,8 @@ def vk_login(request):
 
 def confirm_profile(request, profile_hash, template_name="account/confirm_profile.html"):
 	try:
-		profile = Profile.objects.get(md5_name = profile_hash)
+		verification = Verification.objects.get(md5_hash = profile_hash)
+		profile = verification.profile
 		if not profile.user.is_active:
 			profile.user.is_active = True
 			profile.user.save()

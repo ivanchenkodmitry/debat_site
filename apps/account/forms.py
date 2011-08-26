@@ -15,6 +15,7 @@ send_mail = get_send_mail()
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from clubs.models import Club
+from profiles.models import Verification
 
 from emailconfirmation.models import EmailAddress
 from account.models import Account
@@ -214,12 +215,15 @@ class SignupForm(forms.Form):
         profile.members_fee = self.cleaned_data["members_fee"]
         profile.interests = self.cleaned_data["interests"]
         profile.vk_id = self.cleaned_data["vk_id"]
-        md5_name = md5.new()
-        md5_name.update(new_user.username)
-        
-        profile.md5_name = md5_name.hexdigest()
-        
+       
         profile.save()
+
+        verification = Verification()
+        md5_hash = md5.new()
+        md5_hash.update(new_user.username)        
+        verification.md5_hash = md5_hash.hexdigest()
+        verification.profile = profile
+        verification.save()
       
         if settings.ACCOUNT_EMAIL_VERIFICATION:
             new_user.is_active = False
