@@ -1,0 +1,26 @@
+[
+ {
+  "pk": "DSU", 
+  "model": "universities.university", 
+  "fields": {
+   "site": "dsu.dp.ua", 
+   "address": "Naykova str."
+  }
+ }, 
+ {
+  "pk": "KNEU", 
+  "model": "universities.university", 
+  "fields": {
+   "site": "kneu.kiev.ua", 
+   "address": "Kyiv"
+  }
+ }, 
+ {
+  "pk": "Mount_universitet", 
+  "model": "universities.university", 
+  "fields": {
+   "site": "mount.dp.ua", 
+   "address": "Dnipropetrovsk"
+  }
+ }
+]
