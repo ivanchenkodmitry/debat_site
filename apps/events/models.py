@@ -39,28 +39,36 @@ class Event(models.Model):
         """
         Get answer table data
         """
-        data = []
+        data = {}
                 
         if self.questions != "":
         
             questions = simplejson.loads(self.questions)
+            
+            data['columns'] = [_("Member")]
+            
+            for question in questions:
+                data['columns'].append(question['title'])
+            
             members = self.members.exclude(answers="")
+            
+            data['rows'] = []
             
             for member in members:
                 answers = simplejson.loads(member.answers)
-                row = {}
-                row['member'] = unicode(member)
+                row = []
+                row.append({"data": unicode(member),"profile": member.user.username, "type":"profile"})
                 for i, answer in enumerate(answers):
                     if questions[i]['type'] == "one":
-                        row['question'+ str(i)] = unicode(questions[i]['options'][int(answer)-1])
+                        row.append({"data": questions[i]['options'][int(answer)-1]})
                     elif questions[i]['type'] == "multi":
-                        value = u""
+                        items = []
                         for j in answer:
-                            value = value + unicode(questions[i]['options'][int(j)-1]) + u" "
-                        row['question'+ str(i)] = value
+                            items.append(questions[i]['options'][int(j)-1])
+                        row.append({"data": items, "type":"list"})
                     else:
-                        row['question'+ str(i)] = unicode(answer)
-                data.append(row)
+                        row.append({"data": answer})
+                data['rows'].append(row)
         
         return data
 

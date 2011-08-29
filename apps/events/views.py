@@ -13,7 +13,6 @@ from django.contrib.auth.decorators import login_required
 
 from events.models import Event, Member
 from events.forms import EventForm, QuestionsForm
-from events.tables import create_answer_table
 
 
 def events_widget(request, template_name = "homepage.html"):
@@ -199,10 +198,8 @@ def answers(request, id, template_name="events/answers.html"):
     
     if request.user != event.creator:
         return HttpResponseRedirect(redirect_to)  
-
-    AnswerTable = create_answer_table(event.questions)
     
-    table = AnswerTable(event.get_table_data())
+    table = event.get_table_data()
     
     return render_to_response(template_name, {
         "event": event,

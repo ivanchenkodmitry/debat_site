@@ -17,7 +17,15 @@
         {% for row in table.rows %}
             <tr>
             {% for value in row %}
-                <td>{{ value }}</td>
+                <td>
+                    {% ifequal value.type "list" %}
+                        <ul>{{ value.data|unordered_list }}</ul>
+                    {% else %}{% ifequal value.type "profile" %}
+                        <a href="{% url profile_detail value.profile %}">{{ value.data }}</a>
+                    {% else %}
+                        {{ value.data }}
+                    {% endifequal %}{% endifequal %}
+                </td>
             {% endfor %}
             </tr>
         {% endfor %}
