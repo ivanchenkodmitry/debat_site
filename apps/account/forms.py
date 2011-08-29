@@ -15,6 +15,7 @@ send_mail = get_send_mail()
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from clubs.models import Club
+from clubs.models import Members
 from profiles.models import Verification
 
 from emailconfirmation.models import EmailAddress
@@ -129,10 +130,10 @@ class SignupForm(forms.Form):
             widget = forms.TextInput()
         )
 
-#    recaptcha = ReCaptchaField(error_messages = {  
-#            'required': u'Це поле обов’язкове',            
-#            'invalid' : u'Невірне значення'  
-#            })
+    recaptcha = ReCaptchaField(error_messages = {  
+            'required': u'Це поле обов’язкове',            
+            'invalid' : u'Невірне значення'  
+            })
     
     confirmation_key = forms.CharField(max_length=40, required=False, widget=forms.HiddenInput())
     
@@ -205,16 +206,22 @@ class SignupForm(forms.Form):
         profile.education = self.cleaned_data["education"]
         profile.work = self.cleaned_data["work"]
         profile.experience = self.cleaned_data["experience"]
-        try:
-            profile.club = Club.objects.get(id = self.cleaned_data["club"])
-        except:
-            profile.club = None
         profile.social_work_exp = self.cleaned_data["social_work_exp"]
         profile.desired_exp = self.cleaned_data["desired_exp"]
         profile.org_way = self.cleaned_data["org_way"]
         profile.members_fee = self.cleaned_data["members_fee"]
         profile.interests = self.cleaned_data["interests"]
         profile.vk_id = self.cleaned_data["vk_id"]
+
+        try:
+            profile.club = Club.objects.get(id = self.cleaned_data["club"])
+            member = Members()
+            member.user = new_user
+            member.save()
+            profile.club.members.add(member)
+            profile.club.save()
+        except:
+            profile.club = None
        
         profile.save()
 

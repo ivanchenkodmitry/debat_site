@@ -45,7 +45,7 @@ class Profile(models.Model):
     education = models.CharField(_('Освіта (ВНЗ, факультет)'), blank=True, max_length=500)
     work = models.CharField(_('Місце роботи'), null=True, blank=True, max_length=600)
     experience = models.CharField(_('Досвід гри у дебати'), null=True, blank=True, max_length=600)
-    club = models.OneToOneField(Club, null=True, blank=True, verbose_name=_('club'))
+    club = models.ForeignKey(Club, null=True, blank=True, unique=False, verbose_name=_('club'))
     social_work_exp = models.CharField(_('Досвід громадської роботи'), null=True, blank=True, max_length=600)
     desired_exp = models.TextField(_('Досвід, який хочу отримати'), null=True, blank=True)
 
