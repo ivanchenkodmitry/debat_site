@@ -10,13 +10,23 @@
     <h2>Відповіді</h2>
     <table>
         <tr>
-            <th>{% trans "Member" %}</th>
-            <th>{% trans "Answers" %}</th>
+            {% for column in table.columns %}
+            <th>{{ column }}</th>
+            {% endfor %}
         </tr>
-        {% for member in members %}
+        {% for row in table.rows %}
             <tr>
-                <td><a href="{% url profile_detail member.user.username %}">{{ member }}</a></td>
-                <td>{{ member.answers }}</td>
+            {% for value in row %}
+                <td>
+                    {% ifequal value.type "list" %}
+                        <ul>{{ value.data|unordered_list }}</ul>
+                    {% else %}{% ifequal value.type "profile" %}
+                        <a href="{% url profile_detail value.profile %}">{{ value.data }}</a>
+                    {% else %}
+                        {{ value.data }}
+                    {% endifequal %}{% endifequal %}
+                </td>
+            {% endfor %}
             </tr>
         {% endfor %}
     </table>

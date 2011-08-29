@@ -9,6 +9,7 @@ from datetime import datetime
 #from tagging.fields import TagField
 
 from django.utils.translation import ugettext_lazy as _
+from django.utils import simplejson
 
 class Member(models.Model):
 	user = models.ForeignKey(User)
@@ -33,6 +34,43 @@ class Event(models.Model):
 	
     def __unicode__(self):
         return self.title
+        
+    def get_table_data(self):
+        """
+        Get answer table data
+        """
+        data = {}
+                
+        if self.questions != "":
+        
+            questions = simplejson.loads(self.questions)
+            
+            data['columns'] = [_("Member")]
+            
+            for question in questions:
+                data['columns'].append(question['title'])
+            
+            members = self.members.exclude(answers="")
+            
+            data['rows'] = []
+            
+            for member in members:
+                answers = simplejson.loads(member.answers)
+                row = []
+                row.append({"data": unicode(member),"profile": member.user.username, "type":"profile"})
+                for i, answer in enumerate(answers):
+                    if questions[i]['type'] == "one":
+                        row.append({"data": questions[i]['options'][int(answer)-1]})
+                    elif questions[i]['type'] == "multi":
+                        items = []
+                        for j in answer:
+                            items.append(questions[i]['options'][int(j)-1])
+                        row.append({"data": items, "type":"list"})
+                    else:
+                        row.append({"data": answer})
+                data['rows'].append(row)
+        
+        return data
 
 
 	
