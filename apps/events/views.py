@@ -9,7 +9,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from excel_response import ExcelResponse
+from external.excel_response import ExcelResponse
 
 
 from events.models import Event, Member
