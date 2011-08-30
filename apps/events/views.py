@@ -9,6 +9,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from excel_response import ExcelResponse
 
 
 from events.models import Event, Member
@@ -188,8 +189,6 @@ def leave(request, id, template_name="events/details.html"):
     include_kwargs = {"id": event.id}
     redirect_to = reverse("event_details", kwargs=include_kwargs)
     return HttpResponseRedirect(redirect_to)
-    
-from excel_response import ExcelResponse
     
 @login_required
 def answers(request, id, template_name="events/answers.html"):
