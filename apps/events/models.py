@@ -71,6 +71,40 @@ class Event(models.Model):
                 data['rows'].append(row)
         
         return data
-
-
-	
+        
+    def get_excel_data(self):
+        """
+        Get data for ExcelResponse
+        """
+        data = []
+                
+        if self.questions != "":
+        
+            questions = simplejson.loads(self.questions)
+            
+            headers = [unicode(_("Member"))]
+            
+            for question in questions:
+                headers.append(question['title'])
+                
+            data.append(headers)
+            
+            members = self.members.exclude(answers="")
+            
+            for member in members:
+                answers = simplejson.loads(member.answers)
+                row = []
+                row.append(unicode(member))
+                for i, answer in enumerate(answers):
+                    if questions[i]['type'] == "one":
+                        row.append(questions[i]['options'][int(answer)-1])
+                    elif questions[i]['type'] == "multi":
+                        value = u""
+                        for j in answer:
+                            value = value + u"- %s\n" % questions[i]['options'][int(j)-1]
+                        row.append(value)
+                    else:
+                        row.append(answer)
+                data.append(row)
+        
+        return data

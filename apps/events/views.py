@@ -189,6 +189,8 @@ def leave(request, id, template_name="events/details.html"):
     redirect_to = reverse("event_details", kwargs=include_kwargs)
     return HttpResponseRedirect(redirect_to)
     
+from excel_response import ExcelResponse
+    
 @login_required
 def answers(request, id, template_name="events/answers.html"):
     event = get_object_or_404(Event, id=id)
@@ -197,7 +199,11 @@ def answers(request, id, template_name="events/answers.html"):
     redirect_to = reverse("event_details", kwargs=include_kwargs)
     
     if request.user != event.creator:
-        return HttpResponseRedirect(redirect_to)  
+        return HttpResponseRedirect(redirect_to)
+        
+    if request.GET.get('action') == 'export':
+        data = event.get_excel_data()
+        return ExcelResponse(data, output_name='answers')
     
     table = event.get_table_data()
     

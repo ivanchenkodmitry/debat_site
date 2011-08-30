@@ -7,7 +7,7 @@
 
 {% block body %}
     <h1>{{ event.title }}</h1>
-    <h2>Відповіді</h2>
+    <h2>{% trans "Відповіді" %}</h2>
     <table>
         <tr>
             {% for column in table.columns %}
@@ -30,6 +30,7 @@
             </tr>
         {% endfor %}
     </table>
+    <a href="?action=export"> <P> {% trans "Завантажити у форматі XLS" %} </P> </a>
 {% endblock %}
 
 {% block extra_body %}
