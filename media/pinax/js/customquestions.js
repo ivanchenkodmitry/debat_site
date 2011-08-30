@@ -197,17 +197,22 @@
         var data = new Array();    
         
         $('#itemcontainer > li').each(function(i) {
-            var item = new Object();
-            item.title = $(this).find('textarea').val();
-            item.type = $(this).find('select').val();
-            if (item.type != 'free') {
-                item.options = new Array();
-                $(this).find('li').each(function(j) {
-                    option = $(this).find('input:text').val();
-                    item.options.push(option);
-                });
-            }            
-            data.push(item);
+            var item_title = $(this).find('textarea').val();
+            if (item_title != "") { //ignore empty item
+                var item = new Object();
+                item.title = item_title;
+                item.type = $(this).find('select').val();
+                if (item.type != 'free') {
+                    item.options = new Array();
+                    $(this).find('li').each(function(j) {
+                        var option = $(this).find('input:text').val();
+                        if (option != "") { //ignore empty option
+                            item.options.push(option);
+                        }
+                    });
+                }            
+                data.push(item);
+            }
         });
         return data;
     }
@@ -215,7 +220,6 @@
     function onSubmit(event) {
         $('#id_questions').val($.toJSON(getData()));
         return true;
-        //TODO add some validation
     }
 
   };
