@@ -20,15 +20,14 @@ class EventForm(forms.ModelForm):
         super(EventForm, self).__init__(*args, **kwargs)
         
 class QuestionsForm(forms.Form):
-
-    def __init__(self, member=None, *args, **kwargs):
-        self.member = member        
-        super(QuestionsForm, self).__init__(*args, **kwargs)
-        
     """
     Dynamic form that allows the user to change
     and then verify the data that was parsed
     """
+    def __init__(self, member=None, *args, **kwargs):
+        self.member = member        
+        super(QuestionsForm, self).__init__(*args, **kwargs)
+        
     def setFields(self, kwds):
         """
         Set the fields in the form
@@ -40,7 +39,7 @@ class QuestionsForm(forms.Form):
             
     def setQuestions(self, jquestions):
         """
-        Set the fields in the form
+        Set the questions in the form
         """
         fields = {}
             
