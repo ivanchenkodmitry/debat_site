@@ -29,9 +29,9 @@ from profiles.models import Profile
 from profiles.models import Verification
 import md5
 
-association_model = models.get_model('django_openid', 'Association')
-if association_model is not None:
-    from django_openid.models import UserOpenidAssociation
+#association_model = models.get_model('django_openid', 'Association')
+#if association_model is not None:
+#    from django_openid.models import UserOpenidAssociation
 
 def login(request, form_class=LoginForm, template_name="account/login.html",
           success_url=None, associate_openid=False, openid_success_url=None,
@@ -43,12 +43,12 @@ def login(request, form_class=LoginForm, template_name="account/login.html",
     if request.method == "POST" and not url_required:
         form = form_class(request.POST)
         if form.login(request):
-            if associate_openid and association_model is not None:
-                for openid in request.session.get('openids', []):
-                    assoc, created = UserOpenidAssociation.objects.get_or_create(
-                        user=form.user, openid=openid.openid
-                    )
-                success_url = openid_success_url or success_url
+#            if associate_openid and association_model is not None:
+#                for openid in request.session.get('openids', []):
+#                    assoc, created = UserOpenidAssociation.objects.get_or_create(
+#                        user=form.user, openid=openid.openid
+#                    )
+#                success_url = openid_success_url or success_url
             return HttpResponseRedirect(success_url)
     else:
         form = form_class()
@@ -249,9 +249,9 @@ def password_set(request, form_class=SetPasswordForm,
 @login_required
 def password_delete(request, template_name="account/password_delete.html"):
     # prevent this view when openids is not present or it is empty.
-    if not request.user.password or \
-        (not hasattr(request, "openids") or \
-            not getattr(request, "openids", None)):
+    if not request.user.password: #or \
+#        (not hasattr(request, "openids") or \
+#            not getattr(request, "openids", None)):
         return HttpResponseForbidden()
     if request.method == "POST":
         request.user.password = u""

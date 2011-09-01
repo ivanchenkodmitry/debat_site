@@ -240,42 +240,42 @@ class SignupForm(forms.Form):
         return username, password # required for authenticate()
 
 
-class OpenIDSignupForm(forms.Form):
-    username = forms.CharField(label = "Username", max_length = 30, widget = forms.TextInput())
+#class OpenIDSignupForm(forms.Form):
+#    username = forms.CharField(label = "Username", max_length = 30, widget = forms.TextInput())
 
-    if settings.ACCOUNT_REQUIRED_EMAIL or settings.ACCOUNT_EMAIL_VERIFICATION:
-        email = forms.EmailField(
-            label = _("Email"),
-            required = True,
-            widget = forms.TextInput()
-        )
-    else:
-        email = forms.EmailField(
-            label = _("Email (optional)"),
-            required = False,
-            widget = forms.TextInput()
-        )
+#    if settings.ACCOUNT_REQUIRED_EMAIL or settings.ACCOUNT_EMAIL_VERIFICATION:
+#        email = forms.EmailField(
+#            label = _("Email"),
+#            required = True,
+#            widget = forms.TextInput()
+#        )
+#    else:
+#        email = forms.EmailField(
+#            label = _("Email (optional)"),
+#            required = False,
+#            widget = forms.TextInput()
+#        )
 
-    def __init__(self, *args, **kwargs):
-        # remember provided (validated!) OpenID to attach it to the new user
-        # later.
-        self.openid = kwargs.pop("openid", None)
+#    def __init__(self, *args, **kwargs):
+#        # remember provided (validated!) OpenID to attach it to the new user
+#        # later.
+#        self.openid = kwargs.pop("openid", None)
 
-        # pop these off since they are passed to this method but we can't
-        # pass them to forms.Form.__init__
-        kwargs.pop("reserved_usernames", [])
-        kwargs.pop("no_duplicate_emails", False)
+#        # pop these off since they are passed to this method but we can't
+#        # pass them to forms.Form.__init__
+#        kwargs.pop("reserved_usernames", [])
+#        kwargs.pop("no_duplicate_emails", False)
 
-        super(OpenIDSignupForm, self).__init__(*args, **kwargs)
+#        super(OpenIDSignupForm, self).__init__(*args, **kwargs)
 
-    def clean_username(self):
-        if not alnum_re.search(self.cleaned_data["username"]):
-            raise forms.ValidationError(u"Usernames can only contain letters, numbers and underscores.")
-        try:
-            user = User.objects.get(username__iexact = self.cleaned_data["username"])
-        except User.DoesNotExist:
-            return self.cleaned_data["username"]
-        raise forms.ValidationError(u"This username is already taken. Please choose another.")
+#    def clean_username(self):
+#        if not alnum_re.search(self.cleaned_data["username"]):
+#            raise forms.ValidationError(u"Usernames can only contain letters, numbers and underscores.")
+#        try:
+#            user = User.objects.get(username__iexact = self.cleaned_data["username"])
+#        except User.DoesNotExist:
+#            return self.cleaned_data["username"]
+#        raise forms.ValidationError(u"This username is already taken. Please choose another.")
 
 
 class UserForm(forms.Form):

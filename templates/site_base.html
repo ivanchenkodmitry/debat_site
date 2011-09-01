@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% load i18n %}
-{% load openid_tags %}
+{# {% load openid_tags %} #}
 {% load ifsetting_tag %}
 {% load analytics %}
 {% load avatar_tags %}
@@ -42,7 +42,7 @@
         {% endif %}
         </b> <br />
         {% if user.is_staff %}<a href="/admin/">{% trans "Admin" %}</a><br />
-        {% endif %}<a href="/openid/logout/?next={% url acct_logout %}">{% trans "Logout" %}</a>
+        {% endif %}<a href="{#/openid/logout/?next=#}{% url acct_logout %}">{% trans "Logout" %}</a>
     {% else %}
     	<div style="float: left; margin-right: 10px;">
     		<a href="{% url acct_login %}">

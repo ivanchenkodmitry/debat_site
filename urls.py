@@ -6,7 +6,7 @@ from django.views.generic.simple import direct_to_template
 from django.contrib import admin
 admin.autodiscover()
 
-from account.openid_consumer import PinaxConsumer
+#from account.openid_consumer import PinaxConsumer
 from blog.feeds import BlogFeedAll, BlogFeedUser
 from bookmarks.feeds import BookmarkFeed
 from microblogging.feeds import TweetFeedAll, TweetFeedUser, TweetFeedUserWithFriends
@@ -41,7 +41,7 @@ urlpatterns = patterns('',
     (r'^photologue/', include('photologue.urls')),
     (r'^about/', include('about.urls')),
     (r'^account/', include('account.urls')),
-    (r'^openid/(.*)', PinaxConsumer()),
+    #(r'^openid/(.*)', PinaxConsumer()),
     (r'^bbauth/', include('bbauth.urls')),
     (r'^authsub/', include('authsub.urls')),
     (r'^profiles/', include('profiles.urls')),
