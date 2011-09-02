@@ -7,30 +7,34 @@
 
 {% block body %}
     <h1>{{ event.title }}</h1>
-    <h2>{% trans "Відповіді" %}</h2>
-    <table>
-        <tr>
-            {% for column in table.columns %}
-            <th>{{ column }}</th>
-            {% endfor %}
-        </tr>
-        {% for row in table.rows %}
+    {% if table.rows %}
+        <h2>{% trans "Відповіді" %}</h2>
+        <table>
             <tr>
-            {% for value in row %}
-                <td>
-                    {% ifequal value.type "list" %}
-                        <ul>{{ value.data|unordered_list }}</ul>
-                    {% else %}{% ifequal value.type "profile" %}
-                        <a href="{% url profile_detail value.profile %}">{{ value.data }}</a>
-                    {% else %}
-                        {{ value.data }}
-                    {% endifequal %}{% endifequal %}
-                </td>
-            {% endfor %}
+                {% for column in table.columns %}
+                <th>{{ column }}</th>
+                {% endfor %}
             </tr>
-        {% endfor %}
-    </table>
-    <a href="?action=export"> <P> {% trans "Завантажити у форматі XLS" %} </P> </a>
+            {% for row in table.rows %}
+                <tr>
+                {% for value in row %}
+                    <td>
+                        {% ifequal value.type "list" %}
+                            <ul>{{ value.data|unordered_list }}</ul>
+                        {% else %}{% ifequal value.type "profile" %}
+                            <a href="{% url profile_detail value.profile %}">{{ value.data }}</a>
+                        {% else %}
+                            {{ value.data }}
+                        {% endifequal %}{% endifequal %}
+                    </td>
+                {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+        <a href="?action=export"> <P> {% trans "Завантажити у форматі XLS" %} </P> </a>
+    {% else %}
+        <p>{% trans "Відповідей поки що немає." %}</p>
+    {% endif %}
 {% endblock %}
 
 {% block extra_body %}
