@@ -65,9 +65,9 @@
 	{% if is_me %}
 		<a href="/events/edit/{{ event.id }}"> <P> Редагувати подію </P> </a>        
 		<a href="/events/destroy/{{ event.id }}"> <P> Видалити подію </P> </a>
-		{% ifnotequal event.qestions "" %}
+		{% if event.questions %}
 		<a href="/events/answers/{{ event.id }}"> <P> Переглянути відповіді </P> </a>   
-		{% endifnotequal %}
+		{% endif%}
 	{% endif %}
 
 

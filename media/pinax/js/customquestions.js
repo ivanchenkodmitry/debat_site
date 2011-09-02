@@ -218,7 +218,12 @@
     }
     
     function onSubmit(event) {
-        $('#id_questions').val($.toJSON(getData()));
+        var d = getData();
+        if (d.length > 0) {
+            $('#id_questions').val($.toJSON(d));
+        } else {
+            $('#id_questions').val('');
+        }
         return true;
     }
 
