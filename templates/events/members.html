@@ -1,0 +1,21 @@
+{% extends "events/base.html" %}
+
+{% load i18n %}
+{% load theme_tags %}
+
+{% block body %}
+    
+    <h1>{{ event.title }}</h1>    
+    
+    <h2>{% trans "Учасники" %}</h2>
+    
+    <table>
+    {% for member in event.members.all %}
+        <tr>
+            <td><a href="{% url profile_detail member.user %}">{{ member }}</a></td>
+            <td><a href="javascript:void(0)">{% silk "delete" %}</a></td>
+        </tr>
+    {% endfor %}
+    </table>
+    
+{% endblock %}

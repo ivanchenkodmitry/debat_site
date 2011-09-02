@@ -210,3 +210,17 @@ def answers(request, id, template_name="events/answers.html"):
         "event": event,
         "table": table,
     }, context_instance=RequestContext(request))
+    
+@login_required
+def members(request, id, template_name="events/members.html"):
+    event = get_object_or_404(Event, id=id)
+    
+    include_kwargs = {"id": event.id}
+    redirect_to = reverse("event_details", kwargs=include_kwargs)
+    
+    if request.user != event.creator:
+        return HttpResponseRedirect(redirect_to)
+    
+    return render_to_response(template_name, {
+        "event": event,
+    }, context_instance=RequestContext(request))
