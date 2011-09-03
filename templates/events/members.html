@@ -1,7 +1,6 @@
 {% extends "events/base.html" %}
 
 {% load i18n %}
-{% load theme_tags %}
 
 {% block body %}
     
@@ -13,7 +12,14 @@
     {% for member in event.members.all %}
         <tr>
             <td><a href="{% url profile_detail member.user %}">{{ member }}</a></td>
-            <td><a href="javascript:void(0)">{% silk "delete" %}</a></td>
+            <td>
+                <form action="{% url event_members event.id %}" method="POST">
+                            {# @@@ still can't replace this with a silk tag yet #}
+                    <input type="image" src="{{ STATIC_URL }}pinax/images/silk/icons/delete.png" border="0" title="{% trans "Delete member" %}" />
+                    <input type="hidden" name="action" value="delete"/>
+                    <input type="hidden" name="member" value="{{ member.id }}"/>
+                </form>
+            </td>
         </tr>
     {% endfor %}
     </table>

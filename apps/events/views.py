@@ -220,7 +220,17 @@ def members(request, id, template_name="events/members.html"):
     
     if request.user != event.creator:
         return HttpResponseRedirect(redirect_to)
-    
+        
+    if request.method == "POST" and request.POST.get('action') == "delete":
+        try:
+            member = event.members.get(id = request.POST.get('member'))
+            event.members.remove(member)
+            member.delete()
+            request.user.message_set.create(message=_(u"Учасника %s видалено з події.") % member)
+            
+        except ObjectDoesNotExist: # if user isn't member
+            pass
+        
     return render_to_response(template_name, {
         "event": event,
     }, context_instance=RequestContext(request))
