@@ -76,7 +76,7 @@ def details(request, id, template_name="events/details.html"):
 @login_required
 def add_event(request, form_class=EventForm, template_name="events/add_event.html"):
     """
-    upload form for photos
+    Add new event
     """
     event_form = form_class(request.user)
     
@@ -103,7 +103,7 @@ def add_event(request, form_class=EventForm, template_name="events/add_event.htm
 @login_required
 def edit(request, id, form_class=EventForm, template_name="events/edit.html"):
     """
-    upload form for photos
+    Edit event
     """
     event = get_object_or_404(Event, id=id)
     event_form = form_class(request.user, instance=event)
@@ -126,7 +126,7 @@ def edit(request, id, form_class=EventForm, template_name="events/edit.html"):
 #@login_required
 def events(request, template_name="events/latest.html"):
     """
-    latest ivents
+    Latest ivents
     """
     events = Event.objects.order_by("-date")
     
