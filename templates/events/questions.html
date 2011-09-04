@@ -3,35 +3,34 @@
 {% load i18n %}
 {% load uni_form %}
 
-
-{% block body_param %} onload="initialize()" {% endblock %}
-
+{% block extra_head %} 
+    <style type="text/css">
+        .uniForm .inlineLabels ul li label {
+        display: block;
+        float: none;
+        width: 100%;
+        }
+        .uniForm .inlineLabels ul {
+        float: left;
+        width: 45%;
+        }
+        
+        .uniForm ul {
+        float: left;
+        margin: 0;
+        padding: 0;
+        }
+        
+        .uniForm ul li {
+        list-style: none outside none;
+        }
+    </style>
+{% endblock %}
 
 {% block body %}
-    <style type="text/css">
-    .uniForm .inlineLabels ul li label {
-    display: block;
-    float: none;
-    width: 100%;
-    }
-    .uniForm .inlineLabels ul {
-    float: left;
-    width: 45%;
-    }
-    
-    .uniForm ul {
-    float: left;
-    margin: 0;
-    padding: 0;
-    }
-    
-    .uniForm ul li {
-    list-style: none outside none;
-    }
-    </style>
     <h1>{{ event.title }}</h1>
-    <h2>Додаткові питання</h2>
-    <form class="uniForm" id="edit-profile" method="POST" enctype="multipart/form-data" action="">
+    <h2>{% trans "Додаткові питання" %}</h2>
+    <form class="uniForm" method="POST" enctype="multipart/form-data" action="{% url event_join event.id %}">
         <fieldset class="inlineLabels">
             {{ questions_form|as_uni_form }}      
    
@@ -41,22 +40,4 @@
             </div>
         </fieldset>
     </form>
-
-
-{% endblock %}
-
-{% block extra_body %}
-
-		<link type="text/css" href="{{ STATIC_URL }}pinax/css/jquery-ui-1.8.14.custom.css" rel="stylesheet" />	
-   		<script type="text/javascript" src="{{ STATIC_URL }}pinax/js/topics.js"></script>
-
-		<script type="text/javascript" src="{{ STATIC_URL }}pinax/js/jquery-ui-1.8.14.custom.min.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}pinax/js/jquery.json-2.2.min.js"></script>
-		<script type="text/javascript">
-
-	$(function() {
-		
-	});
-	</script>
-		
 {% endblock %}

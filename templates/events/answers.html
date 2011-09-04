@@ -2,9 +2,6 @@
 
 {% load i18n %}
 
-{% block body_param %} onload="initialize()" {% endblock %}
-
-
 {% block body %}
     <h1>{{ event.title }}</h1>
     {% if table.rows %}
@@ -35,20 +32,4 @@
     {% else %}
         <p>{% trans "Відповідей поки що немає." %}</p>
     {% endif %}
-{% endblock %}
-
-{% block extra_body %}
-
-		<link type="text/css" href="{{ STATIC_URL }}pinax/css/jquery-ui-1.8.14.custom.css" rel="stylesheet" />	
-   		<script type="text/javascript" src="{{ STATIC_URL }}pinax/js/topics.js"></script>
-
-		<script type="text/javascript" src="{{ STATIC_URL }}pinax/js/jquery-ui-1.8.14.custom.min.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}pinax/js/jquery.json-2.2.min.js"></script>
-		<script type="text/javascript">
-
-	$(function() {
-		
-	});
-	</script>
-		
 {% endblock %}
