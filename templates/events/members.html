@@ -13,12 +13,16 @@
         <tr>
             <td><a href="{% url profile_detail member.user %}">{{ member }}</a></td>
             <td>
+            {% ifequal member.user event.creator %}
+                &nbsp;
+            {% else %}    
                 <form action="{% url event_members event.id %}" method="POST">
                             {# @@@ still can't replace this with a silk tag yet #}
                     <input type="image" src="{{ STATIC_URL }}pinax/images/silk/icons/delete.png" border="0" title="{% trans "Delete member" %}" />
                     <input type="hidden" name="action" value="delete"/>
                     <input type="hidden" name="member" value="{{ member.id }}"/>
                 </form>
+            {% endifequal %}                
             </td>
         </tr>
     {% endfor %}
