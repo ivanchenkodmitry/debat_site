@@ -6,7 +6,7 @@ from django.db.models import Q
 from django.http import Http404
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext as _
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from external.excel_response import ExcelResponse
@@ -18,7 +18,7 @@ from events.forms import EventForm, QuestionsForm
 
 def events_widget(request, template_name = "homepage.html"):
 
-    events = Event.objects.order_by("-date")
+    events = Event.objects.filter(approved=True).order_by("-date")
     
     return render_to_response(template_name, {
         "events": events,
@@ -41,7 +41,7 @@ def destroy(request, id):
     event.members.all().delete()
     event.delete()
 
-    redirect_to = '/events/'
+    redirect_to = reverse("events")
 
     return HttpResponseRedirect(redirect_to)
 
@@ -50,7 +50,10 @@ def destroy(request, id):
 #@login_required
 def details(request, id, template_name="events/details.html"):
 
-    event = Event.objects.get(id = id)
+    event = get_object_or_404(Event, id=id)
+    
+    if not event.approved:
+        raise Http404
     
     is_me = False
     is_member = False
@@ -87,13 +90,13 @@ def add_event(request, form_class=EventForm, template_name="events/add_event.htm
             if event_form.is_valid():
                 event = event_form.save(commit=False)
                 event.creator = request.user
+                event.approved = False
                 event.save()
                 event_member = Member(user=request.user)
                 event_member.save()
                 event.members.add(event_member)
-                include_kwargs = {"id": event.id}
-                redirect_to = reverse("event_details", kwargs=include_kwargs)
-                return HttpResponseRedirect(redirect_to)
+                request.user.message_set.create(message=_(u"Адміністратор розгляне вашу заявку."))
+                return HttpResponseRedirect(reverse("events"))
             
     return render_to_response(template_name, {
         "event_form": event_form
@@ -106,6 +109,7 @@ def edit(request, id, form_class=EventForm, template_name="events/edit.html"):
     Edit event
     """
     event = get_object_or_404(Event, id=id)
+    
     event_form = form_class(request.user, instance=event)
     if request.method == "POST":
         if request.POST["action"] == "update":
@@ -128,7 +132,7 @@ def events(request, template_name="events/latest.html"):
     """
     Latest ivents
     """
-    events = Event.objects.order_by("-date")
+    events = Event.objects.filter(approved=True).order_by("-date")
     
     return render_to_response(template_name, {
         "events": events,
@@ -139,6 +143,9 @@ def events(request, template_name="events/latest.html"):
 def join(request, id, form_class=QuestionsForm, template_name="events/questions.html"):
 
     event = get_object_or_404(Event, id=id)
+    
+    if not event.approved:
+        raise Http404
     
     include_kwargs = {"id": event.id}
     redirect_to = reverse("event_details", kwargs=include_kwargs)   
