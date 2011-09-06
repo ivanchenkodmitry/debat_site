@@ -10,7 +10,6 @@ import json
 
 class BlogForm(forms.ModelForm):
     
-    photos_hidden = forms.CharField(widget = forms.HiddenInput)
     slug = forms.SlugField( max_length=20,
         help_text = _("коротка назва, лише латинські букви, цифри, підчеркування і тире"),
 		error_messages={'invalid': u'Тут можуть бути лише латинські букви, цифри, підчеркування і тире.'})
@@ -22,16 +21,7 @@ class BlogForm(forms.ModelForm):
     
     def __init__(self, user=None, *args, **kwargs):
         self.user = user
-        super(BlogForm, self).__init__(*args, **kwargs)
-        self.photos = []
-        if len(args):
-            photos_id_list = args[0].get('photos_hidden')
-            if photos_id_list:
-                photos_id_list = json.loads(photos_id_list)
-                for photo_id in photos_id_list:
-                    photo = Photo.objects.get(id = photo_id)
-                    self.photos.append(photo)
-            
+        super(BlogForm, self).__init__(*args, **kwargs)            
     
     def clean_slug(self):
         if not self.instance.pk:

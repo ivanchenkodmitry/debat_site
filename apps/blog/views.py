@@ -84,15 +84,14 @@ def new(request, form_class=BlogForm, template_name="blog/new.html"):
     if request.method == "POST":
         if request.POST["action"] == "create":
             blog_form = form_class(request.user, request.POST)
+            import pdb; pdb.set_trace()
             if blog_form.is_valid():
+                
                 blog = blog_form.save(commit=False)
                 blog.author = request.user
                 # Create gallery and save with post
-                gtitle = '_'.join(['post', blog.title])
+                gtitle = blog.title
                 gallery = Gallery(title = gtitle, title_slug = slugify(gtitle))
-                gallery.save()
-                # Add uploaded photos to galleries
-                gallery.photos.add(*blog_form.photos)
                 gallery.save()
                 
                 blog.gallery = gallery

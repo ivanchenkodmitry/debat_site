@@ -7,7 +7,7 @@
     <h2><a href="{{ blog_post.get_absolute_url }}">{{ blog_post.title }}</a></h2>
     <div class="blog-post-tease">
      
-            {{blog_post.body|truncatewords:"100"}}
+            {{blog_post.body|safe|truncatewords:"100"}}
                
     </div>
     <div class="blog-post-meta">

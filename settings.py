@@ -186,11 +186,10 @@ INSTALLED_APPS = (
     'clubs',
     'recaptcha',
     'vkontakte',
-
+    'photofiler',
     'django.contrib.admin',
     'universities',
-   
-   
+    'photofiler',
     
 )
 

@@ -51,6 +51,17 @@
    "work": "", 
    "experience": "", 
    "birth_date": "1991-08-27"
+  }  
+ },
+ 
+ {
+  	"pk": 2,
+  	"model": "auth.user",
+  	"fields": {
+  	 	"username": "dimitry456@gmail.com",
+  	 	"email": "dimitry456@gmail.com",
+  	 	"password": "sha1$f1076$fb717e6151a4a0df876b4904c90d8596f3123abd"
+  	 }
   }
- }
+ 
 ]

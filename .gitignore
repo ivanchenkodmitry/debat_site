@@ -6,3 +6,6 @@ local_settings.py
 site_media/
 *.html~
 *~
+.project
+.settings
+.pydevproject

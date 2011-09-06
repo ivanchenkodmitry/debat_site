@@ -20,64 +20,9 @@
         
     </form>
 
-            <h2>Фото до новини</h2>
-
-			<div id="blog-gallery">
-			{% for photo in blog_form.photos %}
-				<img src="{{ photo.get_thumbnail_url }}" style="margin: 10px"/>
-			{% endfor %}
-			</div>
-
-
-			<div id="add_photo_to_blog_form" style="display: none">
-
-			<p id="photo_upload_process" style="display: none">
-				Loading...<br/><img src="{{STATIC_URL}}pinax/images/facebox/loading.gif" />
-			</p>
-
-			<form action="/blog/upload/photo" method="post" enctype="multipart/form-data" target="upload_target" id="upload_photo_form" >
-    			Оберіть фото: {{photo_form|as_uni_form}}
-			</form>
-			</div>
-
-			<a href="javascript: void(0)" onclick="showUploadForm()" >Додати фото</a><br /><br />
- 
-			<iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff; position: absolute; top: -1000px; left: -1000px;"></iframe>  
 
 <button onclick="$('#edit-blog').submit()">Створити</button>
 
-<script type="text/javascript">
-
-	$('#id_image').change(function(){
-		$('#photo_upload_process').show();
-		$('#upload_photo_form').submit();
-	});
-	
-	function stopUpload(success, photo_id, photo_url){
-
-		if (success == 0){
-			//alert('seems to be Ok: ' + photo_url);
-			$('#photo_upload_process').hide();
-			$('#add_photo_to_blog_form').hide();
-			$('#blog-gallery').append('<img src="' + photo_url + '" style="margin: 10px"/>');
-			if ($('#id_photos_hidden').val()){
-					photos_list = eval("(" + $('#id_photos_hidden').val() + ")");
-				}
-			else photos_list = new Array();
-			
-			photos_list.push(photo_id);
-			$('#id_photos_hidden').val('[' + photos_list.toString() + ']');
-			}
-		else{
-			alert('Можна завантажити лише зображення');
-		}
-	};
-	
-	function showUploadForm(){
-		$('#add_photo_to_blog_form').show();
-	}
-
-</script>
     
 {% endblock %}
 
