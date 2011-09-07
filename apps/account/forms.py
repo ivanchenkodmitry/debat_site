@@ -14,9 +14,8 @@ send_mail = get_send_mail()
 
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from clubs.models import Club
-from clubs.models import Members
-from profiles.models import Verification
+from clubs.models import Club, Verification
+from profiles.models import Verification as profile_Verification
 
 from emailconfirmation.models import EmailAddress
 from account.models import Account
@@ -216,17 +215,15 @@ class SignupForm(forms.Form):
 
         try:
             profile.club = Club.objects.get(id = self.cleaned_data["club"])
-            member = Members()
-            member.user = new_user
-            member.save()
-            profile.club.members.add(member)
+            club.members.add(new_user)
+            club.verification_set.create(member = new_user)
             profile.club.save()
         except:
             profile.club = None
 
         profile.save()
 
-        verification = Verification()
+        verification = profile_Verification()
         md5_hash = md5.new()
         md5_hash.update(new_user.username)
         verification.md5_hash = md5_hash.hexdigest()

@@ -57,9 +57,9 @@
     </div>
 
 	<div id="div_id_date" class="ctrlHolder">
-	           <label for="id_date">                    
+	           <label for="id_date">    
+	</div>                
 	                   
-
 <h3>Адміністратор клубу:</h3>
 	           </label>
 	         
@@ -68,7 +68,7 @@
 				<a href="{% url profile_detail club.admin %}">
 					<img src="{% avatar_url club.admin 80 %}" alt="Avatar of {{ club.admin }}"/> </a> </div>	
 			<div name = "username">
-				<a href="{% url profile_detail club.admin %}"> {{ club.admin }} </a> </div>
+				<a href="{% url profile_detail club.admin %}"> {{ club.admin.get_profile }} </a> </div>
 		</div>
     </div>
 <br>
@@ -80,20 +80,23 @@
 	{% if is_member %}
 		<a href="/clubs/leave/{{ club.id }}"> <P> Покинути клуб </P> </a>
 	{% else %}
+	{% if not is_wait_for_approve %}
 		<a href="/clubs/join/{{ club.id }}"> <P> Приєднатись до клубу </P> </a>
+	{% endif %}
 	{% endif %} 
-<br>
 
-        <h3>Члени клубу:</h3>
-
+        <h3 style = 'clear:left'> Члени клубу:</h3>
+	{% if is_wait_for_approve %}
+		Ваша заявка на членство у клубі на стадії розглядання 
+	{% endif %}
 	<div name = "members" class="thumb-row clearfix">
     {% for member in members %}
         <div name = "member" style="float:left; margin: 10px; text-align: center">  
 			<div name = "avatar">
-				<a href="{% url profile_detail member.user.username %}">
-					<img src="{% avatar_url member.user 80 %}" alt="Avatar of {{ member }}"/> </a> </div>
+				<a href="{% url profile_detail member.username %}">
+					<img src="{% avatar_url member 80 %}" alt="Avatar of {{ member.get_profile }}"/> </a> </div>
 			<div name = "username">
-				<a href="{% url profile_detail member.user.username %}"> {{ member }} </a> </div>
+				<a href="{% url profile_detail member.username %}"> {{ member.get_profile }} </a> </div>
 		</div>
 	{% endfor %}
 	</div>

@@ -6,15 +6,6 @@ from universities.models import University
 
 from django.utils.translation import ugettext_lazy as _
 
-class Members(models.Model):
-	user = models.ForeignKey(User)
-	approved = models.BooleanField(u'Підтвердити', default = False)
-    
-	def __unicode__(self):
-		return self.user.get_profile().surname + ' ' + self.user.get_profile().name
-        class Meta:
-            verbose_name = _('Члени')
-            verbose_name_plural = _('Члени')
     
 class Club(models.Model):
     """
@@ -26,11 +17,14 @@ class Club(models.Model):
     address = models.TextField(_(u'Адреса'), blank=True)
     admin = models.ForeignKey(User)
     
-    members = models.ManyToManyField(Members, related_name='%(class)s_members', verbose_name=u"члени", blank=True)
+    members = models.ManyToManyField(User, related_name='%(class)s_members', verbose_name=u"члени", blank=True)
     location = models.CharField(_(u'Місцезнаходження'), max_length=200)
 	
     def __unicode__(self):
         return self.title
 
+class Verification(models.Model):
+	club = models.ForeignKey(Club)
+	member = models.ForeignKey(User)
+	is_approved = models.BooleanField(u'Підтвердити', default = False)
 
-	
