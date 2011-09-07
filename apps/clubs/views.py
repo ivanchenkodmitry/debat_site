@@ -10,16 +10,9 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
-
-
-
-from clubs.models import Club
-from clubs.models import Members
+from clubs.models import Club, Verification
 from universities.models import University
 from clubs.forms import *
-
-
-
 
 @login_required
 def map(request, template_name="clubs/map.html"):
@@ -50,11 +43,24 @@ def details(request, id, template_name="clubs/details.html"):
 	is_member = False
 
 	if request.user == club.admin:
-		is_me = 'True'
+		is_me = True
 
-	members = club.members.filter(approved=True)
+	try:
+		is_approved = Verification.objects.get(club = club, member = request.user).is_approved
+		if is_approved:
+			is_wait_for_approve = False
+		else:
+			is_wait_for_approve = True
+	except:
+		is_wait_for_approve = False
+	members = []
+	verifications = Verification.objects.filter(club = club)
+	for ver in verifications:
+		if ver.is_approved:
+			members = members + [ver.member]
+
 	for member in members:
-		if member.user == request.user:
+		if member == request.user:
 			is_member = True
 			break
 
@@ -64,6 +70,7 @@ def details(request, id, template_name="clubs/details.html"):
 	"is_me": is_me,
 	"is_member": is_member,
 	"members": members,
+	"is_wait_for_approve": is_wait_for_approve,
     }, context_instance=RequestContext(request))
 
 
@@ -123,23 +130,23 @@ def join(request, id, template_name="clubs/details.html"):
 	is_member = False	
 
 	for member in members:
-		if member.user == request.user:
-		  
+		if member == request.user:
 			is_member = True
 			break	
 		
 	if is_member:
 		pass
 	else:
-		member = Members()
-		member.user = request.user
-		member.save()
-
-		club.members.add(member)
+		club.members.add(request.user)
+		club.verification_set.create(member = request.user)
 		club.save()
 
+	if request.user.is_staff:			#админ вступает в клуб
+		verification = Verification.objects.get(club = club, member = request.user)
+		verification.is_approved = True
+		verification.save()
 
-	return HttpResponseRedirect('/clubs/newmember/')
+	return HttpResponseRedirect('/clubs/details/' + club.id.__str__())
 
 
 
@@ -151,7 +158,7 @@ def leave(request, id, template_name="club/details.html"):
 
 	is_member = True
 	for member in members:
-		if member.user == request.user:
+		if member == request.user:
 			member.delete()
 			member.save()
 			break
@@ -163,4 +170,3 @@ def leave(request, id, template_name="club/details.html"):
 
 
 
-# Create your views here.
