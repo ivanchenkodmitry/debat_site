@@ -52,14 +52,14 @@ def details(request, id, template_name="events/details.html"):
 
     event = get_object_or_404(Event, id=id)
     
-    if not event.approved:
-        raise Http404
-    
     is_me = False
     is_member = False
 
     if request.user == event.creator:
-        is_me = 'True'
+        is_me = True
+        
+    if (not event.approved) and (not is_me):
+        raise Http404
 
     members = event.members.all()
     for member in members:
@@ -96,7 +96,9 @@ def add_event(request, form_class=EventForm, template_name="events/add_event.htm
                 event_member.save()
                 event.members.add(event_member)
                 request.user.message_set.create(message=_(u"Адміністратор розгляне вашу заявку."))
-                return HttpResponseRedirect(reverse("events"))
+                include_kwargs = {"id": event.id}
+                redirect_to = reverse("event_details", kwargs=include_kwargs)
+                return HttpResponseRedirect(redirect_to)
             
     return render_to_response(template_name, {
         "event_form": event_form
@@ -137,6 +139,13 @@ def events(request, template_name="events/latest.html"):
     return render_to_response(template_name, {
         "events": events,
         }, context_instance=RequestContext(request))
+
+
+@login_required
+def your_events(request, template_name="events/your_events.html"):
+    return render_to_response(template_name, {
+        "events": Event.objects.filter(creator=request.user),
+    }, context_instance=RequestContext(request))
 
 
 @login_required
