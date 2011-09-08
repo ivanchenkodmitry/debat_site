@@ -31,7 +31,8 @@ class Event(models.Model):
     members = models.ManyToManyField(Member, verbose_name="members_list", blank=True)
     location = models.CharField(_('location'), max_length=200)
     questions = models.TextField(blank=True)
-	
+    approved = models.BooleanField(_('approved'), default = False)
+    
     def __unicode__(self):
         return self.title
         
