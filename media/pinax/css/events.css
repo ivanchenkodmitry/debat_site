@@ -78,3 +78,55 @@ div.embed {
   padding: 5px;
   background: #F99;
 }
+
+/* Your events */
+
+.event-list tr.odd {
+    background-color: #f3f3f3;
+}
+.event-list td {
+    vertical-align: top;
+    padding: 3px 3px 15px 3px;
+}
+
+
+/* Members */
+
+.member-list td {
+    vertical-align: top;
+    padding: 3px 3px 15px 3px;
+}
+
+/* Answers  */
+
+.answer-list tr.odd {
+    background-color: #f3f3f3;
+}
+.answer-list td {
+    vertical-align: top;
+    padding: 3px 3px 15px 3px;
+}
+
+/* Question form */
+
+.uniForm .inlineLabels ul li label {
+display: block;
+float: none;
+width: 100%;
+}
+.uniForm .inlineLabels ul {
+float: left;
+width: 45%;
+}
+
+.uniForm ul {
+float: left;
+margin: 0;
+padding: 0;
+}
+
+.uniForm ul li {
+list-style: none outside none;
+}
+
+

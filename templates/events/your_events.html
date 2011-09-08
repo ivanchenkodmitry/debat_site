@@ -7,11 +7,11 @@
     <h1>{% trans "Мої події" %}</h1>    
     
     {% if events %}
-        <table>
+        <table cellpadding="5" cellspacing="0" border="0" class="event-list" width="100%">
         <th>Назва</th>
         <th>Підтверджено адміністратором</th>
         {% for event in events %}
-            <tr>
+            <tr class="{% cycle odd,even %}">
                 <td><a href="{% url event_details event.id %}">{{ event }}</a></td>
                 <td>
                     {% if event.approved %}
