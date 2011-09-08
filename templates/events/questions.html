@@ -3,30 +3,6 @@
 {% load i18n %}
 {% load uni_form %}
 
-{% block extra_head %} 
-    <style type="text/css">
-        .uniForm .inlineLabels ul li label {
-        display: block;
-        float: none;
-        width: 100%;
-        }
-        .uniForm .inlineLabels ul {
-        float: left;
-        width: 45%;
-        }
-        
-        .uniForm ul {
-        float: left;
-        margin: 0;
-        padding: 0;
-        }
-        
-        .uniForm ul li {
-        list-style: none outside none;
-        }
-    </style>
-{% endblock %}
-
 {% block body %}
     <h1>{{ event.title }}</h1>
     <h2>{% trans "Додаткові питання" %}</h2>

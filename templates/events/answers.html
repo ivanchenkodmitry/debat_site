@@ -6,28 +6,32 @@
     <h1>{{ event.title }}</h1>
     {% if table.rows %}
         <h2>{% trans "Відповіді" %}</h2>
-        <table>
+        <div style="overflow: auto;">
+        <table cellpadding="5" cellspacing="0" border="0" class="answer-list">
             <tr>
                 {% for column in table.columns %}
                 <th>{{ column }}</th>
                 {% endfor %}
             </tr>
             {% for row in table.rows %}
-                <tr>
+                <tr class="{% cycle odd,even %}">
                 {% for value in row %}
-                    <td>
-                        {% ifequal value.type "list" %}
+                    {% ifequal value.type "list" %}
+                        <td nowrap>
                             <ul>{{ value.data|unordered_list }}</ul>
-                        {% else %}{% ifequal value.type "profile" %}
+                        </td>
+                    {% else %}{% ifequal value.type "profile" %}
+                        <td nowrap>
                             <a href="{% url profile_detail value.profile %}">{{ value.data }}</a>
-                        {% else %}
-                            {{ value.data }}
-                        {% endifequal %}{% endifequal %}
-                    </td>
+                        </td>
+                    {% else %}
+                        <td>{{ value.data }}</td>
+                    {% endifequal %}{% endifequal %}
                 {% endfor %}
                 </tr>
             {% endfor %}
         </table>
+        </div>
         <a href="?action=export"> <P> {% trans "Завантажити у форматі XLS" %} </P> </a>
     {% else %}
         <p>{% trans "Відповідей поки що немає." %}</p>

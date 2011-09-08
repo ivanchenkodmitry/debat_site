@@ -8,7 +8,7 @@
     
     <h2>{% trans "Учасники" %}</h2>
     
-    <table>
+    <table cellpadding="5" cellspacing="0" border="0" class="member-list">
     {% for member in event.members.all %}
         <tr>
             <td><a href="{% url profile_detail member.user %}">{{ member }}</a></td>
