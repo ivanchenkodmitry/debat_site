@@ -11,9 +11,10 @@
     <table cellpadding="5" cellspacing="0" border="0" class="member-list">
     {% for member in event.members.all %}
         <tr>
-            <td><a href="{% url profile_detail member.user %}">{{ member }}</a></td>
+            <td><a href="{% url profile_detail member %}">{{ member.get_profile }}</a></td>
             <td>
-            {% ifequal member.user event.creator %}
+            {% if is_me %}
+            {% ifequal member event.creator %}
                 &nbsp;
             {% else %}    
                 <form action="{% url event_members event.id %}" method="POST">
@@ -22,7 +23,8 @@
                     <input type="hidden" name="action" value="delete"/>
                     <input type="hidden" name="member" value="{{ member.id }}"/>
                 </form>
-            {% endifequal %}                
+            {% endifequal %}
+            {% endif %}
             </td>
         </tr>
     {% endfor %}

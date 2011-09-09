@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from events.models import Event, Member
+from events.models import Event, AnswerList
 
 from django.contrib import admin
 
@@ -9,6 +9,6 @@ class EventAdmin(admin.ModelAdmin):
     search_fields       = ('title', 'address', 'description')
 
 admin.site.register(Event, EventAdmin)
-admin.site.register(Member)
+admin.site.register(AnswerList)
 
 
