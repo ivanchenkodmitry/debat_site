@@ -13,7 +13,7 @@ from django.db import models
 
 from account.utils import get_default_redirect
 from account.models import OtherServiceInfo
-from account.forms import SignupForm, AddEmailForm, LoginForm, \
+from account.forms import SignupForm, AddEmailForm, LoginForm, UploadAvatarForm, \
     ChangePasswordForm, SetPasswordForm, ResetPasswordForm, \
     ChangeTimezoneForm, ChangeLanguageForm, TwitterForm, ResetPasswordKeyForm
 from emailconfirmation.models import EmailAddress, EmailConfirmation
@@ -28,6 +28,13 @@ from django.core.urlresolvers import reverse
 from profiles.models import Profile
 from profiles.models import Verification
 import md5
+import json
+
+#from avatar.forms import PrimaryAvatarForm, DeleteAvatarForm
+from avatar.models import Avatar
+#from avatar.settings import AVATAR_MAX_AVATARS_PER_USER, AVATAR_DEFAULT_SIZE
+#from avatar.signals import avatar_updated
+#from avatar.util import get_primary_avatar, get_default_avatar_url
 
 #association_model = models.get_model('django_openid', 'Association')
 #if association_model is not None:
@@ -85,9 +92,12 @@ def signup(request, form_class=SignupForm,
     else:
         form = form_class()
 
+    avatar_form = UploadAvatarForm(user=request.user)
+
 
     return render_to_response(template_name, {
         "form": form,
+        "avatar_form": avatar_form,
     }, context_instance=RequestContext(request))
 
 
@@ -121,6 +131,24 @@ def vk_data(request):
 				'photo' : photo,
 				}))
 	
+def upload_avatar(request, form_class=UploadAvatarForm ):
+
+    
+    success = True
+
+    avatar = 'ololol'
+#    avatar = request.POST.['photo']
+    avatar = Avatar.objects.all()[0].avatar_url(80)
+    objs = simplejson.loads(request.raw_post_data)
+    name = objs['photo']
+        # After that check if user with this id exits
+
+    return HttpResponse(simplejson.dumps({
+				'success': success,
+                'avatar': avatar,
+                'name': name,
+				}))
+
 
 def vk_login(request):
 	success = True

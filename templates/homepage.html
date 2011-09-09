@@ -4,6 +4,7 @@
 {% load ifsetting_tag %}
 {% load blog_tags %}
 {% load extra_tagging_tags %}
+{% load group_tags %}
 
 {% block head_title %}{% trans "Welcome" %}{% endblock %}
 
@@ -36,8 +37,9 @@
         
 
        
+<h2> Випадкова фотографія з галереї </h2>
 
-
+		<a href="{% groupurl photo_details group id=photo.id %}"><img src="{{ photo.get_medium_url }}" alt="{{ photo.title }}"/></a>
 
     <h1>{% trans "Welcome to Pinax" %}</h1>
     

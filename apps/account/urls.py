@@ -33,4 +33,5 @@ urlpatterns = patterns('',
     url(r'^vk_getdata/$', 'account.views.vk_data', name = 'vk_getdata'),
     url(r'^vk_login/$', 'account.views.vk_login', name = 'vk_login'),
     url(r'^confirm_profile/(\w+)/$', 'account.views.confirm_profile', name="acct_confirm_profile"),
+    url(r'^upload_avatar/$', 'account.views.upload_avatar', name="acc_tupload_avatar"),
 )
