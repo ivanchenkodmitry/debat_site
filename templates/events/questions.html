@@ -6,7 +6,7 @@
 {% block body %}
     <h1>{{ event.title }}</h1>
     <h2>{% trans "Додаткові питання" %}</h2>
-    <form class="uniForm" method="POST" enctype="multipart/form-data" action="{% url event_join event.id %}">
+    <form id="questionform" class="uniForm" method="POST" enctype="multipart/form-data" action="{% url event_join event.id %}">
         <fieldset class="inlineLabels">
             {{ questions_form|as_uni_form }}      
    

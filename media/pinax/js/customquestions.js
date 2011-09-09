@@ -73,8 +73,8 @@
                     <label for="id_i' + id +'_type">Тип відповіді</label>\
                     <select id="id_i' + id +'_type" class="select">\
                       <option selected="selected" value="free">Вільна відповіль</option>\
-                      <option value="one">Вибір однієї правильної</option>\
-                      <option value="multi">Вибір кількох правильних</option>\
+                      <option value="one">Вибір однієї відповіді</option>\
+                      <option value="multi">Вибір кількох відповідей</option>\
                     </select>\
                   </div>\
                   <ul id="id_i' + id +'_optioncontainer" class="optioncontainer"></ul>\
