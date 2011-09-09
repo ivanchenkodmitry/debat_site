@@ -90,12 +90,14 @@ def add_event(request, form_class=EventForm, template_name="events/add_event.htm
             if event_form.is_valid():
                 event = event_form.save(commit=False)
                 event.creator = request.user
-                event.approved = False
+                event.approved = request.user.is_staff
+                # automatically approved if user is an administrator
                 event.save()
                 event_member = Member(user=request.user)
                 event_member.save()
                 event.members.add(event_member)
-                request.user.message_set.create(message=_(u"Адміністратор розгляне вашу заявку."))
+                if not event.approved:
+                    request.user.message_set.create(message=_(u"Адміністратор розгляне вашу заявку."))
                 include_kwargs = {"id": event.id}
                 redirect_to = reverse("event_details", kwargs=include_kwargs)
                 return HttpResponseRedirect(redirect_to)

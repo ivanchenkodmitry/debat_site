@@ -109,23 +109,24 @@ div.embed {
 
 /* Question form */
 
-.uniForm .inlineLabels ul li label {
+#questionform .inlineLabels ul li label {
 display: block;
 float: none;
 width: 100%;
 }
-.uniForm .inlineLabels ul {
+
+#questionform .inlineLabels ul {
 float: left;
 width: 45%;
 }
 
-.uniForm ul {
+#questionform ul {
 float: left;
 margin: 0;
 padding: 0;
 }
 
-.uniForm ul li {
+#questionform ul li {
 list-style: none outside none;
 }
 
