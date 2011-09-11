@@ -11,7 +11,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
 from photologue.models import *
-from photos.models import Image, Pool
+from photos.models import Image, Pool, PhotoSet
 from photos.forms import PhotoUploadForm, PhotoEditForm, PhotoSetForm
 
                 
@@ -95,7 +95,7 @@ def yourphotos(request, template_name="photos/yourphotos.html", group_slug=None,
 #@login_required
 def photos(request, template_name="photos/latest.html", group_slug=None, bridge=None):
     """
-    latest photos
+    latest photosets
     """
     
     if bridge:
@@ -106,24 +106,12 @@ def photos(request, template_name="photos/latest.html", group_slug=None, bridge=
     else:
         group = None
     
-    if request.user.is_authenticated():
-    	photos = Image.objects.filter(
-        	Q(is_public=True) |
-        	Q(is_public=False, member=request.user)
-    	)
-    else:
-	photos = Image.objects
-
-    if group:
-        photos = group.content_objects(photos, join="pool")
-    else:
-        photos = photos.filter(pool__object_id=None)
+    photosets = PhotoSet.objects.all()
     
-    photos = photos.order_by("-date_added")
-    
+    photosets = photosets.order_by("-date_added")
+    import pdb; pdb.set_trace()
     return render_to_response(template_name, {
-        "group": group,
-        "photos": photos,
+        "photosets": photos,
     }, context_instance=RequestContext(request))
 
 
@@ -303,3 +291,44 @@ def destroy(request, id, group_slug=None, bridge=None):
         request.user.message_set.create(message=_("Successfully deleted photo '%s'") % title)
     
     return HttpResponseRedirect(redirect_to)
+    
+    
+def newphotoset(request):
+    if request.method == 'POST':
+        photoset_form = PhotoSetForm(request.user, request.POST)
+        if photoset_form.is_valid():
+            photoset = photoset_form.save(commit = False)
+            photoset.user = request.user
+            photoset.save()
+            redirect_to = "/photos/edit/photoset/%i" % photoset.pk
+            return HttpResponseRedirect(redirect_to)
+    else:
+        photoset_form = PhotoSetForm()
+    return render_to_response('photos/newphotoset.html', {'photoset_form': photoset_form}, context_instance=RequestContext(request))    
+
+def editphotoset(request, id):
+    
+    photoset = get_object_or_404(PhotoSet, id=id)
+    
+    if request.method == 'POST':
+        if request.POST['action'] == 'addphoto':
+            photoset_form = PhotoSetForm(instance = photoset)
+            photo_form = PhotoUploadForm(request.user, request.POST)
+            if photo_form.is_valid():
+                photo = photo_form.save(commit=False)
+                photo.photoset.add(photoset)
+        else:
+            pass 
+    
+    else:
+        photoset_form = PhotoSetForm(instance = photoset)
+        photo_form = PhotoUploadForm()
+    
+
+    return render_to_response('photos/editphotoset.html', {'photoset_form': photoset_form,
+                                                            'photo_form': photo_form,
+                                                            'photoset': photoset}, 
+                                                            context_instance=RequestContext(request))
+
+def photosets(request, by_user):
+    pass

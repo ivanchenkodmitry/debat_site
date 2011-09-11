@@ -20,10 +20,14 @@ class PhotoSet(models.Model):
     """
     A set of photos
     """
-    name = models.CharField(_('name'), max_length=200)
-    description = models.TextField(_('description'))
-    publish_type = models.IntegerField(_('publish_type'), choices=PUBLISH_CHOICES, default=1)
+    name = models.CharField(_('Назва'), max_length=200)
+    description = models.TextField(_('Краткий опис'))
+    publish_type = models.IntegerField(_('Опублікувати'), choices=PUBLISH_CHOICES, default=1)
     tags = TagField()
+    content_type = models.ForeignKey(ContentType, blank = True, null = True)
+    content_object = generic.GenericForeignKey()
+    user = models.ForeignKey(User)
+    date_added = models.DateTimeField(_('date added'), default=datetime.now, editable=False)
 
     class Meta:
         verbose_name = _('photo set')
@@ -31,7 +35,13 @@ class PhotoSet(models.Model):
         
     def __unicode__(self):
         return self.name
-
+    
+    @property
+    def first_image(self):
+        images = self.iamge_set.all().order_by('date_added')
+        if images.count():
+            return images[0]
+        return None
 
 class Image(ImageModel):
     """

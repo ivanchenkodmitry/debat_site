@@ -9,10 +9,9 @@
     {% if user.is_authenticated %}
         <ul>
                    
-            <li><a href="/photos/photoset">{% trans "Create Gallery" %}</a></li>
-            <li><a href="{% groupurl photos group %} ">{% trans "Latest Photos" %}</a></li>
-            <li><a href="{% groupurl photos_yours group %}">{% trans "Your Photos" %}</a></li>
-            <li><a href="{% groupurl photo_upload group %}">{% trans "Upload a Photo" %}</a></li>
+            <li><a href="/photos/new/photoset">{% trans "Створити альбом" %}</a></li>
+            <li><a href="/photoset/latest ">{% trans "Останні альбоми" %}</a></li>
+            <li><a href="/photoset/">{% trans "Мої альбоми" %}</a></li>
         </ul>
     {% else %}
         &nbsp;

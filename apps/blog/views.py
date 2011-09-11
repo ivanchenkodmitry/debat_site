@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.views.generic import date_based
 from django.conf import settings
-from photologue.models import Photo, Gallery
+from photos.models import PhotoSet
 from pytils.translit import slugify
 
 
@@ -84,17 +84,16 @@ def new(request, form_class=BlogForm, template_name="blog/new.html"):
     if request.method == "POST":
         if request.POST["action"] == "create":
             blog_form = form_class(request.user, request.POST)
-            import pdb; pdb.set_trace()
             if blog_form.is_valid():
                 
                 blog = blog_form.save(commit=False)
                 blog.author = request.user
                 # Create gallery and save with post
-                gtitle = blog.title
-                gallery = Gallery(title = gtitle, title_slug = slugify(gtitle))
-                gallery.save()
+                photoset_name = blog.title
+                photoset = PhotoSet(name = photoset_name)
+                photoset.save()
                 
-                blog.gallery = gallery
+                blog.gallery = photoset
                 if blog.author.is_staff:
                     blog.status2 = True
                 if getattr(settings, 'BEHIND_PROXY', False):
@@ -102,6 +101,9 @@ def new(request, form_class=BlogForm, template_name="blog/new.html"):
                 else:
                     blog.creator_ip = request.META['REMOTE_ADDR']
                 blog.save()
+                
+                photoset.content_object = blog
+                photoset.save()
 
                 # @@@ should message be different if published?
                 request.user.message_set.create(message=_("Успішно збережено новину '%s'") % blog.title)
@@ -115,13 +117,9 @@ def new(request, form_class=BlogForm, template_name="blog/new.html"):
             blog_form = form_class()
     else:
         blog_form = form_class()
-        
-    
-    photo_form = PhotoForm()
 
     return render_to_response(template_name, {
         "blog_form": blog_form,
-        "photo_form": photo_form,
     }, context_instance=RequestContext(request))
 
 @login_required

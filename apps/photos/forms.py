@@ -5,10 +5,12 @@ from django.utils.translation import ugettext_lazy as _
 
 from photos.models import Image, PhotoSet
 
-class PhotoSetForm(forms.ModelForm):
-  class Meta:
+class PhotoSetForm(forms.ModelForm):    
+      
+    class Meta:
         model = PhotoSet
-  def __init__(self, user=None, *args, **kwargs):
+        exclude = ('content_type', 'content_object', 'user', 'publish_type')
+    def __init__(self, user=None, *args, **kwargs):
         self.user = user
         super(PhotoSetForm, self).__init__(*args, **kwargs)
 
@@ -16,7 +18,7 @@ class PhotoUploadForm(forms.ModelForm):
     
     class Meta:
         model = Image
-        exclude = ('member', 'title_slug', 'effect', 'crop_from')
+        exclude = ('member', 'title_slug', 'effect', 'crop_from', 'safetylevel', 'caption', 'is_public', 'tags', 'photoset')
         
     def clean_image(self):
         if '#' in self.cleaned_data['image'].name:

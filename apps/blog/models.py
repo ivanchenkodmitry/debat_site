@@ -10,7 +10,7 @@ from django.contrib.contenttypes import generic
 
 from tagging.fields import TagField
 from tagging.models import Tag
-from photologue.models import *
+from photos.models import *
 from pytils.translit import slugify
 
 
@@ -40,7 +40,7 @@ class Post(models.Model):
     created_at      = models.DateTimeField(_(u'Створено'), default=datetime.now)
     updated_at      = models.DateTimeField(_(u'Змінено'))
     tags            = TagField(u'Теги')
-    gallery         = models.ForeignKey(Gallery, null=True)
+    gallery         = models.ForeignKey(PhotoSet, null=True)
     
     
     
