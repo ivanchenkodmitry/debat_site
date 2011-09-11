@@ -214,12 +214,9 @@ class SignupForm(forms.Form):
         profile.vk_id = self.cleaned_data["vk_id"]
 
         try:
-            profile.club = Club.objects.get(id = self.cleaned_data["club"])
-            club.members.add(new_user)
-            club.verification_set.create(member = new_user)
-            profile.club.save()
+            new_user.club_set.add(Club.objects.get(id = self.cleaned_data["club"]))
         except:
-            profile.club = None
+            pass
 
         profile.save()
 

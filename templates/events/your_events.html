@@ -1,0 +1,30 @@
+{% extends "events/base.html" %}
+
+{% load i18n %}
+
+{% block body %}
+    
+    <h1>{% trans "Мої події" %}</h1>    
+    
+    {% if events %}
+        <table cellpadding="5" cellspacing="0" border="0" class="event-list" width="100%">
+        <th>Назва</th>
+        <th>Підтверджено адміністратором</th>
+        {% for event in events %}
+            <tr class="{% cycle odd,even %}">
+                <td><a href="{% url event_details event.id %}">{{ event }}</a></td>
+                <td>
+                    {% if event.approved %}
+                        {% trans "Підтверджено" %}
+                    {% else %}
+                        {% trans "Не підтверджено" %}
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% else %}
+        {% trans "Поки що події відсутні" %}
+    {% endif %}
+    
+{% endblock %}

@@ -5,6 +5,8 @@ urlpatterns = patterns('',
 
     # all ivent or latest ivent
     url(r'^$', 'events.views.events', name="events"),
+    # your events
+    url(r'^your_events/$', 'events.views.your_events', name='event_list_yours'),
     # Add event
     url(r'^add_event/$', 'events.views.add_event', name="add_event"),
     # an event details

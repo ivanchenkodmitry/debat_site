@@ -1,0 +1,111 @@
+[
+    {
+        "pk": 8, 
+        "model": "account.account", 
+        "fields": {
+            "timezone": "US/Eastern", 
+            "user": 8, 
+            "language": "en"
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "account.account", 
+        "fields": {
+            "timezone": "US/Eastern", 
+            "user": 9, 
+            "language": "en"
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "account.account", 
+        "fields": {
+            "timezone": "US/Eastern", 
+            "user": 10, 
+            "language": "en"
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "account.account", 
+        "fields": {
+            "timezone": "US/Eastern", 
+            "user": 11, 
+            "language": "en"
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "admin", 
+            "first_name": "admin", 
+            "last_name": "admin", 
+            "is_active": true, 
+            "is_superuser": true, 
+            "is_staff": true, 
+            "last_login": "2011-09-08 15:35:40", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "sha1$5494d$5ea8aaf6ca8a628f3a71a3a35b9b8abcc556b221", 
+            "email": "admin@admin.com", 
+            "date_joined": "2011-08-25 17:19:06"
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "ivanchenko_dimitry_gmail_com", 
+            "first_name": "Bodunov", 
+            "last_name": "Boris", 
+            "is_active": true, 
+            "is_superuser": true, 
+            "is_staff": true, 
+            "last_login": "2011-09-08 14:18:16", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "sha1$37dd9$ef107ea3c97367897efb090b112a9cc57d5e2376", 
+            "email": "ivanchenko.dimitry@gmail.com", 
+            "date_joined": "2011-09-08 14:08:15"
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "foma_mail_com", 
+            "first_name": "\u0424\u043e\u043c\u0430", 
+            "last_name": "\u041f\u0443\u043f\u043a\u0456\u043d", 
+            "is_active": true, 
+            "is_superuser": false, 
+            "is_staff": false, 
+            "last_login": "2011-09-08 15:49:30", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "sha1$87d8a$73b7a9d6debba559d831eeabe37591fe67f08b5e", 
+            "email": "foma@mail.com", 
+            "date_joined": "2011-09-08 15:48:51"
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "taras_mail_com", 
+            "first_name": "\u0422\u0430\u0440\u0430\u0441", 
+            "last_name": "\u0428\u0435\u0432\u0447\u0435\u043d\u043a\u043e", 
+            "is_active": true, 
+            "is_superuser": false, 
+            "is_staff": false, 
+            "last_login": "2011-09-08 15:57:30", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "sha1$4a24a$4fc04d874e536d1b130e75a6e3cc4b7e5987b2d3", 
+            "email": "taras@mail.com", 
+            "date_joined": "2011-09-08 15:56:37"
+        }
+    }
+ 
+]

@@ -217,7 +217,7 @@ DEFAULT_FROM_EMAIL = 'Debat Site <emailfordevelop@gmail.com>'
 AUTH_PROFILE_MODULE = 'profiles.Profile'
 NOTIFICATION_LANGUAGE_MODULE = 'account.Account'
 
-DEFAULT_FROM_EMAIL = 'emailfordevelop@gmail.com'
+DEFAULT_FROM_EMAIL = 'Ukrain debat organization'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 ACCOUNT_OPEN_SIGNUP = True

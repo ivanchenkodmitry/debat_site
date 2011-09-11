@@ -3,12 +3,18 @@
 {% load i18n %}
 {% load group_tags %}
 
+{% block extra_head %} 
+    <link type="text/css" href="{{ STATIC_URL }}pinax/css/events.css" rel="stylesheet" />
+{% endblock %}
+
 {% block body_class %}events{% endblock %}
 
 {% block subnav %}
     {% if user.is_authenticated %}
         <ul>
-            <li><a href="/events/add_event/">{% trans "Додати подію" %}</a></li>
+            <li><a href="{% url events %}">{% trans "Всі події" %}</a></li>
+            <li><a href="{% url event_list_yours %}">{% trans "Мої події" %}</a></li>
+            <li><a href="{% url add_event %}">{% trans "Додати подію" %}</a></li>
         </ul>
     {% else %}
         &nbsp;

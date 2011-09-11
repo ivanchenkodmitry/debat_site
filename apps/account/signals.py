@@ -22,7 +22,7 @@ def mail_to_admin(sender, email_address, **kwargs):
 	for admin in admins:
 		emails = emails + [admin.email]
 	EMAIL_RECIPIENTS = emails
-	subject, from_email, to = 'Новий користувач на сайті Дебатної організації', settings.SERVER_EMAIL, EMAIL_RECIPIENTS
+	subject, from_email, to = 'Новий користувач на сайті Дебатної організації', settings.DEFAULT_FROM_EMAIL, EMAIL_RECIPIENTS
 	html_content = html.render(mail_context)
 	msg = EmailMultiAlternatives(subject, u'Новий користувач на сайті Дебатної організації', from_email, to)
 	msg.attach_alternative(html_content, "text/html")

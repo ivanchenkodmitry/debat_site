@@ -13,7 +13,7 @@ class EventForm(forms.ModelForm):
     
     class Meta:
         model = Event
-        exclude = ('members', 'creator')
+        exclude = ('members', 'creator', 'approved')
         
     def __init__(self, user=None, *args, **kwargs):
         self.user = user        
