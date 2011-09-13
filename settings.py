@@ -94,6 +94,7 @@ MIDDLEWARE_CLASSES = (
     'djangodblog.middleware.DBLogMiddleware',
     'pinax.middleware.security.HideSensistiveFieldsMiddleware',
     'django.middleware.transaction.TransactionMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 )
 
 ROOT_URLCONF = 'debat_site.urls'
@@ -136,6 +137,7 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
     'django.contrib.markup',
     'pinax.templatetags',
+    'django.contrib.flatpages',
     
     # external
     'notification', # must be first
@@ -190,6 +192,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'universities',
     'photofiler',
+    'projects',
     
 )
 
