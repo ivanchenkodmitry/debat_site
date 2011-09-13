@@ -3,30 +3,36 @@ from django import forms
 from datetime import datetime
 from django.utils.translation import ugettext_lazy as _
 
-from photos.models import UserGallery, UserPhoto
+from photos.models import Image, PhotoSet
 
-class UserGalleryForm(forms.ModelForm):
+class PhotoSetForm(forms.ModelForm):
   class Meta:
-        model = UserGallery
+        model = PhotoSet
   def __init__(self, user=None, *args, **kwargs):
         self.user = user
-       
+        super(PhotoSetForm, self).__init__(*args, **kwargs)
 
-class UserPhotoForm(forms.ModelForm):
+class PhotoUploadForm(forms.ModelForm):
     
     class Meta:
-        model = UserPhoto
+        model = Image
+        exclude = ('member', 'title_slug', 'effect', 'crop_from')
         
-        
+    def clean_image(self):
+        if '#' in self.cleaned_data['image'].name:
+            raise forms.ValidationError(
+                _("Image filename contains an invalid character: '#'. Please remove the character and try again."))
+        return self.cleaned_data['image']
+
     def __init__(self, user=None, *args, **kwargs):
         self.user = user
-        super(UserPhotoForm, self).__init__(*args, **kwargs)
+        super(PhotoUploadForm, self).__init__(*args, **kwargs)
 
 class PhotoEditForm(forms.ModelForm):
     
     class Meta:
-        model = UserPhoto
-       
+        model = Image
+        exclude = ('member', 'photoset', 'title_slug', 'effect', 'crop_from', 'image')
         
     def __init__(self, user=None, *args, **kwargs):
         self.user = user

@@ -74,7 +74,7 @@ urlpatterns = patterns('',
 
 ## @@@ for now, we'll use friends_app to glue this stuff together
 
-from photos.models import UserPhoto
+from photos.models import Image
 
 friends_photos_kwargs = {
     "template_name": "photos/friends_photos.html",
