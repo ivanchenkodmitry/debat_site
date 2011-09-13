@@ -23,3 +23,10 @@
 		</tr>
 	</table>
 {% endifequal %}
+{% ifequal menu_type "dropdown" %}
+	<ul class="dropdown">
+		{% for menu_item in menu.root_item.children %}
+			{% show_menu_item menu_item %}
+		{% endfor %}
+	</ul>
+{% endifequal %}
