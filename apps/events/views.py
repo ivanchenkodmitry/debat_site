@@ -12,7 +12,7 @@ from django.contrib.auth.decorators import login_required
 from external.excel_response import ExcelResponse
 
 
-from events.models import Event, Member
+from events.models import Event, AnswerList
 from events.forms import EventForm, QuestionsForm
 
 
@@ -35,10 +35,9 @@ def map(request, template_name="events/map.html"):
 @login_required
 def destroy(request, id):
     """
-    latest ivents
+    Delete event
     """
-    event = Event.objects.get(id = id)
-    event.members.all().delete()
+    event = get_object_or_404(Event, id=id)
     event.delete()
 
     redirect_to = reverse("events")
@@ -52,27 +51,20 @@ def details(request, id, template_name="events/details.html"):
 
     event = get_object_or_404(Event, id=id)
     
-    is_me = False
-    is_member = False
-
-    if request.user == event.creator:
+    if event.creator == request.user:
         is_me = True
+    else:
+        is_me = False
+        
+    is_member = event.user_is_member(request.user)
         
     if (not event.approved) and (not is_me):
         raise Http404
-
-    members = event.members.all()
-    for member in members:
-        if member.user == request.user:
-            is_member = True
-            break
-
     
     return render_to_response(template_name, {
     "event": event,
     "is_me": is_me,
     "is_member": is_member,
-    "members": members,
     }, context_instance=RequestContext(request))
 
 
@@ -83,24 +75,22 @@ def add_event(request, form_class=EventForm, template_name="events/add_event.htm
     """
     event_form = form_class(request.user)
     
-    if request.method == 'POST':
-        if request.POST.get("action") == "add":
-            event_form = form_class(request.user, request.POST)
+    if request.method == 'POST' and request.POST.get("action") == "add":
+        event_form = form_class(request.user, request.POST)
 
-            if event_form.is_valid():
-                event = event_form.save(commit=False)
-                event.creator = request.user
-                event.approved = request.user.is_staff
-                # automatically approved if user is an administrator
-                event.save()
-                event_member = Member(user=request.user)
-                event_member.save()
-                event.members.add(event_member)
-                if not event.approved:
-                    request.user.message_set.create(message=_(u"Адміністратор розгляне вашу заявку."))
-                include_kwargs = {"id": event.id}
-                redirect_to = reverse("event_details", kwargs=include_kwargs)
-                return HttpResponseRedirect(redirect_to)
+        if event_form.is_valid():
+            event = event_form.save(commit=False)
+            event.creator = request.user
+            event.approved = request.user.is_staff
+            # automatically approved if user is an administrator
+            event.save()
+            event.members.add(request.user)
+            event.save()
+            if not event.approved:
+                request.user.message_set.create(message=_(u"Адміністратор розгляне вашу заявку."))
+            include_kwargs = {"id": event.id}
+            redirect_to = reverse("event_details", kwargs=include_kwargs)
+            return HttpResponseRedirect(redirect_to)
             
     return render_to_response(template_name, {
         "event_form": event_form
@@ -115,15 +105,14 @@ def edit(request, id, form_class=EventForm, template_name="events/edit.html"):
     event = get_object_or_404(Event, id=id)
     
     event_form = form_class(request.user, instance=event)
-    if request.method == "POST":
-        if request.POST["action"] == "update":
-            event_form = form_class(request.user, request.POST, instance=event)
-            if event_form.is_valid():
-                event = event_form.save()
-                
-                include_kwargs = {"id": event.id}
-                redirect_to = reverse("event_details", kwargs=include_kwargs)
-                return HttpResponseRedirect(redirect_to)
+    if request.method == "POST" and request.POST.get("action") == "update":
+        event_form = form_class(request.user, request.POST, instance=event)
+        if event_form.is_valid():
+            event = event_form.save()
+            
+            include_kwargs = {"id": event.id}
+            redirect_to = reverse("event_details", kwargs=include_kwargs)
+            return HttpResponseRedirect(redirect_to)
                 
     return render_to_response(template_name, {
         "event_form": event_form,
@@ -159,19 +148,16 @@ def join(request, id, form_class=QuestionsForm, template_name="events/questions.
         raise Http404
     
     include_kwargs = {"id": event.id}
-    redirect_to = reverse("event_details", kwargs=include_kwargs)   
-        
-    try:
-        member = event.members.get(user = request.user)
-    except ObjectDoesNotExist: # if user isn't member
-        member = Member(user = request.user)
+    redirect_to = reverse("event_details", kwargs=include_kwargs)
+    
+    if event.user_is_member(request.user):
+        request.user.message_set.create(message=_(u"Ви вже є учасником цієї події"))
+    else:
         if event.questions == "":
-            member.save()
-
-            event.members.add(member)
+            event.members.add(request.user)
             event.save()
         else:
-            questions_form = form_class(member)
+            questions_form = form_class(event, request.user)
             questions_form.setQuestions(event.questions)
             
             if request.method == "POST":
@@ -179,7 +165,7 @@ def join(request, id, form_class=QuestionsForm, template_name="events/questions.
                 if questions_form.is_valid():
                     questions_form.save()
                     
-                    event.members.add(member)
+                    event.members.add(request.user)
                     event.save()
                     return HttpResponseRedirect(redirect_to)
             
@@ -194,16 +180,17 @@ def join(request, id, form_class=QuestionsForm, template_name="events/questions.
 def leave(request, id, template_name="events/details.html"):
     event = Event.objects.get(id = id)
     
-    members = event.members.all()
-
-    is_member = True
-    for member in members:
-        if member.user == request.user:
-            member.delete()
-            member.save()
-            break
-
-    event.save()
+    if event.creator != request.user:
+        raise Http404
+    
+    if event.user_is_member(request.user):
+        event.members.remove(request.user)
+        try:
+            answer_list = AnswerList.objects.get(event=event, user=request.user)
+            answer_list.delete()
+        except AnswerList.DoesNotExist:
+            pass
+ 
     include_kwargs = {"id": event.id}
     redirect_to = reverse("event_details", kwargs=include_kwargs)
     return HttpResponseRedirect(redirect_to)
@@ -212,11 +199,8 @@ def leave(request, id, template_name="events/details.html"):
 def answers(request, id, template_name="events/answers.html"):
     event = get_object_or_404(Event, id=id)
     
-    include_kwargs = {"id": event.id}
-    redirect_to = reverse("event_details", kwargs=include_kwargs)
-    
-    if request.user != event.creator:
-        return HttpResponseRedirect(redirect_to)
+    if event.creator != request.user:
+        raise Http404
         
     if request.GET.get('action') == 'export':
         data = event.get_excel_data()
@@ -233,22 +217,26 @@ def answers(request, id, template_name="events/answers.html"):
 def members(request, id, template_name="events/members.html"):
     event = get_object_or_404(Event, id=id)
     
-    include_kwargs = {"id": event.id}
-    redirect_to = reverse("event_details", kwargs=include_kwargs)
-    
-    if request.user != event.creator:
-        return HttpResponseRedirect(redirect_to)
-        
-    if request.method == "POST" and request.POST.get('action') == "delete":
+    if event.creator == request.user:
+        is_me = True
+    else:
+        is_me = False
+
+    if is_me and request.method == "POST" and request.POST.get('action') == "delete":
         try:
-            member = event.members.get(id = request.POST.get('member'))
-            event.members.remove(member)
-            member.delete()
-            request.user.message_set.create(message=_(u"Учасника %s видалено з події.") % member)
-            
-        except ObjectDoesNotExist: # if user isn't member
+            member = User.objects.get(id = request.POST.get('member'))
+            if event.user_is_member(member):
+                event.members.remove(member)
+                try:
+                    answer_list = AnswerList.objects.get(event=event, user=member)
+                    answer_list.delete()
+                except AnswerList.DoesNotExist:
+                    pass
+                request.user.message_set.create(message=_(u"Учасника %s видалено з події.") % unicode(member.get_profile()))
+        except User.DoesNotExist:
             pass
         
     return render_to_response(template_name, {
         "event": event,
+        "is_me": is_me,
     }, context_instance=RequestContext(request))

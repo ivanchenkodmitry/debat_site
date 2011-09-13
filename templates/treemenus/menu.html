@@ -1,0 +1,32 @@
+{% load tree_menu_tags %}
+
+{% ifequal menu_type "unordered-list" %}
+	<ul>
+		{% for menu_item in menu.root_item.children %}
+			{% show_menu_item menu_item %}
+		{% endfor %}
+	</ul>
+{% endifequal %}
+{% ifequal menu_type "ordered-list" %}
+	<ol>
+		{% for menu_item in menu.root_item.children %}
+			{% show_menu_item menu_item %}
+		{% endfor %}
+	</ol>
+{% endifequal %}
+{% ifequal menu_type "table" %}
+	<table cellpadding=0 cellspacing=0 class="tabs">
+		<tr>
+			{% for menu_item in menu.root_item.children %}
+				{% show_menu_item menu_item %}
+			{% endfor %}
+		</tr>
+	</table>
+{% endifequal %}
+{% ifequal menu_type "dropdown" %}
+	<ul class="dropdown">
+		{% for menu_item in menu.root_item.children %}
+			{% show_menu_item menu_item %}
+		{% endfor %}
+	</ul>
+{% endifequal %}

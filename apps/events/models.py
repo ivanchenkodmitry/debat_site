@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime
@@ -11,13 +12,6 @@ from datetime import datetime
 from django.utils.translation import ugettext_lazy as _
 from django.utils import simplejson
 
-class Member(models.Model):
-	user = models.ForeignKey(User)
-	answers = models.TextField(blank=True)
-    
-	def __unicode__(self):
-		return self.user.get_profile().surname + ' ' + self.user.get_profile().name
-
 class Event(models.Model):
     """
     An event with its details
@@ -27,14 +21,17 @@ class Event(models.Model):
     date = models.DateTimeField(_('date'), default=datetime.now)
     address = models.TextField(_('addres'), blank=True)
     date_added = models.DateTimeField(_('date added'), default=datetime.now, editable=False)
-    creator = models.ForeignKey(User)
-    members = models.ManyToManyField(Member, verbose_name="members_list", blank=True)
+    creator = models.ForeignKey(User, related_name="%(class)s_created")
+    members = models.ManyToManyField(User, related_name='events', verbose_name=_('participants'))
     location = models.CharField(_('location'), max_length=200)
     questions = models.TextField(blank=True)
     approved = models.BooleanField(_('approved'), default = False)
     
     def __unicode__(self):
         return self.title
+        
+    def user_is_member(self, user):
+        return user in self.members.all()
         
     def get_table_data(self):
         """
@@ -46,19 +43,20 @@ class Event(models.Model):
         
             questions = simplejson.loads(self.questions)
             
-            data['columns'] = [_("Member")]
+            data['columns'] = [_(u"Учасник")]
             
             for question in questions:
                 data['columns'].append(question['title'])
-            
-            members = self.members.exclude(answers="")
+                
+            answer_lists = AnswerList.objects.filter(event=self)
             
             data['rows'] = []
             
-            for member in members:
-                answers = simplejson.loads(member.answers)
+            for answer_list in answer_lists:
+                answers = simplejson.loads(answer_list.value)
                 row = []
-                row.append({"data": unicode(member),"profile": member.user.username, "type":"profile"})
+                row.append({"data": unicode(answer_list.user.get_profile()),
+                            "profile": answer_list.user.username, "type":"profile"})
                 for i, answer in enumerate(answers):
                     if questions[i]['type'] == "one":
                         row.append({"data": questions[i]['options'][int(answer)-1]})
@@ -83,19 +81,19 @@ class Event(models.Model):
         
             questions = simplejson.loads(self.questions)
             
-            headers = [unicode(_("Member"))]
+            headers = [unicode(_(u"Учасник"))]
             
             for question in questions:
                 headers.append(question['title'])
                 
             data.append(headers)
             
-            members = self.members.exclude(answers="")
+            answer_lists = AnswerList.objects.filter(event=self)
             
-            for member in members:
-                answers = simplejson.loads(member.answers)
+            for answer_list in answer_lists:
+                answers = simplejson.loads(answer_list.value)
                 row = []
-                row.append(unicode(member))
+                row.append(unicode(answer_list.user.get_profile()))
                 for i, answer in enumerate(answers):
                     if questions[i]['type'] == "one":
                         row.append(questions[i]['options'][int(answer)-1])
@@ -109,3 +107,8 @@ class Event(models.Model):
                 data.append(row)
         
         return data
+        
+class AnswerList(models.Model):
+    event = models.ForeignKey(Event)
+    user = models.ForeignKey(User)
+    value = models.TextField()

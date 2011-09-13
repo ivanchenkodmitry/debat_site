@@ -190,7 +190,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'universities',
     'photofiler',
-    
+    'treemenus',
 )
 
 AUTHENTICATION_BACKENDS = (

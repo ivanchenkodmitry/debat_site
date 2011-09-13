@@ -65,7 +65,6 @@
 	{% if is_me %}
 		<a href="/events/edit/{{ event.id }}"> <P> Редагувати подію </P> </a>        
 		<a href="/events/destroy/{{ event.id }}"> <P> Видалити подію </P> </a>
-		<a href="/events/members/{{ event.id }}"> <P> Учасники </P> </a>
 		{% if event.questions %}
 		<a href="/events/answers/{{ event.id }}"> <P> Переглянути відповіді </P> </a>   
 		{% endif%}
@@ -75,6 +74,7 @@
 
 	{% if is_member %}
 		<!-- <a href="/events/leave/{{ event.id }}"> <P>Покинути подію</P> </a> -->
+		<a href="/events/members/{{ event.id }}"> <P> Учасники </P> </a>
 	{% else %}
 		<a href="/events/join/{{ event.id }}"> <P> Приєднатись до події </P> </a>
 	{% endif %}
@@ -82,13 +82,13 @@
         <h3>Учасники події:</h3>
 
 	<div name = "members" class="thumb-row clearfix">
-    {% for member in members %}
+    {% for member in event.members.all %}
         <div name = "member" style="float:left; margin: 10px; text-align: center">  
 			<div name = "avatar">
-				<a href="{% url profile_detail member.user.username %}">
-					<img src="{% avatar_url member.user 80 %}" alt="Avatar of {{ member }}"/> </a> </div>
+				<a href="{% url profile_detail member.username %}">
+					<img src="{% avatar_url member 80 %}" alt="Avatar of {{ member.get_profile }}"/> </a> </div>
 			<div name = "username">
-				<a href="{% url profile_detail member.user.username %}"> {{ member }} </a> </div>
+				<a href="{% url profile_detail member.username %}"> {{ member.get_profile }} </a> </div>
 		</div>
 	{% endfor %}
 	</div>
