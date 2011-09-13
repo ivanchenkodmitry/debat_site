@@ -24,6 +24,14 @@ from timezones.forms import TimeZoneField
 from account.models import PasswordReset
 from recaptcha.fields import ReCaptchaField
 import md5
+import os
+
+from django.forms import widgets
+from django.utils.safestring import mark_safe
+from django.utils.translation import ugettext_lazy as _
+from django.template.defaultfilters import filesizeformat
+
+from avatar.models import Avatar
 
 
 alnum_re = re.compile(r'^\w+$')
@@ -60,12 +68,39 @@ class LoginForm(forms.Form):
             return True
         return False
 
+class UploadAvatarForm(forms.Form):
+
+    avatar = forms.ImageField()
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user')
+        super(UploadAvatarForm, self).__init__(*args, **kwargs)
+
+    def clean_avatar(self):
+        data = self.cleaned_data['avatar']
+        if AVATAR_ALLOWED_FILE_EXTS:
+            (root, ext) = os.path.splitext(data.name.lower())
+            if ext not in AVATAR_ALLOWED_FILE_EXTS:
+               raise forms.ValidationError(
+                _(u"%(ext)s is an invalid file extension. Authorized extensions are : %(valid_exts_list)s") %
+                { 'ext' : ext, 'valid_exts_list' : ", ".join(AVATAR_ALLOWED_FILE_EXTS) })
+        if data.size > AVATAR_MAX_SIZE:
+            raise forms.ValidationError(
+                _(u"Your file is too big (%(size)s), the maximum allowed size is %(max_valid_size)s") %
+                { 'size' : filesizeformat(data.size), 'max_valid_size' : filesizeformat(AVATAR_MAX_SIZE)} )
+        count = Avatar.objects.filter(user=self.user).count()
+        if AVATAR_MAX_AVATARS_PER_USER > 1 and \
+           count >= AVATAR_MAX_AVATARS_PER_USER:
+            raise forms.ValidationError(
+                _(u"You already have %(nb_avatars)d avatars, and the maximum allowed is %(nb_max_avatars)d.") %
+                { 'nb_avatars' : count, 'nb_max_avatars' : AVATAR_MAX_AVATARS_PER_USER})
+        return
 
 class SignupForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super(SignupForm, self).__init__(*args, **kwargs)
-        clubs = Club.objects.all()
+       # clubs = Club.objects.all()
         CLUBS = BLANK_CHOICE_DASH + ([(obj.id, obj.title) for obj in Club.objects.all()])
         self.base_fields['club'].choices = CLUBS
 
@@ -89,6 +124,7 @@ class SignupForm(forms.Form):
         ('Не можу сплачувати членський внесок', _('Не можу сплачувати членський внесок')),
     ]
 
+    CLUBS = BLANK_CHOICE_DASH + ([(obj.id, obj.title) for obj in Club.objects.all()])
 
     surname = forms.CharField(label = _(u'Прізвище'), max_length = 200, widget = forms.TextInput())
     name = forms.CharField(label = _(u'Ім’я'), max_length = 200, widget = forms.TextInput())
@@ -103,7 +139,7 @@ class SignupForm(forms.Form):
     work = forms.CharField(label = _(u'Місце роботи'), required = False, max_length = 300, widget = forms.Textarea())
     experience = forms.CharField(label = _(u'Опишіть у довільній формі досвід гри у дебати (роки участі у дебатах, турніри, в яких Ви брали участь, тощо).'), required = False, max_length = 600, widget = forms.Textarea())
 
-    club = forms.ChoiceField(label = _(u'Дебатний клуб, який  представляєте (якщо є)'), required = False, widget = forms.Select())
+    club = forms.ChoiceField(label = _(u'Дебатний клуб, який  представляєте (якщо є)'), choices = CLUBS, required = False, widget = forms.Select())
     social_work_exp = forms.CharField(label = _(u'Який досвід громадської роботи ви маєте(реалізовані проекти, членство в ГО, студ.самоврядуванні і т.д.)?'), required = False, max_length = 600, widget = forms.Textarea())
     desired_exp = forms.CharField(label = _(u'Які знання, досвід чи вміння ви хочете отримати, ставши членом ВМГО «ФДУ»?'), required = False, max_length = 200, widget = forms.Textarea())
 
@@ -116,6 +152,7 @@ class SignupForm(forms.Form):
     password1 = forms.CharField(label = _("Password"), widget = forms.PasswordInput(render_value = False))
     password2 = forms.CharField(label = _("Password (again)"), widget = forms.PasswordInput(render_value = False))
     vk_id = forms.CharField(label = _('ID Вконтакті'), required = False, widget = forms.HiddenInput())
+
 
     if settings.ACCOUNT_REQUIRED_EMAIL or settings.ACCOUNT_EMAIL_VERIFICATION:
         email = forms.EmailField(
