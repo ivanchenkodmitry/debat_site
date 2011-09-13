@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{ STATIC_URL }}css/site_tabs.css" />
     <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/avatar.css" />
     <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/blogs.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/projects.css" />
     <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/comments.css" />
     <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/friends.css" />
     <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/groups.css" />
@@ -83,6 +84,8 @@
     			<td><a href="{% url blog_list_all %}">Новини</a></td>
     			<td><a href="{% url events %}">Події</a></td>
     			<td><a href="{% url clubs %}">Клуби</a></td>
+                        <td><a href="/projects/">Проекти</a></td>
+                       
     			<td><a href="{% url messages_inbox %}">Повідомлення ({{ combined_inbox_count }})</a></td>
     		</tr>
     	</table>
@@ -107,6 +110,7 @@
     		<tr>
     			<td><a href="{% url photos %}">Фотографії</a></td>
     			<td><a href="{% url blog_list_all %}">Новини</a></td>
+                        
     			<td><a href="{% url events %}">Події</a></td>
     		</tr>
     	</table>

@@ -130,7 +130,7 @@ def edit(request, id, form_class=BlogForm, template_name="blog/edit.html"):
 
     if request.method == "POST":
         if post.author != request.user:
-            request.user.message_set.create(message="Ви не можете видалити чужі новини")
+            request.user.message_set.create(message="Ви не можете редагувати чужі новини")
             return HttpResponseRedirect(reverse("blog_list_yours"))
         if request.POST["action"] == "update":
             blog_form = form_class(request.user, request.POST, instance=post)

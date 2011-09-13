@@ -2,6 +2,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 
 from blog.models import Post
+from projects.models import Project
 from tagging.models import Tag, TaggedItem
 from photos.models import Image
 from bookmarks.models import BookmarkInstance

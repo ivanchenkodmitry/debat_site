@@ -1,0 +1,29 @@
+{% extends "projects/base.html" %}
+
+{% load i18n %}
+{% load humanize %}
+{% load pagination_tags %}
+{% load tagging_tags %}
+{% load group_tags %}
+{% load threadedcommentstags %}
+{% load theme_tags %}
+
+
+{% block head_title %}{% blocktrans %}projects{% endblocktrans %}{% endblock %}
+
+
+
+{% block body %}
+ 
+
+    <h1>{% trans "Всі проекти" %}</h1>
+        
+            {% for project in projects %}
+           <a href="{% groupurl project group id=project.id %}"> <P>  <b>{{ project.title }}</b></a>  автор - {{ project.author }}  </P>
+           
+            {% endfor %}
+
+       
+
+    
+{% endblock %}
