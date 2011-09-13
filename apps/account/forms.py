@@ -100,7 +100,7 @@ class SignupForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super(SignupForm, self).__init__(*args, **kwargs)
-        clubs = Club.objects.all()
+       # clubs = Club.objects.all()
         CLUBS = BLANK_CHOICE_DASH + ([(obj.id, obj.title) for obj in Club.objects.all()])
         self.base_fields['club'].choices = CLUBS
 
@@ -124,6 +124,7 @@ class SignupForm(forms.Form):
         ('Не можу сплачувати членський внесок', _('Не можу сплачувати членський внесок')),
     ]
 
+    CLUBS = BLANK_CHOICE_DASH + ([(obj.id, obj.title) for obj in Club.objects.all()])
 
     surname = forms.CharField(label = _(u'Прізвище'), max_length = 200, widget = forms.TextInput())
     name = forms.CharField(label = _(u'Ім’я'), max_length = 200, widget = forms.TextInput())
@@ -138,7 +139,7 @@ class SignupForm(forms.Form):
     work = forms.CharField(label = _(u'Місце роботи'), required = False, max_length = 300, widget = forms.Textarea())
     experience = forms.CharField(label = _(u'Опишіть у довільній формі досвід гри у дебати (роки участі у дебатах, турніри, в яких Ви брали участь, тощо).'), required = False, max_length = 600, widget = forms.Textarea())
 
-    club = forms.ChoiceField(label = _(u'Дебатний клуб, який  представляєте (якщо є)'), required = False, widget = forms.Select())
+    club = forms.ChoiceField(label = _(u'Дебатний клуб, який  представляєте (якщо є)'), choices = CLUBS, required = False, widget = forms.Select())
     social_work_exp = forms.CharField(label = _(u'Який досвід громадської роботи ви маєте(реалізовані проекти, членство в ГО, студ.самоврядуванні і т.д.)?'), required = False, max_length = 600, widget = forms.Textarea())
     desired_exp = forms.CharField(label = _(u'Які знання, досвід чи вміння ви хочете отримати, ставши членом ВМГО «ФДУ»?'), required = False, max_length = 200, widget = forms.Textarea())
 
