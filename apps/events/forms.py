@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django import forms
-from events.models import Event, Member
+from events.models import Event, AnswerList
 from django.utils.translation import ugettext_lazy as _
 
 from django.utils import simplejson
@@ -24,8 +24,9 @@ class QuestionsForm(forms.Form):
     Dynamic form that allows the user to change
     and then verify the data that was parsed
     """
-    def __init__(self, member=None, *args, **kwargs):
-        self.member = member        
+    def __init__(self, event, user, *args, **kwargs):
+        self.event = event
+        self.user = user
         super(QuestionsForm, self).__init__(*args, **kwargs)
         
     def setFields(self, kwds):
@@ -93,7 +94,7 @@ class QuestionsForm(forms.Form):
                 self.errors[name] = e.messages
                 
     def save(self):
-        if self.member != None:
-            data = [self.cleaned_data[key] for key in sorted(self.cleaned_data.iterkeys())]
-            self.member.answers = simplejson.dumps(data, ensure_ascii = False)
-            self.member.save()
+        data = [self.cleaned_data[key] for key in sorted(self.cleaned_data.iterkeys())]
+        answer_list = AnswerList(event=self.event, user=self.user)
+        answer_list.value = simplejson.dumps(data, ensure_ascii = False)
+        answer_list.save()

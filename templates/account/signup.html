@@ -13,7 +13,7 @@
         apiId: 2428870,
         nameTransportPath: '{% url home %}'
     });
-     
+
     function vk_login() {
         VK.Auth.login(login);
         return false;
@@ -21,7 +21,7 @@
 
 	function vk_signup(){
         VK.Auth.login(addProfile);
-        return false;	
+        return false;
 
 	}
 
@@ -47,27 +47,68 @@
                         success: function(response){
                             if (response.success){
                                $("#id_vk_id").val(response.vk_id);
-                               $("#id_surname").val(response.surname);
-                               $("#id_name").val(response.name);
-                               $("#id_birth_date").val(response.birth_date);
+                               //$("#id_surname").val(response.surname);
+                               //$("#id_name").val(response.name);
+                               //$("#id_birth_date").val(response.birth_date);
                                $("#id_website").val(response.website);
-                               $("#id_education").val(response.education);
+                               //$("#id_education").val(response.education);
                             }
 							else {
 								window.location.reload();
 							}
 
-                        }    
+                        }
                     });
                 }
             }
+
+            function addAvatar(){
+
+                var formData = {
+                    "field1":$("#id_avatar").val()
+                };
+                $.ajax({
+                    dataType: "json",
+                    url:'/account/upload_avatar/',
+                    type:'POST',
+                    data:'jsonData=' + $.toJSON(formData),
+                    success: function(res) {
+                      $("#id_name").val('It work!!');
+                    }
+                });
+                return false;
+            }
+    </script>
+    
+<script type="text/javascript">
+        $(function() {
+            $("#avatar_form").submit(function() {
+                var formData = {
+                    "photo":$("#id_avatar").val()
+                };
+             var img = $("#id_avatar_img")
+                $.ajax({
+                    dataType: "json",
+                    url:'/account/upload_avatar/',
+                    type:'POST',
+                    data:JSON.stringify(formData),
+                    success: function(res) {
+                      $("#id_avatar_img").attr('src',res.avatar);
+                      $("#field3").val(res.name);
+
+;
+                    }
+                });
+                return false;
+            });
+        });
 
     </script>
 
 
 {% endblock %}
 {% block body %}
-    <a onclick="return vk_login();" href="#">Войти используя аккаунт Вконтакте</a>
+    <a onclick="return vk_login();" href="javascript: void(0)">Войти используя аккаунт Вконтакте</a>
 
 
 
@@ -78,7 +119,7 @@
     {% else %}
         <p>{% trans "Вже є членом ВМГО «ФДУ»?" %} <a href="{% url acct_login %}">{% trans "Увійти" %}</a>!</p>
         
-    <a onclick="return vk_signup();" href="#">Получить данные из vkontakte.ru</a>
+    <a onclick="return vk_signup();" href="javascript: void(0)">Получить данные из vkontakte.ru</a>
 
         <form class="signup uniForm" id="signup_form" method="post" action="{% url acct_signup %}">
             <fieldset class="inlineLabels">
@@ -90,8 +131,17 @@
             </fieldset>
 
         </form>
-        
 
+{#        <form class="signup uniForm" id="avatar_form" enctype="multipart/form-data" method="POST" action="javascript: void(0)">#}
+{#            <fieldset class="inlineLabels">#}
+{#                {{ avatar_form|as_uni_form }}#}
+{#                <input type="submit" value="Upload New Image">#}
+{#            </fieldset>#}
+{##}
+{#        </form>#}
+
+{#        <p><input type="text" name="field3" id="field3" /><label for="field3">Поле 3</label></p>#}
+{#        <img name="avatar" id="id_avatar_img" src="" >#}
 
         {% url terms as terms_url %}
         {% url privacy as privacy_url %}

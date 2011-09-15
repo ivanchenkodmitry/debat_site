@@ -4,13 +4,14 @@
 {% load ifsetting_tag %}
 {% load blog_tags %}
 {% load extra_tagging_tags %}
+{% load group_tags %}
 
 {% block head_title %}{% trans "Welcome" %}{% endblock %}
 
 {% block tab_id %}id="home_tab"{% endblock %}
 
 {% block body %}
-		{% include "widgets.html" %}
+		{% include "widgets.html" %} 
 
 
 
@@ -34,5 +35,13 @@
   {% show_blog_post blog_post %}
  {% endfor %}
         
+       
+<h2> Випадкова фотографія з галереї </h2>
+
+		<a href="{% groupurl photo_details group id=photo.id %}">
+			<img src="{{ photo.get_medium_url }}" alt="{{ photo.title }}"/>
+		</a>
+
+
     
 {% endblock %}

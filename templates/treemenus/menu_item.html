@@ -1,0 +1,60 @@
+{% load tree_menu_tags %}
+
+{% ifequal menu_type "unordered-list" %}
+	{% if menu_item.has_children %}
+	    <li><a href="{{ menu_item.url }}">{{ menu_item.caption }}</a>
+			<ul>
+			    {% for child in menu_item.children %}
+			        {% show_menu_item child %}
+				{% endfor %}
+			</ul>
+		</li>
+	{% else %}
+		<li><a href="{{ menu_item.url }}">{{ menu_item.caption }}</a></li>
+	{% endif %}
+{% endifequal %}
+
+{% ifequal menu_type "ordered-list" %}
+	{% if menu_item.has_children %}
+	    <li><a href="{{ menu_item.url }}">{{ menu_item.caption }}</a>
+			<ol>
+			    {% for child in menu_item.children %}
+			        {% show_menu_item child %}
+				{% endfor %}
+			</ol>
+		</li>
+	{% else %}
+		<li><a href="{{ menu_item.url }}">{{ menu_item.caption }}</a></li>
+	{% endif %}
+{% endifequal %}
+
+{% ifequal menu_type "table" %}
+	{% if not menu_item.protected or user.is_authenticated %}
+		{% if menu_item.named_url %}
+			<td><a href="{% reverse_named_url menu_item.named_url %}">{{ menu_item.caption }}</a></td>
+		{% else %}
+			<td><a href="{{ menu_item.url }}">{{ menu_item.caption }}</a></td>
+		{% endif %}
+	{% endif %}
+{% endifequal %}
+
+{% ifequal menu_type "dropdown" %}
+	{% if not menu_item.protected or user.is_authenticated %}
+		<li>
+			{% if menu_item.named_url %}
+				<a href="{% reverse_named_url menu_item.named_url %}">{{ menu_item.caption }}</a>
+			{% else %}{% if menu_item.url %}
+				<a href="{{ menu_item.url }}">{{ menu_item.caption }}</a>
+			{% else %}
+				<span>{{ menu_item.caption }}</span>
+			{% endif %}{% endif %}
+			{% if menu_item.has_children %}
+				<ul>
+					{% for child in menu_item.children %}
+						{% show_menu_item child %}
+					{% endfor %}
+				</ul>
+			{% endif %}
+		</li>
+	{% endif %}
+{% endifequal %}

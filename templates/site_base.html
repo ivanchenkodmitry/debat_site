@@ -5,11 +5,13 @@
 {% load ifsetting_tag %}
 {% load analytics %}
 {% load avatar_tags %}
+{% load tree_menu_tags %}
 
 {% block extra_head_base %}
     <link rel="stylesheet" href="{{ STATIC_URL }}css/site_tabs.css" />
     <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/avatar.css" />
     <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/blogs.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/projects.css" />
     <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/comments.css" />
     <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/friends.css" />
     <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/groups.css" />
@@ -19,7 +21,7 @@
     <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/pagination.css" />
     <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/photos.css" />
     <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/clubs.css" />
-    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/tabs.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/dropdown.css" />
     <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/topics.css" />
     <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/wiki.css" />
     <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/jquery.autocomplete.css" />
@@ -72,6 +74,8 @@
 {% block logo_link_image %}<a href="{% url home %}"><img src="{{ STATIC_URL }}pinax/images/logo.png" alt="Pinax"/></a>{% endblock %}
 
 {% block right_tabs %}
+    {% show_menu "main_menu" "dropdown" %}
+{% comment %}
     {% if user.is_authenticated %}
     	<table cellpadding=0 cellspacing=0 class="tabs">
     		<tr>
@@ -80,6 +84,8 @@
     			<td><a href="{% url blog_list_all %}">Новини</a></td>
     			<td><a href="{% url events %}">Події</a></td>
     			<td><a href="{% url clubs %}">Клуби</a></td>
+                        <td><a href="/projects/">Проекти</a></td>
+                       
     			<td><a href="{% url messages_inbox %}">Повідомлення ({{ combined_inbox_count }})</a></td>
     		</tr>
     	</table>
@@ -104,11 +110,13 @@
     		<tr>
     			<td><a href="{% url photos %}">Фотографії</a></td>
     			<td><a href="{% url blog_list_all %}">Новини</a></td>
+                        
     			<td><a href="{% url events %}">Події</a></td>
     		</tr>
     	</table>
     
     {% endif %}
+{% endcomment %}
 {% endblock %}
 
 {% block footer %}

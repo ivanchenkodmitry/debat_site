@@ -1,0 +1,33 @@
+{% extends "projects/base.html" %}
+
+{% load i18n %}
+{% load humanize %}
+{% load pagination_tags %}
+{% load tagging_tags %}
+{% load group_tags %}
+{% load threadedcommentstags %}
+{% load theme_tags %}
+
+
+
+{% block body %}
+<style>   
+div.body {padding-top: 10px;  
+        padding-right: 0px;  
+      
+      padding-bottom: 0px; }
+  </style>  
+    
+   
+    
+	
+        
+
+		<div class='title'> <h2>{{ project.title }}</h2></div>
+ Дата створення: {{project.created_at}}<br>
+<em>Автор: {{ project.author }}</em> <br>
+ 
+ {{project.body}}<br>
+   
+    
+{% endblock %}

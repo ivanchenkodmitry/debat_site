@@ -1,0 +1,12 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+{% load group_tags %}
+
+{% block head_title %}{% blocktrans %}Flatpage{% endblocktrans %}{% endblock %}
+{% block body %}
+ <h1>{{ flatpage.title }} </h1><br>
+
+{{ flatpage.content }}
+{% endblock %}
+

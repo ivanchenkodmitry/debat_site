@@ -1,6 +1,8 @@
 function tinyDjangoBrowser(field_name, url, type, win) {
     var managerURL = '/admin/photofiler/photo/'
-
+   
+  
+    
     tinyMCE.activeEditor.windowManager.open({
         file: managerURL,
         title: 'Кликните на эскиз нужной картинки',
@@ -49,6 +51,13 @@ $().ready(function() {
     
     $('textarea#id_body').css({'width': '500px', 'height': '400px'});    
     $('textarea#id_body').tinymce(tinymceOptions);
+    $('textarea#id_content').tinymce(tinymceOptions);
 
 });
 
+
+
+
+
+
+    
