@@ -20,25 +20,25 @@ class PhotoSet(models.Model):
     """
     A set of photos
     """
-    name = models.CharField(_('Назва'), max_length=200)
+    name = models.CharField(_('Назва'), max_length = 200)
     description = models.TextField(_('Краткий опис'))
-    publish_type = models.IntegerField(_('Опублікувати'), choices=PUBLISH_CHOICES, default=1)
+    publish_type = models.IntegerField(_('Опублікувати'), choices = PUBLISH_CHOICES, default = 1)
     tags = TagField()
     content_type = models.ForeignKey(ContentType, blank = True, null = True)
     content_object = generic.GenericForeignKey()
     user = models.ForeignKey(User)
-    date_added = models.DateTimeField(_('date added'), default=datetime.now, editable=False)
+    date_added = models.DateTimeField(_('date added'), default = datetime.now, editable = False)
 
     class Meta:
         verbose_name = _('photo set')
         verbose_name_plural = _('photo sets')
-        
+
     def __unicode__(self):
         return self.name
-    
+
     @property
     def first_image(self):
-        images = self.iamge_set.all().order_by('date_added')
+        images = self.image_set.all().order_by('date_added')
         if images.count():
             return images[0]
         return None
@@ -51,14 +51,14 @@ class Image(ImageModel):
         (1, _('Safe')),
         (2, _('Not Safe')),
     )
-    title = models.CharField(_('title'), max_length=200)
+    title = models.CharField(_(u'Назва'), max_length = 200, blank = True)
     title_slug = models.SlugField(_('slug'))
-    caption = models.TextField(_('caption'), blank=True)
-    date_added = models.DateTimeField(_('date added'), default=datetime.now, editable=False)
-    is_public = models.BooleanField(_('is public'), default=True, help_text=_('Public photographs will be displayed in the default views.'))
-    member = models.ForeignKey(User, related_name="added_photos", blank=True, null=True)
-    safetylevel = models.IntegerField(_('safetylevel'), choices=SAFETY_LEVEL, default=1)
-    photoset = models.ManyToManyField(PhotoSet, blank=True, verbose_name=_('photo set'))
+    caption = models.TextField(_('caption'), blank = True)
+    date_added = models.DateTimeField(_('date added'), default = datetime.now, editable = False)
+    is_public = models.BooleanField(_('is public'), default = True, help_text = _('Public photographs will be displayed in the default views.'))
+    member = models.ForeignKey(User, related_name = "added_photos", blank = True, null = True)
+    safetylevel = models.IntegerField(_('safetylevel'), choices = SAFETY_LEVEL, default = 1)
+    photoset = models.ManyToManyField(PhotoSet, blank = True, verbose_name = _('photo set'))
     tags = TagField()
 
     def __unicode__(self):
@@ -78,7 +78,7 @@ class Pool(models.Model):
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
     content_object = generic.GenericForeignKey()
-    created_at = models.DateTimeField(_('created_at'), default=datetime.now)
+    created_at = models.DateTimeField(_('created_at'), default = datetime.now)
 
     class Meta:
         # Enforce unique associations per object

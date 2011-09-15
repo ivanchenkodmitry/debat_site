@@ -17,7 +17,7 @@ class BlogForm(forms.ModelForm):
     
     class Meta:
         model = Post
-        exclude = ('author', 'creator_ip', 'created_at', 'updated_at', 'publish', 'status2', 'allow_comments', 'gallery')
+        exclude = ('author', 'creator_ip', 'created_at', 'updated_at', 'publish', 'status2', 'allow_comments', 'gallery', 'slug')
     
     def __init__(self, user=None, *args, **kwargs):
         self.user = user

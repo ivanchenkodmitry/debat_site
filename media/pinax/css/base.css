@@ -156,7 +156,7 @@ h1 {
 }
 
 #tabhead .login img{
-	border: solid 2px #172740;
+	border: solid 2px #1d3564;
 }
 #tabhead .login a, #tabhead .login a:visited {
     color: #DEF; /* login bar link colour */
@@ -319,3 +319,12 @@ div.right_panel {
     float: right;
     z-index: 999;
 }
+
+.photo_on_photoset{
+	margin-bottom: 10px;
+}
+
+.photo_on_photoset img{
+	vertical-align:text-top;
+}
+

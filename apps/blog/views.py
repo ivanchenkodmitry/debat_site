@@ -89,8 +89,7 @@ def new(request, form_class=BlogForm, template_name="blog/new.html"):
                 blog = blog_form.save(commit=False)
                 blog.author = request.user
                 # Create gallery and save with post
-                photoset_name = blog.title
-                photoset = PhotoSet(name = photoset_name)
+                photoset = PhotoSet(name = blog.title, user = request.user)
                 photoset.save()
                 
                 blog.gallery = photoset

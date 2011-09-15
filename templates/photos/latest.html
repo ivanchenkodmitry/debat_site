@@ -14,16 +14,28 @@
     
     <h1>{% trans "Latest Photos" %}</h1>
     
-    {% if photos %}
+    {% if photosets %}
     {% autopaginate photosets %}
         <div class="thumb-row clearfix">
         {% for photoset in photosets %}
         <div class="gallery-photo-thumb">
         
-            <a href="{% groupurl photo_details group id=photo.id %}"><img src="{{ photo.get_thumbnail_url }}" alt="{{ photo.title }}"/></a><br />
-            from <a href="{% url profile_detail photo.member.username %}">{{ photo.member.username }}</a><br />
+            {% if photoset.image_set.count %}
+                <a href="/photos/photoset/{{photoset.id}}">
+                    <img src="{{photoset.first_image.get_premedium_url}}" />
+                </a>
+            {% else %}
+                <a href="/photos/photoset/{{photoset.id}}">
+                    <img src="{{STATIC_URL}}pinax/images/no_image.gif" />
+                </a>
+            {% endif %}
+            
+            {% comment %}
+            
             {% silk "comment" %}<a href="{% groupurl photo_details group id=photo.id %}#photocomments">{% get_comment_count for photo as commentcount %} {{ commentcount }} Comments</a><br />
-            {% blocktrans with photo.view_count as view_count %}Viewed {{ view_count }} times{% endblocktrans %}
+            
+            {% endcomment %}
+            
         </div>
         
         {% endfor %}
