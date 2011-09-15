@@ -1,0 +1,19 @@
+{% extends "photos/base.html" %}
+
+{% load i18n %}
+
+{% block body %}
+
+<h2>{{photoset.name}}</h2>
+
+{% ifequal photoset.user request.user %}
+<a href="/photos/edit/photoset/{{photoset.pk}}/">{% trans "Редагувати" %}</a>
+{% else %}
+
+{% endifequal %}
+
+{% for image in photoset.image_set.all %}
+    <img src="{{image.get_display_url}}" /><br />
+{% endfor %}
+
+{% endblock %}

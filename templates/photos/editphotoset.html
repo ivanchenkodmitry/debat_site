@@ -1,0 +1,52 @@
+{% extends "photos/base.html" %}
+
+{% load i18n %}
+{% load uni_form %}
+
+{% block head_title %}{% blocktrans %}Створити галерею{% endblocktrans %}{% endblock %}
+
+
+{% block body %}
+
+<div class="right_panel">
+<h2>{% trans "Фотографії" %}</h2>
+{% for photo in photoset.image_set.all %}
+<div class="photo_on_photoset">
+    <a href="{{photo.get_display_url}}"><img src="{{photo.get_premedium_url}}" /></a>
+    
+    <a title='{% trans "Видалити" %}' href="/photos/destroy/{{photo.id}}/{{photoset.pk}}">
+
+			<img width="24px" src="{{STATIC_URL}}pinax/images/remove.jpg" />
+    </a>
+</div>
+{% endfor %}
+</div>
+
+<div class="left_panel">
+<h2>Редагувати галерею</h2>
+    <form class="uniForm" id="edit-profile" method="POST" enctype="multipart/form-data" action="">
+        <fieldset class="inlineLabels">
+            {{ photoset_form|as_uni_form }}
+            <div class="form_block">
+                <input type="hidden" name="action" value="upload" />
+                <input type="submit" value="{% trans "Оновити" %}" />
+            </div>
+        </fieldset>
+    </form>
+    
+    <hr />
+    
+    <h2>{% trans "Додати фото" %}</h2>
+    <form class="uniForm" id="edit-profile" method="POST" enctype="multipart/form-data" action="/photos/edit/photoset/{{photoset.pk}}/">
+        <fieldset class="inlineLabels">
+            {{ photo_form|as_uni_form }}
+            <div class="form_block">
+                <input type="hidden" name="action" value="addphoto" />
+                <input type="submit" value="{% trans "Додати" %}" />
+            </div>
+        </fieldset>
+    </form>
+</div>
+{% endblock %}
+
+
