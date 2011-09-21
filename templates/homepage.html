@@ -35,12 +35,14 @@
   {% show_blog_post blog_post %}
  {% endfor %}
         
-       
+
+{% if rand_photo %}
 <h2> Випадкова фотографія з галереї </h2>
 
-		<a href="{% groupurl photo_details group id=photo.id %}">
-			<img src="{{ photo.get_medium_url }}" alt="{{ photo.title }}"/>
-		</a>
+		<a href="{% groupurl photo_details group id=rand_photo.id %}">
+			<img src="{{ rand_photo.get_medium_url }}" alt="{{ rand_photo.title }}"/>
+        </a>
+{% endif %}
 
 
     

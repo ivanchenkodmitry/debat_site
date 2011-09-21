@@ -16,8 +16,11 @@ def homepage_view (request, template_name = "homepage.html"):
         
     events = Event.objects.filter(approved=True).order_by("title")
 
-    photo = Image.objects.all()
-    photo = photo[random.randint(0, (photo.__len__() -1))]
+    photos = Image.objects.all()
+    if photos.count():
+        rand_photo = photos[random.randint(0, (photo.count() - 1))]
+    else:
+        rand_photo = None
     
 
 
@@ -25,6 +28,6 @@ def homepage_view (request, template_name = "homepage.html"):
 		"adminposts": adminposts,
 		'posts':posts,
 		'events': events,
-        'photo': photo,
+                'rand_photo': rand_photo,
 		}, context_instance=RequestContext(request))
 
