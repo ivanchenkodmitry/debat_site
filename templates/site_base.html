@@ -76,46 +76,6 @@
 {% block right_tabs %}
     {% show_menu "main_menu" "dropdown" %}
 {% comment %}
-    {% if user.is_authenticated %}
-    	<table cellpadding=0 cellspacing=0 class="tabs">
-    		<tr>
-    			<td><a href="{% url profile_detail user %}">Профіль</a></td>
-    			<td><a href="{% url photos %}">Фотографії</a></td>
-    			<td><a href="{% url blog_list_all %}">Новини</a></td>
-    			<td><a href="{% url events %}">Події</a></td>
-    			<td><a href="{% url clubs %}">Клуби</a></td>
-                        <td><a href="/projects/">Проекти</a></td>
-                       
-    			<td><a href="{% url messages_inbox %}">Повідомлення ({{ combined_inbox_count }})</a></td>
-    		</tr>
-    	</table>
-    	<!-- 
-        <ul class="tabs">{% spaceless %}
-            <li id="tab_profile"><a href="{% url profile_detail user %}">Профіль</a></li>
-            <li id="tab_photos"><a href="{% url photos %}">Фотографії</a></li>
-            <li id="tab_blogs"><a href="{% url blog_list_all %}">Новини</a></li>
-            <li id="tab_tribes"><a href="{% url tribe_list %}">{% trans "Tribes" %}</a></li>
-            <li id="tab_tweets"><a href="{% url tweets_you_follow %}">{% trans "Tweets" %}</a></li>
-            <li id="tab_bookmarks"><a href="{% url all_bookmarks %}">Закладки</a></li>
-            <li id="tab_events"><a href="{% url events %}">Події</a></li>
-            <li id="tab_clubs"><a href="{% url clubs %}">Клуби</a></li>
-            <li id="tab_swaps"><a href="{% url offer_list_all %}">{% trans "Swaps" %}</a></li>
-            <li id="tab_locations"><a href="{% url loc_yours %}">{% trans "Locations" %}</a></li>
-            <li id="tab_inbox"><a href="{% url messages_inbox %}">Повідомлення ({{ combined_inbox_count }})</a></li>
-           
-        {% endspaceless %}</ul>-->
-    {% else %}
-
-    	<table cellpadding=0 cellspacing=0 class="tabs">
-    		<tr>
-    			<td><a href="{% url photos %}">Фотографії</a></td>
-    			<td><a href="{% url blog_list_all %}">Новини</a></td>
-                        
-    			<td><a href="{% url events %}">Події</a></td>
-    		</tr>
-    	</table>
-    
-    {% endif %}
 {% endcomment %}
 {% endblock %}
 

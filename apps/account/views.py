@@ -45,8 +45,7 @@ def login(request, form_class=LoginForm, template_name="account/login.html",
           url_required=False, extra_context=None):
     if extra_context is None:
         extra_context = {}
-    if success_url is None:
-        success_url = get_default_redirect(request)
+    success_url = '/' # Niko: hrdcoded success url here
     if request.method == "POST" and not url_required:
         form = form_class(request.POST)
         if form.login(request):
