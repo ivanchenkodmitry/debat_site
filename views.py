@@ -18,7 +18,7 @@ def homepage_view (request, template_name = "homepage.html"):
 
     photos = Image.objects.all()
     if photos.count():
-        rand_photo = photos[random.randint(0, (photo.count() - 1))]
+        rand_photo = photos[random.randint(0, (photos.count() - 1))]
     else:
         rand_photo = None
     
