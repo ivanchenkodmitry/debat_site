@@ -1,1 +1,374 @@
-[{"pk": 1, "model": "treemenus.menuitem", "fields": {"parent": null, "level": 0, "url": "", "menu": 1, "rank": 0, "caption": "root", "protected": false, "named_url": ""}}, {"pk": 2, "model": "treemenus.menuitem", "fields": {"parent": 1, "level": 1, "url": "", "menu": 1, "rank": 0, "caption": "\u041f\u0440\u043e\u0444\u0456\u043b\u044c", "protected": true, "named_url": "profile_detail user"}}, {"pk": 3, "model": "treemenus.menuitem", "fields": {"parent": 1, "level": 1, "url": "", "menu": 1, "rank": 1, "caption": "\u0424\u043e\u0442\u043e\u0433\u0440\u0430\u0444\u0456\u0457", "protected": false, "named_url": "photos"}}, {"pk": 4, "model": "treemenus.menuitem", "fields": {"parent": 1, "level": 1, "url": "", "menu": 1, "rank": 2, "caption": "\u041d\u043e\u0432\u0438\u043d\u0438", "protected": false, "named_url": "blog_list_all"}}, {"pk": 5, "model": "treemenus.menuitem", "fields": {"parent": 1, "level": 1, "url": "", "menu": 1, "rank": 3, "caption": "\u041f\u043e\u0434\u0456\u0457", "protected": false, "named_url": "events"}}, {"pk": 6, "model": "treemenus.menuitem", "fields": {"parent": 1, "level": 1, "url": "", "menu": 1, "rank": 4, "caption": "\u041a\u043b\u0443\u0431\u0438", "protected": true, "named_url": "clubs"}}, {"pk": 7, "model": "treemenus.menuitem", "fields": {"parent": 1, "level": 1, "url": "", "menu": 1, "rank": 5, "caption": "\u041f\u043e\u0432\u0456\u0434\u043e\u043c\u043b\u0435\u043d\u043d\u044f", "protected": true, "named_url": "messages_inbox"}}, {"pk": 1, "model": "treemenus.menu", "fields": {"root_item": 1, "name": "main_menu"}}]
+[
+    {
+        "pk": 1, 
+        "model": "treemenus.menuitem", 
+        "fields": {
+            "parent": null, 
+            "level": 0, 
+            "url": "", 
+            "menu": 1, 
+            "rank": 0, 
+            "caption": "root", 
+            "protected": false, 
+            "named_url": ""
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "treemenus.menuitem", 
+        "fields": {
+            "parent": 1, 
+            "level": 1, 
+            "url": "http://localhost:8000/about/", 
+            "menu": 1, 
+            "rank": 0, 
+            "caption": "\u041f\u0440\u043e \u043d\u0430\u0441", 
+            "protected": true, 
+            "named_url": "about"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "treemenus.menuitem", 
+        "fields": {
+            "parent": 1, 
+            "level": 1, 
+            "url": "", 
+            "menu": 1, 
+            "rank": 7, 
+            "caption": "\u0424\u043e\u0442\u043e\u0433\u0440\u0430\u0444\u0456\u0457", 
+            "protected": false, 
+            "named_url": "photos"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "treemenus.menuitem", 
+        "fields": {
+            "parent": 1, 
+            "level": 1, 
+            "url": "", 
+            "menu": 1, 
+            "rank": 1, 
+            "caption": "\u041d\u043e\u0432\u0438\u043d\u0438", 
+            "protected": false, 
+            "named_url": "blog_list_all"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "treemenus.menuitem", 
+        "fields": {
+            "parent": 1, 
+            "level": 1, 
+            "url": "", 
+            "menu": 1, 
+            "rank": 8, 
+            "caption": "\u041f\u043e\u0434\u0456\u0457", 
+            "protected": false, 
+            "named_url": "events"
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "treemenus.menuitem", 
+        "fields": {
+            "parent": 1, 
+            "level": 1, 
+            "url": "", 
+            "menu": 1, 
+            "rank": 9, 
+            "caption": "\u041a\u043b\u0443\u0431\u0438", 
+            "protected": true, 
+            "named_url": "clubs"
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "treemenus.menuitem", 
+        "fields": {
+            "parent": 1, 
+            "level": 1, 
+            "url": "", 
+            "menu": 1, 
+            "rank": 10, 
+            "caption": "\u041f\u043e\u0432\u0456\u0434\u043e\u043c\u043b\u0435\u043d\u043d\u044f", 
+            "protected": true, 
+            "named_url": "messages_inbox"
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "treemenus.menuitem", 
+        "fields": {
+            "parent": 2, 
+            "level": 2, 
+            "url": "", 
+            "menu": 1, 
+            "rank": 0, 
+            "caption": "\u041c\u0435\u0442\u0430 \u0442\u0430 \u0446\u0456\u043b\u0456", 
+            "protected": false, 
+            "named_url": ""
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "treemenus.menuitem", 
+        "fields": {
+            "parent": 2, 
+            "level": 2, 
+            "url": "", 
+            "menu": 1, 
+            "rank": 1, 
+            "caption": "\u041f\u0440\u0438\u0454\u0434\u043d\u0430\u0442\u0438\u0441\u044c", 
+            "protected": false, 
+            "named_url": ""
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "treemenus.menuitem", 
+        "fields": {
+            "parent": 2, 
+            "level": 2, 
+            "url": "", 
+            "menu": 1, 
+            "rank": 2, 
+            "caption": "\u041b\u0456\u0434\u0435\u0440\u0438 \u043e\u0440\u0433\u0430\u043d\u0456\u0437\u0430\u0446\u0456\u0457", 
+            "protected": false, 
+            "named_url": ""
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "treemenus.menuitem", 
+        "fields": {
+            "parent": 2, 
+            "level": 2, 
+            "url": "", 
+            "menu": 1, 
+            "rank": 3, 
+            "caption": "\u0421\u0442\u0430\u0442\u0443\u0442", 
+            "protected": false, 
+            "named_url": ""
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "treemenus.menuitem", 
+        "fields": {
+            "parent": 1, 
+            "level": 1, 
+            "url": "", 
+            "menu": 1, 
+            "rank": 2, 
+            "caption": "\u041d\u0430\u0448\u0456 \u043f\u0440\u043e\u0435\u043a\u0442\u0438", 
+            "protected": false, 
+            "named_url": ""
+        }
+    }, 
+    {
+        "pk": 13, 
+        "model": "treemenus.menuitem", 
+        "fields": {
+            "parent": 12, 
+            "level": 2, 
+            "url": "", 
+            "menu": 1, 
+            "rank": 0, 
+            "caption": "\u0420\u0435\u0433\u0456\u043e\u043d\u0430\u043b\u044c\u043d\u0456", 
+            "protected": false, 
+            "named_url": ""
+        }
+    }, 
+    {
+        "pk": 14, 
+        "model": "treemenus.menuitem", 
+        "fields": {
+            "parent": 12, 
+            "level": 2, 
+            "url": "", 
+            "menu": 1, 
+            "rank": 1, 
+            "caption": "\u0412\u0441\u0435\u0443\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0456", 
+            "protected": false, 
+            "named_url": ""
+        }
+    }, 
+    {
+        "pk": 15, 
+        "model": "treemenus.menuitem", 
+        "fields": {
+            "parent": 12, 
+            "level": 2, 
+            "url": "", 
+            "menu": 1, 
+            "rank": 2, 
+            "caption": "\u041c\u0456\u0436\u043d\u0430\u0440\u043e\u0434\u043d\u0456", 
+            "protected": false, 
+            "named_url": ""
+        }
+    }, 
+    {
+        "pk": 16, 
+        "model": "treemenus.menuitem", 
+        "fields": {
+            "parent": 1, 
+            "level": 1, 
+            "url": "", 
+            "menu": 1, 
+            "rank": 3, 
+            "caption": "\u041f\u0440\u043e \u0434\u0435\u0431\u0430\u0442\u0438", 
+            "protected": false, 
+            "named_url": ""
+        }
+    }, 
+    {
+        "pk": 17, 
+        "model": "treemenus.menuitem", 
+        "fields": {
+            "parent": 16, 
+            "level": 2, 
+            "url": "", 
+            "menu": 1, 
+            "rank": 0, 
+            "caption": "\u0429\u043e \u0442\u0430\u043a\u0435 \u0434\u0435\u0431\u0430\u0442\u0438?", 
+            "protected": false, 
+            "named_url": ""
+        }
+    }, 
+    {
+        "pk": 18, 
+        "model": "treemenus.menuitem", 
+        "fields": {
+            "parent": 16, 
+            "level": 2, 
+            "url": "", 
+            "menu": 1, 
+            "rank": 1, 
+            "caption": "\u041f\u0440\u0430\u0432\u0438\u043b\u0430 \u0442\u0430 \u043c\u0435\u0442\u043e\u0434\u0438\u0447\u043d\u0456 \u0440\u0435\u043a\u043e\u043c\u0435\u043d\u0434\u0430\u0446\u0456\u0457", 
+            "protected": false, 
+            "named_url": ""
+        }
+    }, 
+    {
+        "pk": 19, 
+        "model": "treemenus.menuitem", 
+        "fields": {
+            "parent": 16, 
+            "level": 2, 
+            "url": "", 
+            "menu": 1, 
+            "rank": 2, 
+            "caption": "\u041d\u0430\u0432\u0447\u0430\u043b\u044c\u043d\u0456 \u043c\u0430\u0442\u0435\u0440\u0456\u0430\u043b\u0438", 
+            "protected": false, 
+            "named_url": ""
+        }
+    }, 
+    {
+        "pk": 20, 
+        "model": "treemenus.menuitem", 
+        "fields": {
+            "parent": 16, 
+            "level": 2, 
+            "url": "", 
+            "menu": 1, 
+            "rank": 3, 
+            "caption": "\u041c\u0430\u0442\u0435\u0440\u0456\u0430\u043b\u0438 \u043f\u043e \u0441\u0443\u0434\u0434\u0456\u0432\u0441\u0442\u0432\u0443", 
+            "protected": false, 
+            "named_url": ""
+        }
+    }, 
+    {
+        "pk": 21, 
+        "model": "treemenus.menuitem", 
+        "fields": {
+            "parent": 16, 
+            "level": 2, 
+            "url": "", 
+            "menu": 1, 
+            "rank": 4, 
+            "caption": "\u0412\u0456\u0434\u0435\u043e \u0456\u0433\u043e\u0440", 
+            "protected": false, 
+            "named_url": ""
+        }
+    }, 
+    {
+        "pk": 22, 
+        "model": "treemenus.menuitem", 
+        "fields": {
+            "parent": 1, 
+            "level": 1, 
+            "url": "", 
+            "menu": 1, 
+            "rank": 4, 
+            "caption": "\u041f\u0430\u0440\u0442\u043d\u0435\u0440\u0438", 
+            "protected": false, 
+            "named_url": ""
+        }
+    }, 
+    {
+        "pk": 23, 
+        "model": "treemenus.menuitem", 
+        "fields": {
+            "parent": 22, 
+            "level": 2, 
+            "url": "", 
+            "menu": 1, 
+            "rank": 0, 
+            "caption": "\u041d\u0430\u0448\u0456 \u043f\u0430\u0440\u0442\u043d\u0435\u0440\u0438", 
+            "protected": false, 
+            "named_url": ""
+        }
+    }, 
+    {
+        "pk": 24, 
+        "model": "treemenus.menuitem", 
+        "fields": {
+            "parent": 22, 
+            "level": 2, 
+            "url": "", 
+            "menu": 1, 
+            "rank": 1, 
+            "caption": "\u0421\u0442\u0430\u0442\u0438 \u043f\u0430\u0440\u043d\u0435\u0440\u043e\u043c", 
+            "protected": false, 
+            "named_url": ""
+        }
+    }, 
+    {
+        "pk": 25, 
+        "model": "treemenus.menuitem", 
+        "fields": {
+            "parent": 1, 
+            "level": 1, 
+            "url": "", 
+            "menu": 1, 
+            "rank": 5, 
+            "caption": "\u041d\u0430\u0448\u0456 \u043a\u043e\u043d\u0442\u0430\u043a\u0442\u0438", 
+            "protected": false, 
+            "named_url": ""
+        }
+    }, 
+    {
+        "pk": 26, 
+        "model": "treemenus.menuitem", 
+        "fields": {
+            "parent": 1, 
+            "level": 1, 
+            "url": "", 
+            "menu": 1, 
+            "rank": 6, 
+            "caption": "\u041f\u0440\u043e\u0444\u0456\u043b\u044c", 
+            "protected": false, 
+            "named_url": "profile_detail user"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "treemenus.menu", 
+        "fields": {
+            "root_item": 1, 
+            "name": "main_menu"
+        }
+    }
+]
