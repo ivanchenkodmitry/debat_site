@@ -1,0 +1,33 @@
+td {
+vertical-align: top;
+}
+
+/*Right panel*/
+
+td.right_panel {
+width: 250px;
+border-left: 1px solid #bababa;
+}
+
+td.right_panel h2 {
+color: #878787;
+margin: 0 1px 0 0;
+padding: 5px 10px;
+background: url("images/lp-h2-bg.png") repeat-y scroll 0 0 transparent;
+}
+
+td.right_panel p {
+color: #898d8e;
+margin: 10px 10px;
+}
+
+/*Left panel*/
+
+td.left_panel h2 {
+color: #2a4678;
+background-color: #dfedf3;
+margin: 0 0 0 1px;
+padding: 5px 10px;
+background: url("images/rp-h2-bg.png") no-repeat scroll 0 0 transparent;
+}
+

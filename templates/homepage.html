@@ -5,45 +5,47 @@
 {% load blog_tags %}
 {% load extra_tagging_tags %}
 {% load group_tags %}
+{% load webdesign %} 
 
 {% block head_title %}{% trans "Welcome" %}{% endblock %}
+{% block extra_head %}<link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/homepage.css" />{% endblock %}
 
-{% block tab_id %}id="home_tab"{% endblock %}
+{% block body_class %}homepage{% endblock %}
 
 {% block body %}
-		{% include "widgets.html" %} 
 
+<table id="main">
+  <tr>
+    <td class="left_panel">
+      <h2>{% trans "Календар" %}</h2>
+      {% include "widgets.html" %}
 
+      <h2>{% trans "Новини" %}</h2>
+      {% for blog_post in adminposts|slice:":3" %}
+          {% show_blog_post blog_post %}
+      {% endfor %}
 
-<h2>Новини </h2>
+      <h2>{% trans "Мої новини" %}</h2>
+      {% for blog_post in posts|slice:":3" %}
+          {% show_blog_post blog_post %}
+      {% endfor %}
 
+      {% if rand_photo %}
+      <h2>{% trans "Галерея" %}</h2>
+      <a href="{% groupurl photo_details group id=rand_photo.id %}">
+          <img src="{{ rand_photo.get_medium_url }}" alt="{{ rand_photo.title }}"/>
+      </a>
+      {% endif %}
+    </td>
+    <td class="right_panel">
+      <h2>{% trans "Новини" %}</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      <h2>{% trans "Новини" %}</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      <h2>{% trans "Новини" %}</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </td>
+  </tr>
+</table>
 
-           {% for blog_post in adminposts|slice:":3" %}
-                {% show_blog_post blog_post %}
-         
-            {% endfor %}
-      
-
-        
-<h2>Новини користувачів</h2>
-
-
-{% for blog_post in posts|slice:":3" %}
-
-                    
-                   
-  {% show_blog_post blog_post %}
- {% endfor %}
-        
-
-{% if rand_photo %}
-<h2> Випадкова фотографія з галереї </h2>
-
-		<a href="{% groupurl photo_details group id=rand_photo.id %}">
-			<img src="{{ rand_photo.get_medium_url }}" alt="{{ rand_photo.title }}"/>
-        </a>
-{% endif %}
-
-
-    
 {% endblock %}
