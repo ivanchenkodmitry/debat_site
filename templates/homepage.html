@@ -8,7 +8,9 @@
 {% load webdesign %} 
 
 {% block head_title %}{% trans "Welcome" %}{% endblock %}
-{% block extra_head %}<link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/homepage.css" />{% endblock %}
+{% block extra_head %}
+<link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/homepage.css" />
+{% endblock %}
 
 {% block body_class %}homepage{% endblock %}
 
@@ -18,7 +20,25 @@
   <tr>
     <td class="left_panel">
       <h2>{% trans "Календар" %}</h2>
-      {% include "widgets.html" %}
+      <div class="event_widget">
+        <button class="prev"><<</button>
+        <button class="next">>></button>
+                
+        <div class="event_carousel">
+            <ul>
+                {% for event in events %}
+                <li>
+                    <div class="event_mini">
+                        <h3>{{ event.title }}</h3>
+                        <p>{{ event.description }}</p>
+                        <p>{{ event.address }}</p>
+                        <p>{{ event.date }}</p>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+      </div>
 
       <h2>{% trans "Новини" %}</h2>
       {% for blog_post in adminposts|slice:":3" %}
@@ -48,4 +68,17 @@
   </tr>
 </table>
 
+{% endblock %}
+{% block extra_body %}
+<script type="text/javascript" src="{{ STATIC_URL }}pinax/js/jcarousellite_1.0.1.min.js"></script>
+<script type="text/javascript">
+
+    $(".event_carousel").jCarouselLite({
+        btnNext: ".next",
+        btnPrev: ".prev",
+        visible: 2,
+        circular: false
+    });
+
+</script>
 {% endblock %}

@@ -31,3 +31,21 @@ padding: 5px 10px;
 background: url("images/rp-h2-bg.png") no-repeat scroll 0 0 transparent;
 }
 
+/*Event widget*/
+
+.event_widget {
+
+	height: 300px;
+	width: 750px;
+}
+
+.event_widget ul {
+list-style-type: none;
+}
+
+.event_mini {
+	background: #6699FF;
+	height: 250px;
+	width: 300px;
+}
+
