@@ -9,3 +9,5 @@ site_media/
 .project
 .settings
 .pydevproject
+.swp
+
