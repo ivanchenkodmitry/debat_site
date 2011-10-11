@@ -21,23 +21,25 @@
     <td class="left_panel">
       <h2>{% trans "Календар" %}</h2>
       <div class="event_widget">
-        <button class="prev"><<</button>
-        <button class="next">>></button>
-                
+        <div class="prev"><<</div>
         <div class="event_carousel">
             <ul>
                 {% for event in events %}
-                <li>
-                    <div class="event_mini">
-                        <h3>{{ event.title }}</h3>
-                        <p>{{ event.description }}</p>
-                        <p>{{ event.address }}</p>
-                        <p>{{ event.date }}</p>
-                    </div>
+                <li class="event_mini">
+                  <h3>{{ event.title }}</h3>
+                  <p>{{ event.description }}</p>
+                  <p>{{ event.address }}</p>
+                  <p>{{ event.date|date}}</p>
+                  <div>
+                  <button>{% trans "Приєднатись" %}</button>
+                  <button>{% trans "Читати" %}</button>
+                  </div>
                 </li>
                 {% endfor %}
             </ul>
         </div>
+        <div class="next">>></div>
+        <div class="clear"></div>
       </div>
 
       <h2>{% trans "Новини" %}</h2>

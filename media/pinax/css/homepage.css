@@ -1,5 +1,13 @@
+#main {
+margin: 0 1px 0 1px
+}
+
 td {
 vertical-align: top;
+}
+
+.clear {
+clear: both;
 }
 
 /*Right panel*/
@@ -11,7 +19,6 @@ border-left: 1px solid #bababa;
 
 td.right_panel h2 {
 color: #878787;
-margin: 0 1px 0 0;
 padding: 5px 10px;
 background: url("images/lp-h2-bg.png") repeat-y scroll 0 0 transparent;
 }
@@ -34,9 +41,13 @@ background: url("images/rp-h2-bg.png") no-repeat scroll 0 0 transparent;
 /*Event widget*/
 
 .event_widget {
+border: 1px solid #bababa;
+width: 660px;
+margin: 20px;
+}
 
-	height: 300px;
-	width: 750px;
+.event_carousel {
+float: left;
 }
 
 .event_widget ul {
@@ -44,8 +55,23 @@ list-style-type: none;
 }
 
 .event_mini {
-	background: #6699FF;
-	height: 250px;
-	width: 300px;
+height: 250px;
+width: 290px;
+}
+
+.prev {
+background: #d1d1d1;
+height: 250px;
+width: 40px;
+display: block;
+float: left;
+}
+
+.next {
+background: #d1d1d1;
+height: 250px;
+width: 40px;
+display: block;
+float: left;
 }
 
