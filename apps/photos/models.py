@@ -20,9 +20,9 @@ class PhotoSet(models.Model):
     """
     A set of photos
     """
-    name = models.CharField(_('Назва'), max_length = 200)
-    description = models.TextField(_('Краткий опис'))
-    publish_type = models.IntegerField(_('Опублікувати'), choices = PUBLISH_CHOICES, default = 1)
+    name = models.CharField(_(u'Назва'), max_length = 200)
+    description = models.TextField(_(u'Краткий опис'))
+    publish_type = models.IntegerField(_(u'Опублікувати'), choices = PUBLISH_CHOICES, default = 1)
     tags = TagField()
     content_type = models.ForeignKey(ContentType, blank = True, null = True)
     content_object = generic.GenericForeignKey()
