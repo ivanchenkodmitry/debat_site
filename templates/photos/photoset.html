@@ -26,7 +26,7 @@
 
 <div id="gallery">
 {% for image in photoset.image_set.all %}
-    <a href="{{image.get_display_url}}">
+    <a href="{{image.get_display_url}}" rel="facebox">
       <img src="{{image.get_premedium_url}}" />
     </a>
     <br />
