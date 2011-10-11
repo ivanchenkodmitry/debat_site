@@ -1,6 +1,18 @@
 {% extends "photos/base.html" %}
 
 {% load i18n %}
+{% block extra_head %}
+<script type="text/javascript" src="{{ STATIC_URL }}js/lightbox/jquery.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/lightbox/jquery.lightbox-0.5.js"></script>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/jquery.lightbox-0.5.css" media="screen" />
+<script type="text/javascript">
+( function($) {
+	$('#gallery a').lightBox();
+
+} ) ( jQuery );
+</script>
+    
+{% endblock %}
 
 {% block body %}
 
@@ -12,8 +24,16 @@
 
 {% endifequal %}
 
+<div id="gallery">
 {% for image in photoset.image_set.all %}
-    <img src="{{image.get_display_url}}" /><br />
+    <a href="{{image.get_display_url}}" rel="facebox">
+      <img src="{{image.get_premedium_url}}" />
+    </a>
+    <br />
 {% endfor %}
+</div>
+{% endblock %}
+{% block extra_body %}
 
 {% endblock %}
+
