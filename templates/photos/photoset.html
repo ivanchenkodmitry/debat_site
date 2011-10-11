@@ -1,6 +1,11 @@
 {% extends "photos/base.html" %}
 
 {% load i18n %}
+{% block extra_head %}
+<script type="text/javascript" src="/media/js/lightbox/jquery.js"></script>
+<script type="text/javascript" src="/media/js/lightbox/jquery.lightbox-0.5.js"></script>
+<link rel="stylesheet" type="text/css" href="/media/css/jquery.lightbox-0.5.css" media="screen" />
+{% endblock %}
 
 {% block body %}
 
@@ -12,8 +17,28 @@
 
 {% endifequal %}
 
+<div class="lightbox">
 {% for image in photoset.image_set.all %}
-    <img src="{{image.get_display_url}}" /><br />
+    <a href="{{image.get_display_url}}">
+      <img src="{{image.get_premedium_url}}" />
+    </a>
+    <br />
 {% endfor %}
-
+</div>
 {% endblock %}
+{% block extra_body %}
+<script type="text/javascript">
+( function($) {
+// Use this example, or...
+	//$('a[@rel*=lightbox]').lightBox(); // Select all links that contains lightbox in the attribute rel
+	// This, or...
+//	$('#gallery a').lightBox(); // Select all links in object with gallery ID
+	// This, or...
+	$('a.lightbox').lightBox(); // Select all links with lightbox class
+	// This, or...
+//	$('a').lightBox(); // Select all links in the page
+	// ... The possibility are many. Use your creative or choose one in the examples above
+} ) ( jQuery );
+</script>
+{% endblock %}
+
