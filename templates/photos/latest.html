@@ -47,4 +47,55 @@
 
     
     
-{% endblock %}
+{% endblock %} 
+{% block extra_body %}
+
+<script src="jquery.js" type="text/javascript"></script>
+<link href="/facebox/facebox.css" media="screen" rel="stylesheet" type="text/css"/>
+<script src="/facebox/facebox.js" type="text/javascript"></script> 
+<style type="text/css">
+#grpSlides {
+ height: 170px;
+ width: 152px;
+ margin: 4px auto;
+}
+#slideBox {text-align:center;}
+#slideDescription {font-size:14pt;}
+</style>
+
+<script type="text/javascript">
+$.facebox.settings.opacity = 0.5 
+ $('a.gallery-photo-thumb').ready(function(){
+ var nextImg = '&gt;';
+ var prevImg = '&lt;';
+ var openGallery = 'Open Gallery';
+
+  $('#gallery a').html(openGallery).wrap("<div id='slideBox'></div>");
+ var prevLink = '<a href="javascript:pickImage(false)">'+prevImg+'</a> ';
+ var nextLink = ' <a href="javascript:pickImage(true)">'+nextImg+'</a>';
+ $('#gallery a').prepend(prevLink).append(nextLink).parent().css('margin','');
+})
+function pickImage(nxt) {
+ galleryPaused = true;
+ var tmp = $("#imgCaptionDiv").html();
+ var indx = 0;
+ var imglen = imgList.length-1;
+ for (k=0;k<imglen+1;k++){
+  if (imgDescList[k]==tmp) indx = k;
+ }
+ if (nxt) { indx++ } else { indx-- }
+ if (indx > imglen) indx = 0;
+ if (indx < 0) indx = imglen;
+ showGalleryImage(imgList[indx].toString(), imgDescList[indx].toString());
+}
+var showGalleryImage = function(sGalleryImgPath, sDescription){
+ imgHolder.fadeOut('2500', function(){
+  imgHolder.attr("src", sGalleryImgPath);
+ imgHolder.bind("click",function(){jQuery.facebox('<center><imgsrc="'+sGalleryImgPath+'"><br><br><divclass="desc">'+sDescription+'</div>') });
+  imgHolder.parent().attr("href", "javascript:void(0);");
+  jQuery("#imgCaptionDiv").html(sDescription);
+  imgHolder.fadeIn('1500', function() { } );
+ });
+}
+</script>{% endblock %}
+

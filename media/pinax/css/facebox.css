@@ -22,7 +22,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 100;
+    z-index: 1000;
     text-align: left;
 }
 
@@ -82,7 +82,8 @@
     left: 0px;
     height:100%;
     width:100%;
-}
+ z-index: 990;
+ }
 
 .facebox_hide {
     z-index:-100;

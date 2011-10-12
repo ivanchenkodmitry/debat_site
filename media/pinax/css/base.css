@@ -172,7 +172,7 @@ h1 {
 #main_menu_wrap{
 	height: 43px;	
 	background: url(images/main-menu-bg.png) repeat-x;
-	
+	z-index: 97;
 }
 
 #main_menu{

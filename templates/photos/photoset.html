@@ -1,19 +1,45 @@
 {% extends "photos/base.html" %}
-
 {% load i18n %}
-{% block extra_head %}
-<script type="text/javascript" src="{{ STATIC_URL }}js/lightbox/jquery.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}js/lightbox/jquery.lightbox-0.5.js"></script>
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/jquery.lightbox-0.5.css" media="screen" />
-<script type="text/javascript">
-( function($) {
-	$('#gallery a').lightBox();
 
-} ) ( jQuery );
-</script>
+{% block head %} 
+ <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/base.css" />
+        <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/tabs.css" />
+       
+        <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/announcements.css" />
+        <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/accounts.css" />
+        <link rel="stylesheet" href="{{ STATIC_URL }}uni_form/uni-form.css" />
+
+
+
+<script type="text/javascript" src="{{ STATIC_URL }}js/lightbox/prototype.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/lightbox/scriptaculous.js?load=effects,builder"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/lightbox/lightbox.js"></script>
+<link rel="stylesheet" href="{{ STATIC_URL }}css/lightbox.css" type="text/css" media="screen" />
+
     
 {% endblock %}
+{% block extra_head_base %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/site_tabs.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/avatar.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/blogs.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/projects.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/comments.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/friends.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/groups.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/locations.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/messages.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/microblogging.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/pagination.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/photos.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/clubs.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/dropdown.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/topics.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/wiki.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/jquery.autocomplete.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}bookmarks/css/bookmarks.css" />
 
+    {% block extra_head %}{% endblock %}
+{% endblock %}
 {% block body %}
 
 <h2>{{photoset.name}}</h2>
@@ -26,14 +52,13 @@
 
 <div id="gallery">
 {% for image in photoset.image_set.all %}
-    <a href="{{image.get_display_url}}" rel="facebox">
+    <a href="{{image.get_display_url}}" rel="lightbox[hi]">
       <img src="{{image.get_premedium_url}}" />
     </a>
     <br />
 {% endfor %}
 </div>
 {% endblock %}
-{% block extra_body %}
 
-{% endblock %}
+
 
