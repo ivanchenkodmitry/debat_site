@@ -120,6 +120,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "messages.context_processors.inbox",
     "friends_app.context_processors.invitations",
     "debat_site.context_processors.combined_inbox_count",
+    "debat_site.context_processors.excluded_apps_from_admin",
 )
 
 COMBINED_INBOX_COUNT_SOURCES = (
@@ -175,6 +176,7 @@ INSTALLED_APPS = (
     'staticfiles',
     
     # internal (for now)
+    'base',
     'analytics',
     'profiles',
     'account',
@@ -196,6 +198,10 @@ INSTALLED_APPS = (
     'projects',
     
 )
+
+EXCLUDED_APPS_FROM_ADMIN = [
+            'microblogging'
+        ]
 
 AUTHENTICATION_BACKENDS = (
 #    'django.contrib.auth.backends.ModelBackend',

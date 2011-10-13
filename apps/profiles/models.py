@@ -75,8 +75,8 @@ def create_profile(sender, instance=None, **kwargs):
 post_save.connect(create_profile, sender=User)
 
 class Verification(models.Model):
-	md5_hash = models.CharField(_('Md5 for verivication'), null=True, blank=True, max_length=100)
-	profile = models.OneToOneField(Profile, null=True, blank=True, verbose_name=_('profile'))
+    md5_hash = models.CharField(_('Md5 for verivication'), null=True, blank=True, max_length=100)
+    profile = models.OneToOneField(Profile, null=True, blank=True, verbose_name=_('profile'))
 
 
 

@@ -53,3 +53,6 @@ def footer(request):
         'latest_bookmarks': Bookmark.objects.all().order_by('-added')[:5],
         'latest_blogs': Post.objects.filter(status=2).order_by('-publish')[:5],
     }
+
+def excluded_apps_from_admin(request):
+    return {'EXCLUDED_APPS_FROM_ADMIN': settings.EXCLUDED_APPS_FROM_ADMIN}
