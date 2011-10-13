@@ -214,7 +214,9 @@ EXCLUDED_APPS_FROM_ADMIN = [
             'tagging',
             'topics',
             'announcements',
-            'mailer'
+            'mailer',
+            'votes',
+
         ]
 
 AUTHENTICATION_BACKENDS = (
