@@ -8,4 +8,10 @@ def is_app_shown(value):
         return False
     return True
 
+def is_even(value):
+    if value % 2 == 0:
+        return True
+    return False
+
 register.filter('is_app_shown', is_app_shown)
+register.filter('is_even', is_even)

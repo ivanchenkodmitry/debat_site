@@ -14,7 +14,8 @@
 <div id="content-main">
 {% if app_list %}
 {% for app in app_list %}
-        <div class="module">
+        {% if app|is_app_shown %}
+        <div class="module" {% if forloop.counter|is_even %} style="float: left" {% endif %}>
         <table summary="{% blocktrans with app.name as name %}Models available in the {{ name }} application.{% endblocktrans %}">
         <caption><a href="{{ app.app_url }}" class="section">{% blocktrans with app.name as name %}{{ name }}{% endblocktrans %}</a></caption>
         {% for model in app.models %}
@@ -39,7 +40,11 @@
             </tr>
         {% endfor %}
         </table>
-      </div>
+    </div>
+        {% if forloop.counter|is_even %}
+            <div style="clear: both"></div>
+        {% endif %}
+    {% endif %}
     {% endfor %}
 {% else %}
     <p>{% trans "You don't have permission to edit anything." %}</p>

@@ -200,7 +200,21 @@ INSTALLED_APPS = (
 )
 
 EXCLUDED_APPS_FROM_ADMIN = [
-            'microblogging'
+            'microblogging',
+            'flag',
+            'djangodblog',
+            'photologue',
+            'robots',
+            'tribes',
+            'wiki',
+            'bookmarks',
+            'avatars',
+            'signup_codes',
+            'swaps',
+            'tagging',
+            'topics',
+            'announcements',
+            'mailer'
         ]
 
 AUTHENTICATION_BACKENDS = (
