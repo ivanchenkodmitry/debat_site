@@ -13,5 +13,14 @@ def is_even(value):
         return True
     return False
 
+def shown_apps(app_list):
+    retlist = []
+    for app in app_list:
+        if app['name'].lower() not in settings.EXCLUDED_APPS_FROM_ADMIN:
+            retlist.append(app)
+    return retlist
+
+
 register.filter('is_app_shown', is_app_shown)
 register.filter('is_even', is_even)
+register.filter('shown_apps', shown_apps)

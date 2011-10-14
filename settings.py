@@ -215,7 +215,8 @@ EXCLUDED_APPS_FROM_ADMIN = [
             'topics',
             'announcements',
             'mailer',
-            'votes',
+            'voting',
+            'notification'
 
         ]
 
