@@ -137,6 +137,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.humanize',
     'django.contrib.markup',
+    'django.contrib.webdesign',
     'pinax.templatetags',
     'django.contrib.flatpages',
     

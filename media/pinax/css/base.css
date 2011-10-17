@@ -33,14 +33,17 @@ td {
 h1 {
     margin: 0;
 }
-
-
+h2 {
+margin: 0;
+font-size: 14pt;
+font-weight: normal;
+}
 
 #body {
     clear: both;
     margin: 0 auto;
-    padding: 10px;
-    width: 942px;
+    padding: 10px 0;
+    width: 962px;
     min-height: 300px;
     background: url(images/body-bg.png) repeat-y center;
     -moz-box-shadow: 0 0 20px #aaa;

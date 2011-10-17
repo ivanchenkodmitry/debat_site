@@ -93,7 +93,7 @@ ul.dropdown a, ul.dropdown a:visited, ul.dropdown span{
     text-decoration: none;
 }
 
-ul.dropdown a:hover, ul.dropdown span:hover {
+ul.dropdown a:hover {
     color: #305aa6; /* unselected tab text hover colour */
 }
 

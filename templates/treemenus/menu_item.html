@@ -46,7 +46,7 @@
 			{% else %}{% if menu_item.url %}
 				<a href="{{ menu_item.url }}">{{ menu_item.caption }}</a>
 			{% else %}
-				<span>{{ menu_item.caption }}</span>
+				<a href="JavaScript:void()">{{ menu_item.caption }}</a>
 			{% endif %}{% endif %}
 			{% if menu_item.has_children %}
 				<ul>
