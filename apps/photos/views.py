@@ -336,3 +336,55 @@ def add_to_photoset(request, id):
                                                             'photoset': photoset},
                                                             context_instance = RequestContext(request))
 
+def myphotosets(request, template_name = "photos/myphotosets.html", group_slug = None, bridge = None):
+    """
+    my photosets
+    """
+
+    if bridge:
+        try:
+            group = bridge.get_group(group_slug)
+        except ObjectDoesNotExist:
+            raise Http404
+    else:
+        group = None
+
+    photosets = PhotoSet.objects.filter(user=request.user)
+
+    photosets = photosets.order_by("-date_added")
+
+    return render_to_response(template_name, {
+        "photosets": photosets,
+    }, context_instance = RequestContext(request))
+
+
+
+
+def recentphotos(request, template_name = "photos/recentphotos.html", group_slug = None, bridge = None):
+    """
+    photos
+    """
+
+    if bridge:
+        try:
+            group = bridge.get_group(group_slug)
+        except ObjectDoesNotExist:
+            raise Http404
+    else:
+        group = None
+
+    photos = Image.objects.all()
+
+    if group:
+        photos = group.content_objects(photos, join = "pool")
+    else:
+        photos = photos.filter(pool__object_id = None)
+
+    photos = photos.order_by("-date_added")
+
+    return render_to_response(template_name, {
+        "group": group,
+        "photos": photos,
+    }, context_instance = RequestContext(request))
+
+    

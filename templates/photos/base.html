@@ -8,12 +8,15 @@
 {% block subnav %}
     {% if user.is_authenticated %}
         <ul>
-                   
-            <li><a href="/photos/new/photoset">{% trans "Створити альбом" %}</a></li>
-            <li><a href="/photoset/latest ">{% trans "Останні альбоми" %}</a></li>
-            <li><a href="/photoset/">{% trans "Мої альбоми" %}</a></li>
-        </ul>
+             <li><a href={% url photos %}>{% trans "Альбоми користувачів" %}</a></li>
+             <li><a href={% url recentphotos %}>{% trans "Останні фотографії" %}</a></li>
+             <li><a href={% url myphotosets %}>{% trans "Мої aльбоми" %}</a></li>
+             <li><a href={% url newphotoset %}>{% trans "Створити альбом" %}</a></li>
+    </ul>
     {% else %}
-        &nbsp;
+        <ul>
+             <li><a href={% url photos %}>{% trans "Альбоми користувачів" %}</a></li>
+             <li><a href={% url recentphotos %}>{% trans "Останні фотографії" %}</a></li>
+       </ul>
     {% endif %}
 {% endblock %}

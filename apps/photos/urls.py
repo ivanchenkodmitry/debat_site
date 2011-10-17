@@ -18,14 +18,19 @@ urlpatterns = patterns('',
     url(r'^edit/(?P<id>\d+)/$', 'photos.views.edit', name = 'photo_edit'),
 
     #Create Gallery
-    url(r'^new/photoset/$', 'photos.views.newphotoset'),
+    url(r'^new/photoset/$', 'photos.views.newphotoset', name = 'newphotoset'),
 
-    url(r'^photoset/$', 'photos.views.photosets'),
+    url(r'^photoset/$', 'photos.views.photosets', name = 'photoset'),
 
     url(r'^photoset/(?P<id>\d+)/$', 'photos.views.photoset'),
 
     url(r'^edit/photoset/(?P<id>\d+)/$', 'photos.views.editphotoset'),
 
     url(r'^add/to/photoset/(?P<id>\d+)/$', 'photos.views.add_to_photoset'),
+
+    # myphotosets
+    url(r'^myphotosets/$', 'photos.views.myphotosets', name = 'myphotosets'),
+# recent photos
+    url(r'^recentphotos/$', 'photos.views.recentphotos', name = 'recentphotos'),
 
 )
