@@ -1,9 +1,15 @@
 {% extends "photos/base.html" %}
 
 {% load i18n %}
-
+{% load humanize %}
+{% load pagination_tags %}
+{% load tagging_tags %}
+{% load group_tags %}
+{% load threadedcommentstags %}
+{% load theme_tags %}
 
 {% block head %} 
+
  <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/base.css" />
         <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/tabs.css" />
        
@@ -42,28 +48,31 @@
 
     {% block extra_head %}{% endblock %}
 {% endblock %}
+
+
 {% block body %}
-
-<h2>{{photoset.name}}</h2>
-
-{% ifequal photoset.user request.user %}
-<a href="/photos/edit/photoset/{{photoset.pk}}/">{% trans "Редагувати" %}</a>
-{% else %}
-
-{% endifequal %}
-<div class="thumb-row clearfix">
-{% for image in photoset.image_set.all %}
-<div class="gallery-photo-thumb">
-<a href="{{image.get_display_url}}" rel="lightbox[hi]" title = {{image.title}}>
-
-      <img src="{{image.get_premedium_url}}" />
-  </a>
-  {{ image.title }}
-    </div>    
-{% endfor %}
-</div>
-
+  
+    <h1>{% trans "Останні фотографії" %}</h1>
+    
+    {% if photos %}
+    {% autopaginate photos %}
+        <div class="thumb-row clearfix">
+        {% for photo in photos %}
+        <div class="gallery-photo-thumb">
+      <a href="{{photo.get_display_url}}" rel="lightbox[hi]" title = {{photo.title}}>
+      <img src="{{photo.get_premedium_url}}" />
+    </a>
+    
+                        автор: <a href="{% url profile_detail photo.member.username %}">{{ photo.member.username }}</a><br />
+            {% silk "comment" %}<a href="{% groupurl photo_details group id=photo.id %}/#photocomments">{% get_comment_count for photo as commentcount %} {{ commentcount }} Comments</a><br />
+            Viewed {{ photo.view_count }} times
+        </div>
+        {% endfor %}
+        </div>
+        {% paginate %}
+    {% else %}
+    <p>No photos were found.</p>
+    {% endif %}
+    
+    
 {% endblock %}
-
-
-
