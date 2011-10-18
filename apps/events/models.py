@@ -26,7 +26,7 @@ class Event(models.Model):
     location = models.CharField(_('location'), max_length=200)
     questions = models.TextField(blank=True)
     approved = models.BooleanField(_('approved'), default = False)
-    eventimage = models.ImageField(upload_to = "photos") 
+#    eventimage = models.ImageField(upload_to = "photos") 
     gallery = models.ForeignKey(PhotoSet, blank = True, null = True)
     def __unicode__(self):
         return self.title
