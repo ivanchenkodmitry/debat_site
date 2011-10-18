@@ -12,7 +12,9 @@ from tagging.fields import TagField
 from tagging.models import Tag
 from photos.models import *
 from pytils.translit import slugify
+from django.utils.html import strip_tags
 
+EXCERT_LENGTH = 150
 
 if "notification" in settings.INSTALLED_APPS:
     from notification import models as notification
@@ -66,6 +68,15 @@ class Post(models.Model):
         self.slug=slugify(self.title)
         self.updated_at = datetime.now()
         super(Post, self).save(force_insert, force_update)
+    
+    @property
+    def excert(self):
+        stripped_body = strip_tags(self.body)
+        if len(stripped_body) > EXCERT_LENGTH:
+            excert = ''.join([stripped_body[:EXCERT_LENGTH], '...'])
+        else:
+            excert = stripped_body
+        return excert
         
 
 
