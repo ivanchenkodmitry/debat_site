@@ -12,7 +12,7 @@
         </style><![endif]-->
         <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/base.css" />
         <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/tabs.css" />
-       
+       <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/facebox.css" />
         <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/announcements.css" />
         <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/accounts.css" />
         <link rel="stylesheet" href="{{ STATIC_URL }}uni_form/uni-form.css" />
@@ -84,7 +84,7 @@
         {% endblock %}
         
         <div id="footer">{% block footer %}{% endblock %}</div>
-               {% block extra_body_base %}
+              {% block extra_body_base %}
             {% block extra_body %}{% endblock %}
         {% endblock %}
     </body>
