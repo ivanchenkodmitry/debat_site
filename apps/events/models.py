@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from datetime import datetime
 #from django.contrib.contenttypes.models import ContentType
 #from django.contrib.contenttypes import generic
-
+from photos.models import PhotoSet
 #from photologue.models import *
 
 #from tagging.fields import TagField
@@ -26,7 +26,8 @@ class Event(models.Model):
     location = models.CharField(_('location'), max_length=200)
     questions = models.TextField(blank=True)
     approved = models.BooleanField(_('approved'), default = False)
-    
+    eventimage = models.ImageField(upload_to = "photos") 
+    gallery = models.ForeignKey(PhotoSet, blank = True, null = True)
     def __unicode__(self):
         return self.title
         
@@ -107,8 +108,8 @@ class Event(models.Model):
                 data.append(row)
         
         return data
-        
 class AnswerList(models.Model):
     event = models.ForeignKey(Event)
     user = models.ForeignKey(User)
     value = models.TextField()
+
