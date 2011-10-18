@@ -10,11 +10,6 @@ import json
 
 class BlogForm(forms.ModelForm):
     
-    slug = forms.SlugField( max_length=20,
-        help_text = _("коротка назва, лише латинські букви, цифри, підчеркування і тире"),
-		error_messages={'invalid': u'Тут можуть бути лише латинські букви, цифри, підчеркування і тире.'})
-#        error_messages = _("Тут можуть бути лише латинські букви, цифри, підчеркування і тире"))
-    
     class Meta:
         model = Post
         exclude = ('author', 'creator_ip', 'created_at', 'updated_at', 'publish', 'status2', 'allow_comments', 'gallery', 'slug')
