@@ -27,7 +27,7 @@ class Post(models.Model):
         (1, _(u'Чорновик')),
         (2, _(u'Опубліковано')),
     )
-    title           = models.CharField(u'Назва', max_length=200)
+    title           = models.CharField(_(u'Назва'), max_length=200)
     slug            = models.SlugField()
    
     author          = models.ForeignKey(User, related_name="added_posts")
@@ -40,8 +40,6 @@ class Post(models.Model):
     created_at      = models.DateTimeField(_(u'Створено'), default=datetime.now)
     updated_at      = models.DateTimeField(_(u'Змінено'))
     tags            = TagField(u'Теги')
-    gallery         = models.ForeignKey(PhotoSet, null=True)
-    
     
     
     class Meta:
