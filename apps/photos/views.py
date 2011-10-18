@@ -299,9 +299,15 @@ def editphotoset(request, id):
                 photo.member = request.user
                 photo.photoset.add(photoset)
                 photo.save()
-        else:
-            pass
 
+        if request.POST['action'] == 'editphotoset':
+            photoset_form = PhotoSetForm(request.user, request.POST)
+            if photoset_form.is_valid():
+                photoset = photoset_form.save(commit = False)
+                photoset.user = request.user
+                photoset.save()
+                redirect_to = "/photos/photoset/%i" % photoset.pk
+                return HttpResponseRedirect(redirect_to)
     else:
         photoset_form = PhotoSetForm(instance = photoset)
         photo_form = PhotoUploadForm()
