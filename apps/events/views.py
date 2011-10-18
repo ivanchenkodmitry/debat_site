@@ -10,7 +10,7 @@ from django.utils.translation import ugettext as _
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from external.excel_response import ExcelResponse
-
+from photos.models import PhotoSet
 
 from events.models import Event, AnswerList
 from events.forms import EventForm, QuestionsForm
@@ -76,22 +76,31 @@ def add_event(request, form_class=EventForm, template_name="events/add_event.htm
     event_form = form_class(request.user)
     
     if request.method == 'POST' and request.POST.get("action") == "add":
-        event_form = form_class(request.user, request.POST)
+        event_form = form_class(request.user, request.POST, request.FILES)
 
         if event_form.is_valid():
             event = event_form.save(commit=False)
             event.creator = request.user
+            photoset = PhotoSet(name = event.title, user = request.user)
+            photoset.save()
+                
+            event.gallery = photoset
             event.approved = request.user.is_staff
             # automatically approved if user is an administrator
             event.save()
             event.members.add(request.user)
             event.save()
+            photoset.content_object = event
+            photoset.save()
+
+
             if not event.approved:
                 request.user.message_set.create(message=_(u"Адміністратор розгляне вашу заявку."))
             include_kwargs = {"id": event.id}
-            redirect_to = reverse("event_details", kwargs=include_kwargs)
+            redirect_to = "/photos/edit/photoset/%i" % photoset.pk
             return HttpResponseRedirect(redirect_to)
-            
+        else:
+            event_form = form_class()
     return render_to_response(template_name, {
         "event_form": event_form
     }, context_instance=RequestContext(request))
