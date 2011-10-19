@@ -138,7 +138,8 @@ font-weight: normal;
 #tabhead .logo {
     /*height: 151px;*/
     padding-left: 5px;
-    padding-top: 0;
+    padding-top: 10px;
+    float: left;
 }
 #tabhead .logo img {
     width: 190px;
