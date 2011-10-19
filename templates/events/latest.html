@@ -17,8 +17,24 @@
 	
         {% for event in events %}
 
-		<a href="{% groupurl event_details group id=event.id %}"> <P> {{ event.title }} - {{ event.address }} </P> </a>        
-		{% endfor %}
+        <a href="{% groupurl event_details group id=event.id %}"> <P> {{ event.title }}  {{ event.address }}</P></a>
+            {% for photoset in photosets %} 
+            {% ifequal event.gallery.id photoset.pk %}
+
+            {% if photoset.image_set.count %}
+                <a href="/events/details/{{event.id}}">
+                    <img src="{{photoset.first_image.get_premedium_url}}" />
+                </a>
+            {% else %}
+                <a href="/events/details/{{event.id}}">
+                    <img src="{{STATIC_URL}}pinax/images/no_image.gif" />
+                </a>
+            {% endif %}
+
+            {%endifequal%}           
+            {% endfor %}
+            {% endfor %}
+
         
 	
 

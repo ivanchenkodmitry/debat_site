@@ -60,11 +60,14 @@ def details(request, id, template_name="events/details.html"):
         
     if (not event.approved) and (not is_me):
         raise Http404
-    
+    photoset = get_object_or_404(PhotoSet, pk =   event.gallery.id
+)
+
     return render_to_response(template_name, {
     "event": event,
     "is_me": is_me,
     "is_member": is_member,
+    "photoset": photoset,
     }, context_instance=RequestContext(request))
 
 
@@ -135,9 +138,14 @@ def events(request, template_name="events/latest.html"):
     Latest ivents
     """
     events = Event.objects.filter(approved=True).order_by("-date")
-    
+    photosets = PhotoSet.objects.all()
+
+    photosets = photosets.order_by("-date_added")
+
+   
     return render_to_response(template_name, {
         "events": events,
+        "photosets": photosets,
         }, context_instance=RequestContext(request))
 
 
@@ -249,3 +257,11 @@ def members(request, id, template_name="events/members.html"):
         "event": event,
         "is_me": is_me,
     }, context_instance=RequestContext(request))
+
+
+def photoset(request, id):
+    event = get_object_or_404(Event, id=id)
+    pk = event.gallery.id
+    photoset = get_object_or_404(PhotoSet, pk = pk)
+    return render_to_response('events/details.html', {'photoset': photoset}, context_instance = RequestContext(request))
+

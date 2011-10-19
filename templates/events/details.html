@@ -91,7 +91,27 @@
 				<a href="{% url profile_detail member.username %}"> {{ member.get_profile }} </a> </div>
 		</div>
 	{% endfor %}
-	</div>
+</div>
+
+     <h3>Альбом події</h3>
+     
+<script type="text/javascript" src="{{ STATIC_URL }}js/lightbox/prototype.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/lightbox/scriptaculous.js?load=effects,builder"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/lightbox/lightbox.js"></script>
+<link rel="stylesheet" href="{{ STATIC_URL }}css/lightbox.css" type="text/css" media="screen" />
+
+     
+<div class="thumb-row clearfix">
+{% for image in photoset.image_set.all %}
+<div class="gallery-photo-thumb">
+<a href="{{image.get_display_url}}" rel="lightbox[hri]" title = {{image.title}}>
+{{image.title}}
+      <img src="{{image.get_premedium_url}}" />
+  </a>
+  {{ image.title }}
+    </div>    
+{% endfor %}
+</div>
 
 	<div name = "comments" style="clear:left">
 
