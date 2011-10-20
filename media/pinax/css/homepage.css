@@ -1,3 +1,8 @@
+#body {
+    padding: 10px 0;
+    width: 962px;
+}
+
 #main {
 margin: 0 1px 0 1px
 }
@@ -38,10 +43,10 @@ padding: 5px 10px;
 background: url("images/rp-h2-bg.png") no-repeat scroll 0 0 transparent;
 }
 
-/*Event widget*/
+/*Event carousel widget*/
 
 .event_widget {
-border: 1px solid #bababa;
+/*border: 1px solid #bababa;*/
 width: 660px;
 margin: 20px;
 }
@@ -55,23 +60,37 @@ list-style-type: none;
 }
 
 .event_mini {
-height: 250px;
-width: 290px;
+height: 318px;
+width: 284px;
+}
+
+.prev, .prev a, .next, .next a{
+height: 318px;
+width: 46px;
+display: block;
 }
 
 .prev {
-background: #d1d1d1;
-height: 250px;
-width: 40px;
-display: block;
+background: url("images/carousel-prev-hover.png") no-repeat scroll 0 0;
 float: left;
 }
 
+.prev a{
+background: url("images/carousel-prev.png") no-repeat scroll 0 0;
+}
+
 .next {
-background: #d1d1d1;
-height: 250px;
-width: 40px;
-display: block;
+background: url("images/carousel-next-hover.png") no-repeat scroll 0 0;
 float: left;
 }
+
+.next a{
+background: url("images/carousel-next.png") no-repeat scroll 0 0;
+}
+
+.prev a:hover, .next a:hover{
+background: none;
+}
+
+
 

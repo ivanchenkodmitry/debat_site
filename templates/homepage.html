@@ -21,7 +21,7 @@
     <td class="left_panel">
       <h2>{% trans "Календар" %}</h2>
       <div class="event_widget">
-        <div class="prev"><<</div>
+        <div class="prev" ><a href="javascript:void(0)"></a></div>
         <div class="event_carousel">
             <ul>
                 {% for event in events %}
@@ -38,7 +38,7 @@
                 {% endfor %}
             </ul>
         </div>
-        <div class="next">>></div>
+        <div class="next"><a href="javascript:void(0)"></a></div>
         <div class="clear"></div>
       </div>
 
@@ -79,7 +79,8 @@
         btnNext: ".next",
         btnPrev: ".prev",
         visible: 2,
-        circular: false
+        circular: false,
+	start: 1
     });
 
 </script>
