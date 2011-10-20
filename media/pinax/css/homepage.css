@@ -64,33 +64,28 @@ height: 318px;
 width: 284px;
 }
 
-.prev, .prev a, .next, .next a{
+.prev {
+background: url("images/carousel-prev.png") no-repeat scroll 0 0;
 height: 318px;
 width: 46px;
 display: block;
-}
-
-.prev {
-background: url("images/carousel-prev-hover.png") no-repeat scroll 0 0;
 float: left;
 }
 
-.prev a{
-background: url("images/carousel-prev.png") no-repeat scroll 0 0;
+.prev:hover {
+background-position: -46px 0;
 }
 
 .next {
-background: url("images/carousel-next-hover.png") no-repeat scroll 0 0;
+background: url("images/carousel-next.png") no-repeat scroll 0 0;
+height: 318px;
+width: 46px;
+display: block;
 float: left;
 }
 
-.next a{
-background: url("images/carousel-next.png") no-repeat scroll 0 0;
+.next:hover {
+background-position: -46px 0;
 }
-
-.prev a:hover, .next a:hover{
-background: none;
-}
-
 
 
