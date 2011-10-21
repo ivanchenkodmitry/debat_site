@@ -25,14 +25,17 @@
         <div class="event_carousel">
             <ul>
                 {% for event in events %}
-                <li class="event_mini">
-                  <h3>{{ event.title }}</h3>
-                  <p>{{ event.description }}</p>
-                  <p>{{ event.address }}</p>
-                  <p>{{ event.date|date}}</p>
-                  <div>
-                  <button>{% trans "Приєднатись" %}</button>
-                  <button>{% trans "Читати" %}</button>
+                <li>
+                  <div class="event_mini{% ifequal forloop.counter0 1 %} nearest{% endifequal %}">
+                    <h3>{{ event.title }}</h3>
+                    <img style="width: 236px; height: 170px;" src="http://ompldr.org/vYXdvdw/no_image.jpeg" alt="{{ event.title }}"/>
+                    <p>{{ event.description }}</p>
+                    <p>{{ event.address }}</p>
+                    <p>{{ event.date|date}}</p>
+                    <div>
+                    <button>{% trans "Приєднатись" %}</button>
+                    <button>{% trans "Читати" %}</button>
+                    </div>
                   </div>
                 </li>
                 {% endfor %}

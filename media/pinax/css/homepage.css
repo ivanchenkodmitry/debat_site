@@ -1,6 +1,6 @@
 #body {
-    padding: 10px 0;
-    width: 962px;
+padding: 10px 0;
+width: 962px;
 }
 
 #main {
@@ -37,8 +37,8 @@ margin: 10px 10px;
 
 td.left_panel h2 {
 color: #2a4678;
-background-color: #dfedf3;
-margin: 0 0 0 1px;
+/*background-color: #dfedf3;*/
+margin: 0;
 padding: 5px 10px;
 background: url("images/rp-h2-bg.png") no-repeat scroll 0 0 transparent;
 }
@@ -59,9 +59,40 @@ float: left;
 list-style-type: none;
 }
 
-.event_mini {
+.event_widget ul li{
 height: 318px;
 width: 284px;
+display: block;
+}
+
+.event_mini {
+margin: 8px;
+padding: 10px 16px;
+height: 280px;
+}
+
+.event_mini h3{
+color: #878787;
+font-size: 14pt;
+font-weight: normal;
+margin: 0;
+padding: 0 0 10px 0;
+}
+
+.event_mini p{
+color: #878787;
+}
+
+.nearest {
+background-color: #9cd5ec;
+}
+
+.nearest h3{
+color: #2a4678;
+}
+
+.nearest p{
+color: #2a4678;
 }
 
 .prev {
