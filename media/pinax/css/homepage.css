@@ -68,7 +68,7 @@ display: block;
 
 .event_mini {
 margin: 8px;
-padding: 10px 16px;
+padding: 10px 0 10px 16px;
 height: 280px;
 }
 
@@ -102,6 +102,7 @@ height: 318px;
 width: 46px;
 display: block;
 float: left;
+outline: none; /* hide dotted outline in Firefox */
 }
 
 .prev:hover {
@@ -114,6 +115,7 @@ height: 318px;
 width: 46px;
 display: block;
 float: left;
+outline: none; /* hide dotted outline in Firefox */
 }
 
 .next:hover {
@@ -124,4 +126,38 @@ background-position: -46px 0;
 background: url("images/carousel-footer.png") no-repeat scroll 0 0;
 height: 26px;
 }
+
+a.button {
+background: url('images/button-a-bg.png') no-repeat scroll right top;
+display: block;
+color: #5b5b5b;
+font-size: 12pt;
+font-weight: normal;
+float: left;
+height: 36px;
+margin-right: 16px;
+padding-right: 16px; /* sliding doors padding */
+text-decoration: none;
+outline: none; /* hide dotted outline in Firefox */
+}
+
+a.button span {
+background: url('images/button-span-bg.png') no-repeat;
+display: block;
+line-height: 26px;
+padding: 5px 0 5px 16px;
+}
+
+a.button:hover {
+background-position: bottom right;
+color: #2a4678;
+}
+
+a.button:hover span {
+background-position: bottom left;
+}
+
+a.button:active span {
+padding: 6px 0 4px 16px; /* push text down 1px */
+}  
 
