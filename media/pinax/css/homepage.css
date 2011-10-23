@@ -52,6 +52,7 @@ margin: 20px;
 }
 
 .event_carousel {
+background: url("images/carousel-bg.png") repeat-x scroll 0 0 transparent;
 float: left;
 }
 
@@ -119,4 +120,8 @@ float: left;
 background-position: -46px 0;
 }
 
+.carousel_footer {
+background: url("images/carousel-footer.png") no-repeat scroll 0 0;
+height: 26px;
+}
 
