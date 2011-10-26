@@ -60,7 +60,7 @@
 	                   Ініціатор:
 	           </label>
 	        {{ event.creator.get_profile.surname }} {{ event.creator.get_profile.name }} 
-   <p>{{event.eventimage}}</p>
+            <p><img src="/site_media/media/{{event.eventimage}}"/></p>
  </div>
     	{% if is_me %}
 		<a href="/events/edit/{{ event.id }}"> <P> Редагувати подію </P> </a>        
