@@ -60,8 +60,7 @@ def details(request, id, template_name="events/details.html"):
         
     if (not event.approved) and (not is_me):
         raise Http404
-    photoset = get_object_or_404(PhotoSet, pk =   event.gallery.id
-)
+    photoset = get_object_or_404(PhotoSet, pk =   event.gallery.id)
 
     return render_to_response(template_name, {
     "event": event,
@@ -99,11 +98,10 @@ def add_event(request, form_class=EventForm, template_name="events/add_event.htm
 
             if not event.approved:
                 request.user.message_set.create(message=_(u"Адміністратор розгляне вашу заявку."))
-            include_kwargs = {"id": event.id}
             redirect_to = "/photos/edit/photoset/%i" % photoset.pk
             return HttpResponseRedirect(redirect_to)
-        else:
-            event_form = form_class()
+#        else:
+#            event_form = form_class()
     return render_to_response(template_name, {
         "event_form": event_form
     }, context_instance=RequestContext(request))
@@ -118,7 +116,7 @@ def edit(request, id, form_class=EventForm, template_name="events/edit.html"):
     
     event_form = form_class(request.user, instance=event)
     if request.method == "POST" and request.POST.get("action") == "update":
-        event_form = form_class(request.user, request.POST, instance=event)
+        event_form = form_class(request.user, request.POST,request.FILES, instance=event)
         if event_form.is_valid():
             event = event_form.save()
             

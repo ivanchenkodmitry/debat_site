@@ -83,7 +83,7 @@ def destroy(request, id):
 def new(request, form_class=BlogForm, template_name="blog/new.html"):
     if request.method == "POST":
         if request.POST["action"] == "create":
-            blog_form = form_class(request.user, request.POST)
+            blog_form = form_class(request.user, request.POST, request.FILES)
             if blog_form.is_valid():
                 
                 blog = blog_form.save(commit=False)
@@ -130,7 +130,7 @@ def edit(request, id, form_class=BlogForm, template_name="blog/edit.html"):
             request.user.message_set.create(message=u"Ви не можете редагувати чужі новини")
             return HttpResponseRedirect(reverse("blog_list_yours"))
         if request.POST["action"] == "update":
-            blog_form = form_class(request.user, request.POST, instance=post)
+            blog_form = form_class(request.user, request.POST,request.FILES, instance=post)
             if blog_form.is_valid():
                 blog = blog_form.save(commit=False)
                 blog.save()
