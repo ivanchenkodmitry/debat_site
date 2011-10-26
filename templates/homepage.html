@@ -48,16 +48,28 @@
         <a class="next" href="javascript:void(0)"></a>
         <div class="carousel_footer clear"></div>
       </div>
+     
+      <div id="news_block">
+        <div id="site_news">
+        <h2>{% trans "Новини" %}</h2>
+        {% for blog_post in adminposts|slice:":3" %}
+            <div class="news_item">
+                <img src=""/>
+                <a href="{{blog_post.get_absolute_url}}"><h3>{{blog_post.title}}</h3></a>
+                {{blog_post.excert}}
+            </div>
+        {% endfor %}
+        </div>
+        
+        <div id="user_news">
+          <h2>{% trans "Мої новини" %}</h2>
+          {% for blog_post in posts|slice:":3" %}
+              
+          {% endfor %}
+        </div>
 
-      <h2>{% trans "Новини" %}</h2>
-      {% for blog_post in adminposts|slice:":3" %}
-          {% show_blog_post blog_post %}
-      {% endfor %}
-
-      <h2>{% trans "Мої новини" %}</h2>
-      {% for blog_post in posts|slice:":3" %}
-          {% show_blog_post blog_post %}
-      {% endfor %}
+        <div style="clear: both"> </dib>
+      </div>
 
       {% if rand_photo %}
       <h2>{% trans "Галерея" %}</h2>

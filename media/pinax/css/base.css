@@ -341,3 +341,35 @@ div.right_panel {
 	vertical-align:text-top;
 }
 
+/* Home page new block */
+
+#news_block{
+}
+
+#news_block h3{
+  margin: 0;
+  padding: 0;
+  color: #2A4678;
+  font-size: 14px;
+}
+
+#news_block img{
+  width: 50px;
+  float: left;
+}
+
+.news_item{
+  padding-left: 10px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+
+#site_news{
+  float: left;
+  width: 50%;
+}
+
+#user_news{
+  float: right;
+  width: 50%;
+}
