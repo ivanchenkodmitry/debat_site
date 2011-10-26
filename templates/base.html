@@ -39,6 +39,9 @@
     	<a href="javascript: void(0)"><img src="{{ STATIC_URL }}pinax/images/facebook.png" /></a>
     	<a href="javascript: void(0)"><img src="{{ STATIC_URL }}pinax/images/vkontakte.png" /></a>
     </div>
+    {% if not request.user.is_authenticated %}
+    <div id="joinus" onclick="window.location='/account/signup'"></div>
+    {% endif %}
         {% if site_wide_announcements %}
             <div id="site_wide_announcements">
                 <ul>

@@ -56,13 +56,23 @@ font-weight: normal;
 #social_links{
 	position: fixed;
 	height: 131px;
-	width: 56px;
+	width: 45px;
 	background: transparent url(images/fixed-bg.png) no-repeat;
-	top: 300px;
+	top: 250px;
 	left: 0px;
 	
 	padding-top: 12px;
-	padding-left: 10px;
+	padding-left: 6px;
+}
+
+#joinus{
+  position:fixed;
+  height: 216px;
+  width: 45px;
+  left: 0px;
+  top: 400px;
+  background: transparent url(../images/joinus.png) no-repeat;
+  cursor: pointer;
 }
 
 #social_links img{
@@ -138,7 +148,7 @@ font-weight: normal;
 #tabhead .logo {
     /*height: 151px;*/
     padding-left: 5px;
-    padding-top: 10px;
+    padding-top: 14px;
     float: left;
 }
 #tabhead .logo img {
