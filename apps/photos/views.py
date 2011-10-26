@@ -289,6 +289,7 @@ def newphotoset(request):
 def editphotoset(request, id):
     photo_form = PhotoUploadForm
     photoset = get_object_or_404(PhotoSet, id = id)
+    photoset_form = PhotoSetForm (instance = photoset)
 
     if request.method == 'POST':
         if request.POST['action'] == 'addphoto':
@@ -299,23 +300,21 @@ def editphotoset(request, id):
                 photo.photoset.add(photoset)
                 photo.save()
 
-        if request.POST['action'] == 'editphotoset':
+        elif request.POST['action'] == 'editphotoset':
             photoset_form = PhotoSetForm(request.user, request.POST, instance = photoset)
             if photoset_form.is_valid():
                 photoset = photoset_form.save(commit = False)
                 
                 photoset.save()
-                include_kwargs = {"id": photoset.id}
-
+                
                 redirect_to = "/photos/photoset/%i" % photoset.pk
                 return HttpResponseRedirect(redirect_to)
-    else:
-        photoset_form = PhotoSetForm(instance = photoset)
-        photo_form = PhotoUploadForm()
 
 
-    return render_to_response('photos/editphotoset.html', {'photoset_form': photoset_form,
-                                                            'photo_form': photo_form,
+
+    return render_to_response('photos/editphotoset.html', {'photo_form': photo_form,
+                                                            'photoset_form': photoset_form,
+                                                            
                                                             'photoset': photoset},
                                                             context_instance = RequestContext(request))
 

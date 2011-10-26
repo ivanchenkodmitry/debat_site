@@ -6,7 +6,7 @@ from datetime import datetime
 #from django.contrib.contenttypes import generic
 from photos.models import PhotoSet
 #from photologue.models import *
-
+from stdimage import StdImageField
 #from tagging.fields import TagField
 
 from django.utils.translation import ugettext_lazy as _
@@ -26,7 +26,7 @@ class Event(models.Model):
     location = models.CharField(_('location'), max_length=200)
     questions = models.TextField(blank=True)
     approved = models.BooleanField(_('approved'), default = False)
-    eventimage = models.ImageField(upload_to = "photos/", blank=True) 
+    eventimage = StdImageField(upload_to = "photos/", blank=True, size=(640, 480), thumbnail_size=(100, 100, True))
     gallery = models.ForeignKey(PhotoSet, blank = True, null = True)
     def __unicode__(self):
         return self.title

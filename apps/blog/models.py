@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
+from stdimage import StdImageField
 
 from django.db import models
 from django.conf import settings
@@ -42,7 +43,7 @@ class Post(models.Model):
     created_at      = models.DateTimeField(_(u'Створено'), default=datetime.now)
     updated_at      = models.DateTimeField(_(u'Змінено'))
     tags            = TagField(u'Теги')
-    image           = models.ImageField(upload_to = "photos/", blank=True) 
+    image = StdImageField(upload_to = "photos/", blank=True, size=(400, 200))
     
     class Meta:
         verbose_name        = _('post')

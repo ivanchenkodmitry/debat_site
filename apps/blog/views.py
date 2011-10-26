@@ -124,13 +124,13 @@ def new(request, form_class=BlogForm, template_name="blog/new.html"):
 @login_required
 def edit(request, id, form_class=BlogForm, template_name="blog/edit.html"):
     post = get_object_or_404(Post, id=id)
-
+    blog_form = form_class(request.user, request.POST, request.FILES, instance=post)
     if request.method == "POST":
         if post.author != request.user:
             request.user.message_set.create(message=u"Ви не можете редагувати чужі новини")
             return HttpResponseRedirect(reverse("blog_list_yours"))
         if request.POST["action"] == "update":
-            blog_form = form_class(request.user, request.POST,request.FILES, instance=post)
+            blog_form = form_class(request.user, request.POST, request.FILES, instance=post)
             if blog_form.is_valid():
                 blog = blog_form.save(commit=False)
                 blog.save()

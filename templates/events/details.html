@@ -17,7 +17,10 @@
 
 {% block body_param %} onload="initialize()" {% endblock %}
 {% block body %}
-
+<script type="text/javascript" src="{{ STATIC_URL }}js/lightbox/prototype.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/lightbox/scriptaculous.js?load=effects,builder"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/lightbox/lightbox.js"></script>
+<link rel="stylesheet" href="{{ STATIC_URL }}css/lightbox.css" type="text/css" media="screen" />
     <div class="right_panel">
         {% include "map.html" %}
     </div>
@@ -95,10 +98,7 @@
 
      <h3>Альбом події</h3>
      
-<script type="text/javascript" src="{{ STATIC_URL }}js/lightbox/prototype.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}js/lightbox/scriptaculous.js?load=effects,builder"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}js/lightbox/lightbox.js"></script>
-<link rel="stylesheet" href="{{ STATIC_URL }}css/lightbox.css" type="text/css" media="screen" />
+
 
      
 <div class="thumb-row clearfix">
@@ -108,7 +108,7 @@
 {{image.title}}
       <img src="{{image.get_premedium_url}}" />
   </a>
-  {{ image.title }}
+ 
     </div>    
 {% endfor %}
 </div>

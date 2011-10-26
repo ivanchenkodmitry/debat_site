@@ -116,7 +116,7 @@ def edit(request, id, form_class=EventForm, template_name="events/edit.html"):
     
     event_form = form_class(request.user, instance=event)
     if request.method == "POST" and request.POST.get("action") == "update":
-        event_form = form_class(request.user, request.POST,request.FILES, instance=event)
+        event_form = form_class(request.user, request.POST, request.FILES, instance=event)
         if event_form.is_valid():
             event = event_form.save()
             

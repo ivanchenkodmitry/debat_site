@@ -13,7 +13,11 @@
 {% block head_title %}Профіль {{ other_user.get_profile.name }}{% endblock %}
 
 {% block body %}
-    
+ <script type="text/javascript" src="{{ STATIC_URL }}js/lightbox/prototype.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/lightbox/scriptaculous.js?load=effects,builder"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/lightbox/lightbox.js"></script>
+<link rel="stylesheet" href="{{ STATIC_URL }}css/lightbox.css" type="text/css" media="screen" />
+   
     <div class="right_panel">
         {% include "profiles/profile_right_panel.html" %}
     </div>
@@ -186,7 +190,7 @@
                     <div class="clearfix">
                     {% for photo in photos %}
                         <div class="gallery-photo-thumb">
-                            <a href="/photos/details/{{ photo.id }}/"><img src="{{ photo.get_thumbnail_url }}" alt="{{ photo.title }}"/></a>
+                            <a href="{{ photo.get_display_url }}"rel="lightbox[hru]" ><img src="{{ photo.get_thumbnail_url }}" alt="{{ photo.title }}"/></a>
                         </div>
                     {% endfor %}
                     </div>

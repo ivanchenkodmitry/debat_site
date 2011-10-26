@@ -18,7 +18,7 @@
         {% for event in events %}
 
         <a href="{% groupurl event_details group id=event.id %}"> <P> {{ event.title }}  {{ event.address }}</P> 
-            <p><img src="/site_media/media/{{event.eventimage}}"/></p></a> 
+            <p><img src="{{event.eventimage.thumbnail.url}}"/></p></a> 
  {% endfor %}
 
         
