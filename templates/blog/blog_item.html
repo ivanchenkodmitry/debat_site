@@ -2,19 +2,22 @@
 {% load markup_tags %}
 {% load avatar_tags %}
 {% load extra_tagging_tags %}
-     
+<style> 
+a:link, a:visited, a:active, a:hover  { text-decoration: none; font-style: normal } 
+</style> 
 <div class="blog-post clearfix">
     <div class= "blog-post-thumbnail">  {% if blog_post.image.thumbnail %}
    <a href="{{ blog_post.get_absolute_url }}"><img src="{{blog_post.image.thumbnail.url}}"/></a> 
 {% endif %}</div>
+<div class="blog-post-tease">
  <h2><a href="{{ blog_post.get_absolute_url }}">{{ blog_post.title }}</a></h2>
-    <div class="blog-post-tease">
-                  {{blog_post.body|safe|truncatewords:"50"}}
+          {{blog_post.body|safe|truncatewords:"50"}}
+      <a href="{{ blog_post.get_absolute_url }}">детальніше</a>
             
     </div>
     <div class="blog-post-meta">
    {% avatar blog_post.author 40 %}
-        <p><b>{% trans "Posted:" %}</b><br />
+        <p><b>{% trans "Опубліковано:" %}</b><br />
 
             <a href="{% url profile_detail blog_post.author.username %}">{{ blog_post.author.username }}</a> {% trans "on" %} {{ blog_post.publish|date }}</p>
         <div id="post-gallery-photos">
@@ -26,4 +29,5 @@
             <p>{% show_tags_for blog_post %}</p>
         </div>
     </div>
-</div><HR>
+ </div>
+<HR>

@@ -327,8 +327,8 @@ div.left_panel {
     width: 650px;
 }
 div.right_panel {
-    margin-top: 20px;
-    width: 200px;
+    margin-top: 0px;
+    
     float: right;
     z-index: 999;
 }

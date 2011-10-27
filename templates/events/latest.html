@@ -11,21 +11,39 @@
 
 
 {% block body %}
-    
-    <h1>{% trans "Події" %}</h1>
+<style>
+a:link, a:visited, a:active, a:hover  { text-decoration: none; font-style: normal } 
+
+.event-tease {
+    width: 500px;
+    float: left;}
+.event-thumbnail {
+    width: 160px;
+    float: left;
+    margin-right: 10px;
+}
+.event-date {
+    float: right;
+margin-top: 30px;
+}
+
+</style>
+<h1>{% trans "Події" %}<span style="float: right; font-size:12pt; font-weight:bold; margin-top: 10px;" >Час проведення:</span></h1>
     
 	
         {% for event in events %}
+<HR>
+<div class="event clearfix">
 
-        <a href="{% groupurl event_details group id=event.id %}"> <P> {{ event.title }}  {{ event.address }}</P> 
-        {% if event.eventimage.thumbnail %}
-    <p><img src="{{event.eventimage.thumbnail.url}}"/></p></a> 
-{% endif %}
- {% endfor %}
-
-        
-	
-
-    
-    
+        <a href="{% groupurl event_details group id=event.id %}"> 
+ <div class= "event-thumbnail"> <img src="{{event.eventimage.thumbnail.url}}"/>
+          </div>
+            
+            
+            <div class="event-tease">
+                <h2> {{ event.title }}</h2></a> <br> {{ event.address }}</div> 
+        <div class="event-date">{{event.date}}</div>
+    </div>  
+    {% endfor %}
+   
 {% endblock %}

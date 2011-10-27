@@ -22,7 +22,17 @@
 <script type="text/javascript" src="{{ STATIC_URL }}js/lightbox/lightbox.js"></script>
 <link rel="stylesheet" href="{{ STATIC_URL }}css/lightbox.css" type="text/css" media="screen" />
     <div class="right_panel">
-        {% include "map.html" %}
+       <h1>{% trans "Місце проведення" %}</h1>
+  {% include "map.html" %}
+  <p><div id="div_id_address" class="ctrlHolder">
+	           <label for="id_address">                    
+	                  <b>Адреса:</b><br>
+ 
+	           </label>
+	      {{ event.address }} 
+      </div></p>
+
+
     </div>
     
       <div class="left_panel">
@@ -31,40 +41,32 @@
     <h1>{% trans "Деталі події" %}</h1>
 
 	<div id="div_id_title" class="ctrlHolder">
-	           <label for="id_title">                    
-	                   Назва:
-	           </label>
-	        	{{ event.title }} 
-    </div>
+        <h3>  {{ event.title }} </h3>
 
+    </div><P>
 	<div id="div_id_details" class="ctrlHolder">
 	           <label for="id_details">                    
-	                   Деталі:
+                   <b>Деталі:</b><br>
 	           </label>
       {{ event.description }}
-    </div>
+  </div></P>
 
-	<div id="div_id_address" class="ctrlHolder">
-	           <label for="id_address">                    
-	                   Адреса:
-	           </label>
-	      {{ event.address }} 
-    </div>
 
-	<div id="div_id_date" class="ctrlHolder">
+	<P>
+<div id="div_id_date" class="ctrlHolder">
 	           <label for="id_date">                    
-	                   Дата проведення:
+	                  <b>Дата проведення:</b><br>
 	           </label>
 	        {{ event.date }} 
-    </div>
+    </div></P>
+
 
 	<div id="div_id_date" class="ctrlHolder">
 	           <label for="id_date">                    
-	                   Ініціатор:
+                   <b>Ініціатор:</b>
 	           </label>
 	        {{ event.creator.get_profile.surname }} {{ event.creator.get_profile.name }} 
-            <p><img src="/site_media/media/{{event.eventimage}}"/></p>
- </div>
+             </div>
     	{% if is_me %}
 		<a href="/events/edit/{{ event.id }}"> <P> Редагувати подію </P> </a>        
 		<a href="/events/destroy/{{ event.id }}"> <P> Видалити подію </P> </a>
@@ -96,11 +98,7 @@
 	{% endfor %}
 </div>
 
-     <h3>Альбом події</h3>
-     
-
-
-     
+{% if photoset.image_set.count%}      <h3>Альбом події</h3>{%endif%}
 <div class="thumb-row clearfix">
 {% for image in photoset.image_set.all %}
 <div class="gallery-photo-thumb">
