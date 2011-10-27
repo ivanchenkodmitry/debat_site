@@ -8,13 +8,23 @@
     width: 500px;
     float: left;
 }
+.blog-post-full {
+    width: 750px;
+    float: left;
+
+}
 .blog-post-meta {
     width: 200px;
     float: right;
-    margin-left: 30px;
+    margin-right: 30px;
+}
+.blog-post-thumbnail {
+    width: 100px;
+    float: left;
+    margin-right: 10px;
 }
 .blog-post-image {
-    width: 100px;
+    
     float: left;
     margin-right: 10px;
 }
