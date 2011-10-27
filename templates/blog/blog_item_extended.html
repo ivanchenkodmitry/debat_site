@@ -1,0 +1,29 @@
+{% load i18n %}
+{% load markup_tags %}
+{% load avatar_tags %}
+{% load extra_tagging_tags %}
+     
+<div class="blog-post clearfix">
+
+ <div class="blog-post-full">
+ 
+  <div class= "blog-post-image">  {% if blog_post.image %}
+   <a href="{{ blog_post.get_absolute_url }}"><img src="{{blog_post.image.url}}"/></a> 
+{% endif %}</div>
+ 
+                      {{blog_post.body|safe}}
+            
+    </div>
+    <div class="blog-post-meta">
+   
+            
+        <div id="post-gallery-photos">
+        	{% for photo in blog_post.gallery.photos.all %}
+        		<img src="{{ photo.get_medium_url }}" /><br />
+        	{% endfor %}
+        </div>
+        <div class="blog-tags">
+            <p>{% show_tags_for blog_post %}</p>
+        </div>
+    </div>
+</div><HR>

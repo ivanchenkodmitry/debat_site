@@ -35,13 +35,13 @@
                 <a href="/tags/{{ tag }}">{{ tag }}</a>
             {% endfor %}</p>
             {% ifequal post.author request.user %}
-                <a href="{% url blog_edit post.id %}">Редагувати новину</a>
+             <p>   <a href="{% url blog_edit post.id %}">Редагувати новину</a></p>
+
             {% endifequal %}
         </div>
-        
-        {% show_blog_post post %}
-        
-    </div>
+                
+        {% show_blog_post_extended post %}
+            </div>
 
 
 

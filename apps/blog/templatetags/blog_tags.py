@@ -14,3 +14,6 @@ register = template.Library()
 def show_blog_post(blog_post):
     return {"blog_post": blog_post}
 
+@register.inclusion_tag("blog/blog_item_extended.html")
+def show_blog_post_extended(blog_post):
+    return {"blog_post": blog_post}
