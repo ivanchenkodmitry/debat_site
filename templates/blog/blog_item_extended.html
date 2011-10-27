@@ -7,24 +7,23 @@
 
  <div class="blog-post-full">
  
-  <div class= "blog-post-image">  {% if blog_post.image %}
-   <a href="{{ blog_post.get_absolute_url }}"><img src="{{blog_post.image.url}}"/></a> 
-{% endif %}</div>
+  <div class= "blog-post-image">     <img src="{{blog_post.image.url}}"/>
+</div>
  
                       {{blog_post.body|safe}}
             
     </div>
     <div class="blog-post-meta">
    
-            
+          
         <div id="post-gallery-photos">
            {% if blog_post.gallery %}
-
-          {% for photo in blog_post.gallery.photos.all %}
+           {{blog_post.gallery.photos }}
+          {% for photo in blog_post.gallery.photos_set.all %}
         		<img src="{{ photo.get_medium_url }}" /><br />
             {% endfor %}
             {%else%}
-            df
+           nbkj df
             {%endif%}
         </div>
         <div class="blog-tags">

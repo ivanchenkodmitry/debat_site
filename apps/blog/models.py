@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
-
+from photos.models import PhotoSet
 from tagging.fields import TagField
 from tagging.models import Tag
 from photos.models import *
@@ -44,7 +44,7 @@ class Post(models.Model):
     updated_at      = models.DateTimeField(_(u'Змінено'))
     tags            = TagField(u'Теги')
     image = StdImageField(upload_to = "photos/", size=(400, 300), thumbnail_size=(150, 150))
-    
+    gallery = models.ForeignKey(PhotoSet, blank = True, null = True)
     class Meta:
         verbose_name        = _('post')
         verbose_name_plural = _('posts')

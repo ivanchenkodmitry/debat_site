@@ -30,6 +30,7 @@
 }
 .blog-post-meta img {
     border: 1px solid #666;
+    margin-top: 25px;
 }
 .blog-list tr.odd {
     background-color: #f3f3f3;

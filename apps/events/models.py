@@ -16,7 +16,7 @@ class Event(models.Model):
     """
     An event with its details
     """
-    title = models.CharField(_('title'), max_length=200)
+    title = models.CharField(_('title'), max_length=50)
     description = models.TextField(_('description'), blank=True)
     date = models.DateTimeField(_('date'), default=datetime.now)
     address = models.TextField(_('addres'), blank=True)

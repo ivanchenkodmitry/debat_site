@@ -22,7 +22,7 @@
         
             {% if photoset.image_set.count %}
                 <a href="/photos/photoset/{{photoset.id}}">
-                    <img src="{{photoset.first_image.get_premedium_url}}" />
+                    <img src="{{photoset.first_image.get_thumbnail_url}}" />
                 </a>
             {% else %}
                 <a href="/photos/photoset/{{photoset.id}}">

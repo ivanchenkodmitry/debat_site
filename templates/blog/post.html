@@ -14,6 +14,10 @@
 {% block extra_head %}
     <link rel="alternate" type="application/atom+xml" title="Blog Post Feed for All Users" href="/feeds/posts/all/" />
     <link rel="alternate" type="application/atom+xml" title="Blog Post Feed for User {{ post.author.username }}" href="/feeds/posts/only/{{ post.author.username }}/" />
+<script type="text/javascript" src="{{ STATIC_URL }}js/lightbox/prototype.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/lightbox/scriptaculous.js?load=effects,builder"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/lightbox/lightbox.js"></script>
+<link rel="stylesheet" href="{{ STATIC_URL }}css/lightbox.css" type="text/css" media="screen" />
 
 <script src="http://vkontakte.ru/js/api/openapi.js" type="text/javascript" charset="windows-1251"></script>
 
@@ -43,7 +47,15 @@
         {% show_blog_post_extended post %}
             </div>
 
-
+{% if photoset.image_set.count%}      <h3>Альбом події</h3>{%endif%}
+<div class="thumb-row clearfix">
+{% for image in photoset.image_set.all %}
+<div class="gallery-photo-thumb">
+<a href="{{image.get_display_url}}" rel="lightbox[hrp]" title = {{image.title}}>
+{{image.title}}
+      <img src="{{image.get_thumbnail_url}}" />
+  </a>
+  {%endfor%}
 
 
 

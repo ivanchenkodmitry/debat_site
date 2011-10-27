@@ -43,7 +43,7 @@ def post(request, username, year, month, slug,
     post = Post.objects.filter(slug=slug, publish__year=int(year), publish__month=int(month)).filter(author__username=username)
     if not post:
         raise Http404
-    
+    photoset = get_object_or_404(PhotoSet, pk = post[0].gallery.id)
 
 
 
@@ -52,7 +52,7 @@ def post(request, username, year, month, slug,
     if post[0].status2 == False and post[0].author != request.user:
         raise Http404
     return render_to_response(template_name, {
-        "post": post[0],
+        "post": post[0], "photoset": photoset,
     }, context_instance=RequestContext(request))
 
 @login_required
@@ -110,8 +110,10 @@ def new(request, form_class=BlogForm, template_name="blog/new.html"):
                      if blog.status2 == 1:# published
                            if friends: # @@@ might be worth having a shortcut for sending to all friends
                              notification.send((x['friend'] for x in Friendship.objects.friends_for_user(blog.author)), "blog_friend_post", {"post": blog})
-                
-                return HttpResponseRedirect(reverse("blog_list_yours"))
+                redirect_to = "/photos/edit/photoset/%i" % photoset.pk
+                return HttpResponseRedirect(redirect_to)
+
+               
         else:
             blog_form = form_class()
     else:

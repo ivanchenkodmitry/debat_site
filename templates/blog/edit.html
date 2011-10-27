@@ -12,10 +12,13 @@
             {{ blog_form|as_uni_form }}
             <div class="form_block">
             <input type="hidden" name="action" value="update" />
-            <input type="submit" value="{% trans "Update" %}"/>
+            <input type="submit" value="{% trans "Зберегти" %}"/>
             </div>
         </fieldset>
     </form>
+    <a rel = "facebox" href="/photos/edit/photoset/{{post.gallery.id}}" >
+        <input type="button" value="Редагувати альбом події"></a>
+
     {% else %}
     <p>{% trans "Ви не автор цієї новини" %}</p>
     {% endifequal %}
