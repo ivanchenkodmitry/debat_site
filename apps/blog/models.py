@@ -15,7 +15,7 @@ from photos.models import *
 from pytils.translit import slugify
 from django.utils.html import strip_tags
 
-EXCERT_LENGTH = 150
+EXCERT_LENGTH = 75
 
 if "notification" in settings.INSTALLED_APPS:
     from notification import models as notification

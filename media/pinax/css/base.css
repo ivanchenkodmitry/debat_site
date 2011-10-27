@@ -354,7 +354,6 @@ div.right_panel {
 }
 
 #news_block img{
-  width: 50px;
   float: left;
 }
 
@@ -372,4 +371,9 @@ div.right_panel {
 #user_news{
   float: right;
   width: 50%;
+}
+
+.news_excert{
+  padding-left: 80px;
+
 }
