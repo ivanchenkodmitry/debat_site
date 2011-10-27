@@ -5,7 +5,8 @@
 {% load blog_tags %}
 {% load extra_tagging_tags %}
 {% load group_tags %}
-{% load webdesign %} 
+{% load webdesign %}
+{% load resizeimg %}
 
 {% block head_title %}{% trans "Welcome" %}{% endblock %}
 {% block extra_head %}
@@ -53,10 +54,14 @@
         <div id="site_news">
         <h2>{% trans "Новини" %}</h2>
         {% for blog_post in adminposts|slice:":3" %}
-            <div class="news_item">
-                <img src=""/>
-                <a href="{{blog_post.get_absolute_url}}"><h3>{{blog_post.title}}</h3></a>
-                {{blog_post.excert}}
+        <div class="news_item">
+                <a href="{{blog_post.get_absolute_url}}">
+                    <img src="{{blog_post.image|resize_img:"75,75"}}"/>
+                </a>
+                <div class="news_excert">
+                    <a href="{{blog_post.get_absolute_url}}"><h3>{{blog_post.title}}</h3></a>
+                    {{blog_post.excert}}
+                </div>
             </div>
         {% endfor %}
         </div>
