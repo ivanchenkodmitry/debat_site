@@ -18,12 +18,19 @@
    
             
         <div id="post-gallery-photos">
-        	{% for photo in blog_post.gallery.photos.all %}
+           {% if blog_post.gallery %}
+
+          {% for photo in blog_post.gallery.photos.all %}
         		<img src="{{ photo.get_medium_url }}" /><br />
-        	{% endfor %}
+            {% endfor %}
+            {%else%}
+            df
+            {%endif%}
         </div>
         <div class="blog-tags">
             <p>{% show_tags_for blog_post %}</p>
         </div>
     </div>
-</div><HR>
+  </div><HR>
+
+ 
