@@ -10,8 +10,13 @@
 }
 .blog-post-meta {
     width: 200px;
-    float: left;
+    float: right;
     margin-left: 30px;
+}
+.blog-post-image {
+    width: 100px;
+    float: left;
+    margin-right: 10px;
 }
 .blog-post-meta img {
     border: 1px solid #666;

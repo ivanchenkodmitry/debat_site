@@ -4,8 +4,8 @@
 {% load extra_tagging_tags %}
      
 <div class="blog-post clearfix">
-    <div class= "blog-post-image">  {% if blog_post.image.thumbnail %}
-   <a href="{{ blog_post.get_absolute_url }}"><img src="{{blog_post.image.thumbnail.url}}"/></a> 
+    <div class= "blog-post-image">  {% if blog_post.image %}
+   <a href="{{ blog_post.get_absolute_url }}"><img src="{{blog_post.image.url}}"/></a> 
 {% endif %}</div>
  <h2><a href="{{ blog_post.get_absolute_url }}">{{ blog_post.title }}</a></h2>
     <div class="blog-post-tease">
