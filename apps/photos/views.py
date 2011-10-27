@@ -287,7 +287,7 @@ def newphotoset(request):
     return render_to_response('photos/newphotoset.html', {'photoset_form': photoset_form}, context_instance = RequestContext(request))
 
 def editphotoset(request, id):
-    photo_form = PhotoUploadForm
+    photo_form = PhotoUploadForm()
     photoset = get_object_or_404(PhotoSet, id = id)
     photoset_form = PhotoSetForm (instance = photoset)
 

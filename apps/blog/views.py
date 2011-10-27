@@ -124,7 +124,7 @@ def new(request, form_class=BlogForm, template_name="blog/new.html"):
 @login_required
 def edit(request, id, form_class=BlogForm, template_name="blog/edit.html"):
     post = get_object_or_404(Post, id=id)
-    blog_form = form_class(request.user, request.POST, request.FILES, instance=post)
+    blog_form = form_class(instance=post)
     if request.method == "POST":
         if post.author != request.user:
             request.user.message_set.create(message=u"Ви не можете редагувати чужі новини")
@@ -141,12 +141,7 @@ def edit(request, id, form_class=BlogForm, template_name="blog/edit.html"):
                         if friends: # @@@ might be worth having a shortcut for sending to all friends
                             notification.send((x['friend'] for x in Friendship.objects.friends_for_user(blog.author)), "blog_friend_post", {"post": blog})
                 
-                return HttpResponseRedirect(reverse("blog_list_yours"))
-        else:
-            blog_form = form_class(instance=post)
-    else:
-        blog_form = form_class(instance=post)
-
+             
     return render_to_response(template_name, {
         "blog_form": blog_form,
         "post": post,
