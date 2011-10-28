@@ -102,10 +102,12 @@
 <div class="thumb-row clearfix">
 {% for image in photoset.image_set.all %}
 <div class="gallery-photo-thumb">
-<a href="{{image.get_display_url}}" rel="lightbox[hri]" title = {{image.title}}>
+    <div class="thumb-image">
+        <a href="{{image.get_display_url}}" rel="lightbox[hri]" title = {{image.title}}>
+  <img src="{{image.get_thumbnail_url}}" />
+  </div>
 {{image.title}}
-      <img src="{{image.get_thumbnail_url}}" />
-  </a>
+        </a>
  
     </div>    
 {% endfor %}

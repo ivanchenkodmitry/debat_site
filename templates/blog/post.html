@@ -45,24 +45,27 @@
         </div>
                 
         {% show_blog_post_extended post %}
-            </div>
-
-{% if photoset.image_set.count%}      <h3>Альбом події</h3>{%endif%}
+{% if photoset.image_set.count%}      <h3>Галерея</h3>{%endif%}
 <div class="thumb-row clearfix">
 {% for image in photoset.image_set.all %}
 <div class="gallery-photo-thumb">
-<a href="{{image.get_display_url}}" rel="lightbox[hrp]" title = {{image.title}}>
+    <div class="thumb-image">
+        <a href="{{image.get_display_url}}" rel="lightbox[hri]" title = {{image.title}}>
+  <img src="{{image.get_thumbnail_url}}" />
+  </div>
 {{image.title}}
-      <img src="{{image.get_thumbnail_url}}" />
-  </a>
-  {%endfor%}
-
+        </a>
+ 
+    </div>    
+{% endfor %}
+</div>
 
 
     <div id="vk_like"></div>
 	<script type="text/javascript">
 	 VK.Widgets.Like("vk_like", {type: "button"});
 	</script>
+</div>
 
     
     <h3>Коментарі до новини:</h3>

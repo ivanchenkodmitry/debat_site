@@ -43,7 +43,7 @@ class Post(models.Model):
     created_at      = models.DateTimeField(_(u'Створено'), default=datetime.now)
     updated_at      = models.DateTimeField(_(u'Змінено'))
     tags            = TagField(u'Теги')
-    image = StdImageField(upload_to = "photos/", size=(400, 300), thumbnail_size=(150, 150))
+    image = StdImageField(upload_to = "photos/", size=(300, 230), thumbnail_size=(150, 150))
     gallery = models.ForeignKey(PhotoSet, blank = True, null = True)
     class Meta:
         verbose_name        = _('post')

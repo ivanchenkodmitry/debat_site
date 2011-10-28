@@ -20,11 +20,7 @@ a:link, a:visited, a:active, a:hover  { text-decoration: none; font-style: norma
         <p><b>{% trans "Опубліковано:" %}</b><br />
 
             <a href="{% url profile_detail blog_post.author.username %}">{{ blog_post.author.username }}</a> {% trans "on" %} {{ blog_post.publish|date }}</p>
-        <div id="post-gallery-photos">
-        	{% for photo in blog_post.gallery.photos.all %}
-        		<img src="{{ photo.get_medium_url }}" /><br />
-        	{% endfor %}
-        </div>
+
         <div class="blog-tags">
             <p>{% show_tags_for blog_post %}</p>
         </div>

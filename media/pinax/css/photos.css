@@ -10,7 +10,10 @@
     float: left;
     text-align: center;
 }
+.thumb-image {
+    height: 150px;
 
+}
 .photo-right-profile, .photo-right-tools {
     background: #DEF;
     padding: 8px;
