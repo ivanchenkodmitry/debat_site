@@ -110,7 +110,10 @@ def new(request, form_class=BlogForm, template_name="blog/new.html"):
                      if blog.status2 == 1:# published
                            if friends: # @@@ might be worth having a shortcut for sending to all friends
                              notification.send((x['friend'] for x in Friendship.objects.friends_for_user(blog.author)), "blog_friend_post", {"post": blog})
-                redirect_to = "/photos/edit/photoset/%i" % photoset.pk
+                if request.POST.get("photoset") == "1":
+                    redirect_to = reverse('photos.views.editphotoset', kwargs={"id": photoset.pk})
+                else:
+                    redirect_to = reverse("blog_list_yours")
                 return HttpResponseRedirect(redirect_to)
 
                

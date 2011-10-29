@@ -4,25 +4,6 @@
 
   $.fn.testeditor = function() {
     
-    submit = this.find(':submit').val()
-    
-    this.find(':submit').remove();
-    
-    this.after('\
-            <h2>Додаткові питання</h2>\
-            <form class="uniForm">\
-              <fieldset class="inlineLabels">\
-                <ul id="itemcontainer">\
-                </ul>\
-                <div class="form_block" style="padding: 7px;">\
-                    <a id="additem" href="javascript: void(0)">Додати питання</a>\
-                </div>\
-                <div class="form_block">\
-                    <input id="psevdosubmit" type="button" value="'+ submit +'">\
-                </div>\
-              </fieldset>\
-            </form>');
-    
     var itemnum = 0,
         optionnum = 0,
         maxitem = 10,
@@ -37,10 +18,6 @@
     
     this.submit(onSubmit); 
                
-    $('#psevdosubmit').click(function() {
-    $("#edit-profile").submit();
-    });
-    
     var data = $('#id_questions').val();
     
     if (data != '')  {       
