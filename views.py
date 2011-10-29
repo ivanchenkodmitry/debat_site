@@ -16,18 +16,14 @@ def homepage_view (request, template_name = "homepage.html"):
         
     events = Event.objects.filter(approved=True).order_by("title")
 
-    photos = Image.objects.all()
-    if photos.count():
-        rand_photo = photos[random.randint(0, (photos.count() - 1))]
-    else:
-        rand_photo = None
-    
+    rand_photos = Image.objects.order_by('?')
+        
 
 
     return render_to_response(template_name, {
 		"adminposts": adminposts,
 		'posts':posts,
 		'events': events,
-                'rand_photo': rand_photo,
+                'rand_photo': rand_photos,
 		}, context_instance=RequestContext(request))
 

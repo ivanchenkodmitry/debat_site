@@ -11,6 +11,10 @@
 {% block head_title %}{% trans "Welcome" %}{% endblock %}
 {% block extra_head %}
 <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/homepage.css" />
+<script type="text/javascript" src="{{ STATIC_URL }}js/lightbox/prototype.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/lightbox/scriptaculous.js?load=effects,builder"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/lightbox/lightbox.js"></script>
+<link rel="stylesheet" href="{{ STATIC_URL }}css/lightbox.css" type="text/css" media="screen" />
 {% endblock %}
 
 {% block body_class %}homepage{% endblock %}
@@ -62,7 +66,7 @@
                     <a href="{{blog_post.get_absolute_url}}"><h3>{{blog_post.title}}</h3></a>
                     {{blog_post.excert}}
                 </div>
-            </div>
+            </div><br>
         {% endfor %}
         </div>
         
@@ -77,10 +81,20 @@
       </div>
 
       {% if rand_photo %}
-      <h2>{% trans "Галерея" %}</h2>
-      <a href="{% groupurl photo_details group id=rand_photo.id %}">
-          <img src="{{ rand_photo.get_medium_url }}" alt="{{ rand_photo.title }}"/>
-      </a>
+      <h2>{% trans "Фотографії" %}</h2>
+      <div class="thumb-row clearfix">
+ {% for photo in rand_photo|slice:":8"%}
+<div class="gallery-photo-thumb">
+    <div class="thumb-image">
+        <a href="{{photo.get_display_url}}" rel="lightbox[hrx]" title = {{image.title}}>
+            <img src="{{photo.get_thumbnail_url}}"/>
+  </div>
+{{image.title}}
+        </a>
+ 
+    </div>    
+{% endfor %}
+</div>
       {% endif %}
     </td>
     <td class="right_panel">
