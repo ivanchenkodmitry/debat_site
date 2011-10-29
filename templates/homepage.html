@@ -55,33 +55,31 @@
      
       <div id="news_block">
         <div id="site_news">
-        <h2>{% trans "Новини" %}</h2>
-        {% for blog_post in adminposts|slice:":3" %}
-        <div class="news_item">
-                <a href="{{blog_post.get_absolute_url}}">
-                    <img src="{{blog_post.image|resize_img:"75,75"}}"/>
-                </a>
-                <div class="news_excert">
-                    <a href="{{blog_post.get_absolute_url}}"><h3>{{blog_post.title}}</h3></a>
-                    {{blog_post.excert}}
-                </div>
+          <h2>{% trans "Новини" %}</h2>
+          {% for blog_post in adminposts|slice:":3" %}
+            <div class="news_item">
+              <a href="{{blog_post.get_absolute_url}}">
+                <img src="{{blog_post.image|resize_img:"75,75"}}"/>
+              </a>
+              <div class="news_excert">
+                <a href="{{blog_post.get_absolute_url}}"><h3>{{blog_post.title}}</h3></a>
+                {{blog_post.excert}}
+              </div>
             </div><br>
-        {% endfor %}
+          {% endfor %}
         </div>
-        
         <div id="user_news">
           <h2>{% trans "Мої новини" %}</h2>
           {% for blog_post in posts|slice:":3" %}
-                      <div class="news_item">
-                <a href="{{blog_post.get_absolute_url}}">
-                    <img src="{{blog_post.image|resize_img:"75,75"}}"/>
-                </a>
-                <div class="news_excert">
-                    <a href="{{blog_post.get_absolute_url}}"><h3>{{blog_post.title}}</h3></a>
-                    {{blog_post.excert}}
-                </div>
+            <div class="news_item">
+              <a href="{{blog_post.get_absolute_url}}">
+                <img src="{{blog_post.image|resize_img:"75,75"}}"/>
+              </a>
+              <div class="news_excert">
+                <a href="{{blog_post.get_absolute_url}}"><h3>{{blog_post.title}}</h3></a>
+                {{blog_post.excert}}
+              </div>
             </div><br>
-
           {% endfor %}
         </div>
 
