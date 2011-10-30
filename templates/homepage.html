@@ -11,10 +11,6 @@
 {% block head_title %}{% trans "Welcome" %}{% endblock %}
 {% block extra_head %}
 <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/homepage.css" />
-<script type="text/javascript" src="{{ STATIC_URL }}js/lightbox/prototype.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}js/lightbox/scriptaculous.js?load=effects,builder"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}js/lightbox/lightbox.js"></script>
-<link rel="stylesheet" href="{{ STATIC_URL }}css/lightbox.css" type="text/css" media="screen" />
 {% endblock %}
 
 {% block body_class %}homepage{% endblock %}
@@ -115,9 +111,6 @@
     </td>
   </tr>
 </table>
-
-{% endblock %}
-{% block extra_body %}
 <script type="text/javascript" src="{{ STATIC_URL }}pinax/js/jcarousellite_1.0.1.min.js"></script>
 <script type="text/javascript">
 
@@ -130,4 +123,11 @@
     });
 
 </script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/lightbox/prototype.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/lightbox/scriptaculous.js?load=effects,builder"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/lightbox/lightbox.js"></script>
+<link rel="stylesheet" href="{{ STATIC_URL }}css/lightbox.css" type="text/css" media="screen" />
+
+{% endblock %}
+{% block extra_body %}
 {% endblock %}
