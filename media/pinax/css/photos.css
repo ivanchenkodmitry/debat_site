@@ -1,19 +1,19 @@
 /* PHOTOS */
 
 .thumb-row {
-    margin: 20px 0;
-    padding: 20px 0;
+    margin: 20px 0px 0px 10px;
+   
 }
 .gallery-photo-thumb {
     width: 150px;
     margin: 0px 10px 10px 10px;
     float: left;
     text-align: center;
-    background-color: #E8E8E8 ;
+    
 }
 .thumb-image {
     height: 150px;
-
+    background-color: #E8E8E8 ;
 }
 .photo-right-profile, .photo-right-tools {
     background: #DEF;
