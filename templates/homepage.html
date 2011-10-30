@@ -29,9 +29,11 @@
                 <li>
                   <div class="event_mini{% ifequal forloop.counter0 1 %} nearest{% endifequal %}">
                     <h3>{{ event.title }}</h3>
-                    <img style="width: 236px; height: 164px;" src="{{event.eventimage.url}}" alt="{{ event.title|truncatewords:"7" }}"/>
-                   <p>{{ event.date|date}}</p>
-                   <p>{{ event.address|truncatewords:"4" }}</p>
+                    <img style="width: 236px; height: 164px;" src="{{event.eventimage.url}}" alt="{{ event.title|truncatewords:"4" }}"/>
+                    <div style="width: 236px; height: 47px;">
+                        {{ event.date|date}}<br>
+                        {{ event.address|truncatewords:"4" }}
+                    </div>
                                         <div>
                     <a class="button" href="{% url event_join event.id%}">
                       <span>{% trans "Приєднатись" %}</span>
@@ -51,7 +53,7 @@
      
       <div id="news_block">
         <div id="site_news">
-        <h2>{% trans "Новини" %}</h2>
+            <h2>{% trans "Новини" %}</h2><p></p>
         {% for blog_post in adminposts|slice:":3" %}
         <div class="news_item">
                 <a href="{{blog_post.get_absolute_url}}">
