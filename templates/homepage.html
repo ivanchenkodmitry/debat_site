@@ -27,7 +27,7 @@
             <ul>
                 {% for event in events %}
                 <li>
-                  <div class="event_mini{% ifequal forloop.counter0 1 %} nearest{% endifequal %}">
+                  <div class="event_mini{% if nearest_event %}{% ifequal forloop.counter0 nearest_event %} nearest{% endifequal %}{% endif %}">
                     <h3>{{ event.title }}</h3>
                     <img style="width: 236px; height: 164px;" src="{{event.eventimage.url}}" alt="{{ event.title|truncatewords:"4" }}"/>
                     <div style="width: 236px; height: 47px;">
@@ -119,7 +119,7 @@
         btnPrev: ".prev",
         visible: 2,
         circular: false,
-	start: 1
+        start: {% if nearest_event %}{{nearest_event}}{% else %}{{ events.count|add:"-2" }}{% endif %}
     });
 
 </script>
