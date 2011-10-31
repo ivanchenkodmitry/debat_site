@@ -16,16 +16,6 @@
     <div class="blog-post-meta">
    
           
-        <div id="post-gallery-photos">
-           {% if blog_post.gallery %}
-           {{blog_post.gallery.photos }}
-          {% for photo in blog_post.gallery.photos_set.all %}
-        		<img src="{{ photo.get_medium_url }}" /><br />
-            {% endfor %}
-            {%else%}
-           nbkj df
-            {%endif%}
-        </div>
         <div class="blog-tags">
             <p>{% show_tags_for blog_post %}</p>
         </div>

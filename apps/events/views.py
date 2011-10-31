@@ -98,7 +98,10 @@ def add_event(request, form_class=EventForm, template_name="events/add_event.htm
 
             if not event.approved:
                 request.user.message_set.create(message=_(u"Адміністратор розгляне вашу заявку."))
-            redirect_to = "/photos/edit/photoset/%i" % photoset.pk
+            if request.POST.get("photoset") == "1":
+                redirect_to = reverse('photos.views.editphotoset', kwargs={"id": photoset.pk})
+            else:
+                redirect_to = reverse("event_details", kwargs={"id": event.id})
             return HttpResponseRedirect(redirect_to)
 #        else:
 #            event_form = form_class()

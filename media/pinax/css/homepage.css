@@ -29,14 +29,14 @@ background: url("images/lp-h2-bg.png") repeat-y scroll 0 0 transparent;
 }
 
 td.right_panel p {
-color: #898d8e;
+color: #6d7173;
 margin: 10px 10px;
 }
 
 /*Left panel*/
 
 td.left_panel h2 {
-color: #2a4678;
+color: #243f6f;
 /*background-color: #dfedf3;*/
 margin: 0;
 padding: 5px 10px;
@@ -73,7 +73,7 @@ height: 280px;
 }
 
 .event_mini h3{
-color: #878787;
+color: #6d7173;
 font-size: 14pt;
 font-weight: normal;
 margin: 0;
@@ -81,7 +81,7 @@ padding: 0 0 10px 0;
 }
 
 .event_mini p{
-color: #878787;
+color: #6d7173;
 }
 
 .nearest {
@@ -89,11 +89,11 @@ background-color: #9cd5ec;
 }
 
 .nearest h3{
-color: #2a4678;
+color: #2e5c7b;
 }
 
 .nearest p{
-color: #2a4678;
+color: #2e5c7b;
 }
 
 .prev {
@@ -150,7 +150,7 @@ padding: 5px 0 5px 16px;
 
 a.button:hover {
 background-position: bottom right;
-color: #2a4678;
+color: #2e5c7b;
 }
 
 a.button:hover span {

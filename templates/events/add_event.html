@@ -23,7 +23,21 @@
             <input type="button" value="Знайти на мапі" onclick="codeAddress()">
             <div class="form_block">
                 <input type="hidden" name="action" value="add" />
-                <input id="submit" type="submit" value="{% trans "Зберегти і перейти до альбому" %}" />
+                <input type="hidden" name="photoset" value="0" />
+            </div>
+        </fieldset>
+    </form>
+    <h2>{% trans "Додати питання" %}</h2>
+    <form class="uniForm">
+        <fieldset class="inlineLabels">
+            <ul id="itemcontainer">
+            </ul>
+            <div class="form_block" style="padding: 7px;">
+                <a id="additem" href="javascript: void(0)">{% trans "Додати питання" %}</a>
+            </div>
+            <div class="form_block">
+                <input id="pseudosubmit" type="button" value="{% trans "Зберегти" %}">
+                <input id="pseudosubmitphotoset" type="button" value="{% trans "Зберегти і перейти до альбому" %}">
             </div>
         </fieldset>
     </form>
@@ -33,25 +47,32 @@
 
 {% block extra_body %}
 
-		<link type="text/css" href="{{ STATIC_URL }}pinax/css/jquery-ui-1.8.14.custom.css" rel="stylesheet" />	
-   		<script type="text/javascript" src="{{ STATIC_URL }}pinax/js/topics.js"></script>
+        <link type="text/css" href="{{ STATIC_URL }}pinax/css/jquery-ui-1.8.14.custom.css" rel="stylesheet" />    
+        <script type="text/javascript" src="{{ STATIC_URL }}pinax/js/topics.js"></script>
 
-		<script type="text/javascript" src="{{ STATIC_URL }}pinax/js/jquery-ui-1.8.14.custom.min.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}pinax/js/jquery.json-2.2.min.js"></script>
-		<link type="text/css" href="{{ STATIC_URL }}pinax/css/customquestions.css" rel="stylesheet" />
-		<script type="text/javascript" src="{{ STATIC_URL }}pinax/js/customquestions.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}pinax/js/jquery-ui-1.8.14.custom.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}pinax/js/jquery.json-2.2.min.js"></script>
+        <link type="text/css" href="{{ STATIC_URL }}pinax/css/customquestions.css" rel="stylesheet" />
+        <script type="text/javascript" src="{{ STATIC_URL }}pinax/js/customquestions.js"></script>
 
 <script type="text/javascript">
 
-	$(function() {
-		$( "#id_date" ).datepicker({ 
-						dayNamesMin: ['Нд', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'], 
-						firstDay: 1,
-						dateFormat: 'yy-mm-dd',
-						monthNames: ['Січень','Лютий','Березень','Квітень','Травень','Червень','Липень','Серпень','Вересень','Жовтень','Листопад','Грудень'] 
-						});
-		$( "#edit-profile" ).testeditor();
-	});
-	</script>
+    $(function() {
+        $( "#id_date" ).datepicker({ 
+                        dayNamesMin: ['Нд', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'], 
+                        firstDay: 1,
+                        dateFormat: 'yy-mm-dd',
+                        monthNames: ['Січень','Лютий','Березень','Квітень','Травень','Червень','Липень','Серпень','Вересень','Жовтень','Листопад','Грудень'] 
+                        });
+        $('#edit-profile').testeditor();
+        $('#pseudosubmit').click(function() {
+            $('#edit-profile').submit();
+        });
+        $('#pseudosubmitphotoset').click(function() {
+            $('#edit-profile input:hidden[name="photoset"]').val("1");
+            $('#edit-profile').submit();
+        });
+    });
+    </script>
 {% endblock %}
 

@@ -27,13 +27,14 @@
             <ul>
                 {% for event in events %}
                 <li>
-                  <div class="event_mini{% ifequal forloop.counter0 1 %} nearest{% endifequal %}">
+                  <div class="event_mini{% if nearest_event %}{% ifequal forloop.counter0 nearest_event %} nearest{% endifequal %}{% endif %}">
                     <h3>{{ event.title }}</h3>
-                    <img style="width: 236px; height: 164px;" src="http://ompldr.org/vYXdvdw/no_image.jpeg" alt="{{ event.title }}"/>
-                    <p>{{ event.description }}</p>
-                    <p>{{ event.address }}</p>
-                    <p>{{ event.date|date}}</p>
-                    <div>
+                    <img style="width: 236px; height: 164px;" src="{{event.eventimage.url}}" alt="{{ event.title|truncatewords:"4" }}"/>
+                    <div style="width: 236px; height: 47px;">
+                        {{ event.date|date}}<br>
+                        {{ event.address|truncatewords:"4" }}
+                    </div>
+                                        <div>
                     <a class="button" href="{% url event_join event.id%}">
                       <span>{% trans "Приєднатись" %}</span>
                     </a>
@@ -52,7 +53,7 @@
      
       <div id="news_block">
         <div id="site_news">
-        <h2>{% trans "Новини" %}</h2>
+            <h2>{% trans "Новини" %}</h2><p></p>
         {% for blog_post in adminposts|slice:":3" %}
         <div class="news_item">
                 <a href="{{blog_post.get_absolute_url}}">
@@ -62,14 +63,21 @@
                     <a href="{{blog_post.get_absolute_url}}"><h3>{{blog_post.title}}</h3></a>
                     {{blog_post.excert}}
                 </div>
-            </div>
-        {% endfor %}
+            </div><br>
+          {% endfor %}
         </div>
-        
         <div id="user_news">
           <h2>{% trans "Мої новини" %}</h2>
           {% for blog_post in posts|slice:":3" %}
-              
+            <div class="news_item">
+              <a href="{{blog_post.get_absolute_url}}">
+                <img src="{{blog_post.image|resize_img:"75,75"}}"/>
+              </a>
+              <div class="news_excert">
+                <a href="{{blog_post.get_absolute_url}}"><h3>{{blog_post.title}}</h3></a>
+                {{blog_post.excert}}
+              </div>
+            </div><br>
           {% endfor %}
         </div>
 
@@ -77,10 +85,20 @@
       </div>
 
       {% if rand_photo %}
-      <h2>{% trans "Галерея" %}</h2>
-      <a href="{% groupurl photo_details group id=rand_photo.id %}">
-          <img src="{{ rand_photo.get_medium_url }}" alt="{{ rand_photo.title }}"/>
-      </a>
+      <h2>{% trans "Фотографії" %}</h2>
+      <div class="thumb-row clearfix">
+ {% for photo in rand_photo|slice:":8"%}
+<div class="gallery-photo-thumb">
+    <div class="thumb-image">
+        <a href="{{photo.get_display_url}}" rel="lightbox[hrx]" title = {{image.title}}>
+            <img src="{{photo.get_thumbnail_url}}"/>
+  </div>
+{{image.title}}
+        </a>
+ 
+    </div>    
+{% endfor %}
+</div>
       {% endif %}
     </td>
     <td class="right_panel">
@@ -93,9 +111,6 @@
     </td>
   </tr>
 </table>
-
-{% endblock %}
-{% block extra_body %}
 <script type="text/javascript" src="{{ STATIC_URL }}pinax/js/jcarousellite_1.0.1.min.js"></script>
 <script type="text/javascript">
 
@@ -104,8 +119,15 @@
         btnPrev: ".prev",
         visible: 2,
         circular: false,
-	start: 1
+        start: {% if nearest_event %}{{nearest_event}}{% else %}{{ events.count|add:"-2" }}{% endif %}
     });
 
 </script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/lightbox/prototype.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/lightbox/scriptaculous.js?load=effects,builder"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/lightbox/lightbox.js"></script>
+<link rel="stylesheet" href="{{ STATIC_URL }}css/lightbox.css" type="text/css" media="screen" />
+
+{% endblock %}
+{% block extra_body %}
 {% endblock %}

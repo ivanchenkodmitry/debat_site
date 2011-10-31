@@ -22,9 +22,9 @@
             "watermark": null,
             "increment_count": false,
             "effect": null,
-            "crop": true,
-            "height": 75,
-            "width": 100,
+            "crop": false,
+            "height": 150,
+            "width": 150,
             "upscale": false,
             "pre_cache": false,
             "quality": 70

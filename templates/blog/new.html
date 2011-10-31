@@ -11,27 +11,32 @@
     <form enctype="multipart/form-data"  class="uniForm" id="edit-blog" method="POST" action="">
         <fieldset class="inlineLabels">
           {{ blog_form|as_uni_form }}
-            <div class="form_block">
             <input type="hidden" name="action" value="create" />
-                        
+            <input type="hidden" name="photoset" value="0" />
+            <div class="form_block">
+                <input id="pseudosubmit" type="button" value="{% trans "Зберегти" %}">
+                <input id="pseudosubmitphotoset" type="button" value="{% trans "Зберегти і перейти до альбому" %}">
             </div>
         </fieldset>
         
         
     </form>
-
-
-<button onclick="$('#edit-blog').submit()">Зберегти та перейти до альбому</button>
-
     
 {% endblock %}
 
 {% block extra_body %}
-    {% load jquery_validation %}
-    {% include_validation %}
+    {# {% load jquery_validation %} #}
+    {# {% include_validation %} #}
     <script type="text/javascript">
         $(function(){
-            $('#blog_form').validate('{% url blog_form_validate %}', {type: 'table'});
+           // $('#edit-blog').validate('{% url blog_form_validate %}', {type: 'table'});
+            $('#pseudosubmit').click(function() {
+                $('#edit-blog').submit();
+            });
+            $('#pseudosubmitphotoset').click(function() {
+                $('#edit-blog input:hidden[name="photoset"]').val("1");
+                $('#edit-blog').submit();
+            });
         });
     </script>
 {% endblock %}
