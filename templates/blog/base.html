@@ -16,3 +16,14 @@
         &nbsp;
     {% endif %}
 {% endblock %}
+
+{% block extra_head %}
+    <style>
+        .uniForm .inlineLabels textarea{
+            width: 400px;
+        }
+        .uniForm .inlineLabels label, .uniForm .inlineLabels .label{
+            width: 300px;
+        }
+    </style>
+{% endblock %}
