@@ -15,7 +15,7 @@
     <form class="uniForm" id="edit-profile" method="POST" enctype="multipart/form-data" action="" >
         <fieldset class="inlineLabels">
             {{ event_form|as_uni_form }}
-            <input type="button" value="Geocode" onclick="codeAddress()"> 
+            
             <div class="form_block">
                 <input type="hidden" name="action" value="update" />
                 <input type="submit" value="{% trans "Зберегти" %}" /> 
