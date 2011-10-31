@@ -55,5 +55,29 @@ $().ready(function() {
     $('textarea#id_body').css({'width': '700px', 'height': '400px'});
     $('textarea#id_body').addClass('mceEditor');
     //$('textarea#id_body').tinymce(tinymceOptions);
-
+    adjustFooterPos();
 });
+
+var viewportwidth;
+var viewportheight;
+
+function getViewPort(){
+    if(!(document.documentElement.clientWidth == 0)) {
+        viewportwidth = document.documentElement.clientWidth;
+        viewportheight = document.documentElement.clientHeight;
+        }
+    else {
+        viewportwidth = document.body.clientWidth;
+        viewportheight = document.body.clientHeight;
+       }
+    } 
+
+function adjustFooterPos(){
+    getViewPort();
+    var min_height = viewportheight - 375;
+    jQuery('#body').css({'min-height': min_height + 'px'});
+}
+
+window.onresize= function(){
+    adjustFooterPos();
+}
