@@ -18,12 +18,13 @@
             <input type="button" value="Geocode" onclick="codeAddress()"> 
             <div class="form_block">
                 <input type="hidden" name="action" value="update" />
-                <input type="submit" value="{% trans "Зберегти" %}" />
+                <input type="submit" value="{% trans "Зберегти" %}" /> 
+                <a  href="/photos/edit/photoset/{{event.gallery.id}}" ><input type="button" value="Редагувати альбом події"></a>
+
             </div>
         </fieldset>
     </form>
-    <a rel = "facebox" href="/photos/edit/photoset/{{event.gallery.id}}" ><input type="button" value="Редагувати альбом події"></a>
-</div>
+  </div>
 
 {% endblock %}
 

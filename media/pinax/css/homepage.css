@@ -67,7 +67,7 @@ display: block;
 }
 
 .event_mini {
-margin: 8px;
+margin: 8px 0 10px 10px;
 padding: 10px 0 10px 16px;
 height: 280px;
 }
@@ -85,7 +85,7 @@ color: #6d7173;
 }
 
 .nearest {
-background-color: #9cd5ec;
+background: url("images/carousel-item-bg.png") repeat-x scroll 0 0 transparent;
 }
 
 .nearest h3{
