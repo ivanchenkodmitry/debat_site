@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/announcements.css" />
         <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/accounts.css" />
         <link rel="stylesheet" href="{{ STATIC_URL }}uni_form/uni-form.css" />
-<link type="text/css" href="{{ STATIC_URL }}pinax/css/jquery-ui-1.8.14.custom.css" rel="stylesheet" />	
+<link type="text/css" href="{{ STATIC_URL }}pinax/css/jquery-ui-1.8.14.custom.css" rel="stylesheet" />    
 <script type="text/javascript" src="{{ STATIC_URL }}pinax/js/jquery-1.5.1.min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}pinax/js/jquery-ui-1.8.14.custom.min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}pinax/js/jquery.json-2.2.js"></script> {% endblock %}
@@ -35,9 +35,9 @@
     <body class="{% block body_class %}{% endblock %}" {% block body_param %}{% endblock %} >
     
     <div id="social_links">
-    	<a href="javascript: void(0)"><img src="{{ STATIC_URL }}pinax/images/twitter.png" /></a>
-    	<a href="javascript: void(0)"><img src="{{ STATIC_URL }}pinax/images/facebook.png" /></a>
-    	<a href="javascript: void(0)"><img src="{{ STATIC_URL }}pinax/images/vkontakte.png" /></a>
+        <a href="javascript: void(0)"><img src="{{ STATIC_URL }}pinax/images/twitter.png" /></a>
+        <a href="javascript: void(0)"><img src="{{ STATIC_URL }}pinax/images/facebook.png" /></a>
+        <a href="javascript: void(0)"><img src="{{ STATIC_URL }}pinax/images/vkontakte.png" /></a>
     </div>
     {% if not request.user.is_authenticated %}
     <div id="joinus" onclick="window.location='/account/signup'"></div>
@@ -62,16 +62,18 @@
         </div>
         </div>
         <div id="main_menu_wrap" >
-        	<div id="main_menu">
-        		{% block right_tabs %}{% endblock %}
-        	</div>
+            <div id="main_menu">
+                {% block right_tabs %}{% endblock %}
+            </div>
         </div>        
         
         {% block body_outer %}
         <div id="body">
-        	{% if user.is_authenticated %}
-        		<div id="subnav" class="clearfix">{% block subnav_base %}<div class="clearfix">{% block subnav %}&nbsp;{% endblock %}</div>{% endblock %}</div>
-        	{% endif %}	
+            {% block subnav_full %}
+            {% if user.is_authenticated %}
+                <div id="subnav" class="clearfix">{% block subnav_base %}<div class="clearfix">{% block subnav %}&nbsp;{% endblock %}</div>{% endblock %}</div>
+            {% endif %}
+            {% endblock %}
             {% if messages %}
                 <ul id="messages">
                     {% for message in messages %}
