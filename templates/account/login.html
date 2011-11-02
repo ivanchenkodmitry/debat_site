@@ -49,6 +49,7 @@
     			<a onclick="return vk_login();" href="#">Войти используя аккаунт Вконтакте</a>
             </div>
             {{ form|as_uni_form }}
+            <input type="hidden" name="next" value="{{ request.GET.next }}" />
             <div class="form_block">
                 <input type="submit" value="{% trans "Log in &raquo;" %}" />
             </div>

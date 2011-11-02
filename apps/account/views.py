@@ -41,11 +41,15 @@ from avatar.models import Avatar
 #    from django_openid.models import UserOpenidAssociation
 
 def login(request, form_class=LoginForm, template_name="account/login.html",
-          success_url=None, associate_openid=False, openid_success_url=None,
-          url_required=False, extra_context=None):
+          success_url=None,
+#          associate_openid=False,
+#          openid_success_url=None,
+          url_required=False,
+          extra_context=None):
     if extra_context is None:
         extra_context = {}
-    success_url = '/' # Niko: hrdcoded success url here
+    if success_url is None:
+        success_url = get_default_redirect(request)
     if request.method == "POST" and not url_required:
         form = form_class(request.POST)
         if form.login(request):

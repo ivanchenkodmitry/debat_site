@@ -262,8 +262,8 @@ CONTACT_EMAIL = "emailfordevelop@gmail.com"
 SITE_NAME = "Pinax"
 
 LOGIN_URL = "/account/login/"
-LOGIN_REDIRECT_URLNAME = "what_next"
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URLNAME = "home"
+#LOGIN_REDIRECT_URL = '/'
 INTERNAL_IPS = (
     '127.0.0.1',
 )
