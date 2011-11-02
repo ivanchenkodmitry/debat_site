@@ -123,7 +123,19 @@
         btnPrev: ".prev",
         visible: 2,
         circular: false,
-        start: {% if nearest_event %}{{nearest_event}}{% else %}{{ events.count|add:"-2" }}{% endif %}
+        start: {% spaceless %}
+               {% with events.count|add:"-1"  as count0 %}
+               {% if nearest_event %}
+                   {% ifequal count0 nearest_event %}
+                   {{ events.count|add:"-2" }}
+                   {% else %}
+                   {{ nearest_event  }}
+                   {% endifequal %}
+               {% else %}
+               {{ events.count|add:"-2" }}
+               {% endif %}
+               {% endwith %}
+               {% endspaceless %}
     });
 
 </script>
