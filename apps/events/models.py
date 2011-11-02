@@ -12,6 +12,8 @@ from stdimage import StdImageField
 from django.utils.translation import ugettext_lazy as _
 from django.utils import simplejson
 
+TITLE_EXCERPT_LENGTH = 22
+
 class Event(models.Model):
     """
     An event with its details
@@ -33,6 +35,14 @@ class Event(models.Model):
         
     def user_is_member(self, user):
         return user in self.members.all()
+        
+    @property
+    def title_excerpt(self):
+        if len(self.title) > TITLE_EXCERPT_LENGTH:
+            result = ''.join([self.title[:TITLE_EXCERPT_LENGTH], '...'])
+        else:
+            result = self.title
+        return result
         
     def get_table_data(self):
         """

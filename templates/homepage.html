@@ -31,8 +31,8 @@
                 {% for event in events %}
                 <li>
                   <div class="event_mini{% if nearest_event %}{% ifequal forloop.counter0 nearest_event %} nearest{% endifequal %}{% endif %}">
-                    <h3>{{ event.title }}</h3>
-                    <img style="width: 236px; height: 164px;" src="{{event.eventimage.url}}" alt="{{ event.title|truncatewords:"4" }}"/>
+                    <h3>{{ event.title_excerpt }}</h3>
+                    <img style="width: 236px; height: 164px;" src="{{event.eventimage.url}}" alt="{{ event.title }}"/>
                     <div style="width: 236px; height: 47px;">
                         {{ event.date|date}}<br>
                         {{ event.address|truncatewords:"4" }}
