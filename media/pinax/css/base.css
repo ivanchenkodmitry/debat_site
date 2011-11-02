@@ -377,3 +377,17 @@ div.right_panel {
   padding-left: 80px;
 
 }
+
+span.forgot_password{
+    font-size: 14pt;
+    margin-left: 20px;
+}
+
+span.login_vk{
+    font-size: 14pt;
+    margin-left: 20px;
+}
+
+span.login_vk img{
+margin-bottom: -7px
+}

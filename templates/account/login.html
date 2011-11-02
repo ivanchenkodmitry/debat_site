@@ -45,13 +45,18 @@
     <form class="login uniForm" method="POST" action="{% url acct_login %}">
         <fieldset class="inlineLabels">
             <div class="form_block">
-                <a href="{% url acct_passwd_reset %}">{% trans "Forgot password?" %}</a>
-    			<a onclick="return vk_login();" href="#">Войти используя аккаунт Вконтакте</a>
             </div>
             {{ form|as_uni_form }}
             <input type="hidden" name="next" value="{{ request.GET.next }}" />
             <div class="form_block">
-                <input type="submit" value="{% trans "Log in &raquo;" %}" />
+                <input type="submit" value="{% trans "Увійти &raquo;" %}" />
+                <span class="login_vk">
+                    <img src="{{STATIC_URL}}pinax/images/vkontakte.png" style="" />
+                        <a onclick="return vk_login();" href="#">Войти используя аккаунт Вконтакте</a>
+                </span>
+                <span class="forgot_password">
+                        <a href="{% url acct_passwd_reset %}">{% trans "Загубили пароль?" %}</a>
+                </span>
             </div>
         </fieldset>
     </form>
