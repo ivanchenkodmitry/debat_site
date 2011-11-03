@@ -32,9 +32,11 @@
                 <li>
                   <div class="event_mini{% if nearest_event %}{% ifequal forloop.counter0 nearest_event %} nearest{% endifequal %}{% endif %}">
                     <h3>{{ event.title_excerpt }}</h3>
-                    <img style="width: 236px; height: 164px;" src="{{event.eventimage.url}}" alt="{{ event.title }}"/>
+                    <a href="{% url event_details event.id%}">
+                        <img src="{{event.eventimage|resize_img:"236,164"}}" alt="{{ event.title }}"/>
+                    </a>
                     <div style="width: 236px; height: 47px;">
-                        {{ event.date|date}}<br>
+                        {{ event.date|date }}<br>
                         {{ event.address|truncatewords:"4" }}
                     </div>
                                         <div>
@@ -105,13 +107,11 @@
       {% endif %}
     </td>
     <td class="right_panel">
-      <h2>{% trans "Новини" %}</h2>
+      <h2>{% trans "Про нас" %}</h2>
       <p>{% lorem random %}</p>
+      
+      <h2>{% trans "Учасники" %}</h2>
 
-      <h2>{% trans "Новини" %}</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      <h2>{% trans "Новини" %}</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
     </td>
   </tr>
 </table>
