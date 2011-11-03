@@ -38,8 +38,17 @@
 	<div id="div_id_university" class="ctrlHolder">
 	           <label for="id_university">                    
 	                   Університет:
-	           </label><a href="/universities/{{ university.id }}">   {{ club.university }}  </a>  
+                   </label>
+                   {#<a href="/universities/{{ university.id }}">   {{ club.university }}  </a>  #}
+                   {{club.university}}
      
+    </div>
+
+    <div id="div_id_description">
+            <label>{% trans "Опис клубу" %}</label>:
+            <p>
+                {{club.description}}
+            </p>
     </div>
 
 	<div id="div_id_address" class="ctrlHolder">

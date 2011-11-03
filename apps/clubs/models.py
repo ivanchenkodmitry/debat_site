@@ -12,7 +12,10 @@ class Club(models.Model):
     Club with its details
     """
     title = models.CharField(_(u'Назва'), max_length=200)
-    university = models.ForeignKey(University)
+    #university = models.ForeignKey(University)
+    #while use just plain text university field
+    university = models.CharField(max_length=1024, blank=True, null=False, default='')
+    description = models.TextField(blank=True, null=False, default='')
     date = models.DateField(_(u'Дата створення'), default=datetime.now)
     address = models.TextField(_(u'Адреса'), blank=True)
     admin = models.ForeignKey(User)
