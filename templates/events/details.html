@@ -1,0 +1,126 @@
+{% extends "events/base.html" %}
+
+{% load i18n %}
+{% load humanize %}
+{% load pagination_tags %}
+{% load tagging_tags %}
+{% load group_tags %}
+{% load threadedcommentstags %}
+{% load theme_tags %}
+{% load comments_tag %}
+{% load avatar_tags %}
+
+{% block head_title %}{% blocktrans %}Деталі події{% endblocktrans %}{% endblock %}
+
+
+
+
+{% block body_param %} onload="initialize()" {% endblock %}
+{% block body %}
+<script type="text/javascript" src="{{ STATIC_URL }}js/lightbox/prototype.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/lightbox/scriptaculous.js?load=effects,builder"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/lightbox/lightbox.js"></script>
+<link rel="stylesheet" href="{{ STATIC_URL }}css/lightbox.css" type="text/css" media="screen" />
+    <div class="right_panel">
+       <h1>{% trans "Місце проведення" %}</h1>
+  {% include "map.html" %}
+  <p><div id="div_id_address" class="ctrlHolder">
+	           <label for="id_address">                    
+	                  <b>Адреса:</b><br>
+ 
+	           </label>
+	      {{ event.address }} 
+      </div></p>
+
+
+    </div>
+    
+      <div class="left_panel">
+
+
+    <h1>{% trans "Деталі події" %}</h1>
+
+	<div id="div_id_title" class="ctrlHolder">
+        <h3>  {{ event.title }} </h3>
+
+    </div><P>
+	<div id="div_id_details" class="ctrlHolder">
+	           <label for="id_details">                    
+                   <b>Деталі:</b><br>
+	           </label>
+      {{ event.description }}
+  </div></P>
+
+
+	<P>
+<div id="div_id_date" class="ctrlHolder">
+	           <label for="id_date">                    
+	                  <b>Дата проведення:</b><br>
+	           </label>
+	        {{ event.date }} 
+    </div></P>
+
+
+	<div id="div_id_date" class="ctrlHolder">
+	           <label for="id_date">                    
+                   <b>Ініціатор:</b>
+	           </label>
+	        {{ event.creator.get_profile.surname }} {{ event.creator.get_profile.name }} 
+             </div>
+    	{% if is_me %}
+		<a href="/events/edit/{{ event.id }}"> <P> Редагувати подію </P> </a>        
+		<a href="/events/destroy/{{ event.id }}"> <P> Видалити подію </P> </a>
+		{% if event.questions %}
+		<a href="/events/answers/{{ event.id }}"> <P> Переглянути відповіді </P> </a>   
+		{% endif%}
+	{% endif %}
+
+
+
+	{% if is_member %}
+		<!-- <a href="/events/leave/{{ event.id }}"> <P>Покинути подію</P> </a> -->
+		<a href="/events/members/{{ event.id }}"> <P> Учасники </P> </a>
+	{% else %}
+		<a href="/events/join/{{ event.id }}"> <P> Приєднатись до події </P> </a>
+	{% endif %}
+
+        <h3>Учасники події:</h3>
+
+	<div name = "members" class="thumb-row clearfix">
+    {% for member in event.members.all %}
+        <div name = "member" style="float:left; margin: 10px; text-align: center">  
+			<div name = "avatar">
+				<a href="{% url profile_detail member.username %}">
+					<img src="{% avatar_url member 80 %}" alt="Avatar of {{ member.get_profile }}"/> </a> </div>
+			<div name = "username">
+				<a href="{% url profile_detail member.username %}"> {{ member.get_profile }} </a> </div>
+		</div>
+	{% endfor %}
+</div>
+
+{% if photoset.image_set.count%}      <h3>Альбом події</h3>{%endif%}
+<div class="thumb-row clearfix">
+{% for image in photoset.image_set.all %}
+<div class="gallery-photo-thumb">
+    <div class="thumb-image">
+        <a href="{{image.get_display_url}}" rel="lightbox[hri]" title = {{image.title}}>
+  <img src="{{image.get_thumbnail_url}}" />
+  </div>
+{{image.title}}
+        </a>
+ 
+    </div>    
+{% endfor %}
+</div>
+
+	<div name = "comments" style="clear:left">
+
+        <h3>Коментарі події:</h3>
+         	{% comments event %}
+
+	</div>
+</div>
+{% endblock %}
+
+
+
