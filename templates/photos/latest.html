@@ -22,7 +22,7 @@
             <div class="thumb-image">
             {% if photoset.image_set.count %}
                 <a href="/photos/photoset/{{photoset.id}}">
-                    <img src="{{photoset.first_image.get_thumbnail_url}}" />
+                	<div style = "background:url('{{photoset.first_image.get_thumbnail_url}}'); background-repeat:no-repeat; background-position:center; height: 150px;"></div>
                 </a>
             {% else %}
                 <a href="/photos/photoset/{{photoset.id}}">
