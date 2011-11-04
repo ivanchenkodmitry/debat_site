@@ -171,10 +171,10 @@ class SignupForm(forms.Form):
     vk_id = forms.CharField(label = _('ID Вконтакті'), required = False, widget = forms.HiddenInput())
 
 
-#    recaptcha = ReCaptchaField(error_messages = {
-#            'required': u'Це поле обов’язкове',
-#            'invalid' : u'Невірне значення'
-#            })
+    recaptcha = ReCaptchaField(error_messages = {
+            'required': u'Це поле обов’язкове',
+            'invalid' : u'Невірне значення'
+            })
 
     confirmation_key = forms.CharField(max_length = 40, required = False, widget = forms.HiddenInput())
 
