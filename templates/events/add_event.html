@@ -50,34 +50,64 @@
         <script type="text/javascript" src="{{ STATIC_URL }}pinax/js/topics.js"></script>
 
         <script type="text/javascript" src="{{ STATIC_URL }}pinax/js/jquery-ui-1.8.14.custom.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}pinax/js/jquery-ui-timepicker-addon.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}pinax/js/jquery.json-2.2.min.js"></script>
         <link type="text/css" href="{{ STATIC_URL }}pinax/css/customquestions.css" rel="stylesheet" />
         <script type="text/javascript" src="{{ STATIC_URL }}pinax/js/customquestions.js"></script>
+        
+
 
 <script type="text/javascript">
 
-    $(function() {
-        $( "#id_date_begin" ).datepicker({ 
-                        dayNamesMin: ['Нд', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'], 
-                        firstDay: 1,
-                        dateFormat: 'yy-mm-dd',
-                        monthNames: ['Січень','Лютий','Березень','Квітень','Травень','Червень','Липень','Серпень','Вересень','Жовтень','Листопад','Грудень'] 
-                        });
-		$( "#id_date_end" ).datepicker({ 
-                        dayNamesMin: ['Нд', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'], 
-                        firstDay: 1,
-                        dateFormat: 'yy-mm-dd',
-                        monthNames: ['Січень','Лютий','Березень','Квітень','Травень','Червень','Липень','Серпень','Вересень','Жовтень','Листопад','Грудень'] 
-                        });
-        $('#edit-profile').testeditor();
-        $('#pseudosubmit').click(function() {
-            $('#edit-profile').submit();
-        });
-        $('#pseudosubmitphotoset').click(function() {
-            $('#edit-profile input:hidden[name="photoset"]').val("1");
-            $('#edit-profile').submit();
-        });
+$(function() {
+		
+	$.datepicker.regional['ru'] = {
+		closeText: 'Закрити',
+		prevText: '<Попер',
+		nextText: 'Наст>',
+		currentText: 'Сьогодні',
+		monthNames: ['Січень','Лютий','Березень','Квітень','Травень','Червень','Липень','Серпень','Вересень','Жовтень','Листопад','Грудень'],
+		monthNamesShort: ['Січ','Лют','Бер','Квіт','Трав','Черв','Лип','Серп','Вер','Жов','Лист','Груд'],
+		dayNames: ['неділя','понеділок','вівторок','середа','четвер','п\'ятниця','субота'],
+		dayNamesShort: ['нед','пон','вівт','сер','чт','пт','суб'],
+		dayNamesMin: ['Нд', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'], 
+		weekHeader: 'Не',
+		dateFormat: 'yy-mm-dd',
+		firstDay: 1,
+		isRTL: false,
+		showMonthAfterYear: false,
+		yearSuffix: ''
+	};
+	$.datepicker.setDefaults($.datepicker.regional['ru']);
+
+	$.timepicker.regional['ru'] = {
+		timeOnlyTitle: 'Виберіть час',
+		timeText: 'Час',
+		hourText: 'Години',
+		minuteText: 'Хвилини',
+		secondText: 'Секунди',
+		millisecText: 'Мылысекунди',
+		currentText: 'Зараз',
+		closeText: 'Закрити',
+		ampm: false,
+		hourGrid: 4,
+		minuteGrid: 10
+	};
+	
+	$.timepicker.setDefaults($.timepicker.regional['ru']);
+    
+    $( "#id_date_begin" ).datetimepicker();
+	$( "#id_date_end" ).datetimepicker();
+	
+    $('#edit-profile').testeditor();
+    $('#pseudosubmit').click(function() {
+        $('#edit-profile').submit();
     });
+    $('#pseudosubmitphotoset').click(function() {
+        $('#edit-profile input:hidden[name="photoset"]').val("1");
+        $('#edit-profile').submit();
+    });
+});
     </script>
 {% endblock %}
 

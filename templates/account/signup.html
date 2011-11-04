@@ -10,18 +10,7 @@
     <script src="http://vkontakte.ru/js/api/openapi.js" type="text/javascript" charset="windows-1251"></script>
     <script type="text/javascript">
     
-    $(function() {
-
-	var button = document.createElement("INPUT");
-	var soc_web = document.getElementById("div_id_website");
-	button.type = "button";
-	button.value = "Отримати з vk.com";
-	button.onclick = function (){ return vk_signup(); }
-	soc_web.appendChild(button)
-	
-    });
-    
-    
+     
     VK.init({
         apiId: 2428870,
         nameTransportPath: '{% url home %}'
