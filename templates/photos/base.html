@@ -5,7 +5,9 @@
 
 {% block body_class %}photos{% endblock %}
 
-{% block subnav %}
+{% block subnav_full %}
+<div id="subnav" class="clearfix">
+<div class="clearfix">
     {% if user.is_authenticated %}
         <ul>
              <li><a href={% url photos %}>{% trans "Альбоми користувачів" %}</a></li>
@@ -19,4 +21,5 @@
              <li><a href={% url recentphotos %}>{% trans "Останні фотографії" %}</a></li>
        </ul>
     {% endif %}
+</div></div>
 {% endblock %}

@@ -29,5 +29,5 @@ class Club(models.Model):
 class Verification(models.Model):
 	club = models.ForeignKey(Club)
 	member = models.ForeignKey(User)
-	is_approved = models.BooleanField(u'Підтвердити', default = False)
+	is_approved = models.BooleanField(u'Підтвердити', default = True)
 
