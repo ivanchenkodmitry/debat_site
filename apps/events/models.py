@@ -20,7 +20,8 @@ class Event(models.Model):
     """
     title = models.CharField(_('title'), max_length=50)
     description = models.TextField(_('description'), blank=True)
-    date = models.DateTimeField(_('date'), default=datetime.now)
+    date_begin = models.DateTimeField(_('date_begin'), default=datetime.now)
+    date_end = models.DateTimeField(_('date_end'), default=datetime.now)
     address = models.TextField(_('addres'), blank=True)
     date_added = models.DateTimeField(_('date added'), default=datetime.now, editable=False)
     creator = models.ForeignKey(User, related_name="%(class)s_created")

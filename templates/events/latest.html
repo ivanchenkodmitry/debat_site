@@ -28,7 +28,9 @@ margin-top: 30px;
 margin-right: 20px;}
 
 </style>
-<h1>{% trans "Події" %}<span style="float: right; font-size:12pt; font-weight:bold; margin-top: 10px; margin-right: 17px;" >Час проведення:</span></h1>
+<h1>{% trans "Події" %}<span style="float: right; font-size:12pt; font-weight:bold; margin-top: 10px; margin-right: 45px;" >Кінець:</span>
+<span style="float: right; font-size:12pt; font-weight:bold; margin-top: 10px; margin-right: 75px;" >Початок:</span>
+</h1>
     
 	
         {% for event in events %}
@@ -42,7 +44,8 @@ margin-right: 20px;}
             
             <div class="event-tease">
                 <h2> {{ event.title }}</h2></a> <br> {{ event.address }}</div> 
-        <div class="event-date">{{event.date}}</div>
+        <div class="event-date">{{event.date_begin}}</div>
+        <div class="event-date">{{event.date_end}}</div>
     </div>  
     {% endfor %}
    

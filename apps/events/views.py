@@ -18,7 +18,7 @@ from events.forms import EventForm, QuestionsForm
 
 def events_widget(request, template_name = "homepage.html"):
 
-    events = Event.objects.filter(approved=True).order_by("-date")
+    events = Event.objects.filter(approved=True).order_by("-date_begin")
     
     return render_to_response(template_name, {
         "events": events,
@@ -138,7 +138,7 @@ def events(request, template_name="events/latest.html"):
     """
     Latest ivents
     """
-    events = Event.objects.filter(approved=True).order_by("-date")
+    events = Event.objects.filter(approved=True).order_by("-date_begin")
     photosets = PhotoSet.objects.all()
 
     photosets = photosets.order_by("-date_added")
