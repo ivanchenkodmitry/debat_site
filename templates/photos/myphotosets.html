@@ -13,33 +13,37 @@
 {% block body %}
     
     <h1>{% trans "Мої альбоми" %}</h1>
+      
     
     {% if photosets %}
-         {% autopaginate photosets %}
-            <div class="thumb-row clearfix">
-            {% for photoset in photosets %}
-            <div class="gallery-photo-thumb">
-                {% if photoset.image_set.count %}
-                 <a href="/photos/photoset/{{photoset.id}}">
-                        <img src="{{photoset.first_image.get_premedium_url}}" />
-                  </a>
-                {% else %}
-                 <a href="/photos/photoset/{{photoset.id}}">
-                     <img src="{{STATIC_URL}}pinax/images/no_image.gif" />
-                 </a>
-                {% endif %}
-                <b> {{ photoset.name }}</b>
-            </div>
+        <table cellpadding="5" cellspacing="0" border="0" class="blog-list" width="100%">
         
-            {% endfor %}
-            </div>
-          {% paginate %}
-          
+        
+        {% for photoset in photosets %}
+            <tr class="{% cycle odd,even %}">
+                <th><a href="{% url photoset photoset.id %}">{{ photoset }}</a></th>
+                
+      <th width="50px" align="center">
+                        <a href="{% url editphotoset photoset.id %}">
+                            {% silk "pencil" %}
+                        </a>
+                    </th>
+                     </th>
+                    <th align="right">
+                        <form action="{% url photoset_destroy photoset.id %}" method="POST">
+                            {# @@@ still can't replace this with a silk tag yet #}
+                            <input type="image" src="{{ STATIC_URL }}pinax/images/silk/icons/delete.png" border="0" title="{% trans "Delete Post" %}" />
+                            <input type="hidden" name="action" value="delete"/>
+                       </form>
+                    </th>
+            </tr>
+        {% endfor %}
+        </table>
     {% else %}
-        <p>{% trans "No photos were found." %}</p>
-            {% endif %}
-
-    
+        {% trans "Альбоми поки що відсутні" %}
+    {% endif %}
+        
+   
     
 {% endblock %} 
 {% block extra_body %}

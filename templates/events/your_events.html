@@ -1,6 +1,7 @@
 {% extends "events/base.html" %}
 
 {% load i18n %}
+{% load theme_tags %}
 
 {% block body %}
     
@@ -12,14 +13,26 @@
         <th>Підтверджено адміністратором</th>
         {% for event in events %}
             <tr class="{% cycle odd,even %}">
-                <td><a href="{% url event_details event.id %}">{{ event }}</a></td>
-                <td>
+                <th><a href="{% url event_details event.id %}">{{ event }}</a></th>
+                <th>
                     {% if event.approved %}
                         {% trans "Підтверджено" %}
                     {% else %}
                         {% trans "Не підтверджено" %}
                     {% endif %}
-                </td>
+                </th>
+      <th width="50px" align="center">
+                        <a href="{% url event_edit event.id %}">
+                            {% silk "pencil" %}
+                        </a>
+                    </th>
+                    <th align="right">
+                        <form action="{% url event_destroy event.id %}" method="POST">
+                            {# @@@ still can't replace this with a silk tag yet #}
+                            <input type="image" src="{{ STATIC_URL }}pinax/images/silk/icons/delete.png" border="0" title="{% trans "Delete Post" %}" />
+                            <input type="hidden" name="action" value="delete"/>
+                       </form>
+                    </th>
             </tr>
         {% endfor %}
         </table>
