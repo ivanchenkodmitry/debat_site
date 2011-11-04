@@ -90,21 +90,20 @@
       </div>
 
       {% if rand_photo %}
-      <h2>{% trans "Фотографії" %}</h2>
-      <div class="thumb-row clearfix">
- {% for photo in rand_photo|slice:":8"%}
-<div class="gallery-photo-thumb">
-    <div class="thumb-image">
-        <a href="{{photo.get_display_url}}" rel="lightbox[hrx]" title = {{image.title}}>
-            <img src="{{photo.get_thumbnail_url}}"/>
-  </div>
-{{image.title}}
-        </a>
- 
-    </div>    
-{% endfor %}
-</div>
+        <h2>{% trans "Фотографії" %}</h2>
+        <div class="thumb-row clearfix">
+          {% for photo in rand_photo|slice:":8"%}
+          <div class="gallery-photo-thumb">
+            <div class="thumb-image">
+              <a href="{{photo.get_display_url}}" rel="lightbox[hrx]" title="{{photo.title}}">
+                <img src="{{photo.get_thumbnail_url}}" alt="{{photo.title}}"/>
+              </a>
+            </div>
+          </div>    
+          {% endfor %}
+        </div>
       {% endif %}
+      
     </td>
     <td class="right_panel">
       <h2>{% trans "Про нас" %}</h2>
