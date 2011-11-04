@@ -129,7 +129,26 @@ class SignupForm(forms.Form):
     surname = forms.CharField(label = _(u'Прізвище'), max_length = 200, widget = forms.TextInput())
     name = forms.CharField(label = _(u'Ім’я'), max_length = 200, widget = forms.TextInput())
     middle_name = forms.CharField(label = _(u'По батькові'), max_length = 200, widget = forms.TextInput())
+
     birth_date = forms.DateField(label = _(u'Дата народження'), required = False)
+    
+    if settings.ACCOUNT_REQUIRED_EMAIL or settings.ACCOUNT_EMAIL_VERIFICATION:
+        email = forms.EmailField(
+            label = _("Email"),
+            required = True,
+            widget = forms.TextInput()
+        )
+    else:
+        email = forms.EmailField(
+            label = _("Email (optional)"),
+            required = False,
+            widget = forms.TextInput()
+        )
+
+    password1 = forms.CharField(label = _("Password"), widget = forms.PasswordInput(render_value = False))
+    password2 = forms.CharField(label = _("Password (again)"), widget = forms.PasswordInput(render_value = False))
+
+
     address = forms.CharField(label = _(u'Поштова адреса'), required = False, max_length = 300, widget = forms.Textarea())
     phone = forms.CharField(label = _(u'Мобільний телефон'), required = False, max_length = 200, widget = forms.TextInput())
     skype = forms.CharField(label = _(u'Логін Skype'), required = False, max_length = 30, widget = forms.TextInput())
@@ -149,28 +168,13 @@ class SignupForm(forms.Form):
 
     interests = forms.CharField(label = _(u'Напишіть, будь ласка, про свої цікаві захоплення та вміння'), required = False, max_length = 600, widget = forms.Textarea())
 
-    password1 = forms.CharField(label = _("Password"), widget = forms.PasswordInput(render_value = False))
-    password2 = forms.CharField(label = _("Password (again)"), widget = forms.PasswordInput(render_value = False))
     vk_id = forms.CharField(label = _('ID Вконтакті'), required = False, widget = forms.HiddenInput())
 
 
-    if settings.ACCOUNT_REQUIRED_EMAIL or settings.ACCOUNT_EMAIL_VERIFICATION:
-        email = forms.EmailField(
-            label = _("Email"),
-            required = True,
-            widget = forms.TextInput()
-        )
-    else:
-        email = forms.EmailField(
-            label = _("Email (optional)"),
-            required = False,
-            widget = forms.TextInput()
-        )
-
-    recaptcha = ReCaptchaField(error_messages = {
-            'required': u'Це поле обов’язкове',
-            'invalid' : u'Невірне значення'
-            })
+#    recaptcha = ReCaptchaField(error_messages = {
+#            'required': u'Це поле обов’язкове',
+#            'invalid' : u'Невірне значення'
+#            })
 
     confirmation_key = forms.CharField(max_length = 40, required = False, widget = forms.HiddenInput())
 
