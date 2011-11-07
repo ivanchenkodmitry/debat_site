@@ -256,19 +256,14 @@ def edit(request, id, form_class = PhotoEditForm,
     }, context_instance = RequestContext(request))
 
 @login_required
-def destroy(request, id, photoset_id, group_slug = None, bridge = None):
+def destroy(request, id):
+    """
+    Delete photooset
+    """
+    event = get_object_or_404(PhotoSet, id=id)
+    event.delete()
 
-    redirect_to = "/photos/edit/photoset/%s/" % photoset_id
-
-    photo = get_object_or_404(Image, pk = id)
-    title = photo.title
-
-    if photo.member != request.user:
-        request.user.message_set.create(message = "You can't delete photos that aren't yours")
-        return HttpResponseRedirect(redirect_to)
-
-    photo.delete()
-    request.user.message_set.create(message = _("Successfully deleted photo '%s'") % title)
+    redirect_to = reverse("myphotosets")
 
     return HttpResponseRedirect(redirect_to)
 

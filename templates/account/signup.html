@@ -9,6 +9,8 @@
     
     <script src="http://vkontakte.ru/js/api/openapi.js" type="text/javascript" charset="windows-1251"></script>
     <script type="text/javascript">
+    
+     
     VK.init({
         apiId: 2428870,
         nameTransportPath: '{% url home %}'
@@ -119,7 +121,6 @@
     {% else %}
         <p>{% trans "Вже є членом ВМГО «ФДУ»?" %} <a href="{% url acct_login %}">{% trans "Увійти" %}</a>!</p>
         
-    <a onclick="return vk_signup();" href="javascript: void(0)">Получить данные из vkontakte.ru</a>
 
         <form class="signup uniForm" id="signup_form" method="post" action="{% url acct_signup %}">
             <fieldset class="inlineLabels">

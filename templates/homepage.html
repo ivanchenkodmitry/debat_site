@@ -7,7 +7,7 @@
 {% load group_tags %}
 {% load webdesign %}
 {% load resizeimg %}
-
+{% load avatar_tags %}
 {% block head_title %}{% trans "Welcome" %}{% endblock %}
 {% block extra_head %}
 <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/homepage.css" />
@@ -95,9 +95,9 @@
           {% for photo in rand_photo|slice:":8"%}
           <div class="gallery-photo-thumb">
             <div class="thumb-image">
-              <a href="{{photo.get_display_url}}" rel="lightbox[hrx]" title="{{photo.title}}">
-                <img src="{{photo.get_thumbnail_url}}" alt="{{photo.title}}"/>
-              </a>
+            	<a href="{{photo.get_display_url}}" rel="lightbox[hrx]" title="{{photo.title}}">
+            		<div style = "background:url('{{photo.get_thumbnail_url}}'); background-repeat:no-repeat; background-position:center; height: 150px;"></div>
+            	</a>
             </div>
           </div>    
           {% endfor %}
@@ -110,7 +110,17 @@
       <p>{% lorem random %}</p>
       
       <h2>{% trans "Учасники" %}</h2>
-
+	<div name = "members" class="thumb-row clearfix">
+    {% for member in users %}
+        <div name = "member" style="float:left; margin: 10px; text-align: center">  
+			<div name = "avatar">
+				<a href="{% url profile_detail member.username %}">
+					<img src="{% avatar_url member 80 %}" alt="Avatar of {{ member.get_profile }}"/> </a> </div>
+			<div name = "username">
+				<a href="{% url profile_detail member.username %}"> {{ member.get_profile.name }} </a> </div>
+		</div>
+	{% endfor %}
+</div>
     </td>
   </tr>
 </table>

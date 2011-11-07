@@ -1,0 +1,6 @@
+{% load i18n %}{% blocktrans with current_site.name as site_name %}Користувач '{{ user }}' на сайті {{ site_name }} вказав цю електронну адресу.
+
+Для підтвердження перейдіть за посиланняим: {{ activate_url }}
+
+Дякуємо за реєстрацію.
+{% endblocktrans %}
