@@ -34,7 +34,9 @@
                 {% if user.is_staff %}
                     <dt><a href="{% url admin_invite_user %}">invite more people to the site</a> [admin only]</dt>
                     <dd>so more people can share in the fun.</dd>
-                {% endif %}
+                    {% endif %}
+                    
+
             {% endifsetting %}
         </dl>
         {% else %}

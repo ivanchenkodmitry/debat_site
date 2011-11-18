@@ -17,11 +17,21 @@
 
 {% block body_param %} onload="initialize()" {% endblock %}
 {% block body %}
+<script type="text/javascript" src="{{STATIC_URL }}pinax/js/linktagger.js"></script>
+<script type="text/javascript">
+
+var linkTagger = new _olt("async");
+linkTagger.setTagOutbound(true);
+linkTagger.tag();
+
+</script>
+
 <script type="text/javascript" src="{{ STATIC_URL }}js/lightbox/prototype.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/lightbox/scriptaculous.js?load=effects,builder"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/lightbox/lightbox.js"></script>
 <link rel="stylesheet" href="{{ STATIC_URL }}css/lightbox.css" type="text/css" media="screen" />
-    <div class="right_panel">
+<div class="right_panel">
+    <a href="http://www.mail.ru"> Mail </a>
        <h1>{% trans "Місце проведення" %}</h1>
   {% include "map.html" %}
   <p><div id="div_id_address" class="ctrlHolder">

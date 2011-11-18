@@ -28,49 +28,38 @@
             <th></th>
             {% for post in blogs %}
                 <tr class="{% cycle odd,even %}">
-                    <td><b><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></b><br />
-                        {% with post.tease|truncatewords:"50" as body %}
-                            {% if post.markup %}
-                                {% switch post.markup %}
-                                    {% case 'rst' %}{{ body|restructuredtext|safe }}{% endcase %}
-                                    {% case 'mrk' %}{{ body|force_escape|markdown }}{% endcase %}
-                                    {% case 'txl' %}{{ body|force_escape|textile }}{% endcase %}
-                                {% endswitch %}
-                            {% else %}
-                                {{ body|force_escape|linebreaks|safe }}
-                            {% endif %}
-                        {% endwith %}
-                    </td>
-                    <td nowrap>{{ post.publish|date }}</td>
-                    <td>
+                    <th><a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                    </th>
+                    <th nowrap>{{ post.publish|date }}</th>
+                    <th>
                         {% with post.status as status %}
                             {% switch status %}
                                 {% case 2 %}Опубліковано{% endcase %}
                                 {% case 1 %}Чорновик{% endcase %}
                             {% endswitch %}
                         {% endwith %}
-                    </td>
-    <td>
+                    </th>
+    <th>
                         {% with post.status2 as status %}
                             {% switch status %}
                                 {% case 1 %}Підтверджено{% endcase %}
                                 {% case 0 %}Не підтверджено{% endcase %}
                             {% endswitch %}
                         {% endwith %}
-                    </td>
+                    </th>
 
-                    <td width="50px" align="center">
+                    <th width="50px" align="center">
                         <a href="{% url blog_edit post.id %}">
                             {% silk "pencil" %}
                         </a>
-                    </td>
-                    <td align="right">
+                    </th>
+                    <th align="right">
                         <form action="{% url blog_destroy post.id %}" method="POST">
                             {# @@@ still can't replace this with a silk tag yet #}
                             <input type="image" src="{{ STATIC_URL }}pinax/images/silk/icons/delete.png" border="0" title="{% trans "Delete Post" %}" />
                             <input type="hidden" name="action" value="delete"/>
                        </form>
-                    </td>
+                    </th>
                 </tr>
             {% endfor %}
         </table>
