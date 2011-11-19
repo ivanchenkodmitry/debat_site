@@ -16,7 +16,7 @@ def homepage_view (request, template_name = "homepage.html"):
     posts = Post.objects.filter(author__is_staff=False, status2=1).order_by("-publish")
 
     users = User.objects.all()    
-    events = Event.objects.filter(approved=True).order_by("-date_begin")
+    events = Event.objects.filter(approved=True).order_by("date_begin")
     nearest_events = events.filter(date_begin__gte=datetime.now())
 
     if nearest_events:

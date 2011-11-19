@@ -7,45 +7,42 @@
 {% load group_tags %}
 {% load threadedcommentstags %}
 {% load theme_tags %}
+{% load resizeimg %}
 
 
 
 {% block body %}
-<style>
-a:link, a:visited, a:active, a:hover  { text-decoration: none; font-style: normal } 
 
-.event-tease {
-    width: 500px;
-    float: left;}
-.event-thumbnail {
-    width: 160px;
-    float: left;
-    margin-right: 10px;
-}
-.event-date {
-    float: right;
-margin-top: 30px;
-margin-right: 20px;}
 
-</style>
-<h1>{% trans "Події" %}<span style="float: right; font-size:12pt; font-weight:bold; margin-top: 10px; margin-right: 45px;" >Кінець:</span>
-<span style="float: right; font-size:12pt; font-weight:bold; margin-top: 10px; margin-right: 75px;" >Початок:</span>
+<h1>
+
+<span>{% trans "Події" %} </span>
+
+<span style="float: right; font-size:12pt; font-weight:bold; margin-top: 10px; margin-right: 45px;" >{% trans "Кінець" %}</span>
+<span style="float: right; font-size:12pt; font-weight:bold; margin-top: 10px; margin-right: 75px;" >{% trans "Початок" %}</span>
+
+
 </h1>
-  <a href="http://www.example.com" onClick="javascript: pageTracker._trackPageview('/events/example.com/');">Example</a>  
+
 	
         {% for event in events %}
 <HR>
 <div class="event clearfix">
 
-        <a href="{% groupurl event_details group id=event.id %}"> 
- <div class= "event-thumbnail"> <img src="{{event.eventimage.thumbnail.url}}"/>
-          </div>
+    <div class="event_image">
+    	<a  href="{% url event_details event.id%}" title="{{photo.title}}">
+            <div style = "background:url('{{event.eventimage|resize_img:"155,150"}}'); background-repeat:no-repeat; background-position:center; height: 150px;"></div>
+    	</a>
+    </div>
             
-            
-            <div class="event-tease">
-                <h2> {{ event.title }}</h2></a> <br> {{ event.address }}</div> 
-        <div class="event-date">{{event.date_begin}}</div>
-        <div class="event-date">{{event.date_end}}</div>
+        <div class="event-tease">
+                <a href="{% groupurl event_details group id=event.id %}"> <h2> {{ event.title }}</h2> <br> </a>
+            {{ event.address }}
+        </div> 
+        <div class="date_block">    
+            <div class="event-date">{{event.date_begin}}</div>
+            <div class="event-date">{{event.date_end}}</div>
+        </div>
     </div>  
     {% endfor %}
    

@@ -1,5 +1,39 @@
 /* EVENT */
 
+.event_image {
+    display: block;
+    width: 150px;
+#    background-color: #E8E8E8 ;
+    float: left;
+    margin-right: 5px;
+
+}
+
+
+a:link, a:visited, a:active, a:hover  { text-decoration: none; font-style: normal } 
+
+.event-tease {
+    display: inline;
+    width: 500px;
+    float: left;
+}
+
+.date_block {
+    display: inline;
+    
+}
+
+.event-thumbnail {
+    width: 150px;
+    float: left;
+    margin-right: 10px;
+}
+.event-date {
+    display: inline;
+    width: 140px;
+    float: right;
+}
+
 .thumb-row {
     margin: 20px 0;
     padding: 20px 0;

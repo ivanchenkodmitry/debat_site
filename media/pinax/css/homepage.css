@@ -45,6 +45,18 @@ background: url("images/rp-h2-bg.png") no-repeat scroll 0 0 transparent;
 
 /*Event carousel widget*/
 
+.event_image {
+    height: 150px;
+    width: 240px;
+#    background-color: #E8E8E8 ;
+    text-align: center;
+}
+
+.event_about {
+    width: 236px;
+    height: 70px;
+}
+
 .event_widget {
 /*border: 1px solid #bababa;*/
 width: 660px;

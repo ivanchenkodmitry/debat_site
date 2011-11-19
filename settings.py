@@ -259,7 +259,7 @@ EMAIL_DEBUG = DEBUG
 
 CONTACT_EMAIL = "emailfordevelop@gmail.com"
 
-SITE_NAME = "Pinax"
+SITE_NAME = "Федерація дебатів України"
 
 LOGIN_URL = "/account/login/"
 LOGIN_REDIRECT_URLNAME = "home"

@@ -32,12 +32,17 @@
                 <li>
                   <div class="event_mini{% if nearest_event %}{% ifequal forloop.counter0 nearest_event %} nearest{% endifequal %}{% endif %}">
                     <h3>{{ event.title_excerpt }}</h3>
-                    <a href="{% url event_details event.id%}">
-                        <img src="{{event.eventimage|resize_img:"236,164"}}" alt="{{ event.title }}"/>
-                    </a>
-                    <div style="width: 236px; height: 47px;">
-                        {{ event.date|date }}<br>
-                        {{ event.address|truncatewords:"4" }}
+                    
+    <div class="event_image">
+    	<a  href="{% url event_details event.id%}" title="{{photo.title}}">
+            <div style = "background:url('{{event.eventimage|resize_img:"240,150"}}'); background-repeat:no-repeat; background-position:center; height: 150px;"></div>
+    	</a>
+    </div>
+            
+                    <div class = "event_about">
+                        Початок: {{ event.date_begin|date }}<br>
+                        Кінець: {{ event.date_end|date }}<br>
+                        Місце проведення: {{ event.address|truncatewords:"4" }}
                     </div>
                                         <div>
                     <a class="button" href="{% url event_join event.id%}">
