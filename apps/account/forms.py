@@ -100,7 +100,7 @@ class UploadAvatarForm(forms.Form):
 class VKSiteWidget(widgets.TextInput):
     def render(self, name, value, attrs=None):
         result = super(VKSiteWidget, self).render(name, value, attrs=attrs)
-        result += mark_safe(u'<input style ="float: right; margin-right: 33px; margin-top: 5px;"  type="button" value="Отримати id з vk.com" onclick="return vk_signup();">')
+        result += mark_safe(u'<input style ="float: right; margin-right: 33px; margin-top: 5px;"  type="button" value="Отримати мій id" onclick="return vk_signup();">')
         return result
 
 class SignupForm(forms.Form):
@@ -160,7 +160,8 @@ class SignupForm(forms.Form):
     phone = forms.CharField(label = _(u'Мобільний телефон'), required = False, max_length = 200, widget = forms.TextInput())
     skype = forms.CharField(label = _(u'Логін Skype'), required = False, max_length = 30, widget = forms.TextInput())
     icq = forms.IntegerField(label = _(u'ICQ'), max_value = 999999999, required = False, widget = forms.TextInput())
-    website = forms.URLField(label = _(u'Адреса сторінки в соціальній мережі (вконтакті, facebook тощо)'), required = False, widget = VKSiteWidget())
+    vk_id = forms.CharField(label = _('ID Вконтакті'), required = False, widget = VKSiteWidget())
+
     education = forms.CharField(label = _(u'Освіта (ВНЗ, факультет)'), required = False, max_length = 500, widget = forms.Textarea())
     work = forms.CharField(label = _(u'Місце роботи'), required = False, max_length = 300, widget = forms.Textarea())
     experience = forms.CharField(label = _(u'Опишіть у довільній формі досвід гри у дебати (роки участі у дебатах, турніри, в яких Ви брали участь, тощо).'), required = False, max_length = 600, widget = forms.Textarea())
@@ -175,8 +176,8 @@ class SignupForm(forms.Form):
 
     interests = forms.CharField(label = _(u'Напишіть, будь ласка, про свої цікаві захоплення та вміння'), required = False, max_length = 600, widget = forms.Textarea())
 
-    vk_id = forms.CharField(label = _('ID Вконтакті'), required = False, widget = forms.HiddenInput())
-
+#    vk_id = forms.CharField(label = _('ID Вконтакті'), required = False, widget = forms.HiddenInput())
+    website = forms.URLField(label = _(u'Адреса сторінки в соціальній мережі (вконтакті, facebook тощо)'), required = False, widget = forms.HiddenInput())
 
     recaptcha = ReCaptchaField(error_messages = {
             'required': u'Це поле обов’язкове',
