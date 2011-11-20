@@ -105,9 +105,14 @@ def photos(request, template_name = "photos/latest.html", group_slug = None, bri
     else:
         group = None
 
-    photosets = PhotoSet.objects.all()
+    photosets_qs = PhotoSet.objects.all()
+    photosets_qs = photosets_qs.order_by("-date_added")
+    photosets = []
 
-    photosets = photosets.order_by("-date_added")
+    for photoset in photosets_qs:
+        if photoset.image_set.count():
+            photosets.append(photoset)
+    
 
     return render_to_response(template_name, {
         "photosets": photosets,
