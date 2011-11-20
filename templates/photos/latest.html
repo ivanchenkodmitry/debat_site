@@ -18,24 +18,28 @@
     {% autopaginate photosets %}
         <div class="thumb-row clearfix">
         {% for photoset in photosets %}
+        <div class="gallery-photo-thumb">
+            <div class="thumb-image">
             {% if photoset.image_set.count %}
-                <div class="gallery-photo-thumb">
-                    <div class="thumb-image">
-                        <a href="/photos/photoset/{{photoset.id}}">
-                        	<div style = "background:url('{{photoset.first_image.get_thumbnail_url}}'); background-repeat:no-repeat; background-position:center; height: 150px;"></div>
-                        </a><br>
-                    </div>
-                    <b> {{ photoset.name }}</b><br>
-                  автор: <a href="{% url profile_detail photoset.user.username %}">{{ photoset.user.username }}</a><br />  
-                {% comment %}
-                    
-                    {% silk "comment" %}<a href="{% groupurl photo_details group id=photo.id %}#photocomments">{% get_comment_count for photo as commentcount %} {{ commentcount }} Comments</a><br />
-                    
-                {% endcomment %}
-                    
-                </div>
-                
-            {% endif %}
+                <a href="/photos/photoset/{{photoset.id}}">
+                 <div style = "background:url('{{photoset.first_image.get_thumbnail_url}}'); background-repeat:no-repeat; background-position:center; height: 150px;"></div>
+                </a>
+            {% else %}
+                <a href="/photos/photoset/{{photoset.id}}">
+                    <img src="{{STATIC_URL}}pinax/images/no_image.gif" />
+                </a>
+                {% endif %}<br> </div>
+
+            <b> {{ photoset.name }}</b><br>
+          автор: <a href="{% url profile_detail photoset.user.username %}">{{ photoset.user.username }}</a><br />
+            {% comment %}
+            
+            {% silk "comment" %}<a href="{% groupurl photo_details group id=photo.id %}#photocomments">{% get_comment_count for photo as commentcount %} {{ commentcount }} Comments</a><br />
+            
+            {% endcomment %}
+            
+        </div>
+        
         {% endfor %}
         </div>
         {% paginate %}
