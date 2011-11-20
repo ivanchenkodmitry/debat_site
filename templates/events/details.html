@@ -77,20 +77,10 @@ linkTagger.tag();
 	           </label>
 	        {{ event.creator.get_profile.surname }} {{ event.creator.get_profile.name }} 
              </div>
-    	{% if is_me %}
-		<a href="/events/edit/{{ event.id }}"> <P> Редагувати подію </P> </a>        
-		<a href="/events/destroy/{{ event.id }}"> <P> Видалити подію </P> </a>
-		{% if event.questions %}
-		<a href="/events/answers/{{ event.id }}"> <P> Переглянути відповіді </P> </a>   
-		{% endif%}
-	{% endif %}
 
 
 
-	{% if is_member %}
-		<!-- <a href="/events/leave/{{ event.id }}"> <P>Покинути подію</P> </a> -->
-		<a href="/events/members/{{ event.id }}"> <P> Учасники </P> </a>
-	{% else %}
+	{% if not is_member %}
 		<a href="/events/join/{{ event.id }}"> <P> Приєднатись до події </P> </a>
 	{% endif %}
 
@@ -106,7 +96,14 @@ linkTagger.tag();
 				<a href="{% url profile_detail member.username %}"> {{ member.get_profile }} </a> </div>
 		</div>
 	{% endfor %}
+	
+
 </div>
+
+	{% if is_member %}
+		<!-- <a href="/events/leave/{{ event.id }}"> <P>Покинути подію</P> </a> -->
+		<a href="/events/members/{{ event.id }}"> <P> Всі учасники </P> </a>
+	{% endif %}
 
 {% if photoset.image_set.count%}      <h3>Альбом події</h3>{%endif%}
 <div class="thumb-row clearfix">

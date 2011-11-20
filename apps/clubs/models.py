@@ -25,6 +25,9 @@ class Club(models.Model):
 	
     def __unicode__(self):
         return self.title
+        
+    def user_is_member(self, user):
+        return user in self.members.all()        
 
 class Verification(models.Model):
 	club = models.ForeignKey(Club)

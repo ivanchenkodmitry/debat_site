@@ -21,7 +21,7 @@ class EventForm(forms.ModelForm):
     questions = forms.CharField(widget=forms.HiddenInput, required = False)
     location = forms.CharField(initial="(48.464954, 35.044956)", #dnipropetrovsk
                                widget=forms.HiddenInput)
-    address = forms.CharField(widget=EventAddressWidget())
+    address = forms.CharField(label = _(u'Адреса проведення'),widget=EventAddressWidget())
 
     class Meta:
         model = Event

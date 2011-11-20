@@ -244,7 +244,7 @@ input[type="text"], input[type="password"], textarea {
     color: #666;
     font-size: 12pt;
     background: #F3F3F3 url('../images/form-shadow.png') left top repeat-x;
-    width: 315px;
+    width: 237px;
 }
 ul.errorlist {
     margin: 0;

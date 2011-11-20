@@ -12,6 +12,11 @@
 {% block subnav %}
     {% if user.is_authenticated %}
         <ul>
+    	{% if is_me and event %}
+            <li><a href="/events/edit/{{ event.id }}"> Редагувати подію </a></li>        
+    		<li><a href="/events/destroy/{{ event.id }}"> Видалити подію </a></li>
+    		{% if event.questions %}<li> <a href="/events/answers/{{ event.id }}"> Переглянути відповіді  </a> {% endif%} </li>
+    	{% endif %}        
             <li><a href="{% url events %}">{% trans "Всі події" %}</a></li>
             <li><a href="{% url event_list_yours %}">{% trans "Мої події" %}</a></li>
             <li><a href="{% url add_event %}">{% trans "Додати подію" %}</a></li>
@@ -20,3 +25,5 @@
         &nbsp;
     {% endif %}
 {% endblock %}
+
+

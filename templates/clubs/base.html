@@ -6,8 +6,29 @@
 {% block body_class %}clubs{% endblock %}
 
 {% block subnav %}
-    {% if user.is_staff %}
+
+
         <ul>
+    	{% if is_me and club %}
+		    <li><a href="/clubs/edit/{{ club.id }}">  Редагувати клуб </a></li>
+		    <li><a href="/clubs/destroy/{{ club.id }}"> Видалити клуб </a></li>
+    	{% endif %}
+    	
+       	{% if user.is_staff and club %}
+		    <li><a href="/clubs/edit/{{ club.id }}">  Редагувати клуб </a></li>
+		    <li><a href="/clubs/destroy/{{ club.id }}"> Видалити клуб </a></li>
+    	{% endif %}
+
+    	
+        {% if club %}    	
+            {% if is_member %}
+		        <a href="/clubs/leave/{{ club.id }}"> Вийти з клубу </a>
+	        {% else %}
+	            {% if not is_wait_for_approve %}
+		            <a href="/clubs/join/{{ club.id }}">  Приєднатись до клубу </a>
+	            {% endif %}
+	        {% endif %}
+     
             <li><a href="/clubs/add_club/">{% trans "Додати клуб" %}</a></li>
         </ul>
     {% else %}

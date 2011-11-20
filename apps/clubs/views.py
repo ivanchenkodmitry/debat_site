@@ -45,6 +45,7 @@ def details(request, id, template_name="clubs/details.html"):
 	if request.user == club.admin:
 		is_me = True
 
+
 	try:
 		is_approved = Verification.objects.get(club = club, member = request.user).is_approved
 		if is_approved:
@@ -94,20 +95,30 @@ def add_club(request, form_class=ClubForm, template_name="clubs/add_club.html"):
 
 @login_required
 def edit(request, id, form_class=ClubForm,template_name="clubs/edit.html"):
+
+
     club = get_object_or_404(Club, id=id)
     club_form = form_class(request.user, instance=club)
-    if request.method == "POST":
-      if request.POST["action"] == "update":
-	club_form = form_class(request.user, request.POST, instance=club)
-	if club_form.is_valid():
-                club = club_form.save(commit=False)
-                club.save()
-                return HttpResponseRedirect(reverse("clubs"))
     
+    if request.user == club.admin:
+        is_admin = True
+    else:
+        is_admin = False
+        
+   
+    if request.method == "POST":
+        if request.POST["action"] == "update":
+	        club_form = form_class(request.user, request.POST, instance=club)
+        if club_form.is_valid():
+                    club = club_form.save(commit=False)
+                    club.save()
+                    return HttpResponseRedirect(reverse("clubs"))
+        
                 
     return render_to_response(template_name, {
         "club_form": club_form,
         "club": club,
+        "is_admin" : is_admin,
     }, context_instance=RequestContext(request))
 
 
@@ -150,23 +161,24 @@ def join(request, id, template_name="clubs/details.html"):
 
 
 
+	
 @login_required
 def leave(request, id, template_name="club/details.html"):
-	club = Club.objects.get(id = id)
-	
-	members = club.members.all()
+    club = Club.objects.get(id = id)
 
-	is_member = True
-	for member in members:
-		if member == request.user:
-			member.delete()
-			member.save()
-			break
 
-	club.save()
-	include_kwargs = {"id": club.id}
-	redirect_to = reverse("club_details", kwargs=include_kwargs)
-	return HttpResponseRedirect(redirect_to)
+    if club.user_is_member(request.user):
+        club.members.remove(request.user)
+
+    verifications = Verification.objects.filter(club = club)
+    for ver in verifications:
+        if ver.member == request.user:
+            ver.delete()
+
+    club.save()
+    include_kwargs = {"id": club.id}
+    redirect_to = reverse("club_details", kwargs=include_kwargs)
+    return HttpResponseRedirect(redirect_to)
 
 
 

@@ -81,18 +81,8 @@
 		</div>
     </div>
 <br>
-	{% if is_me %}
-		<a href="/clubs/edit/{{ club.id }}"> <P> Редагувати клуб </P> </a>        
-		<a href="/clubs/destroy/{{ club.id }}"> <P> Видалити клуб </P> </a>   
-	{% endif %}
 
-	{% if is_member %}
-		<a href="/clubs/leave/{{ club.id }}"> <P> Покинути клуб </P> </a>
-	{% else %}
-	{% if not is_wait_for_approve %}
-		<a href="/clubs/join/{{ club.id }}"> <P> Приєднатись до клубу </P> </a>
-	{% endif %}
-	{% endif %} 
+
 
         <h3 style = 'clear:left'> Члени клубу:</h3>
 	{% if is_wait_for_approve %}
