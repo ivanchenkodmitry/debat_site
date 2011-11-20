@@ -20,6 +20,8 @@ a:link, a:visited, a:active, a:hover  { text-decoration: none; font-style: norma
 
 .date_block {
     display: inline;
+    height:150px;
+    line-height:150px;
     
 }
 

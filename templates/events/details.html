@@ -64,8 +64,8 @@ linkTagger.tag();
 
 	<P>
 <div id="div_id_date" class="ctrlHolder">
-	           <label for="id_date"> <b>Початок:</b> </label>   {{ event.date_begin }}  <br>
-	           <label for="id_end"> <b>Кінець:</b> </label>     {{ event.date_end }} 
+	           <label for="id_date"> <b>Початок:</b> </label>   {{ event.date_begin|date:"D d M Y h:m" }}  <br>
+	           <label for="id_end"> <b>Кінець:</b> </label>     {{ event.date_end|date:"D d M Y h:m" }} 
 	           
 
     </div></P>

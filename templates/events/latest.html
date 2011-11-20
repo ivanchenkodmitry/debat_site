@@ -40,8 +40,8 @@
             {{ event.address }}
         </div> 
         <div class="date_block">    
-            <div class="event-date">{{event.date_begin}}</div>
-            <div class="event-date">{{event.date_end}}</div>
+            <div class="event-date">{{event.date_begin|date:"d-m-Y h:m"}}</div>
+            <div class="event-date">{{event.date_end|date:"d-m-Y h:m"}}</div>
         </div>
     </div>  
     {% endfor %}

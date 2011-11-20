@@ -40,8 +40,8 @@
     </div>
             
                     <div class = "event_about">
-                        Початок: {{ event.date_begin|date }}<br>
-                        Кінець: {{ event.date_end|date }}<br>
+                        Початок: {{ event.date_begin|date:"d M Y h:m" }}<br>
+                        Кінець: {{ event.date_end|date:"d M Y h:m" }}<br>
                         Місце проведення: {{ event.address|truncatewords:"4" }}
                     </div>
                                         <div>

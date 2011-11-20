@@ -148,6 +148,7 @@ font-weight: normal;
 float: left;
 height: 36px;
 margin-right: 16px;
+margin-left: 5px;
 padding-right: 16px; /* sliding doors padding */
 text-decoration: none;
 outline: none; /* hide dotted outline in Firefox */
