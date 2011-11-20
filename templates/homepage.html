@@ -8,7 +8,8 @@
 {% load webdesign %}
 {% load resizeimg %}
 {% load avatar_tags %}
-{% block head_title %}{% trans "Welcome" %}{% endblock %}
+{% block head_title %}{% trans "Головна сторінка" %}{% endblock %}
+
 {% block extra_head %}
 <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/homepage.css" />
 {% endblock %}
@@ -90,10 +91,8 @@
             </div><br>
           {% endfor %}
         </div>
-        <a href="http://www.facebook.com" onClick="recordOutboundLink(this, 'Outbound Links', 'фейсбук ком');return false;"> Facebook </a>
-        <a href="http://www.vkontakte.ru" onClick="recordOutboundLink(this, 'Outbound Links', 'вконтакте');return false;"> Vkontakte </a>
-        <a href="http://www.google.com" onClick="recordOutboundLink(this, 'New Links', 'google.com');return false;"> Google </a>
-                    <div style="clear: both"> </dib>
+
+                    <div style="clear: both"> </div>
       </div>
 
       {% if rand_photo %}
