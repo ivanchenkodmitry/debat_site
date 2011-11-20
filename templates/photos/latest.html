@@ -29,9 +29,10 @@
                     <img src="{{STATIC_URL}}pinax/images/no_image.gif" />
                 </a>
                 {% endif %}<br> </div>
-
-            <b> {{ photoset.name }}</b><br>
-          автор: <a href="{% url profile_detail photoset.user.username %}">{{ photoset.user.username }}</a><br />
+          <div class = "about_photoset">
+                    <b> {{ photoset.name|truncatewords:"4" }}</b><br>
+                      автор: <a href="{% url profile_detail photoset.user.username %}">{{ photoset.user.username }}</a><br />
+          </div>
             {% comment %}
             
             {% silk "comment" %}<a href="{% groupurl photo_details group id=photo.id %}#photocomments">{% get_comment_count for photo as commentcount %} {{ commentcount }} Comments</a><br />
