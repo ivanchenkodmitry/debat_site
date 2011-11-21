@@ -73,13 +73,10 @@
                 <div class="news_excert">
                     <a href="{{blog_post.get_absolute_url}}"><h3>{{blog_post.title}}</h3></a>
                     {{blog_post.excert}}
-                </div>
+                </div>        <div style="clear: both"> </div>
             </div><br>
-          <div class="clearer"></div>
           {% endfor %}
         </div>
-        <div style="clear: both"> </div>
-
         <div id="user_news">
           <h2>{% trans "Мої новини" %}</h2>
           {% for blog_post in posts|slice:":3" %}
@@ -92,11 +89,10 @@
                 {{blog_post.excert}}
               </div>
             </div><br>
-        <div style="clear: both"> </div>
           {% endfor %}
         </div>
 
-        <div style="clear: both"> </div>
+                    <div style="clear: both"> </div>
       </div>
 
       {% if rand_photo %}
