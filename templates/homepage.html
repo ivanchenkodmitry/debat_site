@@ -75,8 +75,11 @@
                     {{blog_post.excert}}
                 </div>
             </div><br>
+          <div class="clearer"></div>
           {% endfor %}
         </div>
+        <div style="clear: both"> </div>
+
         <div id="user_news">
           <h2>{% trans "Мої новини" %}</h2>
           {% for blog_post in posts|slice:":3" %}
@@ -89,11 +92,11 @@
                 {{blog_post.excert}}
               </div>
             </div><br>
-                            <div class="clearer"></div>
+        <div style="clear: both"> </div>
           {% endfor %}
         </div>
 
-                    <div style="clear: both"> </div>
+        <div style="clear: both"> </div>
       </div>
 
       {% if rand_photo %}
