@@ -156,25 +156,25 @@ class SignupForm(forms.Form):
     password2 = forms.CharField(label = _("Password (again)"), widget = forms.PasswordInput(render_value = False))
 
 
-    address = forms.CharField(label = _(u'Поштова адреса'), required = False, max_length = 300, widget = forms.Textarea())
-    phone = forms.CharField(label = _(u'Мобільний телефон'), required = False, max_length = 200, widget = forms.TextInput())
-    skype = forms.CharField(label = _(u'Логін Skype'), required = False, max_length = 30, widget = forms.TextInput())
+    address = forms.CharField(label = _(u'Поштова адреса'), max_length = 300, widget = forms.Textarea())
+    phone = forms.CharField(label = _(u'Мобільний телефон'),max_length = 200, widget = forms.TextInput())
+    skype = forms.CharField(label = _(u'Логін Skype'), max_length = 30, widget = forms.TextInput())
     icq = forms.IntegerField(label = _(u'ICQ'), max_value = 999999999, required = False, widget = forms.TextInput())
     vk_id = forms.CharField(label = _('ID Вконтакті'), required = False, widget = VKSiteWidget())
 
-    education = forms.CharField(label = _(u'Освіта (ВНЗ, факультет)'), required = False, max_length = 500, widget = forms.Textarea())
+    education = forms.CharField(label = _(u'Освіта (ВНЗ, факультет)'), max_length = 500, widget = forms.Textarea())
     work = forms.CharField(label = _(u'Місце роботи'), required = False, max_length = 300, widget = forms.Textarea())
-    experience = forms.CharField(label = _(u'Опишіть у довільній формі досвід гри у дебати (роки участі у дебатах, турніри, в яких Ви брали участь, тощо).'), required = False, max_length = 600, widget = forms.Textarea())
+    experience = forms.CharField(label = _(u'Опишіть у довільній формі досвід гри у дебати (роки участі у дебатах, турніри, в яких Ви брали участь, тощо).'), max_length = 600, widget = forms.Textarea())
 
     club = forms.ChoiceField(label = _(u'Дебатний клуб, який  представляєте (якщо є)'), choices = CLUBS, required = False, widget = forms.Select())
     social_work_exp = forms.CharField(label = _(u'Який досвід громадської роботи ви маєте(реалізовані проекти, членство в ГО, студ.самоврядуванні і т.д.)?'), required = False, max_length = 600, widget = forms.Textarea())
-    desired_exp = forms.CharField(label = _(u'Які знання, досвід чи вміння ви хочете отримати, ставши членом ВМГО «ФДУ»?'), required = False, max_length = 200, widget = forms.Textarea())
+    desired_exp = forms.CharField(label = _(u'Які знання, досвід чи вміння ви хочете отримати, ставши членом ВМГО «ФДУ»?'), max_length = 200, widget = forms.Textarea())
 
-    org_way = forms.ChoiceField(label = _(u'Яким організаційним напрямком в діяльності ВМГО «ФДУ» ви хотіли б займатись?'), choices = ORG_WAYS, initial = '', required = False, widget = forms.Select())
+    org_way = forms.ChoiceField(label = _(u'Яким організаційним напрямком в діяльності ВМГО «ФДУ» ви хотіли б займатись?'), choices = ORG_WAYS, initial = '', widget = forms.Select())
 
-    members_fee = forms.ChoiceField(label = _(u'Який членський внесок ви готові сплачувати щомісячно?'), choices = MEMBERS_FEE, initial = '', required = False, widget = forms.Select())
+    members_fee = forms.ChoiceField(label = _(u'Який членський внесок ви готові сплачувати щомісячно?'), choices = MEMBERS_FEE, initial = '', widget = forms.Select())
 
-    interests = forms.CharField(label = _(u'Напишіть, будь ласка, про свої цікаві захоплення та вміння'), required = False, max_length = 600, widget = forms.Textarea())
+    interests = forms.CharField(label = _(u'Напишіть, будь ласка, про свої цікаві захоплення та вміння'), max_length = 600, widget = forms.Textarea())
 
 #    vk_id = forms.CharField(label = _('ID Вконтакті'), required = False, widget = forms.HiddenInput())
     website = forms.URLField(label = _(u'Адреса сторінки в соціальній мережі (вконтакті, facebook тощо)'), required = False, widget = forms.HiddenInput())
