@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="{{ STATIC_URL }}css/site_tabs.css" />
     <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/avatar.css" />
     <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/blogs.css" />
-    <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/projects.css" />
     <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/comments.css" />
     <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/friends.css" />
     <link rel="stylesheet" href="{{ STATIC_URL }}pinax/css/groups.css" />
@@ -34,7 +33,7 @@
 {% block login %}
     {% if user.is_authenticated %}
     	<div style="float: left; margin-right: 10px;">
-    		<a href="{% url acct_email %}">
+    		<a href="{% url profile_detail user %}">
     			<img src="{% avatar_url user 50 %}" alt="Photo of {{ user }}" class="photo" />
     		</a>
     	</div>
