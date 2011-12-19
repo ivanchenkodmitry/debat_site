@@ -101,7 +101,13 @@
           {% for photo in rand_photo|slice:":8"%}
           <div class="gallery-photo-thumb">
             <div class="thumb-image">
-<a href="{{photo.get_display_url}}" rel="lightbox[hrx]" title="{{photo.title}}&lt;br&gt;Альбом:  &lt;a href=&quot;/photos/photoset/{{photo.photoset.all.0.id}}&quot;&gt;{{photo.photoset.all.0.name}}&lt;/a&gt;" ">
+<a href="{{photo.get_display_url}}" rel="lightbox[hrx]" title="
+                {{photo.title}}
+            {% if photo.photoset.all %}
+                        &lt;br&gt;Альбом:  &lt;a href=&quot;/photos/photoset/{{photo.photoset.all.0.id}}&quot;&gt;{{photo.photoset.all.0.name}}&lt;/a&gt;"
+            {%endif%}
+        ">
+            		
             		<div style = "background:url('{{photo.get_thumbnail_url}}'); background-repeat:no-repeat; background-position:center; height: 150px;"></div>
             	</a>
             </div>
