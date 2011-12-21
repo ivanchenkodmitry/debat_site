@@ -18,18 +18,18 @@ class Event(models.Model):
     """
     An event with its details
     """
-    title = models.CharField(_('Назва'), max_length=50)
-    description = models.TextField(_('Опис'), blank=True)
-    date_begin = models.DateTimeField(_('Початок'), default=datetime.now)
-    date_end = models.DateTimeField(_('Кінець'), default=datetime.now)
-    address = models.TextField(_('Адреса проведення'), blank=True)
-    date_added = models.DateTimeField(_('Дата створення'), default=datetime.now, editable=False)
+    title = models.CharField(_(u'Назва'), max_length=50)
+    description = models.TextField(_(u'Опис'), blank=True)
+    date_begin = models.DateTimeField(_(u'Початок'), default=datetime.now)
+    date_end = models.DateTimeField(_(u'Кінець'), default=datetime.now)
+    address = models.TextField(_(u'Адреса проведення'), blank=True)
+    date_added = models.DateTimeField(_(u'Дата створення'), default=datetime.now, editable=False)
     creator = models.ForeignKey(User, related_name="%(class)s_created")
-    members = models.ManyToManyField(User, related_name='events', verbose_name=_('Учасники'))
-    location = models.CharField(_('location'), max_length=200)
+    members = models.ManyToManyField(User, related_name='events', verbose_name=_(u'Учасники'))
+    location = models.CharField(_(u'location'), max_length=200)
     questions = models.TextField(blank=True)
-    approved = models.BooleanField(_('Підтверджено'), default = False)
-    eventimage = StdImageField(_('Лого події'),upload_to = "photos/", size=(400, 300), thumbnail_size=(100, 100))
+    approved = models.BooleanField(_(u'Підтверджено'), default = False)
+    eventimage = StdImageField(_(u'Лого події'),upload_to = "photos/", size=(400, 300), thumbnail_size=(100, 100))
     gallery = models.ForeignKey(PhotoSet, blank = True, null = True)
     def __unicode__(self):
         return self.title
