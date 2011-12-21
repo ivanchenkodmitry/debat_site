@@ -38,9 +38,9 @@ alnum_re = re.compile(r'^\w+$')
 
 class LoginForm(forms.Form):
 
-    email = forms.EmailField(label = _("Email"), required = True, widget = forms.TextInput())
-    password = forms.CharField(label = _("Password"), widget = forms.PasswordInput(render_value = False))
-    remember = forms.BooleanField(label = _("Remember Me"), help_text = _("If checked you will stay logged in for 3 weeks"), required = False)
+    email = forms.EmailField(label = (u"Email"), required = True, widget = forms.TextInput())
+    password = forms.CharField(label = (u"Password"), widget = forms.PasswordInput(render_value = False))
+    remember = forms.BooleanField(label = (u"Remember Me"), help_text = (u"If checked you will stay logged in for 3 weeks"), required = False)
 
     user = None
 
@@ -52,9 +52,9 @@ class LoginForm(forms.Form):
             if user.is_active:
                 self.user = user
             elif user.is_active:
-                raise forms.ValidationError(_("Профайл цього аккаунта ще не підтверджено адміністратором."))
+                raise forms.ValidationError((u"Профайл цього аккаунта ще не підтверджено адміністратором."))
         else:
-            raise forms.ValidationError(_("Email та/або пароль невірний."))
+            raise forms.ValidationError((u"Email та/або пароль невірний."))
         return self.cleaned_data
 
     def login(self, request):
@@ -112,23 +112,23 @@ class SignupForm(forms.Form):
         self.base_fields['club'].choices = CLUBS
 
     ORG_WAYS = BLANK_CHOICE_DASH + [
-        ('Методична робота', _('Методична робота')),
-        ('Розвиток англійських дебатів', _('Розвиток англійських дебатів')),
-        ('Організація дебатних заходів', _('Організація дебатних заходів')),
-        ('Співпраця із комерційними структурами', _('Співпраця із комерційними структурами')),
-        ('Співпраця  із іншими ГО', _('Співпраця  із іншими ГО')),
-        ('Співпраця із ЗМІ', _('Співпраця із ЗМІ')),
-        ('Не хочу займатись організаційними справами', _('Не хочу займатись організаційними справами')),
+        ('Методична робота', (u'Методична робота')),
+        ('Розвиток англійських дебатів', (u'Розвиток англійських дебатів')),
+        ('Організація дебатних заходів', (u'Організація дебатних заходів')),
+        ('Співпраця із комерційними структурами', (u'Співпраця із комерційними структурами')),
+        ('Співпраця  із іншими ГО', (u'Співпраця  із іншими ГО')),
+        ('Співпраця із ЗМІ', (u'Співпраця із ЗМІ')),
+        ('Не хочу займатись організаційними справами', (u'Не хочу займатись організаційними справами')),
     ]
 
     MEMBERS_FEE = BLANK_CHOICE_DASH + [
-        ('5 грн', _('5 грн')),
-        ('10 грн', _('10 грн')),
-        ('15 грн', _('15 грн')),
-        ('20 грн', _('20 грн')),
-        ('30 грн', _('30 грн')),
-        ('50 грн', _('50 грн')),
-        ('Не можу сплачувати членський внесок', _('Не можу сплачувати членський внесок')),
+        ('5 грн', (u'5 грн')),
+        ('10 грн', (u'10 грн')),
+        ('15 грн', (u'15 грн')),
+        ('20 грн', (u'20 грн')),
+        ('30 грн', (u'30 грн')),
+        ('50 грн', (u'50 грн')),
+        ('Не можу сплачувати членський внесок', (u'Не можу сплачувати членський внесок')),
     ]
 
     CLUBS = BLANK_CHOICE_DASH + ([(obj.id, obj.title) for obj in Club.objects.all()])
@@ -141,26 +141,26 @@ class SignupForm(forms.Form):
     
     if settings.ACCOUNT_REQUIRED_EMAIL or settings.ACCOUNT_EMAIL_VERIFICATION:
         email = forms.EmailField(
-            label = _("Email"),
+            label = (u"Email"),
             required = True,
             widget = forms.TextInput()
         )
     else:
         email = forms.EmailField(
-            label = _("Email (optional)"),
+            label = (u"Email (optional)"),
             required = False,
             widget = forms.TextInput()
         )
 
-    password1 = forms.CharField(label = _("Password"), widget = forms.PasswordInput(render_value = False))
-    password2 = forms.CharField(label = _("Password (again)"), widget = forms.PasswordInput(render_value = False))
+    password1 = forms.CharField(label = (u"Password"), widget = forms.PasswordInput(render_value = False))
+    password2 = forms.CharField(label = (u"Password (again)"), widget = forms.PasswordInput(render_value = False))
 
 
     address = forms.CharField(label = _(u'Поштова адреса'), max_length = 300, widget = forms.Textarea())
     phone = forms.CharField(label = _(u'Мобільний телефон'),max_length = 200, widget = forms.TextInput())
     skype = forms.CharField(label = _(u'Логін Skype'), max_length = 30, widget = forms.TextInput())
     icq = forms.IntegerField(label = _(u'ICQ'), max_value = 999999999, required = False, widget = forms.TextInput())
-    vk_id = forms.CharField(label = _('ID Вконтакті'), required = False, widget = VKSiteWidget())
+    vk_id = forms.CharField(label = (u'ID Вконтакті'), required = False, widget = VKSiteWidget())
 
     education = forms.CharField(label = _(u'Освіта (ВНЗ, факультет)'), max_length = 500, widget = forms.Textarea())
     work = forms.CharField(label = _(u'Місце роботи'), required = False, max_length = 300, widget = forms.Textarea())
@@ -176,7 +176,7 @@ class SignupForm(forms.Form):
 
     interests = forms.CharField(label = _(u'Напишіть, будь ласка, про свої цікаві захоплення та вміння'), max_length = 600, widget = forms.Textarea())
 
-#    vk_id = forms.CharField(label = _('ID Вконтакті'), required = False, widget = forms.HiddenInput())
+#    vk_id = forms.CharField(label = (u'ID Вконтакті'), required = False, widget = forms.HiddenInput())
     website = forms.URLField(label = _(u'Адреса сторінки в соціальній мережі (вконтакті, facebook тощо)'), required = False, widget = forms.HiddenInput())
 
     recaptcha = ReCaptchaField(error_messages = {
@@ -198,7 +198,7 @@ class SignupForm(forms.Form):
     def clean(self):
         if "password1" in self.cleaned_data and "password2" in self.cleaned_data:
             if self.cleaned_data["password1"] != self.cleaned_data["password2"]:
-                raise forms.ValidationError(_("You must type the same password each time."))
+                raise forms.ValidationError((u"You must type the same password each time."))
         return self.cleaned_data
 
     def save(self):
@@ -288,13 +288,13 @@ class SignupForm(forms.Form):
 
 #    if settings.ACCOUNT_REQUIRED_EMAIL or settings.ACCOUNT_EMAIL_VERIFICATION:
 #        email = forms.EmailField(
-#            label = _("Email"),
+#            label = (u"Email"),
 #            required = True,
 #            widget = forms.TextInput()
 #        )
 #    else:
 #        email = forms.EmailField(
-#            label = _("Email (optional)"),
+#            label = (u"Email (optional)"),
 #            required = False,
 #            widget = forms.TextInput()
 #        )
@@ -340,14 +340,14 @@ class AccountForm(UserForm):
 
 class AddEmailForm(UserForm):
 
-    email = forms.EmailField(label = _("Email"), required = True, widget = forms.TextInput(attrs = {'size':'30'}))
+    email = forms.EmailField(label = (u"Email"), required = True, widget = forms.TextInput(attrs = {'size':'30'}))
 
     def clean_email(self):
         try:
             EmailAddress.objects.get(user = self.user, email = self.cleaned_data["email"])
         except EmailAddress.DoesNotExist:
             return self.cleaned_data["email"]
-        raise forms.ValidationError(_("This email address already associated with this account."))
+        raise forms.ValidationError((u"This email address already associated with this account."))
 
     def save(self):
         self.user.message_set.create(message = ugettext(u"Confirmation email sent to %(email)s") % {'email': self.cleaned_data["email"]})
@@ -356,19 +356,19 @@ class AddEmailForm(UserForm):
 
 class ChangePasswordForm(UserForm):
 
-    oldpassword = forms.CharField(label = _("Current Password"), widget = forms.PasswordInput(render_value = False))
-    password1 = forms.CharField(label = _("New Password"), widget = forms.PasswordInput(render_value = False))
-    password2 = forms.CharField(label = _("New Password (again)"), widget = forms.PasswordInput(render_value = False))
+    oldpassword = forms.CharField(label = (u"Current Password"), widget = forms.PasswordInput(render_value = False))
+    password1 = forms.CharField(label = (u"New Password"), widget = forms.PasswordInput(render_value = False))
+    password2 = forms.CharField(label = (u"New Password (again)"), widget = forms.PasswordInput(render_value = False))
 
     def clean_oldpassword(self):
         if not self.user.check_password(self.cleaned_data.get("oldpassword")):
-            raise forms.ValidationError(_("Please type your current password."))
+            raise forms.ValidationError((u"Please type your current password."))
         return self.cleaned_data["oldpassword"]
 
     def clean_password2(self):
         if "password1" in self.cleaned_data and "password2" in self.cleaned_data:
             if self.cleaned_data["password1"] != self.cleaned_data["password2"]:
-                raise forms.ValidationError(_("You must type the same password each time."))
+                raise forms.ValidationError((u"You must type the same password each time."))
         return self.cleaned_data["password2"]
 
     def save(self):
@@ -379,13 +379,13 @@ class ChangePasswordForm(UserForm):
 
 class SetPasswordForm(UserForm):
 
-    password1 = forms.CharField(label = _("Password"), widget = forms.PasswordInput(render_value = False))
-    password2 = forms.CharField(label = _("Password (again)"), widget = forms.PasswordInput(render_value = False))
+    password1 = forms.CharField(label = (u"Password"), widget = forms.PasswordInput(render_value = False))
+    password2 = forms.CharField(label = (u"Password (again)"), widget = forms.PasswordInput(render_value = False))
 
     def clean_password2(self):
         if "password1" in self.cleaned_data and "password2" in self.cleaned_data:
             if self.cleaned_data["password1"] != self.cleaned_data["password2"]:
-                raise forms.ValidationError(_("You must type the same password each time."))
+                raise forms.ValidationError((u"You must type the same password each time."))
         return self.cleaned_data["password2"]
 
     def save(self):
@@ -396,11 +396,11 @@ class SetPasswordForm(UserForm):
 
 class ResetPasswordForm(forms.Form):
 
-    email = forms.EmailField(label = _("Email"), required = True, widget = forms.TextInput(attrs = {'size':'30'}))
+    email = forms.EmailField(label = (u"Email"), required = True, widget = forms.TextInput(attrs = {'size':'30'}))
 
     def clean_email(self):
         if EmailAddress.objects.filter(email__iexact = self.cleaned_data["email"], verified = True).count() == 0:
-            raise forms.ValidationError(_("Email address not verified for any user account"))
+            raise forms.ValidationError((u"Email address not verified for any user account"))
         return self.cleaned_data["email"]
 
     def save(self):
@@ -419,7 +419,7 @@ class ResetPasswordForm(forms.Form):
             domain = unicode(current_site.domain)
 
             #send the password reset email
-            subject = _("Password reset email sent")
+            subject = (u"Password reset email sent")
             message = render_to_string("account/password_reset_key_message.txt", {
                 "user": user,
                 "temp_key": temp_key,
@@ -431,20 +431,20 @@ class ResetPasswordForm(forms.Form):
 
 class ResetPasswordKeyForm(forms.Form):
 
-    password1 = forms.CharField(label = _("New Password"), widget = forms.PasswordInput(render_value = False))
-    password2 = forms.CharField(label = _("New Password (again)"), widget = forms.PasswordInput(render_value = False))
+    password1 = forms.CharField(label = (u"New Password"), widget = forms.PasswordInput(render_value = False))
+    password2 = forms.CharField(label = (u"New Password (again)"), widget = forms.PasswordInput(render_value = False))
     temp_key = forms.CharField(widget = forms.HiddenInput)
 
     def clean_temp_key(self):
         temp_key = self.cleaned_data.get("temp_key")
         if not PasswordReset.objects.filter(temp_key = temp_key, reset = False).count() == 1:
-            raise forms.ValidationError(_("Temporary key is invalid."))
+            raise forms.ValidationError((u"Temporary key is invalid."))
         return temp_key
 
     def clean_password2(self):
         if "password1" in self.cleaned_data and "password2" in self.cleaned_data:
             if self.cleaned_data["password1"] != self.cleaned_data["password2"]:
-                raise forms.ValidationError(_("You must type the same password each time."))
+                raise forms.ValidationError((u"You must type the same password each time."))
         return self.cleaned_data["password2"]
 
     def save(self):
@@ -466,7 +466,7 @@ class ResetPasswordKeyForm(forms.Form):
 
 class ChangeTimezoneForm(AccountForm):
 
-    timezone = TimeZoneField(label = _("Timezone"), required = True)
+    timezone = TimeZoneField(label = (u"Timezone"), required = True)
 
     def __init__(self, *args, **kwargs):
         super(ChangeTimezoneForm, self).__init__(*args, **kwargs)
@@ -480,7 +480,7 @@ class ChangeTimezoneForm(AccountForm):
 
 class ChangeLanguageForm(AccountForm):
 
-    language = forms.ChoiceField(label = _("Language"), required = True, choices = settings.LANGUAGES)
+    language = forms.ChoiceField(label = (u"Language"), required = True, choices = settings.LANGUAGES)
 
     def __init__(self, *args, **kwargs):
         super(ChangeLanguageForm, self).__init__(*args, **kwargs)
@@ -497,8 +497,8 @@ class ChangeLanguageForm(AccountForm):
 from account.models import OtherServiceInfo, other_service, update_other_services
 
 class TwitterForm(UserForm):
-    username = forms.CharField(label = _("Username"), required = True)
-    password = forms.CharField(label = _("Password"), required = True,
+    username = forms.CharField(label = (u"Username"), required = True)
+    password = forms.CharField(label = (u"Password"), required = True,
                                widget = forms.PasswordInput(render_value = False))
 
     def __init__(self, *args, **kwargs):

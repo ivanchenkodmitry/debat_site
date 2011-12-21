@@ -12,48 +12,48 @@ from clubs.models import Club
 class Profile(models.Model):
     
     ORG_WAYS = (
-        ('Методична робота', _('Методична робота')),
-        ('Розвиток англійських дебатів', _('Розвиток англійських дебатів')),
-        ('Організація дебатних заходів', _('Організація дебатних заходів')),
-        ('Співпраця із комерційними структурами', _('Співпраця із комерційними структурами')),
-        ('Співпраця  із іншими ГО', _('Співпраця  із іншими ГО')),
-        ('Співпраця із ЗМІ', _('Співпраця із ЗМІ')),
-        ('Не хочу займатись організаційними справами', _('Не хочу займатись організаційними справами')),
+        (u'Методична робота', _(u'Методична робота')),
+        (u'Розвиток англійських дебатів', _(u'Розвиток англійських дебатів')),
+        (u'Організація дебатних заходів', _(u'Організація дебатних заходів')),
+        (u'Співпраця із комерційними структурами', _(u'Співпраця із комерційними структурами')),
+        (u'Співпраця  із іншими ГО', _(u'Співпраця  із іншими ГО')),
+        (u'Співпраця із ЗМІ', _(u'Співпраця із ЗМІ')),
+        (u'Не хочу займатись організаційними справами', _(u'Не хочу займатись організаційними справами')),
     )
 
     MEMBERS_FEE = (
-        ('5 грн', _('5 грн')),
-        ('10 грн', _('10 грн')),
-        ('15 грн', _('15 грн')),
-        ('20 грн', _('20 грн')),
-        ('30 грн', _('30 грн')),
-        ('50 грн', _('50 грн')),
-        ('Не можу сплачувати членський внесок', _('Не можу сплачувати членський внесок')),
+        (u'5 грн', _(u'5 грн')),
+        (u'10 грн', _(u'10 грн')),
+        (u'15 грн', _(u'15 грн')),
+        (u'20 грн', _(u'20 грн')),
+        (u'30 грн', _(u'30 грн')),
+        (u'50 грн', _(u'50 грн')),
+        (u'Не можу сплачувати членський внесок', _(u'Не можу сплачувати членський внесок')),
     )
     
-    user = models.ForeignKey(User, unique=True, verbose_name=_('user'))
+    user = models.ForeignKey(User, unique=True, verbose_name=_(u'user'))
 
-    surname =  models.CharField(_('Прізвище'), max_length=200)
-    name = models.CharField(_('Ім’я'), max_length=200)
-    middle_name = models.CharField(_('По батькові'), max_length=200)
-    birth_date = models.CharField(_('Дата народження'), max_length=300)
-    address = models.TextField(_('Поштова адреса'), null=True, max_length=200)
-    phone = models.CharField(_('Мобільний телефон'), null=True, max_length=200)
-    skype = models.CharField(_('Логін Skype'), null=True, blank=True, max_length=200)
-    icq = models.CharField(_('ICQ'), null=True, blank=True, max_length=200,)
-    website = models.URLField(_('Адреса сторінки в соціальній мережі'), null=True, blank=True, verify_exists=False)
-    education = models.CharField(_('Освіта (ВНЗ, факультет)'), blank=True, max_length=500)
-    work = models.CharField(_('Місце роботи'), null=True, blank=True, max_length=600)
-    experience = models.CharField(_('Досвід гри у дебати'), null=True, blank=True, max_length=600)
-#    club = models.ForeignKey(Club, null=True, blank=True, unique=False, verbose_name=_('club'))
-    social_work_exp = models.CharField(_('Досвід громадської роботи'), null=True, blank=True, max_length=600)
-    desired_exp = models.TextField(_('Досвід, який хочу отримати'), null=True, blank=True)
+    surname =  models.CharField(_(u'Прізвище'), max_length=200)
+    name = models.CharField(_(u'Ім’я'), max_length=200)
+    middle_name = models.CharField(_(u'По батькові'), max_length=200)
+    birth_date = models.CharField(_(u'Дата народження'), max_length=300)
+    address = models.TextField(_(u'Поштова адреса'), null=True, max_length=200)
+    phone = models.CharField(_(u'Мобільний телефон'), null=True, max_length=200)
+    skype = models.CharField(_(u'Логін Skype'), null=True, blank=True, max_length=200)
+    icq = models.CharField(_(u'ICQ'), null=True, blank=True, max_length=200,)
+    website = models.URLField(_(u'Адреса сторінки в соціальній мережі'), null=True, blank=True, verify_exists=False)
+    education = models.CharField(_(u'Освіта (ВНЗ, факультет)'), blank=True, max_length=500)
+    work = models.CharField(_(u'Місце роботи'), null=True, blank=True, max_length=600)
+    experience = models.CharField(_(u'Досвід гри у дебати'), null=True, blank=True, max_length=600)
+#    club = models.ForeignKey(Club, null=True, blank=True, unique=False, verbose_name=_(u'club'))
+    social_work_exp = models.CharField(_(u'Досвід громадської роботи'), null=True, blank=True, max_length=600)
+    desired_exp = models.TextField(_(u'Досвід, який хочу отримати'), null=True, blank=True)
 
-    org_way = models.CharField(_('Організаційний напрямок'), null=True, choices = ORG_WAYS, max_length=200)
-    members_fee = models.CharField(_('Членські внески'), choices = MEMBERS_FEE, max_length=200)  
-    interests = models.TextField(_('Інтереси'), null=True, blank=True)
-    vk_id = models.CharField(_('ID Вконтакті'), null=True, blank=True, max_length=30)
-    about = models.TextField(_('about'), null=True, blank=True)
+    org_way = models.CharField(_(u'Організаційний напрямок'), null=True, choices = ORG_WAYS, max_length=200)
+    members_fee = models.CharField(_(u'Членські внески'), choices = MEMBERS_FEE, max_length=200)  
+    interests = models.TextField(_(u'Інтереси'), null=True, blank=True)
+    vk_id = models.CharField(_(u'ID Вконтакті'), null=True, blank=True, max_length=30)
+    about = models.TextField(_(u'about'), null=True, blank=True)
 
     
     def __unicode__(self):
@@ -67,8 +67,8 @@ class Profile(models.Model):
     get_absolute_url = models.permalink(get_absolute_url)
     
     class Meta:
-        verbose_name = _('profile')
-        verbose_name_plural = _('profiles')
+        verbose_name = _(u'profile')
+        verbose_name_plural = _(u'profiles')
 
 def create_profile(sender, instance=None, **kwargs):
     if instance is None:
@@ -78,8 +78,8 @@ def create_profile(sender, instance=None, **kwargs):
 post_save.connect(create_profile, sender=User)
 
 class Verification(models.Model):
-    md5_hash = models.CharField(_('Md5 for verivication'), null=True, blank=True, max_length=100)
-    profile = models.OneToOneField(Profile, null=True, blank=True, verbose_name=_('profile'))
+    md5_hash = models.CharField(_(u'Md5 for verivication'), null=True, blank=True, max_length=100)
+    profile = models.OneToOneField(Profile, null=True, blank=True, verbose_name=_(u'profile'))
 
 
 
