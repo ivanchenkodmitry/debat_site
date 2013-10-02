@@ -1,7 +1,18 @@
 #!/usr/bin/env python
-import sys
+import sys, os
 
 from os.path import abspath, dirname, join
+
+
+_PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, "/home/nskrypnik/pinax/Pinax-0.7.3-bundle/pinax-env/lib/python2.6/site-packages/pinax/apps")
+sys.path.insert(0, "/home/nskrypnik/pinax/Pinax-0.7.3-bundle/pinax-env/lib/python2.6/site-packages/pinax/projects/social_project/apps")
+sys.path.insert(0, "/home/nskrypnik/pinax/Pinax-0.7.3-bundle/pinax-env/lib/python2.6/site-packages/pinax")
+sys.path.insert(0, "/home/nskrypnik/pinax/Pinax-0.7.3-bundle/pinax-env/lib/python2.6/site-packages/")
+sys.path.insert(0, _PROJECT_DIR + "/apps")
+sys.path.insert(0, _PROJECT_DIR)
+sys.path.insert(0, os.path.dirname(_PROJECT_DIR))
+
 
 try:
     import pinax

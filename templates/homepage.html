@@ -24,6 +24,15 @@
 <table id="main">
   <tr>
     <td class="left_panel">
+      <div style="padding-left: 34px;padding-bottom: 10px;">
+          <img src="/site_media/media/ChDU_logo_2_1_1.jpg"/>
+      </div>
+      <div style="position: relative">
+        <a style="margin-top: -114px; z-index: 999; margin-left: 45px; -moz-transform: scale(1.5); zoom: 1.5;" class="button" href="/events/details/45/">
+          <span>Приєднатись</span>
+        </a>
+      </div>
+      
       <h2>{% trans "Календар" %}</h2>
       <div class="event_widget">
         <a class="prev" href="javascript:void(0)"></a>
@@ -64,7 +73,7 @@
      
       <div id="news_block">
         <div id="site_news">
-            <h2>{% trans "Новини" %}</h2><p></p>
+            <a href="{% url blog_list_all %}" style="text-decoration: none;"><h2>{% trans "Новини" %}</h2><p></p></a>
         {% for blog_post in adminposts|slice:":3" %}
         <div class="news_item">
                 <a href="{{blog_post.get_absolute_url}}">
@@ -72,7 +81,7 @@
                 </a>
                 <div class="news_excert">
                     <a href="{{blog_post.get_absolute_url}}"><h3>{{blog_post.title}}</h3></a>
-                    {{blog_post.excert}}
+                    {{blog_post.excert|safe}}
                 </div>        <div style="clear: both"> </div>
             </div><br>
           {% endfor %}
@@ -86,7 +95,7 @@
               </a>
               <div class="news_excert">
                 <a href="{{blog_post.get_absolute_url}}"><h3>{{blog_post.title}}</h3></a>
-                {{blog_post.excert}}
+                {{blog_post.excert|safe}}
               </div>
             </div><br>
           {% endfor %}

@@ -52,6 +52,7 @@ $().ready(function() {
     $('textarea#id_body').css({'width': '500px', 'height': '400px'});    
     $('textarea#id_body').tinymce(tinymceOptions);
     $('textarea#id_content').tinymce(tinymceOptions);
+    $('textarea#id_description').tinymce(tinymceOptions);
 
 });
 

@@ -15,7 +15,7 @@ def homepage_view (request, template_name = "homepage.html"):
     adminposts = Post.objects.filter(author__is_staff=True, status2=1).order_by("-publish")
     posts = Post.objects.filter(author__is_staff=False, status2=1).order_by("-publish")
 
-    users = User.objects.all()    
+    users = User.objects.all().order_by('?')[:10]
     events = Event.objects.filter(approved=True).order_by("date_begin")
     nearest_events = events.filter(date_begin__gte=datetime.now())
 
@@ -33,6 +33,6 @@ def homepage_view (request, template_name = "homepage.html"):
         'events': events,
         'nearest_event': nearest_event,
         'rand_photo': rand_photos,
-	'users': users,
+        'users': users,
         }, context_instance=RequestContext(request))
 
